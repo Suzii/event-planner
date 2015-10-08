@@ -2,11 +2,14 @@
 
 public class CodingRules
 {
-    public const string NAME_CONSTANT = "Someone";  //constants are written using uppercase and underscore as a separator
+    //constants are written using uppercase and underscore as a separator
+    public const string NAME_CONSTANT = "Someone"; 
 
-    private string _field;    //private members of the class are prefixed with an uderscore
+    //private members of the class are prefixed with an uderscore
+    private string _field;    
 
-    public int MyProperty { get; set; }    //public properties are written using UpperCamelCase
+    //public properties are written using UpperCamelCase
+    public int MyProperty { get; set; }    
 
     //all the method names use UpperCamelCase
     public string Hello(string name)
