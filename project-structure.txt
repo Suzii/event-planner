@@ -1,0 +1,28 @@
+EvenPlanner 	// Event planner solution containing separate projects
+|
++--- EnventPlanner.DAL	// handles purely work with database
+|    |
+|    +--- // same project structure as EventPlanner.Models.Domain
+|
++--- EventPlanner.Models
+|    |
+|    +--- Domain // contains only domain model - database entities
+|    +--- Models // contains all view-specific models
+|
++--- EventPlanner.Resources
+|    |
+|    +--- Models // same project structure as EventPlanner.Models - contains resources for entities - both domain and model (separate folders) and their validation messages
+|    +--- Pages // same project structure as EventPlanner.Web.Views - page spaecific resources
+|    +--- Validatoin // contains resources for validation messages other than those model specific
+|
++--- EventPlanner.FourSquare // contains all util functions working with FourSquare API
+|    |
+|    +--- Utils // TBC
+|
++--- EventPlaner.Services
+|    |
+|    +--- // TBC - handles all magic between Web project and DAL project
+|
++--- EventPlanner.Web // contains MVC project
+|    |
+|    +--- TBC
