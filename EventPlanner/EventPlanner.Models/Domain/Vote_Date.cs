@@ -8,5 +8,8 @@ namespace EventPlanner.Models.Domain
 {
     class Vote_Date
     {
+        public Guid Id { set; get; }
+        public Guid UserId { set; get; }
+        public Guid TimeSlotId { set; get; }
     }
 }

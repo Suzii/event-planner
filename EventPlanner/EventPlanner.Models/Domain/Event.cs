@@ -15,12 +15,12 @@ namespace EventPlanner.Models.Domain
         public Guid OrganizerId { get; set; }
         public bool OthersCanEdit { get; set; }
         public DateTime Created { get; set; }
-/*        public int Hash
+        public int Hash
         {
             get
             {
-                return Id ??? Created
+                return (Id + "-" + Created.ToLongDateString() + "-" + Created.ToLongTimeString()).GetHashCode();
             }
-        }*/
+        }
     }
 }

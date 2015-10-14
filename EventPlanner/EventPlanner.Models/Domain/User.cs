@@ -8,5 +8,7 @@ namespace EventPlanner.Models.Domain
 {
     class User
     {
+        public Guid Id { set; get; }
+        public String Name { set; get; }
     }
 }
