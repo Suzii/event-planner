@@ -1,0 +1,12 @@
+﻿@model EventPlanner.Models.Domain.Event
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>Vote for an event with id @Model.Hash</h2>
+
+<hr/>
+<b>@Model.Title</b>
+<br/>
+@Model.Desc

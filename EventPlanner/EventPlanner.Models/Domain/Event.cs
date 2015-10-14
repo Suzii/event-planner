@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EventPlanner.Models.Domain
 {
-    class Event
+    public class Event
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

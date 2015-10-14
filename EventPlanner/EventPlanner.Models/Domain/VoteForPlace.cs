@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EventPlanner.Models.Domain
 {
-    class Vote_Place
+    public class VoteForPlace
     {
         public Guid Id { set; get; }
         public Guid UserId { set; get; }

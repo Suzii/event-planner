@@ -168,8 +168,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventOrganizationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +236,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\EventOrganization\Index.cshtml" />
+    <Content Include="Views\EventOrganization\ShareEvent.cshtml" />
+    <Content Include="Views\Vote\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +250,24 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventPlanner.FourSquare\EventPlanner.FourSquare.csproj">
+      <Project>{14839f38-2f3b-43e3-9b42-71bf81268ec1}</Project>
+      <Name>EventPlanner.FourSquare</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventPlanner.Models\EventPlanner.Models.csproj">
+      <Project>{0ecf657c-b886-4a6c-b442-85b9d54504c9}</Project>
+      <Name>EventPlanner.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventPlanner.Resources\EventPlanner.Resources.csproj">
+      <Project>{9b7992a7-f8fd-4796-8deb-1371094552d6}</Project>
+      <Name>EventPlanner.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventPlanner.Services\EventPlanner.Services.csproj">
+      <Project>{6c4e5971-260b-43a6-a32f-698f1121c918}</Project>
+      <Name>EventPlanner.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

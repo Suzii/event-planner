@@ -45,13 +45,12 @@
     <Compile Include="Domain\Place.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
     <Compile Include="Domain\User.cs" />
-    <Compile Include="Domain\Vote_Date.cs" />
-    <Compile Include="Domain\Vote_Place.cs" />
+    <Compile Include="Domain\VoteForDate.cs" />
+    <Compile Include="Domain\VoteForPlace.cs" />
+    <Compile Include="Models\ShareLinkModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
