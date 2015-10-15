@@ -252,21 +252,13 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EventPlanner.FourSquare\EventPlanner.FourSquare.csproj">
-      <Project>{14839f38-2f3b-43e3-9b42-71bf81268ec1}</Project>
-      <Name>EventPlanner.FourSquare</Name>
+    <ProjectReference Include="..\EventPlanner.DAL\EventPlanner.DAL.csproj">
+      <Project>{6a49300a-2d70-4b10-8284-ebbbb1e50499}</Project>
+      <Name>EventPlanner.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventPlanner.Models\EventPlanner.Models.csproj">
       <Project>{0ecf657c-b886-4a6c-b442-85b9d54504c9}</Project>
       <Name>EventPlanner.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EventPlanner.Resources\EventPlanner.Resources.csproj">
-      <Project>{9b7992a7-f8fd-4796-8deb-1371094552d6}</Project>
-      <Name>EventPlanner.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EventPlanner.Services\EventPlanner.Services.csproj">
-      <Project>{6c4e5971-260b-43a6-a32f-698f1121c918}</Project>
-      <Name>EventPlanner.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
