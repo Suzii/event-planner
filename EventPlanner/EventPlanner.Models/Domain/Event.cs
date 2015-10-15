@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EventPlanner.Models.Domain
 {
@@ -11,6 +12,8 @@ namespace EventPlanner.Models.Domain
         public Guid OrganizerId { get; set; }
         public bool OthersCanEdit { get; set; }
         public DateTime Created { get; set; }
+        public IEnumerable<Place> Places { get; set; }
+        public IEnumerable<TimeSlot> TimeSlots { get; set; }
         public int Hash
         {
             get
