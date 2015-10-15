@@ -4,6 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
+@*TODO: Can be maybe moved to layout or at least partial view*@
 <div class="jumbotron">
     <h1>Event Planner</h1>
     <p class="lead">Some catchy phrase to introduce our supercool app.</p>
@@ -11,12 +12,13 @@
 </div>
 
 <div class="row" id="start">
-    @using (Html.BeginForm("Index", "EventOrganization", FormMethod.Post, new {@class = ""}))
+    @using (Html.BeginForm("Index", "CreateEvent", FormMethod.Post, new {@class = ""}))
     {
     <div class="form-group">
         @Html.LabelFor(m => m.Title)
         @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
         @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+        
     </div>
 
     <div class="form-group">

@@ -7,13 +7,29 @@ using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Web.Controllers
 {
-    public class VoteController : Controller
+    public class EditEventController : Controller
     {
+        [HttpGet]
         public ActionResult Index(string eventHash)
         {
-            //get event
-            
             return View("Index", ConstructModel(eventHash));
+        }
+
+        [HttpPost]
+        public ActionResult Index(Event model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // store event in database via service
+            // check server validation
+
+            // obtain id + date created and calculate hash code
+            var eventHash = model.Hash;
+
+            return RedirectToAction("Index", "ShareEvent", new { eventHash = eventHash });
         }
 
         private Event ConstructModel(string eventHash)
