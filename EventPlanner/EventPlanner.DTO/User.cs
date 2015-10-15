@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EventPlanner.Models.Domain
+namespace EventPlanner.DTO
 {
     public class User
     {

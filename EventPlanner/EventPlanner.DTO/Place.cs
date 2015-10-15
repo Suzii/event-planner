@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.Models.Domain
+namespace EventPlanner.DTO
 {
     public class Place
     {
