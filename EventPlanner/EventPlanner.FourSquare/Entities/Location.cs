@@ -1,4 +1,6 @@
-﻿namespace EventPlanner.FourSquare.Entities
+﻿using System;
+
+namespace EventPlanner.FourSquare.Entities
 {
     public class Location
     {

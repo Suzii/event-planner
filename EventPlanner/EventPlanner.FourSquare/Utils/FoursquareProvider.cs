@@ -47,8 +47,8 @@ namespace EventPlanner.FourSquare.Utils
         /// <param name="location">A string naming a place in the world</param>
         /// <param name="limit">Number of results to return</param>
         /// <exception cref="ArgumentOutOfRangeException">If location is null or empty or term is not at least 3 characters long</exception>
-        /// <exception cref="HttpRequestException">If location could not be founf</exception>
-        /// <returns>MiniVenuesResponse which contain Meta information about status code of the response and list of mini-venues</returns>
+        /// <exception cref="HttpRequestException">If location could not be found</exception>
+        /// <returns><c ref="MiniVenuesResponse" /> which contain Meta information about status code of the response and list of mini-venues</returns>
         public async Task<MiniVenuesResponse> GetVenueSuggestionsAsync(string term, string location, int limit = 30)
         {
             if (term.Length < 3)
@@ -62,6 +62,7 @@ namespace EventPlanner.FourSquare.Utils
             }
 
             var invoker = WebServiceInvoker<MiniVenuesResponse>.Create(_httpClient, new Uri(
+                //TODO : prerobit vonkajsi string format na concat
                 string.Format(
                     URI_BASE +
                     SUGGEST_COMPLETION +
