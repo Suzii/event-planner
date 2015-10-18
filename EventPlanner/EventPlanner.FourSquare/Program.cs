@@ -34,8 +34,7 @@ namespace EventPlanner.FourSquare
                         foreach (var miniVenue in rv.Response.MiniVenues)
                         {
                             Console.WriteLine(
-                                miniVenue.Name + "\n  " +
-                                miniVenue.Categories.First().Name + ", " + miniVenue.Location.Address);
+                                miniVenue.Name + ", " + miniVenue.Location.Address);
                         }
                     }
                 }

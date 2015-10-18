@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.FourSquare.Utils
 {
+    /// <summary>
+    /// Class providing basic foursquare operations
+    /// </summary>
     public class FoursquareProvider : IFoursquareProvider
     {
         private readonly HttpClient _httpClient;
@@ -48,8 +51,8 @@ namespace EventPlanner.FourSquare.Utils
         /// <param name="limit">Number of results to return</param>
         /// <exception cref="ArgumentOutOfRangeException">If term is not at least 3 characters long</exception>
         /// <exception cref="ArgumentNullException">If location is null or empty</exception>
-        /// <exception cref="HttpRequestException">If location could not be founf</exception>
-        /// <returns>MiniVenueResponse which contain Meta information about status code of the response and list of mini-venues</returns>
+        /// <exception cref="HttpRequestException">If location could not be found</exception>
+        /// <returns><c ref="MiniVenuesResponse" /> which contain Meta information about status code of the response and list of mini-venues</returns>
         public async Task<MiniVenuesResponse> GetVenueSuggestionsAsync(string term, string location, int limit = 30)
         {
             if (term.Length < 3)
@@ -81,7 +84,7 @@ namespace EventPlanner.FourSquare.Utils
         /// </summary>
         /// <param name="id">ID of venue to retrieve</param>
         /// <exception cref="ArgumentNullException">If id is null or empty</exception>
-        /// <returns>VenueResponse which contain Meta information about status code of the response and a complete venue</returns>
+        /// <returns><c ref="VenueResponse" /> which contain Meta information about status code of the response and a complete venue</returns>
         public async Task<VenueResponse> GetVenueAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -98,6 +101,6 @@ namespace EventPlanner.FourSquare.Utils
                     MODE
                 ));
             return await invoker.InvokeWebService();
-        } 
+        }
     }
 }
