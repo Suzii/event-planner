@@ -14,6 +14,12 @@ namespace EventPlanner.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "CreateEvent",
+                url: "{controller}/{action}/{eventHash}",
+                defaults: new { controller = "CreateEvent", action = "Index", eventHash = UrlParameter.Optional }
+                );
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.FourSquare.Utils
 {
+    /// <summary>
+    /// Class providing basic foursquare operations
+    /// </summary>
     public class FoursquareProvider : IFoursquareProvider
     {
         private readonly HttpClient _httpClient;
@@ -41,14 +44,15 @@ namespace EventPlanner.FourSquare.Utils
         }
 
         /// <summary>
-        /// Returns a list of mini-venues partially matching the search term, near the location. in an asynchronous operation
+        /// Returns a list of mini-venues partially matching the search term, near the location in an asynchronous operation
         /// </summary>
         /// <param name="term">A search term to be applied against titles. Must be at least 3 characters long.</param>
         /// <param name="location">A string naming a place in the world</param>
         /// <param name="limit">Number of results to return</param>
-        /// <exception cref="ArgumentOutOfRangeException">If location is null or empty or term is not at least 3 characters long</exception>
-        /// <exception cref="HttpRequestException">If location could not be founf</exception>
-        /// <returns>MiniVenuesResponse which contain Meta information about status code of the response and list of mini-venues</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If term is not at least 3 characters long</exception>
+        /// <exception cref="ArgumentNullException">If location is null or empty</exception>
+        /// <exception cref="HttpRequestException">If location could not be found</exception>
+        /// <returns><c ref="MiniVenuesResponse" /> which contain Meta information about status code of the response and list of mini-venues</returns>
         public async Task<MiniVenuesResponse> GetVenueSuggestionsAsync(string term, string location, int limit = 30)
         {
             if (term.Length < 3)
@@ -58,11 +62,10 @@ namespace EventPlanner.FourSquare.Utils
 
             if (string.IsNullOrEmpty(location))
             {
-                throw new ArgumentOutOfRangeException(paramName: nameof(location));
+                throw new ArgumentNullException(paramName: nameof(location));
             }
 
             var invoker = WebServiceInvoker<MiniVenuesResponse>.Create(_httpClient, new Uri(
-                string.Format(
                     URI_BASE +
                     SUGGEST_COMPLETION +
                     string.Format(CLIENT_ID, _clientId) +
@@ -72,7 +75,31 @@ namespace EventPlanner.FourSquare.Utils
                     string.Format(LIMIT, limit) +
                     VERSION +
                     MODE
-                )));
+                ));
+            return await invoker.InvokeWebService();
+        }
+
+        /// <summary>
+        /// Returns a complete venue matching given id in an asynchronous operation
+        /// </summary>
+        /// <param name="id">ID of venue to retrieve</param>
+        /// <exception cref="ArgumentNullException">If id is null or empty</exception>
+        /// <returns><c ref="VenueResponse" /> which contain Meta information about status code of the response and a complete venue</returns>
+        public async Task<VenueResponse> GetVenueAsync(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException(paramName: nameof(id));
+            }
+
+            var invoker = WebServiceInvoker<VenueResponse>.Create(_httpClient, new Uri(
+                    URI_BASE +
+                    id + "?" +
+                    string.Format(CLIENT_ID, _clientId) +
+                    string.Format(CLIENT_SECRET, _clientSecret) +
+                    VERSION +
+                    MODE
+                ));
             return await invoker.InvokeWebService();
         }
     }
