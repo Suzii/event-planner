@@ -54,9 +54,10 @@ namespace EventPlanner.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "405350643009621",
+               appSecret: "8cba3457134d6958ee0c30236cbf515d");
+
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
