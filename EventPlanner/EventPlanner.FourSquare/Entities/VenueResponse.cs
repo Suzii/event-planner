@@ -1,9 +1,9 @@
 ﻿namespace EventPlanner.FourSquare.Entities
 {
-    public class MiniVenuesResponse
+    public class VenueResponse
     {
         public Meta Meta { get; set; }
 
-        public MiniVenuesObject Response { get; set; }
+        public VenueObject Response { get; set; }
     }
 }

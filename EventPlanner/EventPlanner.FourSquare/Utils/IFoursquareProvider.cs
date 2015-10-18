@@ -6,5 +6,7 @@ namespace EventPlanner.FourSquare.Utils
     public interface IFoursquareProvider
     {
         Task<MiniVenuesResponse> GetVenueSuggestionsAsync(string suggestion, string city, int limit);
+
+        Task<VenueResponse> GetVenueAsync(string id);
     }
 }
