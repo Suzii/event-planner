@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EventPlanner.Models.Domain
 {
     [Table("TimeSlots")]
-    public class TimeSlot
+    public class TimeSlotEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,6 +18,6 @@ namespace EventPlanner.Models.Domain
         [Required]
         public DateTime DateTime { set; get; }
 
-        public IEnumerable<VoteForDate> VotesForDate { set; get; }
+        public IEnumerable<VoteForDateEntity> VotesForDate { set; get; }
     }
 }

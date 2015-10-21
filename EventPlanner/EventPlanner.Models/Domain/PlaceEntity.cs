@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EventPlanner.Models.Domain
 {
     [Table("Places")]
-    public class Place
+    public class PlaceEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,7 +18,7 @@ namespace EventPlanner.Models.Domain
         [ForeignKey("EventId")]
         public Guid VenueId { set; get; }
 
-        public IEnumerable<VoteForPlace> VotesForPlace { set; get; }
+        public IEnumerable<VoteForPlaceEntity> VotesForPlace { set; get; }
 
     }
 }

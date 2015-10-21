@@ -12,7 +12,7 @@ namespace EventPlanner.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Event model)
+        public ActionResult Index(EventEntity model)
         {
             if (!ModelState.IsValid)
             {
@@ -28,9 +28,9 @@ namespace EventPlanner.Web.Controllers
             return RedirectToAction("Index", "ShareEvent", new {eventHash = eventHash });
         }
 
-        private Event ConstructModel()
+        private EventEntity ConstructModel()
         {
-            return new Event();
+            return new EventEntity();
         }
     }
 }

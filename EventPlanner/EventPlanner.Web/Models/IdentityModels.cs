@@ -21,7 +21,7 @@ namespace EventPlanner.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("SqlConnectionString", throwIfV1Schema: false) // was default DefaultConnection
         {
         }
 

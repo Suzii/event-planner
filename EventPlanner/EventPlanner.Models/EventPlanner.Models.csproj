@@ -40,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Event.cs" />
-    <Compile Include="Domain\Place.cs" />
-    <Compile Include="Domain\TimeSlot.cs" />
-    <Compile Include="Domain\User.cs" />
-    <Compile Include="Domain\VoteForDate.cs" />
-    <Compile Include="Domain\VoteForPlace.cs" />
+    <Compile Include="Domain\EventEntity.cs" />
+    <Compile Include="Domain\PlaceEntity.cs" />
+    <Compile Include="Domain\TimeSlotEntity.cs" />
+    <Compile Include="Domain\UserEntity.cs" />
+    <Compile Include="Domain\VoteForDateEntity.cs" />
+    <Compile Include="Domain\VoteForPlaceEntity.cs" />
     <Compile Include="Models\ShareLinkModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Event.Designer.cs">

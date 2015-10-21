@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventPlanner.Models.Domain
 {
-    public class User
+    public class UserEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,10 +14,10 @@ namespace EventPlanner.Models.Domain
         [Required]
         public String Name { set; get; }
 
-        public IEnumerable<Event> Events { set; get; }
+        public IEnumerable<EventEntity> Events { set; get; }
 
-        public IEnumerable<VoteForDate> VotesForDate { set; get; }
+        public IEnumerable<VoteForDateEntity> VotesForDate { set; get; }
 
-        public IEnumerable<VoteForPlace> VotesForPlace { set; get; }
+        public IEnumerable<VoteForPlaceEntity> VotesForPlace { set; get; }
     }
 }
