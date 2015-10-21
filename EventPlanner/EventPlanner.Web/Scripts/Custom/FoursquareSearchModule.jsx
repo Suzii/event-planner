@@ -13,10 +13,12 @@ var SelectedPlace = React.createClass({
   render: function() {
     return (
       <div>
-        <input type="hidden" value={this.props.place.id} name={"Places["+this.props.index+"].VenueId"} /> 
-        <input type="hidden" value={this.props.place.name} name={"Places["+this.props.index+"].Desc"} /> 
+        <input type="hidden" value={this.props.place.VenueId} name={"Places["+this.props.index+"].VenueId"} /> 
+        <input type="hidden" value={this.props.place.Name} name={"Places["+this.props.index+"].Name"} /> 
+        <input type="hidden" value={this.props.place.AddressInfo} name={"Places["+this.props.index+"].AddressInfo"} /> 
+        <input type="hidden" value={this.props.place.City} name={"Places["+this.props.index+"].City"} /> 
         <h3>
-          <span className="label label-warning">{this.props.place.name}</span>
+          <span className="label label-warning">{this.props.place.Name}</span>
           <a><i className="glyphicon glyphicon-remove" onClick={(event) => {this.props.deleteCallback(event, this.props.place)}}></i></a>
         </h3>          
       </div>
@@ -45,12 +47,12 @@ var Autocomplete = React.createClass({
       addCallback: function(event, data){}
     }
   },
-  //object for autocomplete is item = {id: '0', desc: 'Some description'}
+  //object for autocomplete is item = {id: '0', Name: 'Some description'}
   componentDidMount: function() {
     var items = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('desc'),
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      identify : function(item) {return item.id},
+      identify : function(item) {return item.VenueId},
       //eveerything is fetched from service - no local data provided
       local: [],  
       //where to get data for Bloodhound engine
@@ -65,8 +67,10 @@ var Autocomplete = React.createClass({
         transform: function(response) { 
           return response.map(function(item){ 
               return { 
-                id: item.id,
-                desc: item.name
+                VenueId: item.VenueId,
+                Name: item.Name,
+                City: item.City,
+                AddressInfo: item.AddressInfo
               }
             });
         }
@@ -82,11 +86,11 @@ var Autocomplete = React.createClass({
     {
       name: 'Query',
       source: items,
-      displayKey: 'desc'
+      displayKey: 'Name'
     }).on('typeahead:selected', function(event, data){  //TODO add button which will trigger the add method itself?
         self.props.addCallback(event, data);
         $('.typeahead').typeahead('val', '');
-        console.debug('Value selected: ' + data.id + ' - ' + data.name);  
+        console.debug('Value selected: ' + data.VenueId + ' - ' + data.Name);  
     });
   },
   render: function() {
@@ -98,22 +102,23 @@ var Autocomplete = React.createClass({
 
 var FourSquareApp = React.createClass({
   propTypes: {
-    getDataURL: React.PropTypes.string.isRequired
+    getDataURL: React.PropTypes.string.isRequired,
+    preSelectedPlaces: React.PropTypes.array
   },
   getInitialState: function() {
     return {
-      selectedPlaces: []
+      selectedPlaces: this.props.preSelectedPlaces || []
     };
   },
   //callback function for FourSquareApp component
-  addPlace: function(event, data){ //TODO add only new!!!
-    var newPlace = {id: data.id, name: data.desc};
+  addPlace: function(event, data){ 
+    var newPlace = data;
     //do not allow to add places multiple times
-    if(this.state.selectedPlaces.find((place) => {return place.id === newPlace.id})){
-      alert('This place is already added!');
+    if(this.state.selectedPlaces.find((place) => {return place.VenueId === newPlace.VenueId})){
+      console.log('Place ' + place.VenueId + ' - ' + place.Name + 'is already added!');
       return;
     }
-    console.debug('Adding place: ' + newPlace.id + ' ' + newPlace.name);
+    console.debug('Adding place: ' + newPlace.VenueId + ' ' + newPlace.Name);
     this.state.selectedPlaces.push(newPlace);
     this.setState({SelectedPlaces: this.state.SelectedPlaces});
   },
@@ -144,7 +149,7 @@ var FourSquareApp = React.createClass({
         <div>
           {this.state.selectedPlaces.map((place, index) => { 
             return (
-              <SelectedPlace key={place.id} place={place} index={index} deleteCallback={this.deletePlace}/>
+              <SelectedPlace key={place.VenueId} place={place} index={index} deleteCallback={this.deletePlace}/>
               )
           })}
         </div>

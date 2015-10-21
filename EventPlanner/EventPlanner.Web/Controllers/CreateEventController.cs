@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using EventPlanner.Models.Domain;
+using EventPlanner.Models.Models;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -14,7 +15,7 @@ namespace EventPlanner.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(EventEntity model)
+        public ActionResult Index(EventModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -24,15 +25,15 @@ namespace EventPlanner.Web.Controllers
             // store event in database via service
             // check server validation
             
-            // obtain id + date created and calculate hash code
+            // obtain Id + date created and calculate hash code
             var eventHash = model.Hash;
             
             return RedirectToAction("Index", "ShareEvent", new {eventHash = eventHash });
         }
 
-        private EventEntity ConstructModel()
+        private EventModel ConstructModel()
         {
-            return new EventEntity();
+            return new EventModel();
         }
 
         [HttpPost]
@@ -43,19 +44,19 @@ namespace EventPlanner.Web.Controllers
                 throw new ArgumentException("FoursquareRequest");
             }
 
-            var response = new List<FoursquareVenue>()
+            var response = new List<FourSquareVenueModel>()
             {
-                new FoursquareVenue() { name = "Some sushi", id = 12},
-                new FoursquareVenue() { name = "Play football", id = 42},
-                new FoursquareVenue() { name = "Go bowling", id = 65},
-                new FoursquareVenue() { name = "Best pizza in Prague", id = 23},
-                new FoursquareVenue() { name = "Basketball", id = 56},
-                new FoursquareVenue() { name = "Lovely park", id = 154645},
-                new FoursquareVenue() { name = "Cinema 3D", id = 3242},
-                new FoursquareVenue() { name = "No idea what this place is supposed to be", id = 1342},
+                new FourSquareVenueModel() { Name = "Some sushi", VenueId = 12},
+                new FourSquareVenueModel() { Name = "Play football", VenueId = 42},
+                new FourSquareVenueModel() { Name = "Go bowling", VenueId = 65},
+                new FourSquareVenueModel() { Name = "Best pizza in Prague", VenueId = 23},
+                new FourSquareVenueModel() { Name = "Basketball", VenueId = 56},
+                new FourSquareVenueModel() { Name = "Lovely park", VenueId = 154645},
+                new FourSquareVenueModel() { Name = "Cinema 3D", VenueId = 3242},
+                new FourSquareVenueModel() { Name = "No Idea what this place is supposed to be", VenueId = 1342},
             };
 
-            //response = response.FindAll(o => o.name.IndexOf(city, StringComparison.OrdinalIgnoreCase) >= 0);
+            //response = response.FindAll(o => o.Name.IndexOf(city, StringComparison.OrdinalIgnoreCase) >= 0);
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
@@ -64,24 +65,6 @@ namespace EventPlanner.Web.Controllers
         {
             public string City { get; set; }
             public string Query { get; set; }
-        }
-
-        public class FoursquareVenue
-        {
-            public string name { get; set; }
-            public int id { get; set; }
-        }
-
-        public class Event
-        {
-            public string Name { get; set; }
-            public IList<Place> Places { get; set; }
-        }
-
-        public class Place
-        {
-            public int VenueId { get; set; }
-            public string Desc { get; set; }
         }
     }
 }

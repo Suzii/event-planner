@@ -1,4 +1,4 @@
-﻿@model EventPlanner.Models.Domain.EventEntity
+﻿@model EventPlanner.Models.Models.EventModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -67,7 +67,7 @@
         <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
         <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
         <script type="text/jsx">
-            React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent" )" />, document.getElementById('FourSquareSearchModule'));
+            React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
         </script>
 
     }
