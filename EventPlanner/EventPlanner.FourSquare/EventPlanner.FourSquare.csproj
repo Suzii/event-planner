@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Contact.cs" />
+    <Compile Include="Entities\Hours.cs" />
     <Compile Include="Entities\Icon.cs" />
     <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\Meta.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="Entities\MiniVenuesObject.cs" />
     <Compile Include="Entities\MiniVenuesResponse.cs" />
     <Compile Include="Entities\Stats.cs" />
+    <Compile Include="Entities\Time.cs" />
+    <Compile Include="Entities\TimeFrame.cs" />
     <Compile Include="Entities\Venue.cs" />
     <Compile Include="Entities\VenueObject.cs" />
     <Compile Include="Entities\VenueResponse.cs" />

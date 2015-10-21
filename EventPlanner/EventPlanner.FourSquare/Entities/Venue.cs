@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace EventPlanner.FourSquare.Entities
 {
@@ -51,5 +52,11 @@ namespace EventPlanner.FourSquare.Entities
         /// The canonical URL for this venue, e.g. "https://foursquare.com/v/foursquare-hq/4ab7e57cf964a5205f7b20e3"
         /// </summary>
         public string CanonicalUrl { get; set; }
+
+        /// <summary>
+        /// Opening hours of this venue
+        /// </summary>
+        [JsonProperty("hours")]
+        public Hours Hours { get; set; }
     }
 }
