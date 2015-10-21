@@ -133,9 +133,9 @@ var FourSquareApp = React.createClass({
   },
   constructQuery: function (query, settings) {
     queryObject = {query: query, city: $('#cityInput').val()};
-    settings.type = "POST";
+    settings.type = "GET";
     settings.contentType = "application/json; charset=UTF-8";
-    settings.data = JSON.stringify(queryObject);
+    settings.data = queryObject;
 
     return settings;
   },

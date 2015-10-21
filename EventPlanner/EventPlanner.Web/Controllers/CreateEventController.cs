@@ -36,7 +36,7 @@ namespace EventPlanner.Web.Controllers
             return new EventModel();
         }
 
-        [HttpPost]
+        [HttpGet]
         public JsonResult GetData(string city, string query)
         {
             if (city == null || query == null)
@@ -56,15 +56,9 @@ namespace EventPlanner.Web.Controllers
                 new FourSquareVenueModel() { Name = "No Idea what this place is supposed to be", VenueId = 1342},
             };
 
-            //response = response.FindAll(o => o.Name.IndexOf(city, StringComparison.OrdinalIgnoreCase) >= 0);
+            response = response.FindAll(o => o.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0);
 
             return Json(response, JsonRequestBehavior.AllowGet);
-        }
-
-        public class FoursquareRequerst
-        {
-            public string City { get; set; }
-            public string Query { get; set; }
         }
     }
 }
