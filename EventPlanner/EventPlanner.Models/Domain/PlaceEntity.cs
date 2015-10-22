@@ -12,10 +12,10 @@ namespace EventPlanner.Models.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        [ForeignKey("EventId")]
-        public Guid EventId { set; get; }
+        [Required]//[ForeignKey("EventId")]
+        public Guid EventId { set; get; } 
 
-        [ForeignKey("EventId")]
+        [Required]//[ForeignKey("EventId")]
         public Guid VenueId { set; get; }
 
         public IEnumerable<VoteForPlaceEntity> VotesForPlace { set; get; }

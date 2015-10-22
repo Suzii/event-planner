@@ -1,4 +1,5 @@
-﻿using EventPlanner.Models.Domain;
+﻿using System.Configuration;
+using EventPlanner.Models.Domain;
 using System.Data.Entity;
 
 
@@ -6,7 +7,7 @@ namespace EventPlanner.DAL
 {
     public class EventPlannerContext : DbContext
     {
-        public EventPlannerContext() : base("EventPlannerContext")
+        public EventPlannerContext() : base("name=SqlConnectionString")
         {
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
