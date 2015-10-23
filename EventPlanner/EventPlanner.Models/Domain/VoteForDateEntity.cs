@@ -11,10 +11,10 @@ namespace EventPlanner.Models.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        [ForeignKey("UserId")]
+        [Required]//[ForeignKey("UserId")]
         public Guid UserId { set; get; }
 
-        [ForeignKey("TimeSlotId")]
+        [Required]//[ForeignKey("TimeSlotId")]
         public Guid TimeSlotId { set; get; }
     }
 }

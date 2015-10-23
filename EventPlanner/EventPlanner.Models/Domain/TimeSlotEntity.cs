@@ -12,7 +12,8 @@ namespace EventPlanner.Models.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        [ForeignKey("EventId")]
+        [Required]
+        //[ForeignKey("EventId")]
         public Guid EventId { set; get; }
 
         [Required]
