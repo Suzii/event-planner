@@ -19,7 +19,6 @@ namespace EventPlanner.Services.Implementation
                 var model = new FourSquareVenueModel
                 {
                     AddressInfo = miniVenue.Location.Address,
-                    //Category = miniVenue.Categories.Find(x => x.Primary).Name,
                     City = miniVenue.Location.City,
                     Name = miniVenue.Name,
                     VenueId = miniVenue.Id

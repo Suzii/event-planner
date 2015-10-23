@@ -10,7 +10,5 @@
         public string City { get; set; }
 
         public string AddressInfo { get; set; }
-
-        public string Category { get; set; }
     }
 }
