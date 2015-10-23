@@ -48,5 +48,15 @@ namespace EventPlanner.Services.Implementation
 
             return venueModels;
         }
+
+        public Task<FourSquareVenueModel> GetPlaceDetailAsync(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

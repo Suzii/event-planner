@@ -5,7 +5,7 @@ using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services
 {
-    interface IVotingService
+    public interface IVotingService
     {
         Task<IList<VoteForDateEntity>> GetVotesForDates(Guid eventId);
 

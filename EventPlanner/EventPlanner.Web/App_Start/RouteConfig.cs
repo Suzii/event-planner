@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
 
 namespace EventPlanner.Web
@@ -11,8 +12,9 @@ namespace EventPlanner.Web
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{guid}",
+                defaults: new { controller = "Home", action = "Index", guid = UrlParameter.Optional },
+                constraints: new { guid = new GuidRouteConstraint() }
             );
 
             routes.MapRoute(

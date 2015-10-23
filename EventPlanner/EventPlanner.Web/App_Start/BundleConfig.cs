@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace EventPlanner.Web
 {
@@ -13,6 +12,7 @@ namespace EventPlanner.Web
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/react").Include(
                         "~/Scripts/React/react.js",

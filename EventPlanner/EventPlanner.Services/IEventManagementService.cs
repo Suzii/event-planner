@@ -6,7 +6,7 @@ namespace EventPlanner.Services
     /// <summary>
     /// crud operations on events, handling logic
     /// </summary>
-    interface IEventManagementService
+    public interface IEventManagementService
     {
         EventEntity CreateEvent(EventEntity e);
 

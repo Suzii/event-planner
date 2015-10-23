@@ -16,7 +16,7 @@ namespace EventPlanner.Models.Domain
         public Guid EventId { set; get; } 
 
         [Required]//[ForeignKey("EventId")]
-        public Guid VenueId { set; get; }
+        public string VenueId { set; get; }
 
         public IEnumerable<VoteForPlaceEntity> VotesForPlace { set; get; }
 

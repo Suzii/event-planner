@@ -7,7 +7,7 @@ namespace EventPlanner.Services
     /// <summary>
     /// 
     /// </summary>
-    interface IPlaceService
+    public interface IPlaceService
     {
         /// <summary>
         /// Get suggestions for given query and city in async operation
@@ -15,9 +15,11 @@ namespace EventPlanner.Services
         /// <param name="term">Part of the place name</param>
         /// <param name="city">City in which to look for</param>
         /// <param name="maxCount">Maximum count of suggestions</param>
-        /// <returns><c ref="List of FourSquareVenueModel"/> containg required suggestions</returns>
+        /// <returns><c ref="List of FourSquareVenueModel"/> containing required suggestions</returns>
         Task<List<FourSquareVenueModel>> GetPlaceSuggestionsAsync(string term, string city, int maxCount);
 
-        //Task<FourSquareVenueModel> GetPlaceDetailAsync(string id);
+        Task<FourSquareVenueModel> GetPlaceDetailAsync(string id);
+
+        Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids);
     }
 }

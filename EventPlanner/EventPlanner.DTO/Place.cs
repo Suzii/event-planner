@@ -13,7 +13,7 @@ namespace EventPlanner.DTO
         public Guid EventId { set; get; }
 
         [Required]
-        public Guid VenueId { set; get; }
+        public string VenueId { set; get; }
 
         public IEnumerable<VoteForPlace> VotesForPlace { set; get; }
 

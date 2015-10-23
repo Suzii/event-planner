@@ -1,7 +1,7 @@
 /*
 TODOS:
 - templates for no result..
-- what on edit page, how to recieve places first
+- loading indicator befor component did mount
 */
 
 var SelectedPlace = React.createClass({
@@ -53,13 +53,13 @@ var Autocomplete = React.createClass({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       identify : function(item) {return item.VenueId},
-      //eveerything is fetched from service - no local data provided
+      //everything is fetched from service - no local data provided
       local: [],  
       //where to get data for Bloodhound engine
       remote: {
         //URL for AJAX call
         url: this.props.url,
-        //millisecons to wait until service call id triggered,
+        //milliseconds to wait until service call id triggered,
         rateLimitWait: 500,   
         //prepare AJAX call to server - settings is jQuery promise object
         prepare: this.props.constructQueryCallback,
@@ -81,12 +81,18 @@ var Autocomplete = React.createClass({
     $('.typeahead').typeahead({
       hint: true,
       highlight: true,
-      minLength: 1
+      minLength: 3
     },
     {
       name: 'Query',
       source: items,
-      displayKey: 'Name'
+      displayKey: 'Name',
+      templates: {
+          suggestion: function(data){
+            return '<div><p>' + data.Name + '</p><p class="text-muted">' + data.AddressInfo + '</p></div>';
+          },
+          empty: '<div class="empty-message text-danger"> No places found...</div>'
+        },
     }).on('typeahead:selected', function(event, data){  //TODO add button which will trigger the add method itself?
         self.props.addCallback(event, data);
         $('.typeahead').typeahead('val', '');
@@ -132,7 +138,8 @@ var FourSquareApp = React.createClass({
     }
   },
   constructQuery: function (query, settings) {
-    queryObject = {query: query, city: $('#cityInput').val()};
+    var city = $('#cityInput').val() || 'Brno';
+    queryObject = {query: query, city: city};
     settings.type = "GET";
     settings.contentType = "application/json; charset=UTF-8";
     settings.data = queryObject;
@@ -154,7 +161,7 @@ var FourSquareApp = React.createClass({
           })}
         </div>
         <div className="form-group">
-          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..."/>
+          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..." />
           <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery}/>
         </div>
       </div>

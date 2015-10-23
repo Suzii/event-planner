@@ -5,7 +5,7 @@ using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services
 {
-    interface IUserService
+    public interface IUserService
     {
         Task<List<EventEntity>> GetEventsCreatedBy(Guid userId);
 
