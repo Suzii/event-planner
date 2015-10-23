@@ -44,9 +44,9 @@ namespace EventPlanner.Web.Controllers
                 throw new ArgumentException("FoursquareRequest");
             }
 
-            var fs = new PlaceService();
+            var ps = new PlaceService();
 
-            var response = await fs.GetFourSquareVenueModelList(query, city);
+            var response = await ps.GetPlaceSuggestionsAsync(query, city);
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
