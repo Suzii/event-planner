@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using EventPlanner.Models.Domain;
 using EventPlanner.Models.Models;
+using EventPlanner.Services.Implementation;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -37,26 +37,16 @@ namespace EventPlanner.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetData(string city, string query)
+        public async Task<JsonResult> GetData(string city, string query)
         {
             if (city == null || query == null)
             {
                 throw new ArgumentException("FoursquareRequest");
             }
 
-            var response = new List<FourSquareVenueModel>()
-            {
-                new FourSquareVenueModel() { Name = "Some sushi", VenueId = 12},
-                new FourSquareVenueModel() { Name = "Play football", VenueId = 42},
-                new FourSquareVenueModel() { Name = "Go bowling", VenueId = 65},
-                new FourSquareVenueModel() { Name = "Best pizza in Prague", VenueId = 23},
-                new FourSquareVenueModel() { Name = "Basketball", VenueId = 56},
-                new FourSquareVenueModel() { Name = "Lovely park", VenueId = 154645},
-                new FourSquareVenueModel() { Name = "Cinema 3D", VenueId = 3242},
-                new FourSquareVenueModel() { Name = "No Idea what this place is supposed to be", VenueId = 1342},
-            };
+            var fs = new PlaceService();
 
-            response = response.FindAll(o => o.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0);
+            var response = await fs.GetFourSquareVenueModelList(query, city);
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
