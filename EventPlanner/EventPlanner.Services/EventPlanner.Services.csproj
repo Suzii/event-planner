@@ -83,7 +83,10 @@
   <ItemGroup>
     <Compile Include="FakedImplementation\EventManagementService.cs" />
     <Compile Include="IEventManagementService.cs" />
+    <Compile Include="Implementation\EventManagementService.cs" />
     <Compile Include="Implementation\PlaceService.cs" />
+    <Compile Include="Implementation\UserService.cs" />
+    <Compile Include="Implementation\VotingService.cs" />
     <Compile Include="IPlaceService.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="IUserService.cs" />
