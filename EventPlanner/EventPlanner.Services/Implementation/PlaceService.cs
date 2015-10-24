@@ -28,7 +28,7 @@ namespace EventPlanner.Services.Implementation
         /// <param name="city">City in which to look for</param>
         /// <param name="maxCount">Maximum count of suggestions</param>
         /// <returns><c ref="List of FourSquareVenueModel"/> containg required suggestions</returns>
-        public async Task<List<FourSquareVenueModel>> GetPlaceSuggestionsAsync(string term, string city, int maxCount = 30)
+        public async Task<IList<FourSquareVenueModel>> GetPlaceSuggestionsAsync(string term, string city, int maxCount = 30)
         {
             var venueModels = new List<FourSquareVenueModel>();
 
@@ -49,14 +49,55 @@ namespace EventPlanner.Services.Implementation
             return venueModels;
         }
 
-        public Task<FourSquareVenueModel> GetPlaceDetailAsync(string id)
+        /// <summary>
+        /// Get Place detail informations in async operation
+        /// </summary>
+        /// <param name="id">ID of wanted place</param>
+        /// <returns><c ref="FourSquareVenueModel"/> containing place detail</returns>
+        public async Task<FourSquareVenueModel> GetPlaceDetailAsync(string id)
         {
-            throw new System.NotImplementedException();
+            var detailResponse = await _fs.GetVenueAsync(id);
+
+            if (detailResponse.Meta.Code != 200)
+            {
+                return null;
+            }
+
+            return new FourSquareVenueModel()
+            {
+                AddressInfo = detailResponse.Response.Venue.Location.Address,
+                City = detailResponse.Response.Venue.Location.City,
+                Name = detailResponse.Response.Venue.Name,
+                VenueId = detailResponse.Response.Venue.Id
+            };
         }
 
-        public Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids)
+        /// <summary>
+        /// Get Places details informations in async operation
+        /// </summary>
+        /// <param name="ids">List of IDs of wanted places</param>
+        /// <returns>List of ><c ref="FourSquareVenueModel"/> containing places details</returns>
+        public async Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids)
         {
-            throw new System.NotImplementedException();
+            var detailModels = new List<FourSquareVenueModel>();
+            foreach (var id in ids)
+            {
+                var detailResponse = await _fs.GetVenueAsync(id);
+
+                if (detailResponse.Meta.Code != 200)
+                {
+                    continue;
+                }
+                detailModels.Add(
+                    new FourSquareVenueModel()
+                    {
+                        AddressInfo = detailResponse.Response.Venue.Location.Address,
+                        City = detailResponse.Response.Venue.Location.City,
+                        Name = detailResponse.Response.Venue.Name,
+                        VenueId = detailResponse.Response.Venue.Id
+                    });
+            }
+            return detailModels;
         }
     }
 }
