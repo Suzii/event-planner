@@ -25,7 +25,7 @@ namespace EventPlanner.Services.FakedImplementation
             
         }
 
-        public EventEntity GetEntity(Guid id)
+        public EventEntity GetEvent(Guid id)
         {
             return new EventEntity()
             {
@@ -43,6 +43,11 @@ namespace EventPlanner.Services.FakedImplementation
                 },
                 OrganizerId = Guid.NewGuid()
             };
+        }
+
+        public Guid GetEventId(string eventHash)
+        {
+            return Guid.NewGuid();
         }
     }
 }

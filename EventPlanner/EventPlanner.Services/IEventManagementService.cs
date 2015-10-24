@@ -19,6 +19,8 @@ namespace EventPlanner.Services
         /// <returns></returns>
         void DisableEvent(Guid id);
 
-        EventEntity GetEntity(Guid id);
+        EventEntity GetEvent(Guid id);
+
+        Guid GetEventId(string eventHash);
     }
 }

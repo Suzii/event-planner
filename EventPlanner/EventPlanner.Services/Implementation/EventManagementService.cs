@@ -20,7 +20,12 @@ namespace EventPlanner.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public EventEntity GetEntity(Guid id)
+        public EventEntity GetEvent(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Guid GetEventId(string eventHash)
         {
             throw new NotImplementedException();
         }
