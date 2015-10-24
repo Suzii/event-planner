@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventPlanner.DTO
 {
@@ -17,7 +16,8 @@ namespace EventPlanner.DTO
         public float ExpectedLength { get; set; }
 
         [Required]
-        public Guid OrganizerId { get; set; }
+        //[ForeignKey("OrganizerId")]
+        public Guid OrganizerId { get; set; }// změnit na virtual
 
         public bool OthersCanEdit { get; set; }
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using EventPlanner.FourSquare.Utils;
+using EventPlanner.FourSquare.Entities;
 
 namespace EventPlanner.FourSquare
 {
@@ -21,6 +22,12 @@ namespace EventPlanner.FourSquare
                 var city = Console.ReadLine();
                 Console.WriteLine("Write suggestion");
                 var suggestion = Console.ReadLine();
+                
+                /*var task = fs.GetVenueAsync("4ba8d9e0f964a52017f439e3");
+                var r = task.Result;
+
+                Venue v = r.Response.Venue;
+                Console.WriteLine("Result: " + v.Hours);*/
 
                 var suggestionTask = fs.GetVenueSuggestionsAsync(suggestion, city);
                 try
@@ -34,7 +41,7 @@ namespace EventPlanner.FourSquare
                         foreach (var miniVenue in rv.Response.MiniVenues)
                         {
                             Console.WriteLine(
-                                miniVenue.Name + ", " + miniVenue.Location.Address);
+                                miniVenue.Name + ", " + miniVenue.Location.Address );
                         }
                     }
                 }

@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventPlanner.Models.Domain
 {
-    [Table("VotesForDate")]
-    public class VoteForDate
+    [Table("VotesForPlace")]
+    public class VoteForPlaceEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        [ForeignKey("UserId")]
+        [Required]//[ForeignKey("UserId")]
         public Guid UserId { set; get; }
 
-        [ForeignKey("TimeSlotId")]
-        public Guid TimeSlotId { set; get; }
+        [Required]//[ForeignKey("UserId")]
+        public Guid PlaceId { set; get; }
     }
 }

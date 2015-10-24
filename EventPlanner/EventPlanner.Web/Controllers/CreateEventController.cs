@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
-using EventPlanner.Models.Domain;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using EventPlanner.Models.Models;
+using EventPlanner.Services.Implementation;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -12,7 +15,7 @@ namespace EventPlanner.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Event model)
+        public ActionResult Index(EventModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -22,15 +25,30 @@ namespace EventPlanner.Web.Controllers
             // store event in database via service
             // check server validation
             
-            // obtain id + date created and calculate hash code
+            // obtain Id + date created and calculate hash code
             var eventHash = model.Hash;
             
             return RedirectToAction("Index", "ShareEvent", new {eventHash = eventHash });
         }
 
-        private Event ConstructModel()
+        private EventModel ConstructModel()
         {
-            return new Event();
+            return new EventModel();
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetData(string city, string query)
+        {
+            if (city == null || query == null)
+            {
+                throw new ArgumentException("FoursquareRequest");
+            }
+
+            var ps = new PlaceService();
+
+            var response = await ps.GetPlaceSuggestionsAsync(query, city);
+
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

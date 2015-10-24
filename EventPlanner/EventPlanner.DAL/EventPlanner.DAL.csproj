@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -40,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,10 +55,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventPlannerContext.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\EventRepository.cs" />
+    <Compile Include="Repository\TimeSlotRepository.cs" />
+    <Compile Include="Repository\VoteForPlaceRepository.cs" />
+    <Compile Include="Repository\VoteForDateRepository.cs" />
+    <Compile Include="Repository\PlaceRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -61,7 +74,12 @@
       <Project>{014b624d-3935-4d31-8dd3-bfa11b0c1171}</Project>
       <Name>EventPlanner.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventPlanner.Models\EventPlanner.Models.csproj">
+      <Project>{0ecf657c-b886-4a6c-b442-85b9d54504c9}</Project>
+      <Name>EventPlanner.Models</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

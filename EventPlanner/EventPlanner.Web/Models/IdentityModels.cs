@@ -21,8 +21,19 @@ namespace EventPlanner.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("SqlConnectionString", throwIfV1Schema: false) // was default DefaultConnection
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UsersClaims");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UsersLogins");
         }
 
         public static ApplicationDbContext Create()

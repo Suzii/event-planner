@@ -7,7 +7,7 @@ namespace EventPlanner.Services
 {
     public interface IEvent
     {
-        /// <summary>
+     /*   /// <summary>
         ///  This method create new event in the database.
         ///  User needs to write name, description, duration, times and dates.
         /// </summary>
@@ -67,6 +67,6 @@ namespace EventPlanner.Services
         /// </summary>
         /// <returns>Returns list of votes</returns>
         /// Co přesně vrátí?
-        bool UserVote();
+        bool UserVote();*/
     }
 }

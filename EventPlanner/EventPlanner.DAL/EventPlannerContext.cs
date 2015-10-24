@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
+using EventPlanner.Models.Domain;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using EventPlanner.DTO;
+
 
 namespace EventPlanner.DAL
 {
     public class EventPlannerContext : DbContext
     {
-        public EventPlannerContext() : base("EventPlannerContext")
+        public EventPlannerContext() : base("name=SqlConnectionString")
         {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Place> Places { get; set; }
-        public DbSet<TimeSlot> TimeSlots { get; set; }
-        public DbSet<VoteForDate> VotesForDates { get; set; }
-        public DbSet<VoteForPlace> VotesForPlaces { get; set; }
+        public DbSet<EventEntity> Events { get; set; }
+        public DbSet<PlaceEntity> Places { get; set; }
+        public DbSet<TimeSlotEntity> TimeSlots { get; set; }
+        public DbSet<VoteForDateEntity> VotesForDates { get; set; }
+        public DbSet<VoteForPlaceEntity> VotesForPlaces { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public static EventPlannerContext Get()
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            return new EventPlannerContext();
         }
     }
 }

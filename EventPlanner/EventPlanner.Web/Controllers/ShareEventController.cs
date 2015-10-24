@@ -10,7 +10,7 @@ namespace EventPlanner.Web.Controllers
         {
             var url = Url.Action("Index", "Vote", new { id = eventHash }, Request.Url.Scheme);
 
-            return View(new ShareLinkModel()
+            return View(new ShareLinkViewModel()
             {
                 Link = url,
                 EventHash = eventHash

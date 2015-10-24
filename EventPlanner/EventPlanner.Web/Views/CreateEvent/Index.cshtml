@@ -1,7 +1,7 @@
-﻿@model EventPlanner.Models.Domain.Event
+﻿@model EventPlanner.Models.Models.EventModel
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Create Event";
 }
 
 @*TODO: Can be maybe moved to layout or at least partial view*@
@@ -11,46 +11,64 @@
     <p><a href="#start" class="btn btn-primary btn-lg">Start now </a></p>
 </div>
 
-<div class="row" id="start">
+<div class="container">
+        @Html.ValidationSummary()
     @using (Html.BeginForm("Index", "CreateEvent", FormMethod.Post, new {@class = ""}))
     {
-    <div class="form-group">
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
-        
-    </div>
+        <div class="row" id="intro">
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Desc)
-        @Html.TextAreaFor(m => m.Desc, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.Desc, "", new { @class = "text-danger" })
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.ExpectedLength)
-        @Html.TextBoxFor(m => m.ExpectedLength, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.ExpectedLength, "", new { @class = "text-danger" })
-    </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.OthersCanEdit)
-        @Html.EditorFor(m => m.OthersCanEdit, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new { @class = "text-danger" })
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Desc)
+                @Html.TextAreaFor(m => m.Desc, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Desc, "", new {@class = "text-danger"})
+            </div>
 
+            <div class="form-group">
+                @Html.LabelFor(m => m.ExpectedLength)
+                @Html.TextBoxFor(m => m.ExpectedLength, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.ExpectedLength, "", new {@class = "text-danger"})
+            </div>
 
-    <div class="form-group">
-        <label>Dates</label>
-        <div>Some supercool datepicker</div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.OthersCanEdit)
+                @Html.EditorFor(m => m.OthersCanEdit, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
+            </div>
+        </div>
 
-    </div>
+        <div class="row" id="dates">
+            <div class="form-group">
+                <label>Dates</label>
+                <div id="DatePickerModule">Some supercool datepicker</div>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label>Places</label>
-        <div>Wohoo foursquare module goes here!</div>
-    </div>
+        <div class="row" id="places">
+            <div class="form-group">
+                <label>Places</label>
+                <p>Search places for your event using FourSquare!</p>
+                <div id="FourSquareSearchModule"></div>
+            </div>
+        </div>
 
-    <input type="submit" class="btn btn-primary" value="Create an event" />
+        <input type="submit" class="btn btn-primary" value="Create an event"/>
     }
 </div>
+
+
+    @section scripts
+    {
+        <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
+        <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
+        <script type="text/jsx">
+            React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
+        </script>
+
+    }

@@ -11,6 +11,7 @@
     <AssemblyName>EventPlanner.FourSquare</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,8 +35,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -51,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Contact.cs" />
+    <Compile Include="Entities\Hours.cs" />
     <Compile Include="Entities\Icon.cs" />
     <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\Meta.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="Entities\MiniVenuesObject.cs" />
     <Compile Include="Entities\MiniVenuesResponse.cs" />
     <Compile Include="Entities\Stats.cs" />
+    <Compile Include="Entities\Time.cs" />
+    <Compile Include="Entities\TimeFrame.cs" />
     <Compile Include="Entities\Venue.cs" />
     <Compile Include="Entities\VenueObject.cs" />
     <Compile Include="Entities\VenueResponse.cs" />
@@ -70,7 +74,9 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

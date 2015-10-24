@@ -5,19 +5,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventPlanner.Models.Domain
 {
-    public class User
+    [Table("Places")]
+    public class PlaceEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        [Required]
-        public String Name { set; get; }
+        [Required]//[ForeignKey("EventId")]
+        public Guid EventId { set; get; } 
 
-        public IEnumerable<Event> Events { set; get; }
+        [Required]//[ForeignKey("EventId")]
+        public string VenueId { set; get; }
 
-        public IEnumerable<VoteForDate> VotesForDate { set; get; }
+        public IEnumerable<VoteForPlaceEntity> VotesForPlace { set; get; }
 
-        public IEnumerable<VoteForPlace> VotesForPlace { set; get; }
     }
 }
