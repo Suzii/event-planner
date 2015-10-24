@@ -254,8 +254,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.eot');
-  src: url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -4520,8 +4520,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #295D71;
-  border-color: #204959;
+  background-color: #467486;
+  border-color: #3b6170;
 }
 .navbar-default .navbar-brand {
   color: #D5B66B;
@@ -4566,7 +4566,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #204959;
+  border-color: #3b6170;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
