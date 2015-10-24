@@ -10,6 +10,7 @@
 
 .tt-menu {
     width: 422px;
+    max-height: 400px;
     margin-top: 4px;
     padding: 4px 0;
     background-color: #fff;
@@ -21,6 +22,7 @@
     -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    overflow-y: scroll;
 }
 
 .tt-suggestion {
@@ -51,4 +53,8 @@
 #custom-templates .empty-message {
     padding: 5px 10px;
     text-align: center;
+}
+
+.tt-suggestion:hover .text-muted {
+    color: #efefef;
 }
