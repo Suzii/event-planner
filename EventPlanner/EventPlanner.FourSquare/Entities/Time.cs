@@ -12,8 +12,7 @@ namespace EventPlanner.FourSquare.Entities
         /// <summary>
         /// Opening time.
         /// </summary>
-        [JsonProperty("renderedTime")]
-        public String RenderedTime { get; set; }
+        public string RenderedTime { get; set; }
 
         public override string ToString()
         {

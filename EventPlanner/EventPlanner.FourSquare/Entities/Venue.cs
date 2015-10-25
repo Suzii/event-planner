@@ -56,7 +56,6 @@ namespace EventPlanner.FourSquare.Entities
         /// <summary>
         /// Opening hours of this venue
         /// </summary>
-        [JsonProperty("hours")]
         public Hours Hours { get; set; }
     }
 }
