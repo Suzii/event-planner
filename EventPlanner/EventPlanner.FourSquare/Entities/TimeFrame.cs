@@ -12,7 +12,6 @@ namespace EventPlanner.FourSquare.Entities
         /// <summary>
         /// Set of days in a week (in string format)
         /// </summary>
-        [JsonProperty("days")]
         public string Days { get; set; }
         
         /// <summary>
@@ -21,14 +20,15 @@ namespace EventPlanner.FourSquare.Entities
         [JsonProperty("open")]
         public List<Time> Times { get; set; }
         
-        public override String ToString()
+        public override string ToString()
         {
-            String res =  Days + "\n";
+            StringBuilder res =  new StringBuilder(Days + "\n");
             foreach (Time t in Times)
             {
-                res += " " + t;
+                res.Append(" ");
+                res.Append(t);
             }
-            return res;
+            return res.ToString();
         }
     }
 }

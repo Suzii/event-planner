@@ -94,6 +94,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EventPlanner.DAL\EventPlanner.DAL.csproj">
+      <Project>{6a49300a-2d70-4b10-8284-ebbbb1e50499}</Project>
+      <Name>EventPlanner.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventPlanner.DTO\EventPlanner.DTO.csproj">
+      <Project>{014b624d-3935-4d31-8dd3-bfa11b0c1171}</Project>
+      <Name>EventPlanner.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EventPlanner.FourSquare\EventPlanner.FourSquare.csproj">
       <Project>{14839f38-2f3b-43e3-9b42-71bf81268ec1}</Project>
       <Name>EventPlanner.FourSquare</Name>

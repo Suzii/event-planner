@@ -12,17 +12,17 @@ namespace EventPlanner.FourSquare.Entities
         /// <summary>
         /// Opening hours for a set of days
         /// </summary>
-        [JsonProperty ("timeframes")]
         public List<TimeFrame> TimeFrames { get; set; }
 
         public override string ToString()
         {
-            string res = "";
-            foreach(TimeFrame tf in TimeFrames)
+            StringBuilder res = new StringBuilder();
+            foreach (TimeFrame tf in TimeFrames)
             {
-                res += tf + "\n";
+                res.Append(tf);
+                res.Append(Environment.NewLine);
             }
-            return res;
+            return res.ToString();
         }
     }
 }

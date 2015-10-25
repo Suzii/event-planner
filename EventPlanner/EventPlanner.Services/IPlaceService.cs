@@ -16,7 +16,7 @@ namespace EventPlanner.Services
         /// <param name="city">City in which to look for</param>
         /// <param name="maxCount">Maximum count of suggestions</param>
         /// <returns><c ref="List of FourSquareVenueModel"/> containing required suggestions</returns>
-        Task<List<FourSquareVenueModel>> GetPlaceSuggestionsAsync(string term, string city, int maxCount);
+        Task<IList<FourSquareVenueModel>> GetPlaceSuggestionsAsync(string term, string city, int maxCount);
 
         Task<FourSquareVenueModel> GetPlaceDetailAsync(string id);
 
