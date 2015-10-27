@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using EventPlanner.Models.Models;
@@ -35,6 +36,8 @@ namespace EventPlanner.Web.Controllers
         {
             return new EventModel();
         }
+
+     
 
         [HttpGet]
         public async Task<JsonResult> GetData(string city, string query)

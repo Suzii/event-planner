@@ -4,6 +4,9 @@
     ViewBag.Title = "Create Event";
 }
 
+
+<script src="~/Scripts/pikaday.js"></script>
+
 @*TODO: Can be maybe moved to layout or at least partial view*@
 <div class="jumbotron">
     <h1>Event Planner</h1>
@@ -45,9 +48,24 @@
 
         <div class="row" id="dates">
             <div class="form-group">
-                <label>Dates</label>
-                <div id="DatePickerModule">Some supercool datepicker</div>
-            </div>
+                    @Html.Label("Date")
+                    @Html.TextBoxFor(m => m.ExpectedLength, htmlAttributes: new { id = "DatePickerModule" })
+
+
+                <script type="text/javascript">
+                    var picker = new Pikaday({
+                        field: document.getElementById('DatePickerModule'),
+                        firstDay: 1,
+                        minDate: new Date(),
+                        maxDate: new Date('2020-01-01'),
+                        numberOfMonths: 1,
+                        onSelect: function() {
+                            console.log(this.getMoment().format('Do MMMM YYYY'));
+                        }
+                    });
+                </script>
+                
+</div>
         </div>
 
         <div class="row" id="places">
@@ -55,6 +73,7 @@
                 <label>Places</label>
                 <p>Search places for your event using FourSquare!</p>
                 <div id="FourSquareSearchModule"></div>
+
             </div>
         </div>
 
@@ -70,5 +89,9 @@
         <script type="text/jsx">
             React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
         </script>
+        <link href="~/css/pikaday.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/css/theme.css" rel="stylesheet" />
+        <script src="~/Scripts/pikaday.js"></script>
 
     }
