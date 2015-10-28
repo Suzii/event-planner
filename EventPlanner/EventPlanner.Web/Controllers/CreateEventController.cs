@@ -37,8 +37,6 @@ namespace EventPlanner.Web.Controllers
             return new EventModel();
         }
 
-     
-
         [HttpGet]
         public async Task<JsonResult> GetData(string city, string query)
         {
