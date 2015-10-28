@@ -222,7 +222,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\pikaday.js" />
+    <Content Include="Scripts\NewDate.js" />
+    <Content Include="Scripts\NewTime.js" />
+    <Content Include="Scripts\Pikaday.js" />
     <Content Include="Scripts\React\JSXTransformer.js" />
     <Content Include="Scripts\React\react-with-addons.js" />
     <Content Include="Scripts\React\react-with-addons.min.js" />
@@ -239,7 +241,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
