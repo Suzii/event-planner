@@ -4,6 +4,9 @@
     ViewBag.Title = "Create Event";
 }
 
+
+<script src="~/Scripts/pikaday.js"></script>
+
 @*TODO: Can be maybe moved to layout or at least partial view*@
 <div class="jumbotron">
     <h1>Event Planner</h1>
@@ -44,10 +47,63 @@
         </div>
 
         <div class="row" id="dates">
-            <div class="form-group">
-                <label>Dates</label>
-                <div id="DatePickerModule">Some supercool datepicker</div>
+            <div class="form-group" id="containerDates">
+                @Html.Label("Date")
+                @Html.TextBoxFor(m => m.TimeSlots, htmlAttributes: new {id = "DatePickerModule", name = "DatePicker" })
+
+
+                <script type="text/javascript">
+                    var picker = new Pikaday({
+                        field: document.getElementById('DatePickerModule'),
+                        firstDay: 1,
+                        minDate: new Date(),
+                        maxDate: new Date('2020-01-01'),
+                        numberOfMonths: 1
+                    });
+                    
+                </script>
+
+
+                <label>Times</label>
+                <span id="container">
+                        @Html.DropDownListFor(m => m.TimeSlots, new SelectList(
+                            new List<Object>
+                            {
+
+                                new {value = 0, text = "00:00", selected="selected"},
+                                new {value = 1, text = "01:00"},
+                                new {value = 2, text = "02:00"},
+                                new {value = 3, text = "03:00"},
+                                new {value = 4, text = "04:00"},
+                                new {value = 5, text = "05:00"},
+                                new {value = 6, text = "06:00"},
+                                new {value = 7, text = "07:00"},
+                                new {value = 8, text = "08:00"},
+                                new {value = 9, text = "09:00"},
+                                new {value = 10, text = "10:00"},
+                                new {value = 11, text = "11:00"},
+                                new {value = 12, text = "12:00"},
+                                new {value = 13, text = "13:00"},
+                                new {value = 14, text = "14:00"},
+                                new {value = 15, text = "15:00"},
+                                new {value = 16, text = "16:00"},
+                                new {value = 17, text = "17:00"},
+                                new {value = 18, text = "18:00"},
+                                new {value = 19, text = "19:00"},
+                                new {value = 20, text = "20:00"},
+                                new {value = 21, text = "21:00"},
+                                new {value = 22, text = "22:00"},
+                                new {value = 23, text = "23:00"}
+                            },
+                            "value",
+                            "text",
+                            2))
+
+                    </span>            
+                <input type="button" id="btnAdd" value="Add another time"/>
+                <br/>
             </div>
+            <input type="button" id="btnAddDate" value="Add another date" />
         </div>
 
         <div class="row" id="places">
@@ -55,6 +111,7 @@
                 <label>Places</label>
                 <p>Search places for your event using FourSquare!</p>
                 <div id="FourSquareSearchModule"></div>
+
             </div>
         </div>
 
@@ -65,10 +122,16 @@
 
     @section scripts
     {
+        
         <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
         <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
         <script type="text/jsx">
             React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
         </script>
-
+        <link href="~/css/pikaday.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/css/theme.css" rel="stylesheet" />
+        <script src="~/Scripts/Pikaday.js"></script>
+        <script src="~/Scripts/NewTime.js"></script>
+        <script src="~/Scripts/NewDate.js"></script>
     }
