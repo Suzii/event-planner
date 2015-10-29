@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using System.Threading.Tasks;
-using EventPlanner.Models.Domain;
 using System.Data.Entity.Migrations;
 using EventEntity = EventPlanner.Entities.EventEntity;
 
