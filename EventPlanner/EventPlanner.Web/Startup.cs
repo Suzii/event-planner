@@ -1,6 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using EventPlanner.DAL.Repository;
+using EventPlanner.DAL.AutoMappers;
 
 [assembly: OwinStartupAttribute(typeof(EventPlanner.Web.Startup))]
 namespace EventPlanner.Web
@@ -15,11 +15,7 @@ namespace EventPlanner.Web
             //app.UseWebApi(WebApiConfig.Register());
 
             // Map models
-            EventRepository.CreateMap();
-            PlaceRepository.CreateMap();
-            TimeSlotRepository.CreateMap();
-            VoteForDateRepository.CreateMap();
-            VoteForPlaceRepository.CreateMap();
+            AutoMappers.Configure();
         }
     }
 }

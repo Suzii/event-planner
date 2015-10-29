@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventPlanner.Models.Domain;
+using EventPlanner.Entities;
 
 namespace EventPlanner.Services
 {

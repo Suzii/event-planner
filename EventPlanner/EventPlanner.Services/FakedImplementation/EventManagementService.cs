@@ -36,10 +36,10 @@ namespace EventPlanner.Services.FakedImplementation
                 OthersCanEdit = true,
                 ExpectedLength = 2,
                 TimeSlots = null,
-                Places = new List<PlaceEntity>()
+                Places = new List<Place>()
                 {
-                    new PlaceEntity() { Id = Guid.NewGuid(), EventId = id, VenueId = "something", VotesForPlace = null},
-                    new PlaceEntity() { Id = Guid.NewGuid(), EventId = id, VenueId = "something else", VotesForPlace = null}
+                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something", VotesForPlace = null},
+                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something else", VotesForPlace = null}
                 },
                 OrganizerId = Guid.NewGuid()
             };
