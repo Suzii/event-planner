@@ -83,7 +83,6 @@
   <ItemGroup>
     <Compile Include="FakedImplementation\EventManagementService.cs" />
     <Compile Include="IEventManagementService.cs" />
-    <Compile Include="EntityConverter.cs" />
     <Compile Include="Implementation\EventManagementService.cs" />
     <Compile Include="Implementation\PlaceService.cs" />
     <Compile Include="Implementation\UserService.cs" />
