@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.Models.Domain
+namespace EventPlanner.Entities
 {
     [Table("TimeSlots")]
     public class TimeSlotEntity
@@ -13,12 +13,14 @@ namespace EventPlanner.Models.Domain
         public Guid Id { set; get; }
 
         [Required]
-        //[ForeignKey("EventId")]
         public Guid EventId { set; get; }
+
+        [ForeignKey("EventId")]
+        public virtual EventEntity Event { set; get; }
 
         [Required]
         public DateTime DateTime { set; get; }
 
-        public IEnumerable<VoteForDateEntity> VotesForDate { set; get; }
+        public virtual IEnumerable<VoteForDateEntity> VotesForDate { set; get; }
     }
 }

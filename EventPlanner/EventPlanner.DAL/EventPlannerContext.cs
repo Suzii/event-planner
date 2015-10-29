@@ -1,5 +1,5 @@
 ﻿using System.Configuration;
-using EventPlanner.Models.Domain;
+using EventPlanner.Entities;
 using System.Data.Entity;
 
 

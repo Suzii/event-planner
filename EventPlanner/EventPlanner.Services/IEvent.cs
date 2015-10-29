@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using EventPlanner.Models.Domain;
+using EventPlanner.Entities;
 
 namespace EventPlanner.Services
 {
@@ -12,7 +12,7 @@ namespace EventPlanner.Services
         ///  User needs to write name, description, duration, times and dates.
         /// </summary>
         /// <returns>Return new event on success</returns>
-        Event CreateNewEvent();
+        EventEntity CreateNewEvent();
 
         /// <summary>
         ///  This method delete event in the database accourding id.
@@ -24,31 +24,31 @@ namespace EventPlanner.Services
         ///  This method update event in the database.
         /// </summary>
         /// <returns>Return updated event on success</returns>
-        Event UpdateEvent();
+        EventEntity UpdateEvent();
 
         /// <summary>
         ///  This method return list of all active (people can still vote) events, that user created.
         /// </summary>
         /// <returns>Return list of all active event</returns>
-        IEnumerable<Event> ListOfMyActiveEvents();
+        IEnumerable<EventEntity> ListOfMyActiveEvents();
 
         /// <summary>
         ///  This method return list of all inctive (people can not vote anymore) events, that user created.
         /// </summary>
         /// <returns>Return list of all inactive event</returns>
-        IEnumerable<Event> ListOfMyIntactiveEvents();
+        IEnumerable<EventEntity> ListOfMyIntactiveEvents();
 
         /// <summary>
         ///  This method show all dates and times that users can vote for in particular event.
         /// </summary>
         /// <returns>Return list of all dates</returns>
-        IEnumerable<TimeSlot> ListOfAllDates();
+        IEnumerable<TimeSlotEntity> ListOfAllDates();
 
         /// <summary>
         ///  This method show all places that users can vote for in particular event.
         /// </summary>
         /// <returns>Return list of all plates</returns>
-        IEnumerable<Place> ListOfAllPlaces();
+        IEnumerable<PlaceEntity> ListOfAllPlaces();
 
         /// <summary>
         ///  This method will save to databes user's votes dates..

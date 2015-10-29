@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.DTO
+namespace EventPlanner.Models.Domain
 {
     public class VoteForPlace
     {
+        [Key]
         public Guid Id { set; get; }
 
         [Required]

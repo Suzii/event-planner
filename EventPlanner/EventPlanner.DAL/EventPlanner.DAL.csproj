@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMappers\AutoMappers.cs" />
     <Compile Include="EventPlannerContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,9 +71,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EventPlanner.DTO\EventPlanner.DTO.csproj">
+    <ProjectReference Include="..\EventPlanner.DTO\EventPlanner.Entities.csproj">
       <Project>{014b624d-3935-4d31-8dd3-bfa11b0c1171}</Project>
-      <Name>EventPlanner.DTO</Name>
+      <Name>EventPlanner.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventPlanner.Models\EventPlanner.Models.csproj">
       <Project>{0ecf657c-b886-4a6c-b442-85b9d54504c9}</Project>

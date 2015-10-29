@@ -41,11 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\EventEntity.cs" />
-    <Compile Include="Domain\PlaceEntity.cs" />
-    <Compile Include="Domain\TimeSlotEntity.cs" />
-    <Compile Include="Domain\VoteForDateEntity.cs" />
-    <Compile Include="Domain\VoteForPlaceEntity.cs" />
+    <Compile Include="Domain\Event.cs" />
+    <Compile Include="Domain\Place.cs" />
+    <Compile Include="Domain\TimeSlot.cs" />
+    <Compile Include="Domain\VoteForDate.cs" />
+    <Compile Include="Domain\VoteForPlace.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\FourSquareVenueModel.cs" />
     <Compile Include="Models\ShareLinkViewModel.cs" />

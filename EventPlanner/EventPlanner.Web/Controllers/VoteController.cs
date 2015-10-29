@@ -16,12 +16,12 @@ namespace EventPlanner.Web.Controllers
             return View("Index", ConstructModel(eventHash));
         }
 
-        private EventEntity ConstructModel(string eventHash)
+        private Event ConstructModel(string eventHash)
         {
             // obtain the Event object from service based on its hash code
 
             // fake implementation
-            return new EventEntity()
+            return new Event()
             {
                 Id = Guid.NewGuid(),
                 Title = "Some fake event for testing purposes",
@@ -31,7 +31,7 @@ namespace EventPlanner.Web.Controllers
                 ExpectedLength = 2,
                 OrganizerId = Guid.NewGuid(),
                 Places = new List<PlaceEntity>(),
-                TimeSlots = new List<TimeSlotEntity>()
+                TimeSlots = new List<TimeSlot>()
             };
         }
     }

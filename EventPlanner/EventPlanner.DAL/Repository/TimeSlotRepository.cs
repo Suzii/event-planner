@@ -1,64 +1,65 @@
-﻿using EventPlanner.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventPlanner.Entities;
 using EventPlanner.Models.Domain;
+using TimeSlotEntity = EventPlanner.Entities.TimeSlotEntity;
 
 namespace EventPlanner.DAL.Repository
 {
     public class TimeSlotRepository
     {
-        public async Task<List<TimeSlot>> GetAll()
+        public async Task<List<TimeSlotEntity>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.TimeSlots
                     .ToList()
-                    .Select(Mapper.Map<TimeSlot>)
+                    .Select(Mapper.Map<TimeSlotEntity>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<TimeSlot> GetTimeSlot(Guid timeSlotId)
+        public async Task<TimeSlotEntity> GetTimeSlot(Guid timeSlotId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.TimeSlots
                     .FirstOrDefault(e => e.Id == timeSlotId);
 
-                return await Task.FromResult(Mapper.Map<TimeSlot>(result));
+                return await Task.FromResult(Mapper.Map<TimeSlotEntity>(result));
             }
         }
 
-        public async Task<List<TimeSlot>> GetByEvent(Guid eventId)
+        public async Task<List<TimeSlotEntity>> GetByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.TimeSlots
                     .Where(e => e.EventId == eventId)
                     .ToList()
-                    .Select(Mapper.Map<TimeSlot>)
+                    .Select(Mapper.Map<TimeSlotEntity>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<TimeSlot> AddOrUpdate(TimeSlot timeSlot)
+        public async Task<TimeSlotEntity> AddOrUpdate(TimeSlotEntity timeSlotEntity)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var entity = Mapper.Map<TimeSlotEntity>(timeSlot);
+                var entity = Mapper.Map<TimeSlotEntity>(timeSlotEntity);
 
                 context.TimeSlots.AddOrUpdate(entity);
                 await context.SaveChangesAsync();
 
-                return Mapper.Map<TimeSlot>(entity);
+                return Mapper.Map<TimeSlotEntity>(entity);
             }
         }
 
@@ -76,22 +77,6 @@ namespace EventPlanner.DAL.Repository
 
                 return true;
             }
-        }
-
-        public static void CreateMap()
-        {
-            Mapper.CreateMap<TimeSlot, TimeSlotEntity>()
-                .ForMember(t => t.Id, conf => conf.MapFrom(te => te.Id))
-                .ForMember(t => t.EventId, conf => conf.MapFrom(te => te.EventId))
-                .ForMember(t => t.DateTime, conf => conf.MapFrom(te => te.DateTime))
-                .ForMember(t => t.VotesForDate, conf => conf.MapFrom(te => te.VotesForDate));
-
-
-            Mapper.CreateMap<TimeSlotEntity, TimeSlot>()
-                .ForMember(te => te.Id, conf => conf.MapFrom(t => t.Id))
-                .ForMember(te => te.EventId, conf => conf.MapFrom(t => t.EventId))
-                .ForMember(te => te.DateTime, conf => conf.MapFrom(t => t.DateTime))
-                .ForMember(te => te.VotesForDate, conf => conf.MapFrom(t => t.VotesForDate));
         }
     }
 }

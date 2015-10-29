@@ -16,7 +16,7 @@ namespace EventPlanner.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(EventEntity model)
+        public ActionResult Index(Event model)
         {
             if (!ModelState.IsValid)
             {
@@ -32,12 +32,12 @@ namespace EventPlanner.Web.Controllers
             return RedirectToAction("Index", "ShareEvent", new { eventHash = eventHash });
         }
 
-        private EventEntity ConstructModel(string eventHash)
+        private Event ConstructModel(string eventHash)
         {
             // obtain the Event object from service based on its hash code
 
             // fake implementation
-            return new EventEntity()
+            return new Event()
             {
                 Id = Guid.NewGuid(),
                 Title = "Some fake event for testing purposes",
@@ -47,7 +47,7 @@ namespace EventPlanner.Web.Controllers
                 ExpectedLength = 2,
                 OrganizerId = Guid.NewGuid(),
                 Places = new List<PlaceEntity>(),
-                TimeSlots = new List<TimeSlotEntity>()
+                TimeSlots = new List<TimeSlot>()
             };
         }
     }

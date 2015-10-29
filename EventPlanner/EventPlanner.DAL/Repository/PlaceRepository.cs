@@ -1,5 +1,4 @@
-﻿using EventPlanner.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -7,59 +6,60 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EventPlanner.Models.Domain;
+using PlaceEntity = EventPlanner.Entities.PlaceEntity;
 
 namespace EventPlanner.DAL.Repository
 {
     public class PlaceRepository
     {
-        public async Task<List<Place>> GetAll()
+        public async Task<List<PlaceEntity>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Places
                     .ToList()
-                    .Select(Mapper.Map<Place>)
+                    .Select(Mapper.Map<PlaceEntity>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<Place> GetPlace(Guid placeId)
+        public async Task<PlaceEntity> GetPlace(Guid placeId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Places
                     .FirstOrDefault(e => e.Id == placeId);
 
-                return await Task.FromResult(Mapper.Map<Place>(result));
+                return await Task.FromResult(Mapper.Map<PlaceEntity>(result));
             }
         }
 
-        public async Task<List<Place>> GetByEvent(Guid eventId)
+        public async Task<List<PlaceEntity>> GetByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Places
                     .Where(e => e.EventId == eventId)
                     .ToList()
-                    .Select(Mapper.Map<Place>)
+                    .Select(Mapper.Map<PlaceEntity>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<Place> AddOrUpdate(Place place)
+        public async Task<PlaceEntity> AddOrUpdate(PlaceEntity placeEntity)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var entity = Mapper.Map<PlaceEntity>(place);
+                var entity = Mapper.Map<PlaceEntity>(placeEntity);
 
                 context.Places.AddOrUpdate(entity);
                 await context.SaveChangesAsync();
 
-                return Mapper.Map<Place>(entity);
+                return Mapper.Map<PlaceEntity>(entity);
             }
         }
 
@@ -77,22 +77,6 @@ namespace EventPlanner.DAL.Repository
 
                 return true;
             }
-        }
-
-        public static void CreateMap()
-        {
-            Mapper.CreateMap<Place, PlaceEntity>()
-                .ForMember(pe => pe.Id, conf => conf.MapFrom(p => p.Id))
-                .ForMember(pe => pe.EventId, conf => conf.MapFrom(p => p.EventId))
-                .ForMember(pe => pe.VenueId, conf => conf.MapFrom(p => p.VenueId))
-                .ForMember(pe => pe.VotesForPlace, conf => conf.MapFrom(p => p.VotesForPlace));
-
-
-            Mapper.CreateMap<PlaceEntity, Place>()
-                .ForMember(p => p.Id, conf => conf.MapFrom(pe => pe.Id))
-                .ForMember(p => p.EventId, conf => conf.MapFrom(pe => pe.EventId))
-                .ForMember(p => p.VenueId, conf => conf.MapFrom(pe => pe.VenueId))
-                .ForMember(p => p.VotesForPlace, conf => conf.MapFrom(pe => pe.VotesForPlace));
         }
     }
 }

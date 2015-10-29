@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EventPlanner.Models.Domain;
 
-namespace EventPlanner.Models.Models
+namespace EventPlanner.Models.Domain
 {
-    public class EventModel
+    public class Event
     {
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
@@ -31,7 +31,7 @@ namespace EventPlanner.Models.Models
         public DateTime Created { get; set; }
 
         [Display(Name = "Places", ResourceType = typeof(Resources.Event))]
-        public IList<FourSquareVenueModel> Places { get; set; }
+        public IEnumerable<Place> Places { get; set; }
 
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
         public IEnumerable<TimeSlot> TimeSlots { get; set; }

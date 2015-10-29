@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.Models.Domain
+
+namespace EventPlanner.Entities
 {
     [Table("Events")]
     public class EventEntity
@@ -14,31 +15,35 @@ namespace EventPlanner.Models.Domain
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Title", ResourceType = typeof(Resources.Event))]
+        [Display(Name = "Title")]//, ResourceType = typeof(Resources.Event))]
         public string Title { get; set; }
 
-        [Display(Name = "Description", ResourceType = typeof(Resources.Event))]
+        [Display(Name = "Description")]//, ResourceType = typeof(Resources.Event))]
         public string Desc { get; set; }
 
-        [Range(1,99)]
-        [Display(Name = "Expected_length", ResourceType = typeof(Resources.Event))]
+        [Range(1, 99)]
+        [Display(Name = "Expected_length")]//, ResourceType = typeof(Resources.Event))]
         public float ExpectedLength { get; set; }
 
-        [Display(Name = "Organizer", ResourceType = typeof(Resources.Event))]
-        public Guid OrganizerId { get; set; }
+        [Required]
+        public Guid OrganizerId { set; get; }
 
-        [Display(Name = "Others_can_edit", ResourceType = typeof(Resources.Event))]
+        [Display(Name = "Organizer")]//, ResourceType = typeof(Resources.Event))]
+        public virtual UserEntity Organizer { get; set; }
+
+        [Display(Name = "Others_can_edit")]//, ResourceType = typeof(Resources.Event))]
         public bool OthersCanEdit { get; set; }
 
-        [Display(Name = "Created_on", ResourceType = typeof(Resources.Event))]
+        [Required]
+        [Display(Name = "Created_on")]//, ResourceType = typeof(Resources.Event))]
         public DateTime Created { get; set; }
 
-        [Display(Name = "Places", ResourceType = typeof(Resources.Event))]
+        [Display(Name = "Places")]//, ResourceType = typeof(Resources.Event))]
         public IEnumerable<PlaceEntity> Places { get; set; }
 
-        [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
+        [Display(Name = "Dates")]//, ResourceType = typeof(Resources.Event))]
         public IEnumerable<TimeSlotEntity> TimeSlots { get; set; }
-
+        
         public int Hash
         {
             get

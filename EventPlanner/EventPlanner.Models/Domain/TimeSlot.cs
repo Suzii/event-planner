@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.DTO
+namespace EventPlanner.Models.Domain
 {
     public class TimeSlot
     {
+        [Key]
         public Guid Id { set; get; }
 
         [Required]

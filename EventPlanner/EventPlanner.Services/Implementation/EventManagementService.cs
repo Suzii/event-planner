@@ -5,12 +5,12 @@ namespace EventPlanner.Services.Implementation
 {
     public class EventManagementService : IEventManagementService
     {
-        public EventEntity CreateEvent(EventEntity e)
+        public Event CreateEvent(Event e)
         {
             throw new NotImplementedException();
         }
 
-        public EventEntity UpdateEvent(EventEntity e)
+        public Event UpdateEvent(Event e)
         {
             throw new NotImplementedException();
         }
@@ -20,7 +20,7 @@ namespace EventPlanner.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public EventEntity GetEvent(Guid id)
+        public Event GetEvent(Guid id)
         {
             throw new NotImplementedException();
         }

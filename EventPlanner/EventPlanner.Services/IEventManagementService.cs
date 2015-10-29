@@ -8,9 +8,9 @@ namespace EventPlanner.Services
     /// </summary>
     public interface IEventManagementService
     {
-        EventEntity CreateEvent(EventEntity e);
+        Event CreateEvent(Event e);
 
-        EventEntity UpdateEvent(EventEntity e);
+        Event UpdateEvent(Event e);
 
         /// <summary>
         /// V ostatních metodách nevracet Eventy, které jsou disabled
@@ -19,7 +19,7 @@ namespace EventPlanner.Services
         /// <returns></returns>
         void DisableEvent(Guid id);
 
-        EventEntity GetEvent(Guid id);
+        Event GetEvent(Guid id);
 
         Guid GetEventId(string eventHash);
     }

@@ -9,13 +9,13 @@ namespace EventPlanner.Services.FakedImplementation
 {
     public class EventManagementService : IEventManagementService
     {
-        public EventEntity CreateEvent(EventEntity e)
+        public Event CreateEvent(Event e)
         {
             e.Id = Guid.NewGuid();
             return e;
         }
 
-        public EventEntity UpdateEvent(EventEntity e)
+        public Event UpdateEvent(Event e)
         {
             return e;
         }
@@ -25,9 +25,9 @@ namespace EventPlanner.Services.FakedImplementation
             
         }
 
-        public EventEntity GetEvent(Guid id)
+        public Event GetEvent(Guid id)
         {
-            return new EventEntity()
+            return new Event()
             {
                 Id = id,
                 Title = "Faked event",
