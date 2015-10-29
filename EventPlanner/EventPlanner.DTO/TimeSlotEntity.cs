@@ -15,12 +15,12 @@ namespace EventPlanner.Entities
         [Required]
         public Guid EventId { set; get; }
 
-        [ForeignKey("EventId")]
-        public virtual EventEntity Event { set; get; }
+        //[ForeignKey("EventId")]
+        //public virtual EventEntity Event { set; get; }
 
         [Required]
         public DateTime DateTime { set; get; }
 
-        public virtual IEnumerable<VoteForDateEntity> VotesForDate { set; get; }
+        public virtual ICollection<VoteForDateEntity> VotesForDate { set; get; }
     }
 }

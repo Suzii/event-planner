@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using EventPlanner.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -18,23 +19,23 @@ namespace EventPlanner.Web.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<UserEntity>
     {
         public ApplicationDbContext()
             : base("SqlConnectionString", throwIfV1Schema: false) // was default DefaultConnection
         {
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
 
-            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
-            modelBuilder.Entity<IdentityRole>().ToTable("Roles");
-            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
-            modelBuilder.Entity<IdentityUserClaim>().ToTable("UsersClaims");
-            modelBuilder.Entity<IdentityUserLogin>().ToTable("UsersLogins");
-        }
+        //    modelBuilder.Entity<UserEntity>().ToTable("Users");
+        //    modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+        //    modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
+        //    modelBuilder.Entity<IdentityUserClaim>().ToTable("UsersClaims");
+        //    modelBuilder.Entity<IdentityUserLogin>().ToTable("UsersLogins");
+        //}
 
         public static ApplicationDbContext Create()
         {

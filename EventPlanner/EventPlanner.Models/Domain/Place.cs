@@ -15,7 +15,7 @@ namespace EventPlanner.Models.Domain
         [Required]
         public string VenueId { set; get; }
 
-        public IEnumerable<VoteForPlace> VotesForPlace { set; get; }
+        public ICollection<VoteForPlace> VotesForPlace { set; get; }
 
     }
 }

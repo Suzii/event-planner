@@ -12,7 +12,7 @@ namespace EventPlanner.Entities
         public Guid Id { set; get; }
 
         [Required]
-        public Guid UserId { set; get; }
+        public String UserId { set; get; }
 
         [ForeignKey("UserId")]
         public virtual UserEntity User { set; get; }

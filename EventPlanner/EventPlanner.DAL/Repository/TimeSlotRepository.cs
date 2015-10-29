@@ -12,54 +12,54 @@ namespace EventPlanner.DAL.Repository
 {
     public class TimeSlotRepository
     {
-        public async Task<List<TimeSlotEntity>> GetAll()
+        public async Task<List<TimeSlot>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.TimeSlots
                     .ToList()
-                    .Select(Mapper.Map<TimeSlotEntity>)
+                    .Select(Mapper.Map<TimeSlot>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<TimeSlotEntity> GetTimeSlot(Guid timeSlotId)
+        public async Task<TimeSlot> GetTimeSlot(Guid timeSlotId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.TimeSlots
                     .FirstOrDefault(e => e.Id == timeSlotId);
 
-                return await Task.FromResult(Mapper.Map<TimeSlotEntity>(result));
+                return await Task.FromResult(Mapper.Map<TimeSlot>(result));
             }
         }
 
-        public async Task<List<TimeSlotEntity>> GetByEvent(Guid eventId)
+        public async Task<List<TimeSlot>> GetByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.TimeSlots
                     .Where(e => e.EventId == eventId)
                     .ToList()
-                    .Select(Mapper.Map<TimeSlotEntity>)
+                    .Select(Mapper.Map<TimeSlot>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<TimeSlotEntity> AddOrUpdate(TimeSlotEntity timeSlotEntity)
+        public async Task<TimeSlot> AddOrUpdate(TimeSlot timeSlot)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var entity = Mapper.Map<TimeSlotEntity>(timeSlotEntity);
+                var entity = Mapper.Map<TimeSlotEntity>(timeSlot);
 
                 context.TimeSlots.AddOrUpdate(entity);
                 await context.SaveChangesAsync();
 
-                return Mapper.Map<TimeSlotEntity>(entity);
+                return Mapper.Map<TimeSlot>(entity);
             }
         }
 

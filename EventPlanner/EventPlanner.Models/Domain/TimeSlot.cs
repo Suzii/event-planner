@@ -15,6 +15,6 @@ namespace EventPlanner.Models.Domain
         [Required]
         public DateTime DateTime { set; get; }
 
-        public IEnumerable<VoteForDate> VotesForDate { set; get; }
+        public ICollection<VoteForDate> VotesForDate { set; get; }
     }
 }

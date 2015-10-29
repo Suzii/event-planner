@@ -41,7 +41,7 @@ namespace EventPlanner.Services.FakedImplementation
                     new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something", VotesForPlace = null},
                     new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something else", VotesForPlace = null}
                 },
-                OrganizerId = Guid.NewGuid()
+                OrganizerId = Guid.NewGuid().ToString()
             };
         }
 
