@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services
@@ -8,19 +9,19 @@ namespace EventPlanner.Services
     /// </summary>
     public interface IEventManagementService
     {
-        Event CreateEvent(Event e);
+        Task<Event> CreateEvent(Event e);
 
-        Event UpdateEvent(Event e);
+        Task<Event> UpdateEvent(Event e);
 
         /// <summary>
         /// V ostatních metodách nevracet Eventy, které jsou disabled
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        void DisableEvent(Guid id);
+        Task DisableEvent(Guid id);
 
-        Event GetEvent(Guid id);
+        Task<Event> GetEvent(Guid id);
 
-        Guid GetEventId(string eventHash);
+        Task<Guid> GetEventId(string eventHash);
     }
 }
