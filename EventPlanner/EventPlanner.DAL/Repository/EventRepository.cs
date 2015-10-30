@@ -4,60 +4,61 @@ using System.Linq;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
+using EventPlanner.Models.Domain;
 using EventEntity = EventPlanner.Entities.EventEntity;
 
 namespace EventPlanner.DAL.Repository
 {
     public class EventRepository
     {
-        public async Task<List<EventEntity>> GetAll()
+        public async Task<List<Event>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Events
                     .ToList()
-                    .Select(Mapper.Map<EventEntity>)
+                    .Select(Mapper.Map<Event>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<EventEntity> GetEvent(Guid eventId)
+        public async Task<Event> GetEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Events
                     .FirstOrDefault(e => e.Id == eventId);
                     
-                return await Task.FromResult(Mapper.Map<EventEntity>(result));
+                return await Task.FromResult(Mapper.Map<Event>(result));
             }
         }
 
-        public async Task<List<EventEntity>> GetByOrganizer(Guid organizerId)
+        public async Task<List<Event>> GetByOrganizer(String organizerId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Events
                     .Where(e => e.OrganizerId == organizerId)
                     .ToList()
-                    .Select(Mapper.Map<EventEntity>)
+                    .Select(Mapper.Map<Event>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<EventEntity> AddOrUpdate(EventEntity eventEntity)
+        public async Task<Event> AddOrUpdate(Event ev)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var entity = Mapper.Map<EventEntity>(eventEntity);
+                var entity = Mapper.Map<EventEntity>(ev);
 
                 context.Events.AddOrUpdate(entity);
                 await context.SaveChangesAsync();
 
-                return Mapper.Map<EventEntity>(entity);
+                return Mapper.Map<Event>(entity);
             }
         }
 

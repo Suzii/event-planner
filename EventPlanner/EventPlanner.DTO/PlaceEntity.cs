@@ -15,14 +15,13 @@ namespace EventPlanner.Entities
         [Required]
         public Guid EventId { set; get; }
 
-        [ForeignKey("EventId")]
-        public virtual EventEntity Event { set; get; }
+        //[ForeignKey("EventId")]
+        //public virtual EventEntity Event { set; get; }
 
         [Required]
-        [ForeignKey("VenueId")]
         public string VenueId { set; get; }
 
-        public IEnumerable<VoteForPlaceEntity> VotesForPlace { set; get; }
+        public ICollection<VoteForPlaceEntity> VotesForPlace { set; get; }
 
     }
 }

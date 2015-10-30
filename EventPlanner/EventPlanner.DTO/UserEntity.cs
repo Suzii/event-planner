@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EventPlanner.Entities
@@ -12,10 +11,19 @@ namespace EventPlanner.Entities
     /// </summary>
     public class UserEntity : IdentityUser
     {
-        public virtual IEnumerable<VoteForDateEntity> VotesForDates { get; set; }
+        public virtual ICollection<VoteForDateEntity> VotesForDates { get; set; }
 
-        public virtual IEnumerable<VoteForPlaceEntity> VotesForPlaces { get; set; }
+        public virtual ICollection<VoteForPlaceEntity> VotesForPlaces { get; set; }
 
-        public virtual IEnumerable<EventEntity> Events { get; set; }
+        public virtual ICollection<EventEntity> Events { get; set; }
+
+        //public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserEntity> manager)
+        //{
+        //    // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+        //    var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+        //    // Add custom user claims here
+        //    return userIdentity;
+        //}
     }
+
 }

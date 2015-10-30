@@ -12,54 +12,54 @@ namespace EventPlanner.DAL.Repository
 {
     public class VoteForDateRepository
     {
-        public async Task<List<VoteForDateEntity>> GetAll()
+        public async Task<List<VoteForDate>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.VotesForDates
                     .ToList()
-                    .Select(Mapper.Map<VoteForDateEntity>)
+                    .Select(Mapper.Map<VoteForDate>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<VoteForDateEntity> GetVoteForDate(Guid voteForDateId)
+        public async Task<VoteForDate> GetVoteForDate(Guid voteForDateId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.VotesForDates
                     .FirstOrDefault(e => e.Id == voteForDateId);
 
-                return await Task.FromResult(Mapper.Map<VoteForDateEntity>(result));
+                return await Task.FromResult(Mapper.Map<VoteForDate>(result));
             }
         }
 
-        public async Task<List<VoteForDateEntity>> GetByUser(Guid userId)
+        public async Task<List<VoteForDate>> GetByUser(String userId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.VotesForDates
                     .Where(e => e.UserId == userId)
                     .ToList()
-                    .Select(Mapper.Map<VoteForDateEntity>)
+                    .Select(Mapper.Map<VoteForDate>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<VoteForDateEntity> AddOrUpdate(VoteForDateEntity voteForDateEntity)
+        public async Task<VoteForDate> AddOrUpdate(VoteForDate voteForDate)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var entity = Mapper.Map<VoteForDateEntity>(voteForDateEntity);
+                var entity = Mapper.Map<VoteForDateEntity>(voteForDate);
 
                 context.VotesForDates.AddOrUpdate(entity);
                 await context.SaveChangesAsync();
 
-                return Mapper.Map<VoteForDateEntity>(entity);
+                return Mapper.Map<VoteForDate>(entity);
             }
         }
 

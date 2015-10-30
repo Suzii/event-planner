@@ -22,7 +22,7 @@ namespace EventPlanner.Models.Domain
         public float ExpectedLength { get; set; }
 
         [Display(Name = "Organizer", ResourceType = typeof(Resources.Event))]
-        public Guid OrganizerId { get; set; }
+        public String OrganizerId { get; set; }
 
         [Display(Name = "Others_can_edit", ResourceType = typeof(Resources.Event))]
         public bool OthersCanEdit { get; set; }
@@ -31,10 +31,10 @@ namespace EventPlanner.Models.Domain
         public DateTime Created { get; set; }
 
         [Display(Name = "Places", ResourceType = typeof(Resources.Event))]
-        public IEnumerable<Place> Places { get; set; }
+        public ICollection<Place> Places { get; set; }
 
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
-        public IEnumerable<TimeSlot> TimeSlots { get; set; }
+        public ICollection<TimeSlot> TimeSlots { get; set; }
 
         public int Hash
         {

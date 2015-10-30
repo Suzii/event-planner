@@ -45,7 +45,7 @@ namespace EventPlanner.Web.Controllers
                 Created = DateTime.Now,
                 OthersCanEdit = true,
                 ExpectedLength = 2,
-                OrganizerId = Guid.NewGuid(),
+                OrganizerId = Guid.NewGuid().ToString(),
                 Places = new List<Place>(),
                 TimeSlots = new List<TimeSlot>()
             };

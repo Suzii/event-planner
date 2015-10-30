@@ -1,11 +1,12 @@
 ﻿using System.Configuration;
 using EventPlanner.Entities;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 
 namespace EventPlanner.DAL
 {
-    public class EventPlannerContext : DbContext
+    public class EventPlannerContext : IdentityDbContext<UserEntity>
     {
         public EventPlannerContext() : base("name=SqlConnectionString")
         {
@@ -23,5 +24,18 @@ namespace EventPlanner.DAL
         {
             return new EventPlannerContext();
         }
+
+
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
+
+        //    modelBuilder.Entity<UserEntity>().ToTable("Users");
+        //    modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+        //    modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
+        //    modelBuilder.Entity<IdentityUserClaim>().ToTable("UsersClaims");
+        //    modelBuilder.Entity<IdentityUserLogin>().ToTable("UsersLogins");
+        //}
     }
 }

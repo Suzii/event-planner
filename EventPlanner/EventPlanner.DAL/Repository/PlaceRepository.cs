@@ -12,54 +12,54 @@ namespace EventPlanner.DAL.Repository
 {
     public class PlaceRepository
     {
-        public async Task<List<PlaceEntity>> GetAll()
+        public async Task<List<Place>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Places
                     .ToList()
-                    .Select(Mapper.Map<PlaceEntity>)
+                    .Select(Mapper.Map<Place>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<PlaceEntity> GetPlace(Guid placeId)
+        public async Task<Place> GetPlace(Guid placeId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Places
                     .FirstOrDefault(e => e.Id == placeId);
 
-                return await Task.FromResult(Mapper.Map<PlaceEntity>(result));
+                return await Task.FromResult(Mapper.Map<Place>(result));
             }
         }
 
-        public async Task<List<PlaceEntity>> GetByEvent(Guid eventId)
+        public async Task<List<Place>> GetByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Places
                     .Where(e => e.EventId == eventId)
                     .ToList()
-                    .Select(Mapper.Map<PlaceEntity>)
+                    .Select(Mapper.Map<Place>)
                     .ToList();
 
                 return await Task.FromResult(result);
             }
         }
 
-        public async Task<PlaceEntity> AddOrUpdate(PlaceEntity placeEntity)
+        public async Task<Place> AddOrUpdate(Place place)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var entity = Mapper.Map<PlaceEntity>(placeEntity);
+                var entity = Mapper.Map<PlaceEntity>(place);
 
                 context.Places.AddOrUpdate(entity);
                 await context.SaveChangesAsync();
 
-                return Mapper.Map<PlaceEntity>(entity);
+                return Mapper.Map<Place>(entity);
             }
         }
 
