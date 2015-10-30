@@ -7,6 +7,7 @@ using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Web.Controllers
 {
+    [Authorize]
     public class VoteController : Controller
     {
         public ActionResult Index(string eventHash)

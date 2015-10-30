@@ -7,6 +7,7 @@ using EventPlanner.Services.Implementation;
 
 namespace EventPlanner.Web.Controllers
 {
+    [Authorize]
     public class CreateEventController : Controller
     {
         [HttpGet]

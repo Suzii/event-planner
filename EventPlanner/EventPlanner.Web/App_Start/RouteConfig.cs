@@ -13,8 +13,8 @@ namespace EventPlanner.Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{guid}",
-                defaults: new { controller = "Home", action = "Index", guid = UrlParameter.Optional },
-                constraints: new { guid = new GuidRouteConstraint() }
+                defaults: new { controller = "Home", action = "Index", guid = UrlParameter.Optional }
+                //constraints: new { guid = new GuidRouteConstraint() }
             );
 
             routes.MapRoute(
