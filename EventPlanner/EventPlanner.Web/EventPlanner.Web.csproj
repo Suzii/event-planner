@@ -204,7 +204,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\ep-logo.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\typeahead.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\site.css" />
