@@ -45,9 +45,10 @@
     <Compile Include="Domain\TimeSlotEntity.cs" />
     <Compile Include="Domain\VoteForDateEntity.cs" />
     <Compile Include="Domain\VoteForPlaceEntity.cs" />
+    <Compile Include="Mappers\EventMapper.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\FourSquareVenueModel.cs" />
-    <Compile Include="Models\ShareLinkViewModel.cs" />
+    <Compile Include="Models\Share\ShareLinkViewModel.cs" />
     <Compile Include="Models\Vote\EventViewModel.cs" />
     <Compile Include="Models\Vote\VoteForDateByViewModel.cs" />
     <Compile Include="Models\Vote\VoteForPlaceByViewModel.cs" />
@@ -63,6 +64,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Event.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\CreateAndEdit\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

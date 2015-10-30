@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using EventPlanner.Models.Models;
+using EventPlanner.Models.Models.Share;
 
 namespace EventPlanner.Web.Controllers
 {
