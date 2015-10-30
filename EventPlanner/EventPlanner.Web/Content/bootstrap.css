@@ -2670,7 +2670,7 @@ input[type="search"] {
 .radio label,
 .checkbox label {
   min-height: 25px;
-  padding-left: 20px;
+  padding-left: 10px;
   margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
@@ -3028,6 +3028,9 @@ select[multiple].input-lg {
     padding-top: 6px;
     font-size: 16px;
   }
+}
+.wide-input {
+  max-width: 400px;
 }
 .btn {
   display: inline-block;
@@ -4252,6 +4255,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-header {
     float: left;
   }
+}
+.navbar-logo {
+  max-width: 190px;
+  margin-top: -5px;
 }
 .navbar-collapse {
   overflow-x: visible;
