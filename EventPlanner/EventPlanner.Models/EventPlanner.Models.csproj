@@ -49,7 +49,9 @@
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\FourSquareVenueModel.cs" />
     <Compile Include="Models\Share\ShareLinkViewModel.cs" />
+    <Compile Include="Models\Vote\TimeSlotViewModel.cs" />
     <Compile Include="Models\Vote\EventViewModel.cs" />
+    <Compile Include="Models\Vote\PlaceViewModel.cs" />
     <Compile Include="Models\Vote\VoteForDateByViewModel.cs" />
     <Compile Include="Models\Vote\VoteForPlaceByViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

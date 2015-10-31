@@ -274,6 +274,8 @@
     <Content Include="Views\ShareEvent\Index.cshtml" />
     <Content Include="Views\Vote\Index.cshtml" />
     <Content Include="Views\EditEvent\Index.cshtml" />
+    <Content Include="Views\Vote\PlacesVotes.cshtml" />
+    <Content Include="Views\Vote\DatesVotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,7 @@ namespace EventPlanner.Models.Models.Vote
 
         public string UserName { get; set; }
 
-        public Guid TimeSlotId { set; get; }
+        public Guid VenuId { set; get; }
 
         public bool WillAttend { get; set; }
     }
