@@ -9,25 +9,25 @@ namespace EventPlanner.Services.FakedImplementation
 {
     public class EventManagementService : IEventManagementService
     {
-        public EventEntity CreateEvent(EventEntity e)
+        public async Task<Event> CreateEvent(Event e)
         {
             e.Id = Guid.NewGuid();
             return e;
         }
 
-        public EventEntity UpdateEvent(EventEntity e)
+        public async Task<Event> UpdateEvent(Event e)
         {
             return e;
         }
 
-        public void DisableEvent(Guid id)
+        public async Task DisableEvent(Guid id)
         {
             
         }
 
-        public EventEntity GetEvent(Guid id)
+        public async Task<Event> GetEvent(Guid id)
         {
-            return new EventEntity()
+            return new Event()
             {
                 Id = id,
                 Title = "Faked event",
@@ -36,16 +36,16 @@ namespace EventPlanner.Services.FakedImplementation
                 OthersCanEdit = true,
                 ExpectedLength = 2,
                 TimeSlots = null,
-                Places = new List<PlaceEntity>()
+                Places = new List<Place>()
                 {
-                    new PlaceEntity() { Id = Guid.NewGuid(), EventId = id, VenueId = "something", VotesForPlace = null},
-                    new PlaceEntity() { Id = Guid.NewGuid(), EventId = id, VenueId = "something else", VotesForPlace = null}
+                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something", VotesForPlace = null},
+                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something else", VotesForPlace = null}
                 },
-                OrganizerId = Guid.NewGuid()
+                OrganizerId = Guid.NewGuid().ToString()
             };
         }
 
-        public Guid GetEventId(string eventHash)
+        public async Task<Guid> GetEventId(string eventHash)
         {
             return Guid.NewGuid();
         }

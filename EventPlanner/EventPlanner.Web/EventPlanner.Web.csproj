@@ -50,6 +50,10 @@
       <HintPath>..\packages\AspNet.ScriptManager.Kendo.2014.1.528.0\lib\net452\AspNet.ScriptManager.Kendo.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -200,7 +204,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\ep-logo.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\typeahead.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\site.css" />
@@ -212,6 +216,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="README.md" />
+    <Content Include="Scripts\Custom\FacebookShareModule.js" />
     <Content Include="Scripts\Custom\FourSquareSearchModule.jsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -294,6 +299,10 @@
     <ProjectReference Include="..\EventPlanner.DAL\EventPlanner.DAL.csproj">
       <Project>{6a49300a-2d70-4b10-8284-ebbbb1e50499}</Project>
       <Name>EventPlanner.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventPlanner.DTO\EventPlanner.Entities.csproj">
+      <Project>{014B624D-3935-4D31-8DD3-BFA11B0C1171}</Project>
+      <Name>EventPlanner.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventPlanner.Models\EventPlanner.Models.csproj">
       <Project>{0ecf657c-b886-4a6c-b442-85b9d54504c9}</Project>

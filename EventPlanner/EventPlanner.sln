@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner.FourSquare", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner.Models", "EventPlanner.Models\EventPlanner.Models.csproj", "{0ECF657C-B886-4A6C-B442-85B9D54504C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner.DTO", "EventPlanner.DTO\EventPlanner.DTO.csproj", "{014B624D-3935-4D31-8DD3-BFA11B0C1171}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner.Entities", "EventPlanner.DTO\EventPlanner.Entities.csproj", "{014B624D-3935-4D31-8DD3-BFA11B0C1171}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner.DAL", "EventPlanner.DAL\EventPlanner.DAL.csproj", "{6A49300A-2D70-4B10-8284-EBBBB1E50499}"
 EndProject

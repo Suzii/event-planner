@@ -1,11 +1,12 @@
-﻿using EventPlanner.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventPlanner.Entities;
 using EventPlanner.Models.Domain;
+using TimeSlotEntity = EventPlanner.Entities.TimeSlotEntity;
 
 namespace EventPlanner.DAL.Repository
 {
@@ -76,22 +77,6 @@ namespace EventPlanner.DAL.Repository
 
                 return true;
             }
-        }
-
-        public static void CreateMap()
-        {
-            Mapper.CreateMap<TimeSlot, TimeSlotEntity>()
-                .ForMember(t => t.Id, conf => conf.MapFrom(te => te.Id))
-                .ForMember(t => t.EventId, conf => conf.MapFrom(te => te.EventId))
-                .ForMember(t => t.DateTime, conf => conf.MapFrom(te => te.DateTime))
-                .ForMember(t => t.VotesForDate, conf => conf.MapFrom(te => te.VotesForDate));
-
-
-            Mapper.CreateMap<TimeSlotEntity, TimeSlot>()
-                .ForMember(te => te.Id, conf => conf.MapFrom(t => t.Id))
-                .ForMember(te => te.EventId, conf => conf.MapFrom(t => t.EventId))
-                .ForMember(te => te.DateTime, conf => conf.MapFrom(t => t.DateTime))
-                .ForMember(te => te.VotesForDate, conf => conf.MapFrom(t => t.VotesForDate));
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.DTO
+namespace EventPlanner.Models.Domain
 {
     public class TimeSlot
     {
+        [Key]
         public Guid Id { set; get; }
 
         [Required]
@@ -15,6 +15,6 @@ namespace EventPlanner.DTO
         [Required]
         public DateTime DateTime { set; get; }
 
-        public IEnumerable<VoteForDate> VotesForDate { set; get; }
+        public ICollection<VoteForDate> VotesForDate { set; get; }
     }
 }

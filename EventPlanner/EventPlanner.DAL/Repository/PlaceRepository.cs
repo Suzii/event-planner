@@ -1,5 +1,4 @@
-﻿using EventPlanner.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EventPlanner.Models.Domain;
+using PlaceEntity = EventPlanner.Entities.PlaceEntity;
 
 namespace EventPlanner.DAL.Repository
 {
@@ -77,22 +77,6 @@ namespace EventPlanner.DAL.Repository
 
                 return true;
             }
-        }
-
-        public static void CreateMap()
-        {
-            Mapper.CreateMap<Place, PlaceEntity>()
-                .ForMember(pe => pe.Id, conf => conf.MapFrom(p => p.Id))
-                .ForMember(pe => pe.EventId, conf => conf.MapFrom(p => p.EventId))
-                .ForMember(pe => pe.VenueId, conf => conf.MapFrom(p => p.VenueId))
-                .ForMember(pe => pe.VotesForPlace, conf => conf.MapFrom(p => p.VotesForPlace));
-
-
-            Mapper.CreateMap<PlaceEntity, Place>()
-                .ForMember(p => p.Id, conf => conf.MapFrom(pe => pe.Id))
-                .ForMember(p => p.EventId, conf => conf.MapFrom(pe => pe.EventId))
-                .ForMember(p => p.VenueId, conf => conf.MapFrom(pe => pe.VenueId))
-                .ForMember(p => p.VotesForPlace, conf => conf.MapFrom(pe => pe.VotesForPlace));
         }
     }
 }

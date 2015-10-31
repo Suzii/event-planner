@@ -7,7 +7,7 @@ namespace EventPlanner.Services
 {
     public interface IUserService
     {
-        Task<List<EventEntity>> GetEventsCreatedBy(Guid userId);
+        Task<List<Event>> GetEventsCreatedBy(Guid userId);
 
         Task<bool> IsEventEditableFor(Guid eventId, Guid userId);
     }

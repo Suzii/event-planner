@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EventPlanner.Services</RootNamespace>
     <AssemblyName>EventPlanner.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +49,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -55,16 +57,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -98,9 +98,9 @@
       <Project>{6a49300a-2d70-4b10-8284-ebbbb1e50499}</Project>
       <Name>EventPlanner.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EventPlanner.DTO\EventPlanner.DTO.csproj">
+    <ProjectReference Include="..\EventPlanner.DTO\EventPlanner.Entities.csproj">
       <Project>{014b624d-3935-4d31-8dd3-bfa11b0c1171}</Project>
-      <Name>EventPlanner.DTO</Name>
+      <Name>EventPlanner.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventPlanner.FourSquare\EventPlanner.FourSquare.csproj">
       <Project>{14839f38-2f3b-43e3-9b42-71bf81268ec1}</Project>

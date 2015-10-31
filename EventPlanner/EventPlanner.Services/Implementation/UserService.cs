@@ -7,7 +7,7 @@ namespace EventPlanner.Services.Implementation
 {
     public class UserService : IUserService
     {
-        public Task<List<EventEntity>> GetEventsCreatedBy(Guid userId)
+        public Task<List<Event>> GetEventsCreatedBy(Guid userId)
         {
             throw new NotImplementedException();
         }

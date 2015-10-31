@@ -1,11 +1,12 @@
-﻿using EventPlanner.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventPlanner.Entities;
 using EventPlanner.Models.Domain;
+using VoteForPlaceEntity = EventPlanner.Entities.VoteForPlaceEntity;
 
 namespace EventPlanner.DAL.Repository
 {
@@ -35,7 +36,7 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<List<VoteForPlace>> GetByUser(Guid userId)
+        public async Task<List<VoteForPlace>> GetByUser(String userId)
         {
             using (var context = EventPlannerContext.Get())
             {
@@ -76,20 +77,6 @@ namespace EventPlanner.DAL.Repository
 
                 return true;
             }
-        }
-
-        public static void CreateMap()
-        {
-            Mapper.CreateMap<VoteForPlace, VoteForPlaceEntity>()
-                .ForMember(v => v.Id, conf => conf.MapFrom(ve => ve.Id))
-                .ForMember(v => v.UserId, conf => conf.MapFrom(ve => ve.UserId))
-                .ForMember(v => v.PlaceId, conf => conf.MapFrom(ve => ve.PlaceId));
-
-
-            Mapper.CreateMap<VoteForPlaceEntity, VoteForPlace>()
-                .ForMember(ve => ve.Id, conf => conf.MapFrom(v => v.Id))
-                .ForMember(ve => ve.UserId, conf => conf.MapFrom(v => v.UserId))
-                .ForMember(ve => ve.PlaceId, conf => conf.MapFrom(v => v.PlaceId));
         }
     }
 }

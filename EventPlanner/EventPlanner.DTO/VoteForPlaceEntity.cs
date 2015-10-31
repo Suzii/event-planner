@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.Models.Domain
+namespace EventPlanner.Entities
 {
     [Table("VotesForPlace")]
     public class VoteForPlaceEntity
@@ -11,10 +11,16 @@ namespace EventPlanner.Models.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        [Required]//[ForeignKey("UserId")]
-        public Guid UserId { set; get; }
+        [Required]
+        public String UserId { set; get; }
 
-        [Required]//[ForeignKey("UserId")]
+        [ForeignKey("UserId")]
+        public virtual UserEntity User { set; get; }
+
+        [Required]
         public Guid PlaceId { set; get; }
+
+        [ForeignKey("PlaceId")]
+        public virtual PlaceEntity Place { set; get; }
     }
 }
