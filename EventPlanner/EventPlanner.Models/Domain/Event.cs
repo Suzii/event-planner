@@ -41,11 +41,11 @@ namespace EventPlanner.Models.Domain
         [DefaultValue(false)]
         public bool Disabled { get; set; }
 
-        public int Hash
+        public string Hash
         {
             get
             {
-                return (Id + "-" + Created.ToLongDateString() + "-" + Created.ToLongTimeString()).GetHashCode();
+                return Convert.ToBase64String(Id.ToByteArray());
             }
         }
     }
