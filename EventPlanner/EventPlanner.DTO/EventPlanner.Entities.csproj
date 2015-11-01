@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="EventEntity.cs" />
     <Compile Include="PlaceEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
