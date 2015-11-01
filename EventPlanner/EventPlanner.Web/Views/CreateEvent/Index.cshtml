@@ -5,8 +5,6 @@
 }
 
 
-<script src="~/Scripts/pikaday.js"></script>
-
 @*TODO: Can be maybe moved to layout or at least partial view*@
 <div class="jumbotron">
     <h1>Event Planner</h1>
@@ -16,57 +14,48 @@
 
 <div class="container">
         @Html.ValidationSummary()
-    @using (Html.BeginForm("Index", "CreateEvent", FormMethod.Post, new {@class = ""}))
+    @using (Html.BeginForm("Index", "CreateEvent", FormMethod.Post, new { @class = "" }))
     {
         <div class="row" id="intro">
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
 
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Desc)
-                @Html.TextAreaFor(m => m.Desc, new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.Desc, "", new {@class = "text-danger"})
+                @Html.TextAreaFor(m => m.Desc, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Desc, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.ExpectedLength)
-                @Html.TextBoxFor(m => m.ExpectedLength, new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.ExpectedLength, "", new {@class = "text-danger"})
+                @Html.TextBoxFor(m => m.ExpectedLength, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ExpectedLength, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.OthersCanEdit)
-                @Html.EditorFor(m => m.OthersCanEdit, new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
+                @Html.EditorFor(m => m.OthersCanEdit, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="row" id="dates">
+
             <div class="form-group" id="containerDates">
-                @Html.Label("Date")
-                @Html.TextBoxFor(m => m.TimeSlots, htmlAttributes: new {id = "DatePickerModule", name = "DatePicker" })
 
-
-                <script type="text/javascript">
-                    var picker = new Pikaday({
-                        field: document.getElementById('DatePickerModule'),
-                        firstDay: 1,
-                        minDate: new Date(),
-                        maxDate: new Date('2020-01-01'),
-                        numberOfMonths: 1
-                    });
-                    
-                </script>
-
+                <div class="container">
+                    <div class="form-group">
+                        <label for="dp">Choose a date</label>
+                        <input type="date" class="form-control" id="dp" name="Date" />
+                    </div>
+                </div>
 
                 <label>Times</label>
                 <span id="container">
-                        @Html.DropDownListFor(m => m.TimeSlots, new SelectList(
+                    @Html.DropDownListFor(m => m.TimeSlots, new SelectList(
                             new List<Object>
                             {
 
@@ -98,14 +87,15 @@
                             "value",
                             "text",
                             2))
-
-                    </span>            
-                <input type="button" id="btnAdd" value="Add another time"/>
-                <br/>
+    
+                </span>
+                <input type="button" id="btnAdd" value="Add another time" />
+                <br />
             </div>
-            <input type="button" id="btnAddDate" value="Add another date" />
-        </div>
 
+            <input type="button" id="btnAddDate" value="Add another date" />
+
+        </div>
         <div class="row" id="places">
             <div class="form-group">
                 <label>Places</label>
@@ -128,10 +118,8 @@
         <script type="text/jsx">
             React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
         </script>
-        <link href="~/css/pikaday.css" rel="stylesheet" />
-        <link href="~/css/site.css" rel="stylesheet" />
-        <link href="~/css/theme.css" rel="stylesheet" />
-        <script src="~/Scripts/Pikaday.js"></script>
-        <script src="~/Scripts/NewTime.js"></script>
-        <script src="~/Scripts/NewDate.js"></script>
+        <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")"/>
+        <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+       
+
     }
