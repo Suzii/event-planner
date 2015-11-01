@@ -7,33 +7,33 @@ namespace EventPlanner.Services.Implementation
 {
     public class EventManagementService : IEventManagementService
     {
-        private readonly EventRepository _repository;
+        private readonly EventRepository _eventRepository;
 
         public EventManagementService()
         {
-            _repository = new EventRepository();
+            _eventRepository = new EventRepository();
         }
 
         public async Task<Event> CreateEventAsync(Event e)
         {
-            return await _repository.AddOrUpdate(e);
+            return await _eventRepository.AddOrUpdate(e);
         }
 
         public async Task<Event> UpdateEventAsync(Event e)
         {
-            return await _repository.AddOrUpdate(e);
+            return await _eventRepository.AddOrUpdate(e);
         }
 
         public async Task DisableEventAsync(Guid id)
         {
-            var e = await _repository.GetEvent(id);
+            var e = await _eventRepository.GetEvent(id);
             e.Disabled = true;
-            await _repository.AddOrUpdate(e);
+            await _eventRepository.AddOrUpdate(e);
         }
 
         public async Task<Event> GetEventAsync(Guid id)
         {
-            return await _repository.GetEvent(id);
+            return await _eventRepository.GetEvent(id);
         }
 
         public Guid GetEventId(string eventHash)

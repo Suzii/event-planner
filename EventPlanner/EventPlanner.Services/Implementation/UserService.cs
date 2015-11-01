@@ -1,20 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventPlanner.DAL.Repository;
 using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services.Implementation
 {
     public class UserService : IUserService
     {
-        public Task<List<Event>> GetEventsCreatedBy(Guid userId)
+        private readonly EventRepository _eventRepository;
+
+        public UserService()
         {
-            throw new NotImplementedException();
+            _eventRepository = new EventRepository();
         }
 
-        public Task<bool> IsEventEditableFor(Guid eventId, Guid userId)
+        public async Task<IList<Event>> GetEventsCreatedBy(string userId)
         {
-            throw new NotImplementedException();
+            return await _eventRepository.GetByOrganizer(userId.ToString());
+        }
+
+        public async Task<bool> IsEventEditableFor(Guid eventId, string userId)
+        {
+            var e = await _eventRepository.GetEvent(eventId);
+            return (e.OthersCanEdit || e.OrganizerId == userId);
         }
     }
 }
