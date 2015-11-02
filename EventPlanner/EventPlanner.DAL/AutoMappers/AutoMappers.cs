@@ -34,6 +34,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(ee => ee.Hash, conf => conf.MapFrom(e => e.Hash))
                 .ForMember(ee => ee.ExpectedLength, conf => conf.MapFrom(e => e.ExpectedLength))
                 .ForMember(ee => ee.Created, conf => conf.MapFrom(e => e.Created))
+                .ForMember(ee => ee.Disabled, conf => conf.MapFrom(e => e.Disabled))
                 .ForMember(ee => ee.Desc, conf => conf.MapFrom(e => e.Desc));
             
             Mapper.CreateMap<EventEntity, Models.Domain.Event>()
@@ -46,6 +47,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(e => e.Hash, conf => conf.MapFrom(ee => ee.Hash))
                 .ForMember(e => e.ExpectedLength, conf => conf.MapFrom(ee => ee.ExpectedLength))
                 .ForMember(e => e.Created, conf => conf.MapFrom(ee => ee.Created))
+                .ForMember(e => e.Disabled, conf => conf.MapFrom(ee => ee.Disabled))
                 .ForMember(e => e.Desc, conf => conf.MapFrom(ee => ee.Desc));
 
             Mapper.CreateMap<Models.Domain.Event, Models.Models.EventModel>();

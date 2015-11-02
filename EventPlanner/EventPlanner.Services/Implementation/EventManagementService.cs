@@ -1,34 +1,44 @@
 ﻿using System;
 using System.Threading.Tasks;
+using EventPlanner.DAL.Repository;
 using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services.Implementation
 {
     public class EventManagementService : IEventManagementService
     {
-        public async Task<Event> CreateEvent(Event e)
+        private readonly EventRepository _eventRepository;
+
+        public EventManagementService()
         {
-            throw new NotImplementedException();
+            _eventRepository = new EventRepository();
         }
 
-        public async Task<Event> UpdateEvent(Event e)
+        public async Task<Event> CreateEventAsync(Event e)
         {
-            throw new NotImplementedException();
+            return await _eventRepository.AddOrUpdate(e);
         }
 
-        public async Task DisableEvent(Guid id)
+        public async Task<Event> UpdateEventAsync(Event e)
         {
-            throw new NotImplementedException();
+            return await _eventRepository.AddOrUpdate(e);
         }
 
-        public async Task<Event> GetEvent(Guid id)
+        public async Task DisableEventAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var e = await _eventRepository.GetEvent(id);
+            e.Disabled = true;
+            await _eventRepository.AddOrUpdate(e);
         }
 
-        public async Task<Guid> GetEventId(string eventHash)
+        public async Task<Event> GetEventAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _eventRepository.GetEvent(id);
+        }
+
+        public Guid GetEventId(string eventHash)
+        {
+            return new Guid(Convert.FromBase64String(eventHash));
         }
     }
 }

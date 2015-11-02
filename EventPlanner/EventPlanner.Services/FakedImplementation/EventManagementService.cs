@@ -9,23 +9,23 @@ namespace EventPlanner.Services.FakedImplementation
 {
     public class EventManagementService : IEventManagementService
     {
-        public async Task<Event> CreateEvent(Event e)
+        public async Task<Event> CreateEventAsync(Event e)
         {
             e.Id = Guid.NewGuid();
             return e;
         }
 
-        public async Task<Event> UpdateEvent(Event e)
+        public async Task<Event> UpdateEventAsync(Event e)
         {
             return e;
         }
 
-        public async Task DisableEvent(Guid id)
+        public async Task DisableEventAsync(Guid id)
         {
             
         }
 
-        public async Task<Event> GetEvent(Guid id)
+        public async Task<Event> GetEventAsync(Guid id)
         {
             return new Event()
             {
@@ -58,7 +58,7 @@ namespace EventPlanner.Services.FakedImplementation
             };
         }
 
-        public async Task<Guid> GetEventId(string eventHash)
+        public Guid GetEventId(string eventHash)
         {
             return Guid.NewGuid();
         }

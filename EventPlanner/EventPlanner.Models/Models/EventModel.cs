@@ -36,11 +36,12 @@ namespace EventPlanner.Models.Models
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
         public IEnumerable<TimeSlot> TimeSlots { get; set; }
 
-        public int Hash
+
+        public string Hash
         {
             get
             {
-                return (Id + "-" + Created.ToLongDateString() + "-" + Created.ToLongTimeString()).GetHashCode();
+                return Convert.ToBase64String(Id.ToByteArray());
             }
         }
     }
