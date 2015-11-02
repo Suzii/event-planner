@@ -129,8 +129,8 @@
             React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
         </script>
         <link href="~/css/pikaday.css" rel="stylesheet" />
-        <link href="~/css/site.css" rel="stylesheet" />
-        <link href="~/css/theme.css" rel="stylesheet" />
+        @*<link href="~/css/site.css" rel="stylesheet" />*@
+        @*<link href="~/css/theme.css" rel="stylesheet" />*@
         <script src="~/Scripts/Pikaday.js"></script>
         <script src="~/Scripts/NewTime.js"></script>
         <script src="~/Scripts/NewDate.js"></script>

@@ -35,7 +35,20 @@ namespace EventPlanner.Services.FakedImplementation
                 Created = DateTime.Today.AddDays(-2),
                 OthersCanEdit = true,
                 ExpectedLength = 2,
-                TimeSlots = null,
+                TimeSlots = new List<TimeSlot>()
+                {
+                    new TimeSlot()
+                    {
+                        Id = Guid.NewGuid(),
+                        EventId = id,
+                        DateTime = DateTime.Today,
+                        VotesForDate = new List<VoteForDate>()
+                        {
+                            new VoteForDate() { Id = Guid.NewGuid(), UserId = Guid.NewGuid(), TimeSlotId = Guid.NewGuid()},
+                            new VoteForDate() { Id = Guid.NewGuid(), UserId = Guid.NewGuid(), TimeSlotId = Guid.NewGuid()}
+                        }
+                    }
+                },
                 Places = new List<Place>()
                 {
                     new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something", VotesForPlace = null},

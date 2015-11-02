@@ -47,6 +47,12 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(e => e.ExpectedLength, conf => conf.MapFrom(ee => ee.ExpectedLength))
                 .ForMember(e => e.Created, conf => conf.MapFrom(ee => ee.Created))
                 .ForMember(e => e.Desc, conf => conf.MapFrom(ee => ee.Desc));
+
+            Mapper.CreateMap<Models.Domain.Event, Models.Models.EventModel>();
+            Mapper.CreateMap<Models.Models.EventModel, Models.Domain.Event>();
+            Mapper.CreateMap<Models.Domain.Event, Models.Models.Vote.EventViewModel>()
+                .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
+                .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots));
         }
 
         private static void CreatePlaceMap()
@@ -62,6 +68,22 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(p => p.EventId, conf => conf.MapFrom(pe => pe.EventId))
                 .ForMember(p => p.VenueId, conf => conf.MapFrom(pe => pe.VenueId));
             //.ForMember(p => p.VotesForPlace, conf => conf.MapFrom(pe => pe.VotesForPlace));
+
+            Mapper.CreateMap<Models.Domain.Place, Models.Models.FourSquareVenueModel>()
+                .ForMember(p => p.VenueId, conf => conf.MapFrom(p => p.VenueId))
+                .ForMember(p => p.Name, conf => conf.Ignore())
+                .ForMember(p => p.AddressInfo, conf => conf.Ignore())
+                .ForMember(p => p.City, conf => conf.Ignore());
+
+            Mapper.CreateMap<Models.Models.FourSquareVenueModel, Models.Domain.Place>()
+                .ForMember(p => p.VenueId, conf => conf.MapFrom(p => p.VenueId))
+                .ForMember(p => p.Id, conf => conf.Ignore())
+                .ForMember(p => p.EventId, conf => conf.Ignore())
+                .ForMember(p => p.VotesForPlace, conf => conf.Ignore());
+
+            Mapper.CreateMap<Models.Domain.Place, Models.Models.Vote.PlaceViewModel>()
+                .ForMember(p => p.VotesForPlaceBy, conf => conf.MapFrom(p => p.VotesForPlace));
+
         }
 
         private static void CreateTimeSlotMap()
@@ -78,6 +100,9 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(te => te.EventId, conf => conf.MapFrom(t => t.EventId))
                 .ForMember(te => te.DateTime, conf => conf.MapFrom(t => t.DateTime));
                 //.ForMember(te => te.VotesForDate, conf => conf.MapFrom(t => t.VotesForDate));
+
+            Mapper.CreateMap<Models.Domain.TimeSlot, Models.Models.Vote.TimeSlotViewModel>()
+                .ForMember(t => t.VotesForDate, conf => conf.MapFrom(tt => tt.VotesForDate));
         }
 
         private static void CreateVoteForDateMap()
@@ -91,6 +116,12 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(ve => ve.Id, conf => conf.MapFrom(v => v.Id))
                 .ForMember(ve => ve.UserId, conf => conf.MapFrom(v => v.UserId))
                 .ForMember(ve => ve.TimeSlotId, conf => conf.MapFrom(v => v.TimeSlotId));
+
+            Mapper.CreateMap<Models.Domain.VoteForDate, Models.Models.Vote.VoteForDateByViewModel>()
+                .ForMember(v => v.UserId, conf => conf.MapFrom(vv => vv.UserId))
+                .ForMember(v => v.TimeSlotId, conf => conf.MapFrom(vv => vv.Id))
+                .ForMember(v => v.UserName, conf => conf.Ignore())
+                .ForMember(v => v.WillAttend, conf => conf.Ignore());
         }
 
         private static void CreateVoteForPlaceMap()
@@ -105,7 +136,12 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(ve => ve.Id, conf => conf.MapFrom(v => v.Id))
                 .ForMember(ve => ve.UserId, conf => conf.MapFrom(v => v.UserId))
                 .ForMember(ve => ve.PlaceId, conf => conf.MapFrom(v => v.PlaceId));
+
+            Mapper.CreateMap<Models.Domain.VoteForPlace, Models.Models.Vote.VoteForPlaceByViewModel>()
+                .ForMember(v => v.UserId, conf => conf.MapFrom(vv => vv.UserId))
+                .ForMember(v => v.VenuId, conf => conf.MapFrom(vv => vv.Id))
+                .ForMember(v => v.UserName, conf => conf.Ignore())
+                .ForMember(v => v.WillAttend, conf => conf.Ignore());
         }
-       
     }
 }

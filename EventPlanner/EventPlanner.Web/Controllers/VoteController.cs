@@ -1,63 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using EventPlanner.DAL.Repository;
-using EventPlanner.Entities;
-using EventPlanner.Models.Domain;
-using Microsoft.AspNet.Identity;
+using EventPlanner.Models.Models.Vote;
+using EventPlanner.Services;
+using EventPlanner.Services.Implementation;
 
 namespace EventPlanner.Web.Controllers
 {
     [Authorize]
     public class VoteController : Controller
     {
-        public ActionResult Index(string eventHash)
+        private readonly IVotingService _votingService;
+
+        private readonly IEventManagementService _eventManagementService;
+
+        //TODO castle inject
+        public VoteController()
         {
-            //get event
-            
-            return View("Index", ConstructModel(eventHash));
+            _votingService = new VotingService();
+            _eventManagementService = new EventPlanner.Services.FakedImplementation.EventManagementService();
         }
 
-        [Authorize]
-        public async Task<Event> Test()
+        public async Task<ActionResult> Index(Guid? id)
         {
-            
-            EventRepository e = new EventRepository();
-            return await e.AddOrUpdate(new Event()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Some fake event for testing purposes",
-                Desc = "Hello there, we are going to dring some beer! Cheers!",
-                Created = DateTime.Now,
-                OthersCanEdit = true,
-                ExpectedLength = 2,
-                OrganizerId = User.Identity.GetUserId(),
-                Places = new List<Place>(),
-                TimeSlots = new List<TimeSlot>()
-            });
+            var model = await ConstructModel(id ?? Guid.NewGuid());
+            return View("Index", model);
         }
 
-        private Event ConstructModel(string eventHash)
+        private async Task<EventViewModel> ConstructModel(Guid id)
         {
             // obtain the Event object from service based on its hash code
+            var result = await _eventManagementService.GetEvent(id);
 
-            // fake implementation
-            return new Event()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Some fake event for testing purposes",
-                Desc = "Hello there, we are going to dring some beer! Cheers!",
-                Created = DateTime.Now,
-                OthersCanEdit = true,
-                ExpectedLength = 2,
-                OrganizerId = Guid.NewGuid().ToString(),
-                Places = new List<Place>(),
-                TimeSlots = new List<TimeSlot>()
-            };
+            var eventViewModel =  Mapper.Map<EventViewModel>(result);
+            return eventViewModel;
+
+            //// fake implementation
+            //return new EventViewModel()
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Title = "Some fake event for testing purposes",
+            //    Desc = "Hello there, we are going to dring some beer! Cheers!",
+            //    Created = DateTime.Now,
+            //    OthersCanEdit = true,
+            //    ExpectedLength = 2,
+            //    OrganizerId = Guid.NewGuid(),
+            //    Places = new List<PlaceViewModel>(),
+            //    TimeSlots = new List<TimeSlotViewModel>()
+            //};
         }
     }
 }
