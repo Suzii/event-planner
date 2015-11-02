@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventPlanner.Models.Domain
@@ -36,11 +37,15 @@ namespace EventPlanner.Models.Domain
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
         public ICollection<TimeSlot> TimeSlots { get; set; }
 
-        public int Hash
+        [Display(Name = "Disabled", ResourceType = typeof(Resources.Event))]
+        [DefaultValue(false)]
+        public bool Disabled { get; set; }
+
+        public string Hash
         {
             get
             {
-                return (Id + "-" + Created.ToLongDateString() + "-" + Created.ToLongTimeString()).GetHashCode();
+                return Convert.ToBase64String(Id.ToByteArray());
             }
         }
     }

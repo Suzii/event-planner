@@ -9,19 +9,19 @@ namespace EventPlanner.Services
     /// </summary>
     public interface IEventManagementService
     {
-        Task<Event> CreateEvent(Event e);
+        Task<Event> CreateEventAsync(Event e);
 
-        Task<Event> UpdateEvent(Event e);
+        Task<Event> UpdateEventAsync(Event e);
 
         /// <summary>
         /// V ostatních metodách nevracet Eventy, které jsou disabled
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DisableEvent(Guid id);
+        Task DisableEventAsync(Guid id);
 
-        Task<Event> GetEvent(Guid id);
+        Task<Event> GetEventAsync(Guid id);
 
-        Task<Guid> GetEventId(string eventHash);
+        Guid GetEventId(string eventHash);
     }
 }

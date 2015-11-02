@@ -82,20 +82,11 @@ namespace EventPlanner.Services.Implementation
             var detailModels = new List<FourSquareVenueModel>();
             foreach (var id in ids)
             {
-                var detailResponse = await _fs.GetVenueAsync(id);
-
-                if (detailResponse.Meta.Code != 200)
+                var detail = await GetPlaceDetailAsync(id);
+                if (detail != null)
                 {
-                    continue;
+                    detailModels.Add(detail);
                 }
-                detailModels.Add(
-                    new FourSquareVenueModel()
-                    {
-                        AddressInfo = detailResponse.Response.Venue.Location.Address,
-                        City = detailResponse.Response.Venue.Location.City,
-                        Name = detailResponse.Response.Venue.Name,
-                        VenueId = detailResponse.Response.Venue.Id
-                    });
             }
             return detailModels;
         }
