@@ -47,9 +47,9 @@
               <div class="form-group" id="containerDates">
                   <label for="dp">Choose a date</label>
                   <span id="divDate">
-                      <input type="date" class="form-control" id="dp0" name="Date0" />
+                      <input type="date" class="form-control" id="datepicker" name="Date0" />
                       <span id="divcust0">
-                          @Html.EditorFor(m => m.TimeSlots)                         
+                          @Html.EditorFor(m => m.TimeSlots)                       
                       </span>
                       <input id="btnAdd0" type="button" value="Add time" onclick="AddTime(this.id);" />
                   </span>
@@ -75,15 +75,19 @@
 
     @section scripts
     {
-        
+<script src="http://localhost:4272/Scripts/bootstrap-datepicker.js"></script>
+
         <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
         <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
         <script type="text/jsx">
             React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
         </script>
-        <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")"/>
+        
         <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
         <script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
         <script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
+
+ 
     }
+
 

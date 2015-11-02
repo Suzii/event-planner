@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using EventPlanner.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -12,7 +14,9 @@ namespace EventPlanner.Web.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public List<Event> GetEventsCreatedBy { get; set; }
     }
+
 
     public class ManageLoginsViewModel
     {
