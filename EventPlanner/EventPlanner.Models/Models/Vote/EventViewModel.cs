@@ -28,10 +28,10 @@ namespace EventPlanner.Models.Models.Vote
         public DateTime Created { get; set; }
 
         [Display(Name = "Places", ResourceType = typeof(Resources.Event))]
-        public IEnumerable<PlaceViewModel> Places { get; set; }
+        public IList<PlaceViewModel> Places { get; set; }
 
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
-        public IEnumerable<TimeSlotViewModel> TimeSlots { get; set; }
+        public IList<TimeSlotViewModel> TimeSlots { get; set; }
 
         public int Hash
         {

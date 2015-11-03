@@ -34,7 +34,7 @@ namespace EventPlanner.Models.Models
         public IList<FourSquareVenueModel> Places { get; set; }
 
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
-        public IEnumerable<TimeSlot> TimeSlots { get; set; }
+        public IList<TimeSlot> TimeSlots { get; set; }
 
 
         public string Hash
