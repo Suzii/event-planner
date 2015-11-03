@@ -48,7 +48,10 @@ namespace EventPlanner.Web.Controllers
 
         private EventModel ConstructModel()
         {
-            return new EventModel();
+            return new EventModel()
+            {
+                ExpectedLength = 1
+            };
         }
 
         private async Task<EventModel> GetModel(string eventHash)
