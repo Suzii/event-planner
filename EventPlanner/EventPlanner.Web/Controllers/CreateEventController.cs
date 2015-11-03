@@ -2,40 +2,59 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AutoMapper;
+using EventPlanner.Models.Domain;
 using EventPlanner.Models.Models;
+using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
+using Microsoft.AspNet.Identity;
 
 namespace EventPlanner.Web.Controllers
 {
     [Authorize]
     public class CreateEventController : Controller
     {
-        [HttpGet]
-        public ActionResult Index()
+        private readonly IEventManagementService _eventManagementService;
+
+        public CreateEventController()
         {
+            _eventManagementService = new EventManagementService();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Index(string eventHash)
+        {
+            var model = (eventHash == null) ? ConstructModel() : await GetModel(eventHash);
             return View("Index", ConstructModel());
         }
 
         [HttpPost]
-        public ActionResult Index(EventModel model)
+        public async Task<ActionResult> Index(EventModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
-            // store event in database via service
-            // check server validation
             
-            // obtain Id + date created and calculate hash code
-            var eventHash = model.Hash;
+            var ev = Mapper.Map<Event>(model);
+            ev.OrganizerId = User.Identity.GetUserId();
+            var eventEntity = await _eventManagementService.CreateEventAsync(ev);
             
+            var eventHash = eventEntity.Hash;
             return RedirectToAction("Index", "ShareEvent", new {eventHash = eventHash });
         }
 
         private EventModel ConstructModel()
         {
             return new EventModel();
+        }
+
+        private async Task<EventModel> GetModel(string eventHash)
+        {
+            var eventId = _eventManagementService.GetEventId(eventHash);
+            var result = await _eventManagementService.GetEventAsync(eventId);
+
+            return Mapper.Map<EventModel>(result);
         }
 
         [HttpGet]

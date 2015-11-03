@@ -51,7 +51,10 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(e => e.Desc, conf => conf.MapFrom(ee => ee.Desc));
 
             Mapper.CreateMap<Models.Domain.Event, Models.Models.EventModel>();
-            Mapper.CreateMap<Models.Models.EventModel, Models.Domain.Event>();
+            Mapper.CreateMap<Models.Models.EventModel, Models.Domain.Event>()
+                .ForMember(e => e.Disabled, conf => conf.Ignore())
+                .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
+                .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots)); 
             Mapper.CreateMap<Models.Domain.Event, Models.Models.Vote.EventViewModel>()
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots));
@@ -75,7 +78,10 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(p => p.VenueId, conf => conf.MapFrom(p => p.VenueId))
                 .ForMember(p => p.Name, conf => conf.Ignore())
                 .ForMember(p => p.AddressInfo, conf => conf.Ignore())
-                .ForMember(p => p.City, conf => conf.Ignore());
+                .ForMember(p => p.City, conf => conf.Ignore())
+                .ForMember(p => p.Lat, conf => conf.Ignore())
+                .ForMember(p => p.Lng, conf => conf.Ignore());
+
 
             Mapper.CreateMap<Models.Models.FourSquareVenueModel, Models.Domain.Place>()
                 .ForMember(p => p.VenueId, conf => conf.MapFrom(p => p.VenueId))

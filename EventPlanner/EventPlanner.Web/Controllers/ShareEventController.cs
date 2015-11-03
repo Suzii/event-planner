@@ -9,7 +9,7 @@ namespace EventPlanner.Web.Controllers
         [HttpGet]
         public ActionResult Index(string eventHash)
         {
-            var url = Url.Action("Index", "Vote", new { id = eventHash }, Request.Url.Scheme);
+            var url = Url.Action("Index", "Vote", new { eventHash = eventHash }, Request.Url.Scheme);
 
             return View(new ShareLinkViewModel()
             {

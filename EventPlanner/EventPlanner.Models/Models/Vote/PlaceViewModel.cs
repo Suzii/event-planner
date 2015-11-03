@@ -8,6 +8,9 @@ namespace EventPlanner.Models.Models.Vote
         public Guid Id { set; get; }
         public Guid EventId { set; get; }
         public string VenueId { set; get; }
-        public IEnumerable<VoteForPlaceByViewModel> VotesForPlaceBy { set; get; }
+
+        public FourSquareVenueModel Venue { get; set; }
+
+        public IList<VoteForPlaceByViewModel> VotesForPlaceBy { set; get; }
     }
 }
