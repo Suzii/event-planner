@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
-using EventPlanner.DAL.Repository;
-using EventPlanner.Models.Domain;
-using EventPlanner.Models.Models;
 using EventPlanner.Models.Models.Vote;
 using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
-using Microsoft.AspNet.Identity;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -23,7 +18,6 @@ namespace EventPlanner.Web.Controllers
 
         private readonly IPlaceService _placeService;
 
-        //TODO castle inject
         public VoteController()
         {
             _votingService = new VotingService();
@@ -41,7 +35,6 @@ namespace EventPlanner.Web.Controllers
 
         private async Task<EventViewModel> ConstructModel(Guid id)
         {
-            // obtain the Event object from service based on its hash code
             var result = await _eventManagementService.GetEventAsync(id);
 
             var eventViewModel =  Mapper.Map<EventViewModel>(result);
@@ -53,33 +46,7 @@ namespace EventPlanner.Web.Controllers
 
             var allUsers = eventViewModel.Places.SelectMany(p => p.VotesForPlaceBy.Select(v => v.UserId).ToList()).Distinct();
             
-
             return eventViewModel;
-        }
-
-        public async Task<Event> Test()
-        {
-            var dates = new List<TimeSlot>();
-            dates.Add(new TimeSlot() { DateTime = DateTime.Now });
-
-            EventRepository e = new EventRepository();
-            var eventModel = new EventModel()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Some fake event for testing purposes",
-                Desc = "Hello there, we are going to drink some beer! Cheers!",
-                Created = DateTime.Now,
-                OthersCanEdit = true,
-                ExpectedLength = 2,
-                OrganizerId = Guid.NewGuid(),
-                Places = new List<FourSquareVenueModel>(),
-                TimeSlots = dates
-            };
-
-            var ev = Mapper.Map<Event>(eventModel);
-            ev.OrganizerId = User.Identity.GetUserId();
-
-            return await e.AddOrUpdate(ev);
         }
     }
 }

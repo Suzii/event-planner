@@ -15,17 +15,19 @@ namespace EventPlanner.Web.Controllers
     public class CreateEventController : Controller
     {
         private readonly IEventManagementService _eventManagementService;
+        private readonly IPlaceService _placeService;
 
         public CreateEventController()
         {
             _eventManagementService = new EventManagementService();
+            _placeService = new PlaceService();
         }
 
         [HttpGet]
         public async Task<ActionResult> Index(string eventHash)
         {
             var model = (eventHash == null) ? ConstructModel() : await GetModel(eventHash);
-            return View("Index", ConstructModel());
+            return View("Index", model);
         }
 
         [HttpPost]
@@ -35,7 +37,7 @@ namespace EventPlanner.Web.Controllers
             {
                 return View(model);
             }
-            
+            //TODO: find out whether editing or creating
             var ev = Mapper.Map<Event>(model);
             ev.OrganizerId = User.Identity.GetUserId();
             var eventEntity = await _eventManagementService.CreateEventAsync(ev);
@@ -62,12 +64,10 @@ namespace EventPlanner.Web.Controllers
         {
             if (city == null || query == null)
             {
-                throw new ArgumentException("FoursquareRequest");
+                throw new ArgumentException("FoursquareRequest: both city and query have to be entered.");
             }
 
-            var ps = new PlaceService();
-
-            var response = await ps.GetPlaceSuggestionsAsync(query, city);
+            var response = await _placeService.GetPlaceSuggestionsAsync(query, city);
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
