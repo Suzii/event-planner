@@ -271,6 +271,7 @@
     <Content Include="Views\EditEvent\Index.cshtml" />
     <Content Include="Views\Vote\PlacesVotes.cshtml" />
     <Content Include="Views\Vote\DatesVotes.cshtml" />
+    <Content Include="Views\DbTest\Date.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,5 +37,13 @@ namespace EventPlanner.Web.Controllers
 
             return await e.AddOrUpdate(ev);
         }
+
+
+        public ActionResult Date()
+        {
+            return View();
+        }
+
     }
+
 }
