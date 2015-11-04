@@ -15,8 +15,8 @@ namespace EventPlanner.Services
 
         Task<IList<VoteForPlaceEntity>> GetVotesForPlacesAsync(Guid eventId, IList<Guid> placeIds);
 
-        Task SubmitDateVoteByAsync(Guid personId, IList<Guid> timeSlotIds);
+        Task SubmitDateVoteByAsync(string personId, IList<Guid> timeSlotIds);
 
-        Task SubmitPlaceVoteByAsync(Guid personId, IList<Guid> placeIds);
+        Task SubmitPlaceVoteByAsync(string personId, IList<Guid> placeIds);
     }
 }
