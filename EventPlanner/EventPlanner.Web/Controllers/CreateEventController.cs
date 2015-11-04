@@ -56,7 +56,18 @@ namespace EventPlanner.Web.Controllers
         {
             return new EventModel()
             {
-                ExpectedLength = 1
+                ExpectedLength = 1,
+                Dates = new List<EventModel.DatesModel>()
+                {
+                    new EventModel.DatesModel()
+                    {
+                        Date = DateTime.Today,
+                        Times = new List<string>()
+                        {
+                            "00:00", "01:00", "02:00","03:00"
+                        }
+                    }
+                }
             };
         }
 

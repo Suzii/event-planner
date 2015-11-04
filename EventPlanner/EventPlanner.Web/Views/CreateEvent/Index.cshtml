@@ -13,7 +13,7 @@
 </div>
 
 <div class="container">
-        @Html.ValidationSummary()
+    @Html.ValidationSummary()
     @using (Html.BeginForm("Index", "CreateEvent", FormMethod.Post, new { @class = "" }))
     {
         <div class="row" id="intro">
@@ -33,7 +33,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.ExpectedLength)
-                @Html.TextBoxFor(m => m.ExpectedLength, new { @class = "form-control" })
+                @Html.EditorFor(m => m.ExpectedLength, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.ExpectedLength, "", new { @class = "text-danger" })
             </div>
 
@@ -42,21 +42,58 @@
                 @Html.EditorFor(m => m.OthersCanEdit, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new { @class = "text-danger" })
             </div>
+            <hr/>
 
+            @for (var i = 0; i < Model.Dates.Count; i++)
+            {
 
-              <div class="form-group" id="containerDates">
-                  <label for="dp">Choose a date</label>
-                  <span id="divDate">
-                      <input type="date" class="form-control" id="datepicker" name="Dates[0].Date" value="@Request["Dates"]" />
-                      <input type="date" class="form-control" id="datepicker" name="Dates[i].Times[j]" value="@Request["Dates"]" />
-                      <span id="divcust0">
-                                              
-                      </span>
-                      <input id="btnAdd0" type="button" value="Add time" onclick="AddTime(this.id);" />
-                    </span>            
-                <br/>
-                  <input type="button" id="btnAddDate" value="Add another date" onclick="AddDate();" />
-        </div>
+                @Html.EditorFor(m => m.Dates[i].Date., new { @class = "datepicker", type = "date" })
+
+                for (var j = 0; j < Model.Dates[i].Times.Count; j++)
+                {
+                    @Html.DropDownListFor(m => m.Dates[i].Times[j], new SelectList(new List<Object>
+                                                {
+                                                    new {value = "00:00", text = "00:00"},
+                                                    new {value = "01:00", text = "01:00"},
+                                                    new {value = "02:00", text = "02:00"},
+                                                    new {value = "03:00", text = "03:00"},
+                                                    new {value = "04:00", text = "04:00"},
+                                                    new {value = "05:00", text = "05:00"},
+                                                    new {value = "06:00", text = "06:00"},
+                                                    new {value = "07:00", text = "07:00"},
+                                                    new {value = "08:00", text = "08:00"},
+                                                    new {value = "09:00", text = "09:00"},
+                                                    new {value = "10:00", text = "10:00"},
+                                                    new {value = "11:00", text = "11:00"},
+                                                    new {value = "12:00", text = "12:00"},
+                                                    new {value = "13:00", text = "13:00"},
+                                                    new {value = "14:00", text = "14:00"},
+                                                    new {value = "15:00", text = "15:00"}
+                                                    //new {value = 16, text = "16:00"},
+                                                    //new {value = 17, text = "17:00"},
+                                                    //new {value = 18, text = "18:00"},
+                                                    //new {value = 19, text = "19:00"},
+                                                    //new {value = 20, text = "20:00"},
+                                                    //new {value = 21, text = "21:00"},
+                                                    //new {value = 22, text = "22:00"},
+                                                    //new {value = 23, text = "23:00"}
+                                                }, "value", "text", 2))
+                }
+            }
+
+            <hr />
+            <div class="form-group" id="containerDates">
+                <label for="dp">Choose a date</label>
+                <span id="divDate">
+                    <input type="date" class="form-control" id="datepicker" name="Dates[0].Date" value="@Request["Dates"]" />
+                    <span id="divcust0">
+
+                    </span>
+                    <input id="btnAdd0" type="button" value="Add time" onclick="AddTime(this.id);" />
+                </span>
+                <br />
+                <input type="button" id="btnAddDate" value="Add another date" onclick="AddDate();" />
+            </div>
 
 
         </div>
@@ -69,26 +106,24 @@
             </div>
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Create an event"/>
+        <input type="submit" class="btn btn-primary" value="Create an event" />
     }
 </div>
 
 
-    @section scripts
+@section scripts
     {
-<script src="http://localhost:4272/Scripts/bootstrap-datepicker.js"></script>
-        
-        <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
-        <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
-        <script type="text/jsx">
-            React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
-        </script>
-        
-        <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-        <script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
-        <script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
+    <script src="http://localhost:4272/Scripts/bootstrap-datepicker.js"></script>
 
- 
-    }
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
 
-
+    <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
+    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")">
+    </script>
+    <script type="text/jsx">
+        React.render(
+        <FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
+    </script>
+}

@@ -19,7 +19,7 @@ namespace EventPlanner.Models.Models
 
         [Range(1,99)]
         [Display(Name = "Expected_length", ResourceType = typeof(Resources.Event))]
-        public float ExpectedLength { get; set; }
+        public int ExpectedLength { get; set; }
 
         [Display(Name = "Organizer", ResourceType = typeof(Resources.Event))]
         public Guid OrganizerId { get; set; }
