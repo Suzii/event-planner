@@ -29,7 +29,7 @@ namespace EventPlanner.Web.Controllers
                 ExpectedLength = 2,
                 OrganizerId = Guid.NewGuid(),
                 Places = new List<FourSquareVenueModel>(),
-                TimeSlots = dates
+                //TimeSlots = dates
             };
 
             var ev = Mapper.Map<Event>(eventModel);
