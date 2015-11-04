@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using EventPlanner.Models.Domain;
+﻿using System.Web.Mvc;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -12,43 +7,8 @@ namespace EventPlanner.Web.Controllers
         [HttpGet]
         public ActionResult Index(string eventHash)
         {
-            return View("Index", ConstructModel(eventHash));
-        }
-
-        [HttpPost]
-        public ActionResult Index(Event model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // store event in database via service
-            // check server validation
-
-            // obtain id + date created and calculate hash code
-            var eventHash = model.Hash;
-
-            return RedirectToAction("Index", "ShareEvent", new { eventHash = eventHash });
-        }
-
-        private Event ConstructModel(string eventHash)
-        {
-            // obtain the Event object from service based on its hash code
-
-            // fake implementation
-            return new Event()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Some fake event for testing purposes",
-                Desc = "Hello there, we are going to dring some beer! Cheers!",
-                Created = DateTime.Now,
-                OthersCanEdit = true,
-                ExpectedLength = 2,
-                OrganizerId = Guid.NewGuid().ToString(),
-                Places = new List<Place>(),
-                TimeSlots = new List<TimeSlot>()
-            };
+            //TODO - decide whether this controller is really necessary 
+            return RedirectToAction("Index", "CreateEvent", new { eventHash = eventHash });
         }
     }
 }

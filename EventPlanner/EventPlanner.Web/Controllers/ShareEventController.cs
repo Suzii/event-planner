@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using EventPlanner.Models.Models;
+using EventPlanner.Models.Models.Share;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -8,13 +8,18 @@ namespace EventPlanner.Web.Controllers
         [HttpGet]
         public ActionResult Index(string eventHash)
         {
-            var url = Url.Action("Index", "Vote", new { id = eventHash }, Request.Url.Scheme);
+            return View("Index", ConstructViewModel(eventHash));
+        }
 
-            return View(new ShareLinkViewModel()
+        private ShareLinkViewModel ConstructViewModel(string eventHash)
+        {
+            var url = Url.Action("Index", "Vote", new { eventHash = eventHash }, Request.Url.Scheme);
+
+            return new ShareLinkViewModel()
             {
                 Link = url,
                 EventHash = eventHash
-            });
+            };
         }
     }
 }

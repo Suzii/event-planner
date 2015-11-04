@@ -6,7 +6,6 @@ namespace EventPlanner.Models.Domain
 {
     public class TimeSlot
     {
-        [Key]
         public Guid Id { set; get; }
 
         [Required]

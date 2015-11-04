@@ -16,6 +16,7 @@ namespace EventPlanner.Services.Implementation
 
         public async Task<Event> CreateEventAsync(Event e)
         {
+            e.Created = DateTime.Now;
             return await _eventRepository.AddOrUpdate(e);
         }
 

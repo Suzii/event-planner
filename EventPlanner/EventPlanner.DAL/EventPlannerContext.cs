@@ -21,7 +21,7 @@ namespace EventPlanner.DAL
         public DbSet<VoteForPlaceEntity> VotesForPlaces { get; set; }
 
         public static EventPlannerContext Get()
-        {
+            {
             return new EventPlannerContext();
         }
 

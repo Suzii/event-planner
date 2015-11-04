@@ -1,0 +1,35 @@
+﻿@using System.EnterpriseServices
+@model EventPlanner.Models.Models.Vote.EventViewModel
+
+<h3>Votes for dates:</h3>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Users</th>
+            @foreach (var date in Model.Places)
+            {
+                <th>@date.DateTime</th>
+            }
+        </tr>
+        </thead>
+        
+        <tbody>
+            @foreach (var user in Model.TimeSlots.SelectMany(ts => ts.VotesForDate.Select(v => v.UserId)))
+            {
+                <tr>
+                    <th>@user</th>
+                    @*@foreach (var userVotes in Model.TimeSlots.Select(ts => ts.VotesForDate).Where(ts => ts.Select(t => t.UserId) == user))
+                    {
+                        <td>@userVotes.Select(a => a.WillAttend)</td>
+                    }*@
+                </tr>
+            }
+        </tbody>
+        
+        <tfoot>
+        
+        </tfoot>
+    </table>
+</div>
+

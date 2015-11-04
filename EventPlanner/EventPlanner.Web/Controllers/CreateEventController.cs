@@ -1,41 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AutoMapper;
+using EventPlanner.Models.Domain;
 using EventPlanner.Models.Models;
+using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
+using Microsoft.AspNet.Identity;
 
 namespace EventPlanner.Web.Controllers
 {
     [Authorize]
     public class CreateEventController : Controller
     {
-        [HttpGet]
-        public ActionResult Index()
+        private readonly IEventManagementService _eventManagementService;
+        private readonly IPlaceService _placeService;
+
+        public CreateEventController()
         {
-            return View("Index", ConstructModel());
+            _eventManagementService = new EventManagementService();
+            _placeService = new PlaceService();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Index(string eventHash)
+        {
+            var model = (eventHash == null) ? ConstructModel() : await GetModel(eventHash);
+            return View("Index", model);
         }
 
         [HttpPost]
-        public ActionResult Index(EventModel model)
+        public async Task<ActionResult> Index(EventModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            //TODO: find out whether editing or creating
+            var ev = Mapper.Map<Event>(model);
+            ev.TimeSlots = model.Dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
+            {
+                DateTime = d.Date.Add(TimeSpan.Parse(time))
+            }).ToList());
 
-            // store event in database via service
-            // check server validation
+            ev.OrganizerId = User.Identity.GetUserId();
+            var eventEntity = await _eventManagementService.CreateEventAsync(ev);
             
-            // obtain Id + date created and calculate hash code
-            var eventHash = model.Hash;
-            
+            var eventHash = eventEntity.Hash;
             return RedirectToAction("Index", "ShareEvent", new {eventHash = eventHash });
         }
 
         private EventModel ConstructModel()
         {
-            return new EventModel();
+            return new EventModel()
+            {
+                ExpectedLength = 1
+            };
+        }
+
+        private async Task<EventModel> GetModel(string eventHash)
+        {
+            var eventId = _eventManagementService.GetEventId(eventHash);
+            var result = await _eventManagementService.GetEventAsync(eventId);
+
+            return Mapper.Map<EventModel>(result);
         }
 
         [HttpGet]
@@ -43,12 +73,10 @@ namespace EventPlanner.Web.Controllers
         {
             if (city == null || query == null)
             {
-                throw new ArgumentException("FoursquareRequest");
+                throw new ArgumentException("FoursquareRequest: both city and query have to be entered.");
             }
 
-            var ps = new PlaceService();
-
-            var response = await ps.GetPlaceSuggestionsAsync(query, city);
+            var response = await _placeService.GetPlaceSuggestionsAsync(query, city);
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }

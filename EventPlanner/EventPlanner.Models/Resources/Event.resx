@@ -130,7 +130,7 @@
     <value>Event</value>
   </data>
   <data name="Expected_length" xml:space="preserve">
-    <value>Expected length</value>
+    <value>Expected length (hours)</value>
   </data>
   <data name="Organizer" xml:space="preserve">
     <value>Organizer</value>

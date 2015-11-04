@@ -1,0 +1,35 @@
+﻿@model EventPlanner.Models.Models.Vote.EventViewModel
+
+<h3>Votes for dates:</h3>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Places</th>
+                @*@foreach (var date in Model.Places)
+            {
+                    <th>@date.DateTime</th>
+                }*@
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var place in Model.Places)
+            {
+                <tr>
+                    <th>@place.Venue.Name</th>
+                    @foreach (var userVotes in place.VotesForPlaceBy)
+                        {
+                            <td class="@(userVotes.WillAttend? "success" : "danger")">
+                                @userVotes.UserName
+                            </td>
+                        }
+                </tr>
+            }
+        </tbody>
+
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

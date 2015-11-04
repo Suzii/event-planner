@@ -1,4 +1,4 @@
-﻿@model EventPlanner.Models.Models.ShareLinkViewModel
+﻿@model EventPlanner.Models.Models.Share.ShareLinkViewModel
 
 @{
     ViewBag.Title = "Share your event";
@@ -30,7 +30,7 @@
 @*<p class="v-space40">Now you can go to the voting page for your new event:</p>*@
 <h2 class="v-space40">Go to voting page</h2>
 <div class="">
-    @Html.ActionLink("Vote for this event", "Index", "Vote", new { id = Model.EventHash }, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink("Vote for this event", "Index", "Vote", new { eventHash = Model.EventHash }, new { @class = "btn btn-primary btn-large" })
 </div>
 
 

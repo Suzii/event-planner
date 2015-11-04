@@ -43,7 +43,7 @@
                 @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new { @class = "text-danger" })
             </div>
 
-          
+
               <div class="form-group" id="containerDates">
                   <label for="dp">Choose a date</label>
                   <span id="divDate">
@@ -53,10 +53,10 @@
                                               
                       </span>
                       <input id="btnAdd0" type="button" value="Add time" onclick="AddTime(this.id);" />
-                  </span>
-                  <br/>
+                    </span>            
+                <br/>
                   <input type="button" id="btnAddDate" value="Add another date" onclick="AddDate();" />
-            </div>
+        </div>
 
 
         </div>
@@ -77,7 +77,7 @@
     @section scripts
     {
 <script src="http://localhost:4272/Scripts/bootstrap-datepicker.js"></script>
-
+        
         <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
         <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
         <script type="text/jsx">

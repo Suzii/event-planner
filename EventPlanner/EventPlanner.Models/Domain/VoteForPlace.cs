@@ -5,7 +5,6 @@ namespace EventPlanner.Models.Domain
 {
     public class VoteForPlace
     {
-        [Key]
         public Guid Id { set; get; }
 
         [Required]
