@@ -23,7 +23,7 @@ namespace EventPlanner.Services.Implementation
         public async Task<bool> IsEventEditableFor(Guid eventId, string userId)
         {
             var e = await _eventRepository.GetEvent(eventId);
-            return (e.OthersCanEdit || e.OrganizerId == userId);
+            return e.OthersCanEdit || e.OrganizerId == userId;
         }
     }
 }
