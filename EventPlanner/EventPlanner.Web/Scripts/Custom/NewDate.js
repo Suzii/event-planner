@@ -7,7 +7,7 @@ function AddDate() {
         indexx++;
    }
     var html =
-        "<input type='date' class='form-control' id='dp" + indexx + "' name='Date" + indexx + "' value='@ViewBag.date" + indexx + "'/> <span id='divcust" + indexx + "' class='text-box single-line'> </span>" +
+        "<input type='date' class='form-control' id='dp" + indexx + "' name='Dates" + indexx + "'/> <span id='divcust" + indexx + "' class='text-box single-line'> </span>" +
           "<input id='btnAdd"+indexx+"' type='button' value='Add time' onclick='AddTime(this.id);' name='DateSlots_"+indexx+"' />";
     $('#divDate').append(html);
 };
