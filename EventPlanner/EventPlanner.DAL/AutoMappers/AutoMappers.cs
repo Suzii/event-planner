@@ -50,11 +50,12 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(e => e.Disabled, conf => conf.MapFrom(ee => ee.Disabled))
                 .ForMember(e => e.Desc, conf => conf.MapFrom(ee => ee.Desc));
 
-            Mapper.CreateMap<Models.Domain.Event, Models.Models.EventModel>();
+            Mapper.CreateMap<Models.Domain.Event, Models.Models.EventModel>()
+                .ForMember(e => e.Dates, conf => conf.Ignore());
             Mapper.CreateMap<Models.Models.EventModel, Models.Domain.Event>()
                 .ForMember(e => e.Disabled, conf => conf.Ignore())
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
-                .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots)); 
+                .ForMember(e => e.TimeSlots, conf => conf.Ignore()); 
             Mapper.CreateMap<Models.Domain.Event, Models.Models.Vote.EventViewModel>()
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots));

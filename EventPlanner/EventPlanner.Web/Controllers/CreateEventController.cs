@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
@@ -39,6 +40,11 @@ namespace EventPlanner.Web.Controllers
             }
             //TODO: find out whether editing or creating
             var ev = Mapper.Map<Event>(model);
+            ev.TimeSlots = model.Dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
+            {
+                DateTime = d.Date.Add(TimeSpan.Parse(time))
+            }).ToList());
+
             ev.OrganizerId = User.Identity.GetUserId();
             var eventEntity = await _eventManagementService.CreateEventAsync(ev);
             

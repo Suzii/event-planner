@@ -82,11 +82,10 @@
         </dd>
     </dl>
     <br/>
-    <h4>Your Events List</h4>
+    <h4>Your list of events</h4>
     <hr />
     <div class="dl-horizontal">        
         <!-- pri kliknutí na název se zobrazí hlasování, při kliknutí na ikonku se zobrazí edit. TODO Ověřit správnost URL -->
-        <b>Your list of events:</b>
         @if (Model.GetEventsCreatedBy != null)
         {
             foreach (var item in Model.GetEventsCreatedBy)

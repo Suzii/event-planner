@@ -31,10 +31,10 @@ namespace EventPlanner.Models.Domain
         public DateTime Created { get; set; }
 
         [Display(Name = "Places", ResourceType = typeof(Resources.Event))]
-        public ICollection<Place> Places { get; set; }
+        public IEnumerable<Place> Places { get; set; }
 
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
-        public ICollection<TimeSlot> TimeSlots { get; set; }
+        public IEnumerable<TimeSlot> TimeSlots { get; set; }
 
         [DefaultValue(false)]
         public bool Disabled { get; set; }

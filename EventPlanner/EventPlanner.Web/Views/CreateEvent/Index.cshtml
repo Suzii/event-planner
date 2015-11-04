@@ -47,9 +47,10 @@
               <div class="form-group" id="containerDates">
                   <label for="dp">Choose a date</label>
                   <span id="divDate">
-                      <input type="date" class="form-control" id="datepicker" name="Date0" />
+                      <input type="date" class="form-control" id="datepicker" name="Dates[0].Date" value="@Request["Dates"]" />
+                      <input type="date" class="form-control" id="datepicker" name="Dates[i].Times[j]" value="@Request["Dates"]" />
                       <span id="divcust0">
-                          @Html.EditorFor(m => m.TimeSlots)                       
+                                              
                       </span>
                       <input id="btnAdd0" type="button" value="Add time" onclick="AddTime(this.id);" />
                     </span>            
