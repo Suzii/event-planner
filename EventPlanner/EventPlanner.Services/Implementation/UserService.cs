@@ -17,7 +17,7 @@ namespace EventPlanner.Services.Implementation
 
         public async Task<IList<Event>> GetEventsCreatedBy(string userId)
         {
-            return await _eventRepository.GetByOrganizer(userId.ToString());
+            return await _eventRepository.GetByOrganizer(userId);
         }
 
         public async Task<bool> IsEventEditableFor(Guid eventId, string userId)
