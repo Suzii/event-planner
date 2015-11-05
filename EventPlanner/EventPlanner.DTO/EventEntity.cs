@@ -26,8 +26,8 @@ namespace EventPlanner.Entities
         [Display(Name = "Expected_length")]//, ResourceType = typeof(Resources.Event))]
         public float ExpectedLength { get; set; }
 
-        [Required]
-        public String OrganizerId { set; get; }
+        [ForeignKey("Organizer")]
+        public string OrganizerId { get; set; }
 
         [Display(Name = "Organizer")]//, ResourceType = typeof(Resources.Event))]
         public virtual UserEntity Organizer { get; set; }
@@ -40,10 +40,10 @@ namespace EventPlanner.Entities
         public DateTime Created { get; set; }
 
         [Display(Name = "Places")]//, ResourceType = typeof(Resources.Event))]
-        public ICollection<PlaceEntity> Places { get; set; }
+        public IList<PlaceEntity> Places { get; set; }
 
         [Display(Name = "Dates")]//, ResourceType = typeof(Resources.Event))]
-        public ICollection<TimeSlotEntity> TimeSlots { get; set; }
+        public IList<TimeSlotEntity> TimeSlots { get; set; }
 
         [Display(Name = "Disabled")]//, ResourceType = typeof(Resources.Event))]
         [DefaultValue(false)]

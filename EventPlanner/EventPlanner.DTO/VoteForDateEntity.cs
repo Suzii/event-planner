@@ -11,16 +11,14 @@ namespace EventPlanner.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        [Required]
+        [ForeignKey("User")]
         public string UserId { set; get; }
 
-        [ForeignKey("UserId")]
         public virtual UserEntity User { set; get; }
 
-        [Required]
-        public Guid TimeSlotId { set; get; }
+        [ForeignKey("TimeSlot")]
+        public virtual Guid TimeSlotId { set; get; }
 
-        [ForeignKey("TimeSlotId")]
         public virtual TimeSlotEntity TimeSlot { set; get; }
     }
 }
