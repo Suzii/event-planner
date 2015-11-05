@@ -1,0 +1,34 @@
+﻿@using EventPlanner.Web.Helpers
+@model EventPlanner.Models.Models.Vote.VoteModel
+<h3>Votes for dates:</h3>
+<div class="table-responsive">
+    <table class="table">
+        <tbody>
+            @foreach (var date in Model.EventViewModel.TimeSlots)
+            {
+                var index = Model.VotesForDates.FindIndex(v => v.TimeSlotId == date.Id);
+                var numOfWillAttendUsers = date.VotesForDate.Count(v => v.WillAttend);
+                var willAttendPercentage = (Model.EventViewModel.TotalNumberOfVoters > 0) ? (int)(100 * numOfWillAttendUsers / Model.EventViewModel.TotalNumberOfVoters) : 50;
+                <tr>
+                    <td>@date.DateTime</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="@(willAttendPercentage)" aria-valuemin="0" aria-valuemax="100" style="width: @(willAttendPercentage)%;">
+                                @(numOfWillAttendUsers) / @(Model.EventViewModel.TotalNumberOfVoters) (@(willAttendPercentage)%)
+                            </div>
+                        </div>
+                        <div class="atendees">
+                            @*TODO : change to displaying username once supported*@
+                            @date.VotesForDate.Where(vote => vote.WillAttend).Select(vote => vote.UserId).Aggregate(string.Empty, (next, accu) => accu + ", " + next)
+                        </div>
+                    </td>
+                    <td>
+                        @*TODO: modelbinding requires refactoring*@
+                        @Html.HiddenFor(m => m.VotesForDates[index].TimeSlotId)
+                        @Html.EditorFor(m => m.VotesForDates[index].WillAttend)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
