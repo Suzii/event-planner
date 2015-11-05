@@ -7,12 +7,7 @@
 <script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
 <script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
 
-@*TODO: Can be maybe moved to layout or at least partial view*@
-<div class="jumbotron">
-    <h1>Event Planner</h1>
-    <p class="lead">Some catchy phrase to introduce our supercool app.</p>
-    <p><a href="#start" class="btn btn-primary btn-lg">Start now </a></p>
-</div>
+<h2>Create your event:</h2>
 
 <div class="container">
     @Html.ValidationSummary()
@@ -117,7 +112,7 @@
 
 @section scripts
     {
-    <script src="http://localhost:4272/Scripts/bootstrap-datepicker.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
     <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")">

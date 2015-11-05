@@ -271,6 +271,7 @@
     <Content Include="Views\Vote\_placesVotes.cshtml" />
     <Content Include="Views\Vote\_datesVotes.cshtml" />
     <Content Include="Views\DbTest\Date.cshtml" />
+    <Content Include="Views\Manage\ChangeName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -73,7 +73,10 @@ namespace EventPlanner.Web.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Email = await UserManager.GetEmailAsync(userId),
+                Name = "There will be probably changable name."
+                
             };
             return View(model);
         }
@@ -323,6 +326,32 @@ namespace EventPlanner.Web.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
+
+        //
+        // GET: /Manage/ChangeName
+        public async Task<ActionResult> ChangeName()
+        {
+            // TODO: Take name from DB
+
+            return View("ChangeName", new ChangeNameViewModel());
+        }
+
+
+        //
+        // POST: /Manage/ChangeName
+        [HttpPost]
+        public async Task<ActionResult> ChangeName(ChangeNameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // TODO: add or update DB
+            return RedirectToAction("Index", new { Message = ManageMessageId.ChangeNameSuccess });
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -378,6 +407,7 @@ namespace EventPlanner.Web.Controllers
         {
             AddPhoneSuccess,
             ChangePasswordSuccess,
+            ChangeNameSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,

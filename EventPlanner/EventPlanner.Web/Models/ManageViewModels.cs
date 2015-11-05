@@ -15,6 +15,9 @@ namespace EventPlanner.Web.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
         public List<Event> GetEventsCreatedBy { get; set; }
+        public string Email { get; set; }
+        public string Name { get; set; }
+
     }
 
 
@@ -60,6 +63,14 @@ namespace EventPlanner.Web.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class ChangeNameViewModel
+    {
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
     }
 
     public class AddPhoneNumberViewModel
