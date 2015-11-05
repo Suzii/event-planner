@@ -39,11 +39,11 @@ namespace EventPlanner.Web.Controllers
             var result = await _eventManagementService.GetEventAsync(id);
 
             var eventViewModel =  Mapper.Map<EventViewModel>(result);
-            
-
             await PopulateVenueDetails(eventViewModel);
 
-            var allUsers = eventViewModel.Places.SelectMany(p => p.VotesForPlaceBy.Select(v => v.UserId).ToList()).Distinct();
+
+            var allUsers = eventViewModel.Places.SelectMany(p => p.VotesForPlace.Select(v => v.UserId).ToList()).Distinct();
+            eventViewModel.TotalNumberOfVoters = allUsers.Count();
             
             return eventViewModel;
         }

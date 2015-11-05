@@ -1,29 +1,29 @@
 ﻿@model EventPlanner.Models.Models.Vote.EventViewModel
 
-<h3>Votes for dates:</h3>
+<h3>Votes for places:</h3>
 <div class="table-responsive">
     <table class="table">
-        <thead>
-            <tr>
-                <th>Places</th>
-                @*@foreach (var date in Model.Places)
-            {
-                    <th>@date.DateTime</th>
-                }*@
-            </tr>
-        </thead>
-
         <tbody>
             @foreach (var place in Model.Places)
             {
+                var numOfWillAttendUsers = place.VotesForPlace.Count(v => v.WillAttend);
+                var willAttendPercentage = (int)(100 * numOfWillAttendUsers / Model.TotalNumberOfVoters);
                 <tr>
-                    <th>@place.Venue.Name</th>
-                    @foreach (var userVotes in place.VotesForPlaceBy)
-                        {
-                            <td class="@(userVotes.WillAttend? "success" : "danger")">
-                                @userVotes.UserName
-                            </td>
-                        }
+                    <td>@place.Venue.Name</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="@(willAttendPercentage)" aria-valuemin="0" aria-valuemax="100" style="width: @(willAttendPercentage)%;">
+                                @(numOfWillAttendUsers) / @(Model.TotalNumberOfVoters) (@(willAttendPercentage)%)
+                            </div>
+                        </div>
+                        <div class="atendees">
+                            @*TODO : change to displaying username once supported*@
+                            @place.VotesForPlace.Where(vote => vote.WillAttend).Select(vote => vote.UserId).Aggregate((next, accu) => accu + ", " + next)
+                        </div>
+                    </td>
+                    <td>
+                        
+                    </td>
                 </tr>
             }
         </tbody>

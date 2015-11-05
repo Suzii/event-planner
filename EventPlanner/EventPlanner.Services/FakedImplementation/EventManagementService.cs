@@ -62,17 +62,25 @@ namespace EventPlanner.Services.FakedImplementation
             ev.Places[0].VotesForPlace = new List<VoteForPlace>()
                 {
                     new VoteForPlace() {UserId = "Tomas", WillAttend = true},
-                    new VoteForPlace() {UserId = "Janka", WillAttend = false},
+                    new VoteForPlace() {UserId = "Janka", WillAttend = true},
                     new VoteForPlace() {UserId = "Jirka", WillAttend = true},
-                    new VoteForPlace() {UserId = "Martin", WillAttend = true}
+                    new VoteForPlace() {UserId = "Martin", WillAttend = true},
+                    new VoteForPlace() {UserId = "Suzi", WillAttend = false},
+                    new VoteForPlace() {UserId = "Parmezan", WillAttend = true},
+                    new VoteForPlace() {UserId = "Matho", WillAttend = false},
+                    new VoteForPlace() {UserId = "JayDee", WillAttend = true}
                 };
 
             ev.Places[1].VotesForPlace = new List<VoteForPlace>()
                 {
+                    new VoteForPlace() {UserId = "Tomas", WillAttend = true},
+                    new VoteForPlace() {UserId = "Janka", WillAttend = false},
+                    new VoteForPlace() {UserId = "Jirka", WillAttend = true},
+                    new VoteForPlace() {UserId = "Martin", WillAttend = false},
                     new VoteForPlace() {UserId = "Suzi", WillAttend = true},
                     new VoteForPlace() {UserId = "Parmezan", WillAttend = false},
-                    new VoteForPlace() {UserId = "Matho", WillAttend = false},
-                    new VoteForPlace() {UserId = "JayDee", WillAttend = true}
+                    new VoteForPlace() {UserId = "Matho", WillAttend = true},
+                    new VoteForPlace() {UserId = "JayDee", WillAttend = false}
                 };
 
             return ev;
