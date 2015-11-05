@@ -21,7 +21,7 @@ namespace EventPlanner.Web
             routes.MapRoute(
                 name: "CreateEvent",
                 url: "{controller}/{action}/{eventHash}",
-                defaults: new { controller = "CreateEvent", action = "Index", eventHash = UrlParameter.Optional }
+                defaults: new { controller = "Event", action = "Index", eventHash = UrlParameter.Optional }
             );
         }
     }

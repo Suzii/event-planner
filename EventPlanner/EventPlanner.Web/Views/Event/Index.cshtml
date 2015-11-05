@@ -16,8 +16,9 @@
 
 <div class="container">
     @Html.ValidationSummary()
-    @using (Html.BeginForm("Index", "CreateEvent", FormMethod.Post, new { @class = "" }))
+    @using (Html.BeginForm("Index", "Event", FormMethod.Post, new { @class = "" }))
     {
+        @Html.HiddenFor(m => m.Id)
         <div class="row" id="intro">
 
             <div class="form-group">
@@ -123,6 +124,6 @@
     </script>
     <script type="text/jsx">
         React.render(
-        <FourSquareApp getDataURL="@Url.Action("GetData", "CreateEvent")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
+        <FourSquareApp getDataURL="@Url.Action("GetData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
     </script>
 }

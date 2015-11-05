@@ -9,7 +9,7 @@
     @*TODO: Display glyphicon-pencil redirecting to edit page, when current user is organizer or othersCanEditProperty is true*@
     @if (Model.OthersCanEdit)
     {
-        @Html.ActionLink("Edit", "Index", "CreateEvent", new { id = Model.Id }, new { @class = "glyphicon glyphicon-pencil" })
+        @Html.ActionLink("Edit", "Index", "Event", new { id = Model.Id }, new { @class = "glyphicon glyphicon-pencil" })
     }
     <p class="text-muted text-right">Created on: @Model.Created.ToShortDateString()</p>
 </div>
