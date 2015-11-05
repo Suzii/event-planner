@@ -13,12 +13,12 @@ using Microsoft.AspNet.Identity;
 namespace EventPlanner.Web.Controllers
 {
     [Authorize]
-    public class CreateEventController : Controller
+    public class EventController : Controller
     {
         private readonly IEventManagementService _eventManagementService;
         private readonly IPlaceService _placeService;
 
-        public CreateEventController()
+        public EventController()
         {
             _eventManagementService = new EventManagementService();
             _placeService = new PlaceService();
@@ -58,28 +58,44 @@ namespace EventPlanner.Web.Controllers
             return new EventModel()
             {
                 ExpectedLength = 1,
-                Dates = new List<EventModel.DatesModel>()
-                {
-                    new EventModel.DatesModel()
-                    {
-                        Date = DateTime.Today,
-                        Times = new List<string>()
-                        {
-                            "00:00"
-                        }
-                    }
-                }
+                Dates = GetDefaultDatesModel()
             };
         }
+
 
         private async Task<EventModel> GetModel(string eventHash)
         {
             var eventId = _eventManagementService.GetEventId(eventHash);
             var result = await _eventManagementService.GetEventAsync(eventId);
 
-            return Mapper.Map<EventModel>(result);
-        }
+            var model = Mapper.Map<EventModel>(result);
+            if (model.Places == null)
+            {
+                model.Places = new List<FourSquareVenueModel>();
+            }
 
+            if (model.Dates == null)
+            {
+                model.Dates = GetDefaultDatesModel();
+            }
+
+            return model;
+        }
+        private static List<EventModel.DatesModel> GetDefaultDatesModel()
+        {
+            return new List<EventModel.DatesModel>()
+            {
+                new EventModel.DatesModel()
+                {
+                    Date = DateTime.Today,
+                    Times = new List<string>()
+                    {
+                        "00:00"
+                    }
+                }
+            };
+        }
+        
         [HttpGet]
         public async Task<JsonResult> GetData(string city, string query)
         {

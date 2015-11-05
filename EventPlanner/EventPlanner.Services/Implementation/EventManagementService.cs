@@ -23,6 +23,7 @@ namespace EventPlanner.Services.Implementation
 
         public async Task<Event> UpdateEventAsync(Event e)
         {
+            //TODO: problem with created date == null.. leads to failed update
             return await _eventRepository.AddOrUpdate(e);
         }
 
