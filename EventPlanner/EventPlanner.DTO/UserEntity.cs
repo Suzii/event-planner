@@ -11,11 +11,11 @@ namespace EventPlanner.Entities
     /// </summary>
     public class UserEntity : IdentityUser
     {
-        public virtual ICollection<VoteForDateEntity> VotesForDates { get; set; }
+        public virtual IList<VoteForDateEntity> VotesForDates { get; set; }
 
-        public virtual ICollection<VoteForPlaceEntity> VotesForPlaces { get; set; }
+        public virtual IList<VoteForPlaceEntity> VotesForPlaces { get; set; }
 
-        public virtual ICollection<EventEntity> Events { get; set; }
+        public virtual IList<EventEntity> Events { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserEntity> manager)
         {

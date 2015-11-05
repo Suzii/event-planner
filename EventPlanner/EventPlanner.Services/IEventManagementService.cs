@@ -9,7 +9,14 @@ namespace EventPlanner.Services
     /// </summary>
     public interface IEventManagementService
     {
-        Task<Event> CreateEventAsync(Event e);
+        /// <summary>
+        /// Stores passed event entity to database.
+        /// Sets date created to now and organizer id to passed user id.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<Event> CreateEventAsync(Event e, string userId);
 
         Task<Event> UpdateEventAsync(Event e);
 

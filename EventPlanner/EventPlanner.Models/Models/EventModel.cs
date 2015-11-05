@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Models.Models
 {
     public class EventModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -49,7 +48,7 @@ namespace EventPlanner.Models.Models
         {
             get
             {
-                return Convert.ToBase64String(Id.ToByteArray());
+                return Id.HasValue? Convert.ToBase64String(Id.Value.ToByteArray()) : string.Empty;
             }
         }
     }

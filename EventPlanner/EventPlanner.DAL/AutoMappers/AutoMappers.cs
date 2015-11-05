@@ -29,12 +29,14 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(ee => ee.TimeSlots, conf => conf.MapFrom(e => e.TimeSlots));
 
             Mapper.CreateMap<EventEntity, Models.Domain.Event>()
-                .ForMember(e => e.Places, conf => conf.ResolveUsing(ee => ee.Places.ToList()))
-                .ForMember(e => e.TimeSlots, conf => conf.ResolveUsing(ee => ee.TimeSlots.ToList()));
+                .ForMember(e => e.Places, conf => conf.ResolveUsing(ee => ee.Places))
+                .ForMember(e => e.TimeSlots, conf => conf.ResolveUsing(ee => ee.TimeSlots));
             
             Mapper.CreateMap<Models.Domain.Event, Models.Models.EventModel>()
-                .ForMember(e => e.Dates, conf => conf.Ignore());
+                .ForMember(e => e.Dates, conf => conf.Ignore())
+                .ForMember(e => e.Id, conf => conf.MapFrom(ee => ee.Id));
             Mapper.CreateMap<Models.Models.EventModel, Models.Domain.Event>()
+                .ForMember(e => e.Id, conf => conf.MapFrom(y => (y.Id.HasValue ? y.Id.Value : Guid.Empty)))
                 .ForMember(e => e.Disabled, conf => conf.Ignore())
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.Ignore()); 
@@ -74,7 +76,7 @@ namespace EventPlanner.DAL.AutoMappers
         private static void CreateTimeSlotMap()
         {
             Mapper.CreateMap<TimeSlotEntity, Models.Domain.TimeSlot>()
-                .ForMember(t => t.VotesForDate, conf => conf.ResolveUsing(te => te.VotesForDate.ToList()));
+                .ForMember(t => t.VotesForDate, conf => conf.ResolveUsing(te => te.VotesForDate));
 
 
             Mapper.CreateMap<Models.Domain.TimeSlot, TimeSlotEntity>()

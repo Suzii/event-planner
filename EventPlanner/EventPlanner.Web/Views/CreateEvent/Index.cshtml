@@ -41,11 +41,13 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.OthersCanEdit)
-                @Html.EditorFor(m => m.OthersCanEdit, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m.OthersCanEdit, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
             </div>
-            <hr/>
 
+
+            <hr/>
+            @* NOTE: following code is under construction.. *@
             <div class="form-group" id="containerDates">
                 <label for="dp">Choose a date</label>
             <span id="divDate">
@@ -96,15 +98,14 @@
                 <br />
                 <input type="button" id="btnAddDate" value="Add another date" onclick="AddDate();" />
             </div>
-
-
         </div>
+
+        //NOTE: FourSquare module goes here. All html code is renderd inside of ReactJS module.
         <div class="row" id="places">
             <div class="form-group">
                 <label>Places</label>
                 <p>Search places for your event using FourSquare!</p>
                 <div id="FourSquareSearchModule"></div>
-
             </div>
         </div>
 
@@ -116,10 +117,7 @@
 @section scripts
     {
     <script src="http://localhost:4272/Scripts/bootstrap-datepicker.js"></script>
-
     <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-
-
     <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
     <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")">
     </script>

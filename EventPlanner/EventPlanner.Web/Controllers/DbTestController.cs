@@ -28,7 +28,7 @@ namespace EventPlanner.Web.Controllers
                 OthersCanEdit = true,
                 ExpectedLength = 2,
                 OrganizerId = Guid.NewGuid(),
-                Places = new List<FourSquareVenueModel>(),
+                Places = new List<FourSquareVenueModel>() {new FourSquareVenueModel() { VenueId = "529ebe0f498eee32aa9dee7e" }} ,
                 //TimeSlots = dates
             };
 

@@ -14,8 +14,9 @@ namespace EventPlanner.Services.Implementation
             _eventRepository = new EventRepository();
         }
 
-        public async Task<Event> CreateEventAsync(Event e)
+        public async Task<Event> CreateEventAsync(Event e, string userId)
         {
+            e.OrganizerId = userId;
             e.Created = DateTime.Now;
             return await _eventRepository.AddOrUpdate(e);
         }

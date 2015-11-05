@@ -9,7 +9,7 @@ namespace EventPlanner.Services.FakedImplementation
 {
     public class EventManagementService : IEventManagementService
     {
-        public async Task<Event> CreateEventAsync(Event e)
+        public async Task<Event> CreateEventAsync(Event e, string userID)
         {
             e.Id = Guid.NewGuid();
             return e;

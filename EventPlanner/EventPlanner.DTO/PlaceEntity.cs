@@ -12,13 +12,14 @@ namespace EventPlanner.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        //[ForeignKey("EventId")]
-        //public virtual EventEntity Event { set; get; }
+        [ForeignKey("Event")]
+        public Guid EventId { get; set; }
+        public virtual EventEntity Event { set; get; }
 
         [Required]
         public string VenueId { set; get; }
 
-        public ICollection<VoteForPlaceEntity> VotesForPlace { set; get; }
+        public IList<VoteForPlaceEntity> VotesForPlace { set; get; }
 
     }
 }

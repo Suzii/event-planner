@@ -38,18 +38,19 @@ namespace EventPlanner.Web.Controllers
             {
                 return View(model);
             }
-            //TODO: find out whether editing or creating
-            var ev = Mapper.Map<Event>(model);
-            ev.TimeSlots = model.Dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
+
+            //update eventEtity
+            var eventEntity = Mapper.Map<Event>(model);
+            eventEntity.TimeSlots = model.Dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
             {
                 DateTime = d.Date.Add(TimeSpan.Parse(time))
-            }).ToList());
+            }).ToList()).ToList();
 
-            ev.OrganizerId = User.Identity.GetUserId();
-            var eventEntity = await _eventManagementService.CreateEventAsync(ev);
-            
-            var eventHash = eventEntity.Hash;
-            return RedirectToAction("Index", "ShareEvent", new {eventHash = eventHash });
+            eventEntity = (model.Id.HasValue) ?
+                await _eventManagementService.UpdateEventAsync(eventEntity) : 
+                await _eventManagementService.CreateEventAsync(eventEntity, User.Identity.GetUserId());
+
+            return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Hash });
         }
 
         private EventModel ConstructModel()

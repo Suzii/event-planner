@@ -18,6 +18,6 @@ namespace EventPlanner.Entities
         [Required]
         public DateTime DateTime { set; get; }
 
-        public virtual ICollection<VoteForDateEntity> VotesForDate { set; get; }
+        public virtual IList<VoteForDateEntity> VotesForDate { set; get; }
     }
 }
