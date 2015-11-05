@@ -66,25 +66,19 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-datepicker.css" />
-    <Content Include="Content\bootstrap-datepicker.min.css" />
-    <Content Include="Content\bootstrap-datepicker.standalone.css" />
-    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
-    <Content Include="Content\bootstrap-datepicker3.css" />
-    <Content Include="Content\bootstrap-datepicker3.min.css" />
-    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
-    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="..\EventPlanner.Web\Content\bootstrap.css">
+      <Link>bootstrap.css</Link>
+    </Content>
+    <Content Include="..\EventPlanner.Web\Content\bootstrap.min.css">
+      <Link>bootstrap.min.css</Link>
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="Content\datepicker.css" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="packages.config" />

@@ -1,0 +1,22 @@
+﻿@model EventPlanner.Web.Models.ChangeNameViewModel
+@{
+    ViewBag.Title = "ChangeName";
+}
+
+<h3>Change you name:</h3>
+<p class="text-success">@ViewBag.StatusMessage</p>
+
+<div class="container">
+    @using (Html.BeginForm("ChangeName", "Manage", FormMethod.Post, new { @class = "" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Change your name" />
+    }
+
+</div>
+
