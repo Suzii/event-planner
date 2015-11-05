@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
+using EventPlanner.Models.Domain;
 using EventPlanner.Models.Models.Vote;
 using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
+using Microsoft.AspNet.Identity;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -22,7 +24,8 @@ namespace EventPlanner.Web.Controllers
         public VoteController()
         {
             _votingService = new VotingService();
-            _eventManagementService = new EventManagementService();
+            //TODO: change once real service is up and running
+            _eventManagementService = new Services.FakedImplementation.EventManagementService();
             _placeService = new PlaceService();
         }
 
@@ -30,40 +33,83 @@ namespace EventPlanner.Web.Controllers
         public async Task<ActionResult> Index(string eventHash)
         {
             var id = _eventManagementService.GetEventId(eventHash);
-            var model = await ConstructModel(id);
+            var eventViewmodel = await ConstructEventViewModel(id);
+            
+            // TODO: use this with real EventManagementService: User.Identity.GetUserId();
+            var currentUserId = "Suzi"; 
+            var model = ConstructModel(eventViewmodel, currentUserId);
             return View("Index", model);
         }
 
-        private async Task<EventViewModel> ConstructModel(Guid id)
+        //TODO : model binding refactoring needed
+        public async Task<ActionResult> Index(IList<VoteForPlace> VotesForPlaces, IList<VoteForDate> VotesForDates)
+        {
+            var userId = User.Identity.GetUserId();
+            await _votingService.SubmitPlaceVoteByAsync(userId, VotesForPlaces);
+            await _votingService.SubmitDateVoteByAsync(userId, VotesForDates);
+            
+            return RedirectToAction("Index");
+        }
+
+        private object ConstructModel(EventViewModel eventViewmodel, string currentUserId)
+        {
+            var model = new VoteModel();
+            model.EventViewModel = eventViewmodel;
+            model.VotesForPlaces = GetUsersPlaceVotes(eventViewmodel.Places, currentUserId);
+            model.VotesForDates = GetUsersDateVotes(eventViewmodel.TimeSlots, currentUserId);
+
+            return model;
+        }
+
+        private List<VoteForPlace> GetUsersPlaceVotes(IList<PlaceViewModel> places, string currentUserId)
+        {
+            var usersPlaceVotes = places
+                .SelectMany(pl => pl.VotesForPlace)
+                .Where(vote => vote.UserId == currentUserId)
+                .Select(vote => vote);
+
+            var missingPlaceVotes = places
+                .Where(pl => !(usersPlaceVotes.Select(pv => pv.PlaceId).Contains(pl.Id)))
+                .Select(pl => new VoteForPlace() {PlaceId = pl.Id});
+
+            return usersPlaceVotes.Union(missingPlaceVotes).ToList();
+        }
+
+        private List<VoteForDate> GetUsersDateVotes(IList<TimeSlotViewModel> dates, string currentUserId)
+        {
+            var usersDateVotes = dates
+                .SelectMany(ts => ts.VotesForDate)
+                .Where(vote => vote.UserId == currentUserId)
+                .Select(vote => vote);
+
+            var missingDateVotes = dates
+                .Where(ts => !(usersDateVotes.Select(dv => dv.TimeSlotId).Contains(ts.Id)))
+                .Select(ds => new VoteForDate() { TimeSlotId = ds.Id });
+
+            return usersDateVotes.Union(missingDateVotes).ToList();
+        }
+
+        private async Task<EventViewModel> ConstructEventViewModel(Guid id)
         {
             var result = await _eventManagementService.GetEventAsync(id);
 
             var eventViewModel =  Mapper.Map<EventViewModel>(result);
-            //FAKES
-            eventViewModel.Places = new List<PlaceViewModel>()
-            {
-                new PlaceViewModel() {VenueId = "529ebe0f498eee32aa9dee7e"},
-                new PlaceViewModel() {VenueId = "51470131e4b0ff6e39c2fb73"}
+            await PopulateVenueDetails(eventViewModel);
 
-            };
 
+            var allUsers = eventViewModel.Places.SelectMany(p => p.VotesForPlace.Select(v => v.UserId).ToList()).Distinct();
+            eventViewModel.TotalNumberOfVoters = allUsers.Count();
+            
+            return eventViewModel;
+        }
+        
+        private async Task PopulateVenueDetails(EventViewModel eventViewModel)
+        {
             var venuesDetails = await _placeService.GetPlacesDetailsAsync(eventViewModel.Places.Select(p => p.VenueId).ToList());
             foreach (var place in eventViewModel.Places)
             {
                 place.Venue = venuesDetails.Single(p => p.VenueId == place.VenueId);
-                //FAKES
-                place.VotesForPlaceBy = new List<VoteForPlaceByViewModel>()
-                {
-                    new VoteForPlaceByViewModel() {WillAttend = true, UserName = "Tomas"},
-                    new VoteForPlaceByViewModel() {WillAttend = false, UserName = "Janka"},
-                    new VoteForPlaceByViewModel() {WillAttend = false, UserName = "Jirka"},
-                    new VoteForPlaceByViewModel() {WillAttend = true, UserName = "Martin"}
-                };
             }
-
-            var allUsers = eventViewModel.Places.SelectMany(p => p.VotesForPlaceBy.Select(v => v.UserId).ToList()).Distinct();
-            
-            return eventViewModel;
         }
     }
 }

@@ -64,10 +64,6 @@
   <ItemGroup>
     <Compile Include="AutoMappers\AutoMappers.cs" />
     <Compile Include="EventPlannerContext.cs" />
-    <Compile Include="Migrations\201511051532556_update.cs" />
-    <Compile Include="Migrations\201511051532556_update.Designer.cs">
-      <DependentUpon>201511051532556_update.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EventRepository.cs" />
@@ -91,11 +87,6 @@
       <Project>{0ecf657c-b886-4a6c-b442-85b9d54504c9}</Project>
       <Name>EventPlanner.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511051532556_update.resx">
-      <DependentUpon>201511051532556_update.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

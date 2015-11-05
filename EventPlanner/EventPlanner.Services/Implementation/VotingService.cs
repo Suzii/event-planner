@@ -38,12 +38,12 @@ namespace EventPlanner.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task SubmitDateVoteByAsync(string personId, IList<Guid> timeSlotIds)
+        public Task SubmitDateVoteByAsync(string personId, IList<VoteForDate> voteForDates)
         {
             throw new NotImplementedException();
         }
 
-        public async Task SubmitPlaceVoteByAsync(string personId, IList<Guid> placeIds)
+        public Task SubmitPlaceVoteByAsync(string personId, IList<VoteForPlace> voteForPlaces)
         {
             throw new NotImplementedException();
         }

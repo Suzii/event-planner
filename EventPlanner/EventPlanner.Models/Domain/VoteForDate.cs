@@ -12,5 +12,7 @@ namespace EventPlanner.Models.Domain
 
         [Required]
         public Guid TimeSlotId { set; get; }
+
+        public bool WillAttend { get; set; }
     }
 }

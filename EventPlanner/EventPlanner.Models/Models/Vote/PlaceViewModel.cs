@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Models.Models.Vote
 {
@@ -11,6 +12,6 @@ namespace EventPlanner.Models.Models.Vote
 
         public FourSquareVenueModel Venue { get; set; }
 
-        public IList<VoteForPlaceByViewModel> VotesForPlaceBy { set; get; }
+        public IList<VoteForPlace> VotesForPlace { set; get; }
     }
 }

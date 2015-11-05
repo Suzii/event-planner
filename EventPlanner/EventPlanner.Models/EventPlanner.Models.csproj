@@ -52,8 +52,7 @@
     <Compile Include="Models\Vote\TimeSlotViewModel.cs" />
     <Compile Include="Models\Vote\EventViewModel.cs" />
     <Compile Include="Models\Vote\PlaceViewModel.cs" />
-    <Compile Include="Models\Vote\VoteForDateByViewModel.cs" />
-    <Compile Include="Models\Vote\VoteForPlaceByViewModel.cs" />
+    <Compile Include="Models\Vote\VoteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Event.Designer.cs">
       <DependentUpon>Event.resx</DependentUpon>

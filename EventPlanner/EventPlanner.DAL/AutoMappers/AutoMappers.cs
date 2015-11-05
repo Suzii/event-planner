@@ -69,7 +69,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(p => p.VotesForPlace, conf => conf.Ignore());
 
             Mapper.CreateMap<Models.Domain.Place, Models.Models.Vote.PlaceViewModel>()
-                .ForMember(p => p.VotesForPlaceBy, conf => conf.MapFrom(p => p.VotesForPlace));
+                .ForMember(p => p.VotesForPlace, conf => conf.MapFrom(p => p.VotesForPlace));
 
         }
 
@@ -91,26 +91,13 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<Models.Domain.VoteForDate, VoteForDateEntity>();
 
             Mapper.CreateMap<VoteForDateEntity, Models.Domain.VoteForDate>();
-
-            Mapper.CreateMap<Models.Domain.VoteForDate, Models.Models.Vote.VoteForDateByViewModel>()
-                .ForMember(v => v.UserId, conf => conf.MapFrom(vv => vv.UserId))
-                .ForMember(v => v.TimeSlotId, conf => conf.MapFrom(vv => vv.Id))
-                .ForMember(v => v.UserName, conf => conf.Ignore())
-                .ForMember(v => v.WillAttend, conf => conf.Ignore());
         }
 
         private static void CreateVoteForPlaceMap()
         {
             Mapper.CreateMap<VoteForPlaceEntity, Models.Domain.VoteForPlace>();
 
-
             Mapper.CreateMap<Models.Domain.VoteForPlace, VoteForPlaceEntity>();
-
-            Mapper.CreateMap<Models.Domain.VoteForPlace, Models.Models.Vote.VoteForPlaceByViewModel>()
-                .ForMember(v => v.UserId, conf => conf.MapFrom(vv => vv.UserId))
-                .ForMember(v => v.VenuId, conf => conf.MapFrom(vv => vv.Id))
-                .ForMember(v => v.UserName, conf => conf.Ignore())
-                .ForMember(v => v.WillAttend, conf => conf.Ignore());
         }
     }
 }

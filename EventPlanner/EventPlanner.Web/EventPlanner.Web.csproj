@@ -190,6 +190,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\LinqHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -267,8 +268,8 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\ShareEvent\Index.cshtml" />
     <Content Include="Views\Vote\Index.cshtml" />
-    <Content Include="Views\Vote\PlacesVotes.cshtml" />
-    <Content Include="Views\Vote\DatesVotes.cshtml" />
+    <Content Include="Views\Vote\_placesVotes.cshtml" />
+    <Content Include="Views\Vote\_datesVotes.cshtml" />
     <Content Include="Views\DbTest\Date.cshtml" />
     <Content Include="Views\Manage\ChangeName.cshtml" />
   </ItemGroup>

@@ -33,12 +33,6 @@ namespace EventPlanner.Models.Models.Vote
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
         public IList<TimeSlotViewModel> TimeSlots { get; set; }
 
-        public int Hash
-        {
-            get
-            {
-                return (Id + "-" + Created.ToLongDateString() + "-" + Created.ToLongTimeString()).GetHashCode();
-            }
-        }
+        public int TotalNumberOfVoters { get; set; }
     }
 }

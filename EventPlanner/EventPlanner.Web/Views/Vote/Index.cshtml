@@ -1,32 +1,32 @@
-﻿@model EventPlanner.Models.Models.Vote.EventViewModel
+﻿@model EventPlanner.Models.Models.Vote.VoteModel
 
 @{
     ViewBag.Title = "title";
 }
 
 <div>
-    <h2>Vote for @Model.Title</h2>
+    <h2>Vote for @Model.EventViewModel.Title</h2>
     @*TODO: Display glyphicon-pencil redirecting to edit page, when current user is organizer or othersCanEditProperty is true*@
-    @if (Model.OthersCanEdit)
+    @if (Model.EventViewModel.OthersCanEdit)
     {
-        @Html.ActionLink("Edit", "Index", "Event", new { id = Model.Id }, new { @class = "glyphicon glyphicon-pencil" })
+        @Html.ActionLink("Edit", "Index", "Event", new { id = Model.EventViewModel.Id }, new { @class = "glyphicon glyphicon-pencil" })
     }
-    <p class="text-muted text-right">Created on: @Model.Created.ToShortDateString()</p>
+    <p class="text-muted text-right">Created on: @Model.EventViewModel.Created.ToShortDateString()</p>
 </div>
 
 <hr />
-<div>@Model.Desc</div>
+<div>@Model.EventViewModel.Desc</div>
 <hr/>
 
 @using (Html.BeginForm("Index", "Vote", FormMethod.Post, new {@class = ""}))
 {
 
     <div id="placesTable">
-        @*@{Html.RenderPartial("DatesVotes", Model);}*@
+        @{Html.RenderPartial("_datesVotes", Model);}
     </div>
 
     <div id="timesTable">
-        @{Html.RenderPartial("PlacesVotes", Model);}
+        @{Html.RenderPartial("_placesVotes", Model);}
     </div>
 
     <input type="submit" class="btn btn-primary" value="Submit your votes" />
