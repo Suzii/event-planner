@@ -11,16 +11,18 @@ namespace EventPlanner.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "CreateEvent",
+                url: "{controller}/{action}/{eventHash}",
+                defaults: new { controller = "CreateEvent", action = "Index", eventHash = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
                 defaults: new { controller = "Home", action = "Index" }
             );
 
-            routes.MapRoute(
-                name: "CreateEvent",
-                url: "{controller}/{action}/{eventHash}",
-                defaults: new { controller = "CreateEvent", action = "Index", eventHash = UrlParameter.Optional }
-                );
+            
         }
     }
 }

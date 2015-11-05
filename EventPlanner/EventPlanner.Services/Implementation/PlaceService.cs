@@ -79,6 +79,7 @@ namespace EventPlanner.Services.Implementation
         /// <returns>List of ><c ref="FourSquareVenueModel"/> containing places details</returns>
         public async Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids)
         {
+            //TODO: ids.Select(async id => await GetPlaceDetailAsync(id)).Where(pl => pl != null).ToList();
             var detailModels = new List<FourSquareVenueModel>();
             foreach (var id in ids)
             {
