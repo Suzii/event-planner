@@ -35,12 +35,12 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<List<Event>> GetByOrganizer(String organizerId)
+        public async Task<List<Event>> GetByOrganizer(string organizerId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Events
-                    .Where(e => e.OrganizerId == organizerId)
+                    .Where(e => e.Organizer.Id == organizerId)
                     .ToList()
                     .Select(Mapper.Map<Event>)
                     .ToList();

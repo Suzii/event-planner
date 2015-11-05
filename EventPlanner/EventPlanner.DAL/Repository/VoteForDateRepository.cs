@@ -36,12 +36,12 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<List<VoteForDate>> GetByUser(String userId)
+        public async Task<List<VoteForDate>> GetByUser(string userId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.VotesForDates
-                    .Where(e => e.UserId == userId)
+                    .Where(e => e.User.Id == userId)
                     .ToList()
                     .Select(Mapper.Map<VoteForDate>)
                     .ToList();
