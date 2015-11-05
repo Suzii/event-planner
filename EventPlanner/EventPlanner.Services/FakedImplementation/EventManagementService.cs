@@ -44,8 +44,8 @@ namespace EventPlanner.Services.FakedImplementation
                         DateTime = DateTime.Today,
                         VotesForDate = new List<VoteForDate>()
                         {
-                            new VoteForDate() { Id = Guid.NewGuid(), UserId = Guid.NewGuid(), TimeSlotId = Guid.NewGuid()},
-                            new VoteForDate() { Id = Guid.NewGuid(), UserId = Guid.NewGuid(), TimeSlotId = Guid.NewGuid()}
+                            new VoteForDate() { Id = Guid.NewGuid(), UserId = Guid.NewGuid().ToString(), TimeSlotId = Guid.NewGuid()},
+                            new VoteForDate() { Id = Guid.NewGuid(), UserId = Guid.NewGuid().ToString(), TimeSlotId = Guid.NewGuid()}
                         }
                     }
                 },

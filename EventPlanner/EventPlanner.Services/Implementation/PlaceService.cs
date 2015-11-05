@@ -43,7 +43,9 @@ namespace EventPlanner.Services.Implementation
                 AddressInfo = miniVenue.Location.Address,
                 City = miniVenue.Location.City,
                 Name = miniVenue.Name,
-                VenueId = miniVenue.Id
+                VenueId = miniVenue.Id,
+                Lat = miniVenue.Location.Lat,
+                Lng = miniVenue.Location.Lng
             }));
 
             return venueModels;
@@ -68,7 +70,9 @@ namespace EventPlanner.Services.Implementation
                 AddressInfo = detailResponse.Response.Venue.Location.Address,
                 City = detailResponse.Response.Venue.Location.City,
                 Name = detailResponse.Response.Venue.Name,
-                VenueId = detailResponse.Response.Venue.Id
+                VenueId = detailResponse.Response.Venue.Id,
+                Lat = detailResponse.Response.Venue.Location.Lat,
+                Lng = detailResponse.Response.Venue.Location.Lng
             };
         }
 
