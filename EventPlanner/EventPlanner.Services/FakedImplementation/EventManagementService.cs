@@ -27,7 +27,7 @@ namespace EventPlanner.Services.FakedImplementation
 
         public async Task<Event> GetEventAsync(Guid id)
         {
-            return new Event()
+            var ev = new Event()
             {
                 Id = id,
                 Title = "Faked event",
@@ -51,11 +51,31 @@ namespace EventPlanner.Services.FakedImplementation
                 },
                 Places = new List<Place>()
                 {
-                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something", VotesForPlace = null},
-                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "something else", VotesForPlace = null}
+                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "529ebe0f498eee32aa9dee7e", VotesForPlace = null},
+                    new Place() { Id = Guid.NewGuid(), EventId = id, VenueId = "51470131e4b0ff6e39c2fb73", VotesForPlace = null}
                 },
                 OrganizerId = Guid.NewGuid().ToString()
             };
+
+
+
+            ev.Places[0].VotesForPlace = new List<VoteForPlace>()
+                {
+                    new VoteForPlace() {UserId = "Tomas", WillAttend = true},
+                    new VoteForPlace() {UserId = "Janka", WillAttend = false},
+                    new VoteForPlace() {UserId = "Jirka", WillAttend = true},
+                    new VoteForPlace() {UserId = "Martin", WillAttend = true}
+                };
+
+            ev.Places[1].VotesForPlace = new List<VoteForPlace>()
+                {
+                    new VoteForPlace() {UserId = "Suzi", WillAttend = true},
+                    new VoteForPlace() {UserId = "Parmezan", WillAttend = false},
+                    new VoteForPlace() {UserId = "Matho", WillAttend = false},
+                    new VoteForPlace() {UserId = "JayDee", WillAttend = true}
+                };
+
+            return ev;
         }
 
         public Guid GetEventId(string eventHash)

@@ -95,8 +95,9 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<Models.Domain.VoteForDate, Models.Models.Vote.VoteForDateByViewModel>()
                 .ForMember(v => v.UserId, conf => conf.MapFrom(vv => vv.UserId))
                 .ForMember(v => v.TimeSlotId, conf => conf.MapFrom(vv => vv.Id))
-                .ForMember(v => v.UserName, conf => conf.Ignore())
-                .ForMember(v => v.WillAttend, conf => conf.Ignore());
+                //TODO: change once UserEntity is changed to support name property
+                .ForMember(v => v.UserName, conf => conf.MapFrom(vv => vv.UserId))
+                .ForMember(v => v.WillAttend, conf => conf.MapFrom(vv => vv.WillAttend));
         }
 
         private static void CreateVoteForPlaceMap()
@@ -109,8 +110,9 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<Models.Domain.VoteForPlace, Models.Models.Vote.VoteForPlaceByViewModel>()
                 .ForMember(v => v.UserId, conf => conf.MapFrom(vv => vv.UserId))
                 .ForMember(v => v.VenuId, conf => conf.MapFrom(vv => vv.Id))
-                .ForMember(v => v.UserName, conf => conf.Ignore())
-                .ForMember(v => v.WillAttend, conf => conf.Ignore());
+                //TODO: change once UserEntity is changed to support name property
+                .ForMember(v => v.UserName, conf => conf.MapFrom(vv => vv.UserId))
+                .ForMember(v => v.WillAttend, conf => conf.MapFrom(vv => vv.WillAttend));
         }
     }
 }

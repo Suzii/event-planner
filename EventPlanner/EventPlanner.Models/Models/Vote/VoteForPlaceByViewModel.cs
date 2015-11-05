@@ -4,7 +4,7 @@ namespace EventPlanner.Models.Models.Vote
 {
     public class VoteForPlaceByViewModel
     {
-        public Guid UserId { set; get; }
+        public string UserId { set; get; }
 
         public string UserName { get; set; }
 
