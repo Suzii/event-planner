@@ -7,7 +7,7 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 
 <div class="container">
-    @using (Html.BeginForm("ChangeName", "Manage", FormMethod.Post, new { @class = "" }))
+    @using (Html.BeginForm("ChangeName", "Manage", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         <div class="form-group">
             @Html.LabelFor(m => m.Name)

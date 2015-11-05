@@ -74,8 +74,7 @@ namespace EventPlanner.Web.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Email = await UserManager.GetEmailAsync(userId),
-                Name = "There will be probably changable name."
+                Email = await UserManager.GetEmailAsync(userId)
                 
             };
             return View(model);
