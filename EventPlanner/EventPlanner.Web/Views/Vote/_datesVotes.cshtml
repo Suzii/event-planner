@@ -10,7 +10,10 @@
                 var numOfWillAttendUsers = date.VotesForDate.Count(v => v.WillAttend);
                 var willAttendPercentage = (Model.EventViewModel.TotalNumberOfVoters > 0) ? (int)(100 * numOfWillAttendUsers / Model.EventViewModel.TotalNumberOfVoters) : 50;
                 <tr>
-                    <td>@date.DateTime</td>
+                    <td>
+                        <div class="text-primary">@date.DateTime.ToLongDateString()</div>
+                        <div class="text-muted">@date.DateTime.ToShortTimeString()</div>
+                    </td>
                     <td>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="@(willAttendPercentage)" aria-valuemin="0" aria-valuemax="100" style="width: @(willAttendPercentage)%;">
@@ -25,7 +28,7 @@
                     <td>
                         @*TODO: modelbinding requires refactoring*@
                         @Html.HiddenFor(m => m.VotesForDates[index].TimeSlotId)
-                        @Html.EditorFor(m => m.VotesForDates[index].WillAttend)
+                        @Html.EditorFor(m => m.VotesForDates[index].WillAttend, new {@class = "form-control"})
                     </td>
                 </tr>
             }

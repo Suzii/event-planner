@@ -11,7 +11,11 @@
                 var numOfWillAttendUsers = place.VotesForPlace.Count(v => v.WillAttend);
                 var willAttendPercentage = (Model.EventViewModel.TotalNumberOfVoters > 0) ? (int)(100 * numOfWillAttendUsers / Model.EventViewModel.TotalNumberOfVoters) : 50;
                 <tr>
-                    <td>@place.Venue.Name</td>
+                    <td>
+                        <div class="text-primary">@place.Venue.Name</div>
+                        <div class="text-muted small">@place.Venue.AddressInfo</div>
+                        <div class="text-muted small">@place.Venue.City</div>
+                    </td>
                     <td>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="@(willAttendPercentage)" aria-valuemin="0" aria-valuemax="100" style="width: @(willAttendPercentage)%;">

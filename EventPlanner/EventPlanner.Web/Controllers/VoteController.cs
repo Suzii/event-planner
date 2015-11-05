@@ -55,6 +55,8 @@ namespace EventPlanner.Web.Controllers
         {
             var model = new VoteModel();
             model.EventViewModel = eventViewmodel;
+            eventViewmodel.Places = eventViewmodel.Places.OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend)).ToList();
+            eventViewmodel.TimeSlots = eventViewmodel.TimeSlots.OrderBy(ts => ts.DateTime).ToList();
             model.VotesForPlaces = GetUsersPlaceVotes(eventViewmodel.Places, currentUserId);
             model.VotesForDates = GetUsersDateVotes(eventViewmodel.TimeSlots, currentUserId);
 
