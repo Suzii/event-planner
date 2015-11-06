@@ -48,7 +48,11 @@ namespace EventPlanner.Models.Models
         {
             get
             {
-                return Id.HasValue? Convert.ToBase64String(Id.Value.ToByteArray()) : string.Empty;
+                if (!Id.HasValue) return string.Empty;
+                var htmlFriendly = Convert.ToBase64String(Id.Value.ToByteArray());
+                htmlFriendly = htmlFriendly.Replace("/", "_");
+                htmlFriendly = htmlFriendly.Replace("+", "-");
+                return htmlFriendly.Substring(0, 22);
             }
         }
     }

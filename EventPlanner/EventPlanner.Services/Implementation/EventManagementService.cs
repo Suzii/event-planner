@@ -41,7 +41,10 @@ namespace EventPlanner.Services.Implementation
 
         public Guid GetEventId(string eventHash)
         {
-            return new Guid(Convert.FromBase64String(eventHash));
+            eventHash = eventHash.Replace("_", "/");
+            eventHash = eventHash.Replace("-", "+");
+            var buffer = Convert.FromBase64String(eventHash + "==");
+            return new Guid(buffer);
         }
     }
 }
