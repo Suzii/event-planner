@@ -4,6 +4,14 @@
     ViewBag.Title = "title";
 }
 
+
+@section Scripts {
+    @Scripts.Render("https://maps.googleapis.com/maps/api/js")
+    @Scripts.Render("~/Scripts/Custom/GoogleMapsModule.js")
+}
+
+
+
 <div class="row" style="border: 2px;">
     <div class="col-md-8">
         <h2>
@@ -44,7 +52,10 @@
     }
 </div>
 
-<div class="row" id="googleMapsModule">
+<h3>Cute little map</h3>
+<p>Just really felt like adding it and filling the sad blank space...</p>
+<p>(CSS is in size.less)</p>
+<div class="row map" id="map">
     @*TODO*@
     Dummy placeholder for Google maps module!
     You gotta wait for it, it's gonna be worth it! :P
