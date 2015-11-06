@@ -53,7 +53,10 @@ namespace EventPlanner.Entities
         {
             get
             {
-                return Convert.ToBase64String(Id.ToByteArray());
+                var htmlFriendly = Convert.ToBase64String(Id.ToByteArray());
+                htmlFriendly = htmlFriendly.Replace("/", "_");
+                htmlFriendly = htmlFriendly.Replace("+", "-");
+                return htmlFriendly.Substring(0, 22);
             }
         }
     }
