@@ -4,7 +4,6 @@ function AddTime(id) {
     var index = 0;
     index = id.substring(6);
         var element = $('#Dates_0__Times_0_').clone();
-        console.log("ted "+ idTime);
         var container = $('#divcust' + index);
             element.attr('id', "Times" + idTime);
             element.attr('name', "Times" + idTime);
