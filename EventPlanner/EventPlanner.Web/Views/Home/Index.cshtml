@@ -1,14 +1,37 @@
-﻿@{
+﻿@model MyEventsViewModel
+@using EventPlanner.Models.Models
+@{
     ViewBag.Title = "Home Page";
 }
-<img src="@Url.Content(" ~/Content/Images/ep-logo.jpg")"></img>
-<div class="jumbotron">
+
+@*<div class="jumbotron">
     <h1>Event Planner</h1>
     <p class="lead">Some catchy phrase to introduce our supercool app.</p>
-    @*<p><a href="#start" class="btn btn-primary btn-lg">Start now &raquo;</a></p>*@
+    @*<p><a href="#start" class="btn btn-primary btn-lg">Start now &raquo;</a></p>
     @Html.ActionLink("Start now", "Index", "Event", null, new {@class = "btn btn-primary btn-lg"})
 </div>
+*@
 
+<h2>Your events</h2>
 <div class="row" id="start">
-Welcome!
+
+    <div class="list-group col-md-9">
+        @foreach (EventModel e in Model.Events)
+        {
+            <div class="list-group-item row">
+                <div class="text-left col-md-5">
+                    <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-primary">@e.Title</a> <br />
+                    <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-muted">@e.Desc.Substring(0, Math.Min(e.Desc.Length, 40))...</a>
+                </div>
+                <p class="text-center col-md-5">@e.Created</p>
+                <span class="glyphicon glyphicon-pencil col-md-1"></span>
+                <span class="glyphicon glyphicon-pencil col-md-1"></span>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    @Html.ActionLink("Create new event!", "Index", "Event", null, new { @class = "btn btn-primary btn-lg" })
+
 </div>

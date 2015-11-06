@@ -24,22 +24,20 @@
 
 
         </dd>
-        <dt class="list-group-item list-group-item-brand">Password:</dt>
+        <dt class="list-group-item">Password:</dt>
         <dd class="list-group-item">
             
             @if (Model.HasPassword)
             {
-                @*<input type="button" value="Change Password" class="btn btn-default" onclick="window.location.href('@Url.Action("ChangePassword", "Manage")')" />*@
                 @Html.ActionLink("Change your password", "ChangePassword")
             }
             else
             {
-                @*<input type="button" value="Set Password" class="btn btn-default" onclick="window.location.href('@Url.Action("SetPassword","Manage")')" />*@
                 @Html.ActionLink("Create password", "SetPassword")
             }
             
         </dd>
-        <dt class="list-group-item list-group-item-brand">External Logins:</dt>
+        <dt class="list-group-item">External Logins:</dt>
         <dd class="list-group-item">
             @if (Model.Logins.Count < 1)
             {
@@ -59,24 +57,24 @@
              
              Uncomment the following block after you have set up two-factor authentication
         *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None") [
-                @if (Model.PhoneNumber != null)
-                {
-                    @Html.ActionLink("Change", "AddPhoneNumber")
-                    @: &nbsp;|&nbsp;
-                    @Html.ActionLink("Remove", "RemovePhoneNumber")
-                }
-                else
-                {
-                    @Html.ActionLink("Add", "AddPhoneNumber")
-                }
-                ]
-            </dd>
-      
-        <dt>Two-Factor Authentication:</dt>
+        @*
+        <dt>Phone Number:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None") [
+            @if (Model.PhoneNumber != null)
+            {
+                @Html.ActionLink("Change", "AddPhoneNumber")
+                @: &nbsp;|&nbsp;
+                @Html.ActionLink("Remove", "RemovePhoneNumber")
+            }
+            else
+            {
+                @Html.ActionLink("Add", "AddPhoneNumber")
+            }
+            ]
+        </dd>
+
+    <dt>Two-Factor Authentication:</dt>
         <dd>
             <p>
                 There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
@@ -101,10 +99,10 @@
                         <input type="submit" value="Enable" class="btn btn-link" />
                         </text>
                     }
-                }*@
-        </dd>
+                }
+        </dd>*@
     </dl>
-    @*<br/>
+    <br/>
      <h4>Your list of events</h4>
      <hr />
     <div class="dl-horizontal">
@@ -119,5 +117,5 @@
                  </button>
              }
          }
-     </div>*@
+     </div>
  </div>
