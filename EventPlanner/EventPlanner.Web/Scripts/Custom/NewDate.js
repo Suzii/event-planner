@@ -1,8 +1,7 @@
 ﻿
 function AddDate() {
     var m = $('span#divDate span:last-of-type').attr('id');
-    var indexx = 1;
-    console.log(m + " delka");
+    indexx = 1;
     if (m != null && m.length > 0) {
         indexx = m.substring(7);
         indexx++;
@@ -19,17 +18,16 @@ function AddDate() {
 
     //datepicker
     var element = $('#Dates_0__Date').clone();
-    console.log("date " + indexx);
 
     var container = $('#divcust'+indexx);
-        element.attr('id', "Dates" + indexx);
-        element.attr('name', "Dates" + indexx);
+        element.attr('id', "Dates_" + indexx+"__Date"+idTime);
+        element.attr('name', "Dates_" + indexx+"__Date"+idTime);
         container.append(element);
 
     //first time
         element = $('#Dates_0__Times_0_').clone();
-        element.attr('id', "Times" + idTime);
-        element.attr('name', "Times" + idTime);
+        element.attr('id', "Dates_" + indexx + "__Times_" + idTime+"_");
+        element.attr('name', "Dates_" + indexx + "__Times_" + idTime + "_");
         container.append(element);
 
     //delete button
@@ -47,6 +45,8 @@ function AddDate() {
         element.attr('id', "btnAdd" + indexx);
         element.attr('name', "btnAdd" + indexx);
         container.append(element);
+
+    window.idTime = 0;
 };
 
 
