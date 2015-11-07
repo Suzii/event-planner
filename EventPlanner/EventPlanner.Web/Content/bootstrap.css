@@ -277,8 +277,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.eot');
-  src: url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../EventPlanner.Bootstrap/Content/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('fonts/glyphicons-halflings-regular.eot');
+  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -1329,6 +1329,10 @@ h6,
 .h6 {
   font-size: 16px;
 }
+.header {
+  font-size: 20px;
+  font-weight: bold;
+}
 p {
   margin: 0 0 12.5px;
 }
@@ -1337,11 +1341,23 @@ p {
   font-size: 20px;
   font-weight: 300;
   line-height: 1.4;
+  font-weight: bold;
 }
 @media (min-width: 768px) {
   .lead {
     font-size: 27px;
   }
+}
+.overflow-cut {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 100%;
+}
+.link-no-underline:hover,
+.link-no-underline:focus {
+  text-decoration: none;
 }
 small,
 .small {
@@ -1413,6 +1429,13 @@ a.text-warning:focus {
 a.text-danger:hover,
 a.text-danger:focus {
   color: #843534;
+}
+.text-grey {
+  color: #404040;
+}
+a.text-grey:hover,
+a.text-grey:focus {
+  color: #262626;
 }
 .bg-primary {
   color: #fff;

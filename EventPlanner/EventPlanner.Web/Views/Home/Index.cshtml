@@ -19,13 +19,17 @@
         @foreach (EventModel e in Model.Events)
         {
             <div class="list-group-item row">
-                <div class="text-left col-md-5">
-                    <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-primary">@e.Title</a> <br />
-                    <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-muted">@e.Desc.Substring(0, Math.Min(e.Desc.Length, 40))...</a>
+                <div class="col-md-8">
+                    <div>
+                        <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-primary lead link-no-underline">@e.Title</a>
+                    </div>
+                    <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-muted link-no-underline overflow-cut">@e.Desc</a>
                 </div>
-                <p class="text-center col-md-5">@e.Created</p>
-                <span class="glyphicon glyphicon-pencil col-md-1"></span>
-                <span class="glyphicon glyphicon-pencil col-md-1"></span>
+                <p class="col-md-2">@e.Created</p>
+                @Html.ActionLink(" ", "Index", "Event", new {id = e.Hash}, new {@class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey"})
+                @Html.ActionLink(" ", "Index", "ShareEvent", new { id = e.Hash }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
+                @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
+                @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
             </div>
         }
     </div>
