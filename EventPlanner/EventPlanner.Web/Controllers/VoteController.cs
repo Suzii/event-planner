@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using EventPlanner.Models.Domain;
+using EventPlanner.Models.Enums;
 using EventPlanner.Models.Models.Vote;
 using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
@@ -44,6 +45,11 @@ namespace EventPlanner.Web.Controllers
         //TODO : model binding refactoring needed
         public async Task<ActionResult> Index(IList<VoteForPlace> VotesForPlaces, IList<VoteForDate> VotesForDates)
         {
+            if (!ModelState.IsValid)
+            {
+                //TODO: will have to work via ajax..
+                //return View("Index", new VoteModel() {VotesForPlaces = VotesForPlaces, VotesForDates = VotesForDates});
+            }
             var userId = User.Identity.GetUserId();
             await _votingService.SubmitPlaceVoteByAsync(userId, VotesForPlaces);
             await _votingService.SubmitDateVoteByAsync(userId, VotesForDates);
@@ -55,7 +61,7 @@ namespace EventPlanner.Web.Controllers
         {
             var model = new VoteModel();
             model.EventViewModel = eventViewmodel;
-            eventViewmodel.Places = eventViewmodel.Places.OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend)).ToList();
+            eventViewmodel.Places = eventViewmodel.Places.OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes)).ToList();
             eventViewmodel.TimeSlots = eventViewmodel.TimeSlots.OrderBy(ts => ts.DateTime).ToList();
             model.VotesForPlaces = GetUsersPlaceVotes(eventViewmodel.Places, currentUserId);
             model.VotesForDates = GetUsersDateVotes(eventViewmodel.TimeSlots, currentUserId);

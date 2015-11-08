@@ -1,4 +1,4 @@
-﻿namespace EventPlanner.Models.Enums
+﻿namespace EventPlanner.Entities.Enums
 {
     public enum WillAttend
     {

@@ -14,6 +14,7 @@ namespace EventPlanner.Models.Domain
         [Required]
         public Guid TimeSlotId { set; get; }
 
+        [Required]
         [UIHint("WillAttend")]
         public WillAttend? WillAttend { get; set; }
     }

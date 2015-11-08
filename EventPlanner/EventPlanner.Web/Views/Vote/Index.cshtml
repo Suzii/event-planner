@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
 @model EventPlanner.Models.Models.Vote.VoteModel
-
 @{
     ViewBag.Title = "Vote";
 }
@@ -15,10 +14,10 @@
     <div class="col-md-8">
         <h2>
             @Model.EventViewModel.Title
-            @*TODO: move this ligic to controller*@
+            @*TODO: move this logic to controller*@
             @if (Model.EventViewModel.OthersCanEdit || User.Identity.GetUserId() == Model.EventViewModel.OrganizerId)
             {
-                <a href=">@Url.Action("Index", "Event", new {id = Model.EventViewModel.Id})">
+                <a href="@Url.Action("Index", "Event", new {id = Model.EventViewModel.Id})">
                     <small>
                         <i class="glyphicon glyphicon-pencil"></i>
                         <span class="sr-only">Edit event</span>
@@ -27,10 +26,10 @@
             }
         </h2>
     </div>
-    
+
     @*TODO: refactor position of text*@
     <div class="col-md-4" style="padding-top: 3em;">
-        <span class="text-muted text-right">Created on: @Model.EventViewModel.Created.ToShortDateString()</span>
+        <span class="text-muted text-right pull-right">Created on: @Model.EventViewModel.Created.ToShortDateString()</span>
     </div>
 </div>
 
@@ -40,23 +39,29 @@
     </div>
 </div>
 
-<div class="row">
-    @using (Html.BeginForm("Index", "Vote", FormMethod.Post, new {@class = ""}))
-    {
+<div class="container-fluid">
+    <div class="row">
+        @using (Html.BeginForm("Index", "Vote", FormMethod.Post, new {@class = ""}))
+        {
+            <div class="row">
+                <div class="col-sm-12" id="timesTable">
+                    @{Html.RenderPartial("_datesVotes", Model);}
+                </div>
+            </div>
 
-        <div class="col-sm-12" id="timesTable">
-            @{Html.RenderPartial("_datesVotes", Model);}
-        </div>
+            <div class="row">
+                <div class="col-sm-12" id="placesTable">
+                    @{Html.RenderPartial("_placesVotes", Model);}
+                </div>
 
-        <div class="col-sm-12" id="placesTable">
-            @{Html.RenderPartial("_placesVotes", Model);}
-        </div>
+            </div>
 
-        <input type="submit" class="btn btn-primary pull-right" value="Submit your votes"/>
-    }
+
+            <input type="submit" class="btn btn-primary pull-right" value="Submit your votes"/>
+        }
+    </div>
+
+    <div class="col-md-12" id="mapModule">
+        @{ Html.RenderPartial("_mapModule");}
+    </div>
 </div>
-
-<div id="mapModule">
-    @{ Html.RenderPartial("_mapModule");}
-</div>
-

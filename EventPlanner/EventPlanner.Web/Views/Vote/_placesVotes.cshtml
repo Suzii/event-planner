@@ -1,39 +1,40 @@
-﻿@using EventPlanner.Web.Helpers
+﻿@using EventPlanner.Models.Enums
+@using EventPlanner.Web.Helpers
 @model EventPlanner.Models.Models.Vote.VoteModel
 
-<h3>Votes for places:</h3>
-<div class="table-responsive">
-    <table class="table">
-        <tbody>
-            @foreach (var place in Model.EventViewModel.Places)
-            {
-                var index = Model.VotesForPlaces.FindIndex(v => v.PlaceId == place.Id);
-                var numOfWillAttendUsers = place.VotesForPlace.Count(v => v.WillAttend);
-                var willAttendPercentage = (Model.EventViewModel.TotalNumberOfVoters > 0) ? (int)(100 * numOfWillAttendUsers / Model.EventViewModel.TotalNumberOfVoters) : 50;
-                <tr>
-                    <td>
-                        <div class="text-primary">@place.Venue.Name</div>
-                        <div class="text-muted small">@place.Venue.AddressInfo</div>
-                        <div class="text-muted small">@place.Venue.City</div>
-                    </td>
-                    <td>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="@(willAttendPercentage)" aria-valuemin="0" aria-valuemax="100" style="width: @(willAttendPercentage)%;">
-                                @(numOfWillAttendUsers) / @(Model.EventViewModel.TotalNumberOfVoters) (@(willAttendPercentage)%)
-                            </div>
-                        </div>
-                        <div class="atendees">
-                            @*TODO : change to displaying username once supported*@
-                            @place.VotesForPlace.Where(vote => vote.WillAttend).Select(vote => vote.UserId).Aggregate(string.Empty, (next, accu) => accu + ", " + next)
-                        </div>
-                    </td>
-                    <td>
-                        @*TODO: modelbinding requires refactoring*@
-                        @Html.HiddenFor(m => m.VotesForPlaces[index].PlaceId)
-                        @Html.EditorFor(m => m.VotesForPlaces[index].WillAttend)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<h3>Vote for places:</h3>
+
+@foreach (var place in Model.EventViewModel.Places)
+{
+    var index = Model.VotesForPlaces.FindIndex(v => v.PlaceId == place.Id);
+    <div class="row">
+        <div class="col-md-2">
+            <div class="text-primary">@place.Venue.Name</div>
+            <div class="text-muted small">@place.Venue.AddressInfo</div>
+            <div class="text-muted small">@place.Venue.City</div>
+        </div>
+        <div class="col-md-2">
+            @*TODO: modelbinding requires refactoring*@
+            @Html.HiddenFor(m => m.VotesForPlaces[index].PlaceId)
+            @Html.EditorFor(m => m.VotesForPlaces[index].WillAttend, new { @class = "form-control" })
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                @RazorHelpers.WillAttendProgressBar(
+                            place.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes),
+                            place.VotesForPlace.Count(v => v.WillAttend == WillAttend.Maybe),
+                            place.VotesForPlace.Count(v => v.WillAttend == WillAttend.No),
+                            0)
+            </div>
+
+            <div class="row atendees" style="margin-top: -1em; margin-bottom: 0.5em">
+                @*TODO : change to displaying username once supported*@
+                TODO: refactor - should be displayed onclick/onhover over the appropriate part of graph <br />
+                <strong>Yes: </strong> @place.VotesForPlace.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).Aggregate(string.Empty, (next, accu) => accu + ", " + next) <br />
+                <strong>Maybe: </strong> @place.VotesForPlace.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId).Aggregate(string.Empty, (next, accu) => accu + ", " + next) <br />
+                <strong>No: </strong> @place.VotesForPlace.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId).Aggregate(string.Empty, (next, accu) => accu + ", " + next)
+            </div>
+        </div>
+    </div>
+}
+

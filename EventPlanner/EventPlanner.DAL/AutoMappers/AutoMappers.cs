@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using EventPlanner.Entities;
+using EventPlanner.Models.Enums;
 
 namespace EventPlanner.DAL.AutoMappers
 {
@@ -88,16 +85,28 @@ namespace EventPlanner.DAL.AutoMappers
 
         private static void CreateVoteForDateMap()
         {
-            Mapper.CreateMap<Models.Domain.VoteForDate, VoteForDateEntity>();
+            Mapper.CreateMap<VoteForDateEntity, Models.Domain.VoteForDate>()
+                .ForMember(v => v.WillAttend, conf => conf.MapFrom(ve => ve.WillAttend));
 
-            Mapper.CreateMap<VoteForDateEntity, Models.Domain.VoteForDate>();
+            Mapper.CreateMap<Models.Domain.VoteForDate, VoteForDateEntity>()
+                .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend.HasValue ? v.WillAttend : WillAttend.No));
         }
 
         private static void CreateVoteForPlaceMap()
         {
-            Mapper.CreateMap<VoteForPlaceEntity, Models.Domain.VoteForPlace>();
+            Mapper.CreateMap<VoteForPlaceEntity, Models.Domain.VoteForPlace>()
+                .ForMember(v => v.WillAttend, conf => conf.MapFrom(ve => ve.WillAttend));
 
-            Mapper.CreateMap<Models.Domain.VoteForPlace, VoteForPlaceEntity>();
+            Mapper.CreateMap<Models.Domain.VoteForPlace, VoteForPlaceEntity>()
+                .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend.HasValue ? v.WillAttend : WillAttend.No));
+            ;
+        }
+
+        private static void CreateEnumsMap()
+        {
+            Mapper.CreateMap<Entities.Enums.WillAttend, Models.Enums.WillAttend>();
+
+            Mapper.CreateMap<Models.Enums.WillAttend, Entities.Enums.WillAttend>();
         }
     }
 }

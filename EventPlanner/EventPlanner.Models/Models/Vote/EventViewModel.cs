@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Models.Models.Vote
 {

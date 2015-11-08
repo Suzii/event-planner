@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EventPlanner.Entities.Enums;
 
 namespace EventPlanner.Entities
 {
@@ -20,5 +21,7 @@ namespace EventPlanner.Entities
         public Guid PlaceId { set; get; }
 
         public virtual PlaceEntity Place { set; get; }
+
+        public WillAttend WillAttend { get; set; }
     }
 }
