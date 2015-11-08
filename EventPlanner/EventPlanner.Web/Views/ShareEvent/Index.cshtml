@@ -11,7 +11,7 @@
 <h2>Share your event</h2>
 <p class="">Copy this link and share it with your friends, so they can vote for their favourite option.</p>
 
-<div class="row">
+<div class="row row-adjust">
     <div class="col-md-5">
         @Html.TextBox("URL", Model.Link, new { @class = "form-control wide-input", id = "clipboard", onClick = "this.select();" })
     </div>

@@ -1,41 +1,46 @@
 ﻿@model MyEventsViewModel
 @using EventPlanner.Models.Models
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Home Page";
 }
 
-@*<div class="jumbotron">
-    <h1>Event Planner</h1>
-    <p class="lead">Some catchy phrase to introduce our supercool app.</p>
-    @*<p><a href="#start" class="btn btn-primary btn-lg">Start now &raquo;</a></p>
-    @Html.ActionLink("Start now", "Index", "Event", null, new {@class = "btn btn-primary btn-lg"})
-</div>
-*@
+<h2>My events</h2>
+<h4 class="">Hello @User.Identity.GetUserName()!</h4>
+@if (Model.Events.Count > 0)
+{
+    <p class="">Here is a list of events you created:</p>
+    <div class="row row-adjust v-space15" id="start">
 
-<h2>Your events</h2>
-<div class="row" id="start">
-
-    <div class="list-group col-md-9">
-        @foreach (EventModel e in Model.Events)
-        {
-            <div class="list-group-item row">
-                <div class="col-md-8">
-                    <div>
-                        <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-primary lead link-no-underline">@e.Title</a>
+        <div class="list-group col-md-9">
+            @foreach (EventModel e in Model.Events)
+            {
+                <div class="list-group-item row row-adjust">
+                    <div class="col-md-8">
+                        <div>
+                            <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-primary lead link-no-underline">@e.Title</a>
+                        </div>
+                        <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-muted link-no-underline overflow-cut">@e.Desc</a>
                     </div>
-                    <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-muted link-no-underline overflow-cut">@e.Desc</a>
+                    <p class="col-md-2">@e.Created</p>
+                    @Html.ActionLink(" ", "Index", "Event", new { id = e.Hash }, new { @class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey" })
+                    @Html.ActionLink(" ", "Index", "ShareEvent", new { id = e.Hash }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
+                    @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
+                    @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
                 </div>
-                <p class="col-md-2">@e.Created</p>
-                @Html.ActionLink(" ", "Index", "Event", new {id = e.Hash}, new {@class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey"})
-                @Html.ActionLink(" ", "Index", "ShareEvent", new { id = e.Hash }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
-                @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
-                @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
+    <hr />
+    <p class="v-space15">But there is never enough events in your life....here, create new ones with this button.</p>
+}
+else {
+    <p>You have not created any events yet!</p>
+    <p> How is this possible?</p>
+    <p>Here, quick, make one with clicking on this button.</p>
+}
 
-<div class="row">
-    @Html.ActionLink("Create new event!", "Index", "Event", null, new { @class = "btn btn-primary btn-lg" })
+<div class="row row-adjust">
+    @Html.ActionLink("Create new event!", "Index", "Event", null, new { @class = "btn btn-primary btn-lg v-space15" })
 
 </div>
