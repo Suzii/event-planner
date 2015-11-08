@@ -52,6 +52,11 @@ h4, .h4 { font-size: @font-size-h4; }
 h5, .h5 { font-size: @font-size-h5; }
 h6, .h6 { font-size: @font-size-h6; }
 
+.header{
+    font-size: floor((@font-size-base * 1.15));
+    font-weight: bold
+}
+
 
 // Body text
 // -------------------------
@@ -60,16 +65,35 @@ p {
   margin: 0 0 (@line-height-computed / 2);
 }
 
+
 .lead {
   margin-bottom: @line-height-computed;
   font-size: floor((@font-size-base * 1.15));
   font-weight: 300;
   line-height: 1.4;
+  font-weight: bold;
 
   @media (min-width: @screen-sm-min) {
     font-size: (@font-size-base * 1.5);
   }
 }
+
+.overflow-cut {
+    white-space: nowrap;      
+    overflow: hidden;         
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 100%;
+}
+
+
+.link-no-underline {
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        }
+}
+
 
 
 // Emphasis & misc
@@ -118,6 +142,10 @@ mark,
 .text-danger {
   .text-emphasis-variant(@state-danger-text);
 }
+.text-grey {
+  .text-emphasis-variant(@gray-dark);
+}
+
 
 // Contextual backgrounds
 // For now we'll leave these alongside the text classes until v4 when we can
