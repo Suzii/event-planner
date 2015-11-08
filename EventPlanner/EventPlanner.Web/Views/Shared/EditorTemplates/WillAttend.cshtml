@@ -1,0 +1,16 @@
+﻿@using EventPlanner.Models.Enums
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/willAttendEditor.css")">
+
+@*TODO add glyphicon icons and change text to sr-only*@
+<label>
+    @Html.RadioButtonFor(x => x, WillAttend.Yes)
+    <i class=""><span class="">Yes</span></i>
+</label>
+<label>
+    @Html.RadioButtonFor(x => x, WillAttend.Maybe)
+    <i class=""><span class="">Maybe</span></i>
+</label>
+<label>
+    @Html.RadioButtonFor(x => x, WillAttend.No)
+    <i class=""><span class="">No</span></i>
+</label>

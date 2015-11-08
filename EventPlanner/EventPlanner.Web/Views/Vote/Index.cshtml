@@ -1,7 +1,8 @@
-﻿@model EventPlanner.Models.Models.Vote.VoteModel
+﻿@using Microsoft.AspNet.Identity
+@model EventPlanner.Models.Models.Vote.VoteModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Vote";
 }
 
 
@@ -10,16 +11,19 @@
     @Scripts.Render("~/Scripts/Custom/GoogleMapsModule.js")
 }
 
-
-
-<div class="row" style="border: 2px;">
+<div class="row">
     <div class="col-md-8">
         <h2>
             @Model.EventViewModel.Title
-            @*TODO: Display glyphicon-pencil redirecting to edit page, when current user is organizer or othersCanEditProperty is true*@
-            @if (Model.EventViewModel.OthersCanEdit)
+            @*TODO: move this ligic to controller*@
+            @if (Model.EventViewModel.OthersCanEdit || User.Identity.GetUserId() == Model.EventViewModel.OrganizerId)
             {
-                <span class="small">@Html.ActionLink("Edit", "Index", "Event", new {id = Model.EventViewModel.Id}, new {@class = "glyphicon glyphicon-pencil"})</span>
+                <a href=">@Url.Action("Index", "Event", new {id = Model.EventViewModel.Id})">
+                    <small>
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        <span class="sr-only">Edit event</span>
+                    </small>
+                </a>
             }
         </h2>
     </div>
@@ -40,11 +44,11 @@
     @using (Html.BeginForm("Index", "Vote", FormMethod.Post, new {@class = ""}))
     {
 
-        <div id="placesTable">
+        <div class="col-sm-12" id="timesTable">
             @{Html.RenderPartial("_datesVotes", Model);}
         </div>
 
-        <div id="timesTable">
+        <div class="col-sm-12" id="placesTable">
             @{Html.RenderPartial("_placesVotes", Model);}
         </div>
 
@@ -52,11 +56,7 @@
     }
 </div>
 
-<h3>Cute little map</h3>
-<p>Just really felt like adding it and filling the sad blank space...</p>
-<p>(CSS is in size.less)</p>
-<div class="row map" id="map">
-    @*TODO*@
-    Dummy placeholder for Google maps module!
-    You gotta wait for it, it's gonna be worth it! :P
+<div id="mapModule">
+    @{ Html.RenderPartial("_mapModule");}
 </div>
+

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EventPlanner.Models.Enums;
 
 namespace EventPlanner.Models.Domain
 {
@@ -13,6 +14,7 @@ namespace EventPlanner.Models.Domain
         [Required]
         public Guid TimeSlotId { set; get; }
 
-        public bool WillAttend { get; set; }
+        [UIHint("WillAttend")]
+        public WillAttend? WillAttend { get; set; }
     }
 }

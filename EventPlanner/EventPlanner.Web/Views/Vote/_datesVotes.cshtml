@@ -1,37 +1,34 @@
-﻿@using EventPlanner.Web.Helpers
+﻿@using EventPlanner.Models.Enums
+@using EventPlanner.Web.Helpers
 @model EventPlanner.Models.Models.Vote.VoteModel
 <h3>Votes for dates:</h3>
-<div class="table-responsive">
-    <table class="table">
-        <tbody>
-            @foreach (var date in Model.EventViewModel.TimeSlots)
-            {
-                var index = Model.VotesForDates.FindIndex(v => v.TimeSlotId == date.Id);
-                var numOfWillAttendUsers = date.VotesForDate.Count(v => v.WillAttend);
-                var willAttendPercentage = (Model.EventViewModel.TotalNumberOfVoters > 0) ? (int)(100 * numOfWillAttendUsers / Model.EventViewModel.TotalNumberOfVoters) : 50;
-                <tr>
-                    <td>
-                        <div class="text-primary">@date.DateTime.ToLongDateString()</div>
-                        <div class="text-muted">@date.DateTime.ToShortTimeString()</div>
-                    </td>
-                    <td>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="@(willAttendPercentage)" aria-valuemin="0" aria-valuemax="100" style="width: @(willAttendPercentage)%;">
-                                @(numOfWillAttendUsers) / @(Model.EventViewModel.TotalNumberOfVoters) (@(willAttendPercentage)%)
-                            </div>
-                        </div>
-                        <div class="atendees">
-                            @*TODO : change to displaying username once supported*@
-                            @date.VotesForDate.Where(vote => vote.WillAttend).Select(vote => vote.UserId).Aggregate(string.Empty, (next, accu) => accu + ", " + next)
-                        </div>
-                    </td>
-                    <td>
-                        @*TODO: modelbinding requires refactoring*@
-                        @Html.HiddenFor(m => m.VotesForDates[index].TimeSlotId)
-                        @Html.EditorFor(m => m.VotesForDates[index].WillAttend, new {@class = "form-control"})
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var date in Model.EventViewModel.TimeSlots)
+        {
+            var index = Model.VotesForDates.FindIndex(v => v.TimeSlotId == date.Id);
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="text-primary">@date.DateTime.ToLongDateString()</div>
+                    <div class="text-muted">@date.DateTime.ToShortTimeString()</div>
+                </div>
+                <div class="col-md-1">
+                    @*TODO: modelbinding requires refactoring*@
+                    @Html.HiddenFor(m => m.VotesForDates[index].TimeSlotId)
+                    @Html.EditorFor(m => m.VotesForDates[index].WillAttend, new { @class = "form-control" })
+                </div>
+                <div class="col-md-9">
+                    @RazorHelpers.WillAttendProgressBar(
+                       date.VotesForDate.Count(v => v.WillAttend == WillAttend.Yes),
+                       date.VotesForDate.Count(v => v.WillAttend == WillAttend.Maybe),
+                       date.VotesForDate.Count(v => v.WillAttend == WillAttend.No), 
+                       0)
+                    <div class="atendees">
+                        @*TODO : change to displaying username once supported*@
+                        @date.VotesForDate.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).Aggregate(string.Empty, (next, accu) => accu + ", " + next)
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

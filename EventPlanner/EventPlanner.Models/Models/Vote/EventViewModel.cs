@@ -19,7 +19,7 @@ namespace EventPlanner.Models.Models.Vote
         public float ExpectedLength { get; set; }
 
         [Display(Name = "Organizer", ResourceType = typeof(Resources.Event))]
-        public Guid OrganizerId { get; set; }
+        public string OrganizerId { get; set; }
 
         [Display(Name = "Others_can_edit", ResourceType = typeof(Resources.Event))]
         public bool OthersCanEdit { get; set; }

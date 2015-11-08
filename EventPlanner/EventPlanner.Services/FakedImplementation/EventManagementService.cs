@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventPlanner.Models.Domain;
+using EventPlanner.Models.Enums;
 
 namespace EventPlanner.Services.FakedImplementation
 {
@@ -75,20 +76,20 @@ namespace EventPlanner.Services.FakedImplementation
 
             ev.TimeSlots[0].VotesForDate = new List<VoteForDate>()
             {
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Tomas", WillAttend = true},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Jirka", WillAttend = false},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Jana", WillAttend = true},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Suzi", WillAttend = false},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Martin", WillAttend = false},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Tomas", WillAttend = WillAttend.Yes},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Jirka", WillAttend = WillAttend.Maybe},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Jana", WillAttend = WillAttend.Yes},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Suzi", WillAttend = WillAttend.No},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Martin", WillAttend = WillAttend.No},
             };
 
             ev.TimeSlots[1].VotesForDate = new List<VoteForDate>()
             {
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Tomas", WillAttend = true},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Jirka", WillAttend = true},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Jana", WillAttend = true},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Suzi", WillAttend = true},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Martin", WillAttend = false},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Tomas", WillAttend = WillAttend.Maybe},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Jirka", WillAttend = WillAttend.Maybe},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Jana", WillAttend = WillAttend.Yes},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Suzi", WillAttend = WillAttend.Yes},
+                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Martin", WillAttend = WillAttend.No},
             };
 
             return ev;

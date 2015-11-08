@@ -1,0 +1,20 @@
+﻿@using EventPlanner.Web.Helpers
+@helper WillAttendProgressBar(int yes, int maybe, int no, int undefined = 0)
+{
+    var total = (yes + no + maybe + undefined);
+    if (total != 0)
+    {
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: @(MathHelpers.RoundedPercentage(yes,total))%">
+                <span class="">@(yes)</span>
+            </div>
+            <div class="progress-bar progress-bar-warning" style="width: @(MathHelpers.RoundedPercentage(maybe, total))%">
+                <span class="">@(maybe)</span>
+            </div>
+            <div class="progress-bar progress-bar-danger progress-bar" style="width: @(MathHelpers.RoundedPercentage(no,total))%">
+                <span class="">@(no)</span>
+            </div>
+        </div>
+    }
+
+}
