@@ -46,10 +46,11 @@
             @* NOTE: following code is under construction.. *@
             <div class="form-group" id="containerDates">
                 <label for="dp">Choose a date</label>
+                <br/>
             <span id="divDate">
                 <span id="divcust0" class="divcust0">
                     @for (var i = 0; i < Model.Dates.Count; i++)
-                    {
+                    { <br />
                         //date
 
                         @Html.EditorFor(m => m.Dates[i].Date, new { @class = "datepicker", type = "date" })
@@ -84,7 +85,9 @@
                                 new {value = "22:00:00", text = "22:00"},
                                 new {value = "23:00:00", text = "23:00"}
                             }, "value", "text", 0))
+
                         }
+
                     }
 
 
