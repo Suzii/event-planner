@@ -46,6 +46,7 @@
     <Compile Include="Domain\TimeSlot.cs" />
     <Compile Include="Domain\VoteForDate.cs" />
     <Compile Include="Domain\VoteForPlace.cs" />
+    <Compile Include="Enums\WillAttend.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\FourSquareVenueModel.cs" />
     <Compile Include="Models\MyEventsViewModel.cs" />
