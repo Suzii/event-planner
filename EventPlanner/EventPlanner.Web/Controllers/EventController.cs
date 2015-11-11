@@ -22,6 +22,35 @@ namespace EventPlanner.Web.Controllers
         {
             _eventManagementService = new EventManagementService();
             _placeService = new PlaceService();
+            List<Object> list = new List<Object>
+            {
+               new {Value = "00:00:00", Text = "00:00"},
+               new {Value = "01:00:00", Text = "01:00"}, 
+               new {Value = "02:00:00", Text = "02:00"},
+               new {Value = "03:00:00", Text = "03:00"},
+               new {Value = "04:00:00", Text = "04:00"},
+               new {Value = "05:00:00", Text = "05:00"},
+               new {Value = "06:00:00", Text = "06:00"},
+               new {Value = "07:00:00", Text = "07:00"},
+               new {Value = "08:00:00", Text = "08:00"},
+               new {Value = "09:00:00", Text = "09:00"},
+               new {Value = "10:00:00", Text = "10:00"},
+               new {Value = "11:00:00", Text = "11:00"},
+               new {Value = "12:00:00", Text = "12:00"},
+               new {Value = "13:00:00", Text = "13:00"},
+               new {Value = "14:00:00", Text = "14:00"},
+               new {Value = "15:00:00", Text = "15:00"},
+               new {Value = "16:00:00", Text = "16:00"},
+               new {Value = "17:00:00", Text = "17:00"},
+               new {Value = "18:00:00", Text = "18:00"},
+               new {Value = "19:00:00", Text = "19:00"},
+               new {Value = "20:00:00", Text = "20:00"},
+               new {Value = "21:00:00", Text = "21:00"},
+               new {Value = "22:00:00", Text = "22:00"},
+               new {Value = "23:00:00", Text = "23:00"}  
+            };
+           
+            ViewBag.Times = list;
         }
 
         [HttpGet]
@@ -52,13 +81,14 @@ namespace EventPlanner.Web.Controllers
 
             return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Hash });
         }
-
+       
         private EventModel ConstructModel()
         {
             return new EventModel()
             {
                 ExpectedLength = 1,
                 Dates = GetDefaultDatesModel()
+
             };
         }
 
@@ -68,6 +98,7 @@ namespace EventPlanner.Web.Controllers
             var eventId = _eventManagementService.GetEventId(eventHash);
             var result = await _eventManagementService.GetEventAsync(eventId);
 
+           
             var model = Mapper.Map<EventModel>(result);
             if (model.Places == null)
             {
