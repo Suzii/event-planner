@@ -24,7 +24,7 @@ namespace EventPlanner.Services.FakedImplementation
             
         }
 
-        public async Task<Event> GetEventAsync(Guid id)
+        public async Task<Event> GetFullEventAsync(Guid id)
         {
             var ev = new Event()
             {

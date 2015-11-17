@@ -24,13 +24,26 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<Event> GetEvent(Guid eventId)
+        public async Task<Event> GetEventInfo(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Events
                     .FirstOrDefault(e => e.Id == eventId);
                     
+                return await Task.FromResult(Mapper.Map<Event>(result));
+            }
+        }
+
+        public async Task<Event> GetFullEvent(Guid eventId)
+        {
+            using (var context = EventPlannerContext.Get())
+            {
+                var result = context.Events
+                    .Include("Places")
+                    .Include("TimeSlots")
+                    .FirstOrDefault(e => e.Id == eventId);
+
                 return await Task.FromResult(Mapper.Map<Event>(result));
             }
         }

@@ -42,6 +42,14 @@ namespace EventPlanner.Models.Models
             public DateTime Date { get; set; }
 
             public IList<string> Times { get; set; }
+
+            //public IList<TimeModel> Times { get; set; }
+        }
+
+        public class TimeModel
+        {
+            public Guid Id { get; set; }
+            public string Time { get; set; }
         }
 
         public string Hash

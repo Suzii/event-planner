@@ -96,7 +96,7 @@ namespace EventPlanner.Web.Controllers
         private async Task<EventModel> GetModel(string eventHash)
         {
             var eventId = _eventManagementService.GetEventId(eventHash);
-            var result = await _eventManagementService.GetEventAsync(eventId);
+            var result = await _eventManagementService.GetFullEventAsync(eventId);
 
            
             var model = Mapper.Map<EventModel>(result);
@@ -104,10 +104,32 @@ namespace EventPlanner.Web.Controllers
             {
                 model.Places = new List<FourSquareVenueModel>();
             }
+            await PopulateVenueDetails(model);
 
-            if (model.Dates == null)
+            if (result.TimeSlots == null)
             {
                 model.Dates = GetDefaultDatesModel();
+            }
+            else
+            {
+                model.Dates =
+                    result.TimeSlots.GroupBy(ts => ts.DateTime.Date, ts => ts)
+                        .Select(
+                            tsGrp =>
+                                new EventModel.DatesModel()
+                                {
+                                    Date = tsGrp.Key.Date,
+                                    Times = tsGrp.Select(ts => ts.DateTime.ToLongTimeString()).ToList()
+                                }).ToList();
+
+                //foreach (var date in result.TimeSlots.Select(ts => ts.DateTime).Distinct())
+                //{
+                //    model.Dates.Add(result.TimeSlots.Where(ts => ts.DateTime.Date == date).Select(ts => new EventModel.DatesModel()
+                //         {
+                //             Date = ts.DateTime.Date,
+                //             Times = ts.Select(ts => ts.DateTime.ToShortTimeString()).ToList()
+                //                }).ToList())
+                //}
             }
 
             return model;
@@ -138,6 +160,12 @@ namespace EventPlanner.Web.Controllers
             var response = await _placeService.GetPlaceSuggestionsAsync(query, city);
 
             return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        private async Task PopulateVenueDetails(EventModel eventModel)
+        {
+            var venuesDetails = await _placeService.GetPlacesDetailsAsync(eventModel.Places.Select(p => p.VenueId).ToList());
+            eventModel.Places = eventModel.Places.Select(p => venuesDetails.Single(venue => venue.VenueId == p.VenueId)).ToList();
         }
     }
 }
