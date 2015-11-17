@@ -34,13 +34,13 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(e => e.TimeSlots, conf => conf.ResolveUsing(ee => ee.TimeSlots));
 
             Mapper.CreateMap<Models.Domain.Event, EventModel>()
-                .ForMember(e => e.Dates, conf => conf.Ignore());
+                .ForMember(src => src.Dates, conf => conf.ResolveUsing(dest => MappingHelper.MapToDatesModel(dest.TimeSlots)));
 
             Mapper.CreateMap<EventModel, Models.Domain.Event>()
                 .ForMember(e => e.Id, conf => conf.MapFrom(y => (y.Id.HasValue ? y.Id.Value : Guid.Empty)))
                 .ForMember(e => e.Disabled, conf => conf.Ignore())
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
-                .ForMember(e => e.TimeSlots, conf => conf.Ignore()); 
+                .ForMember(e => e.TimeSlots, conf => conf.ResolveUsing(em => MappingHelper.MapToTimeSlot(em.Dates))); 
 
             Mapper.CreateMap<Models.Domain.Event, Models.Models.Vote.EventViewModel>()
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))

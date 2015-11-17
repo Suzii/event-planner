@@ -62,7 +62,7 @@
                         for (var j = 0; j < Model.Dates[i].Times.Count; j++)
                         {
                             @Html.HiddenFor((m => m.Dates[i].Times[j].Id)) //timeslot id
-                            @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList ((ViewBag.Times), "Value", "Text", 0))
+                            @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList ((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time))
                         }
                     }
 
@@ -95,6 +95,6 @@
     <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
     <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
     <script type="text/jsx">
-        React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
+        React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
     </script>
 }

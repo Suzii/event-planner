@@ -22,7 +22,7 @@ namespace EventPlanner.Web.Controllers
 
         public EventController()
         {
-            _eventManagementService = new EventManagementService();
+            _eventManagementService = new EventPlanner.Services.FakedImplementation.EventManagementService();
             _placeService = new PlaceService();
             List<Object> list = new List<Object>
             {
@@ -70,92 +70,16 @@ namespace EventPlanner.Web.Controllers
                 return View(model);
             }
 
-            //update eventEtity
             var eventEntity = Mapper.Map<Event>(model);
-            eventEntity.TimeSlots = model.Dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
-            {
-                DateTime = d.Date.Add(TimeSpan.Parse(time.Time))
-            }).ToList()).ToList();
-
             eventEntity = (model.Id.HasValue) ?
                 await _eventManagementService.UpdateEventAsync(eventEntity) : 
                 await _eventManagementService.CreateEventAsync(eventEntity, User.Identity.GetUserId());
             
             return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Id.GetUniqueUrlParameter() });
         }
-       
-        private EventModel ConstructModel()
-        {
-            return new EventModel()
-            {
-                ExpectedLength = 1,
-                Dates = GetDefaultDatesModel()
 
-            };
-        }
-
-
-        private async Task<EventModel> GetModel(string eventHash)
-        {
-            var eventId = _eventManagementService.GetEventId(eventHash);
-            var result = await _eventManagementService.GetFullEventAsync(eventId);
-
-           
-            var model = Mapper.Map<EventModel>(result);
-            if (model.Places == null)
-            {
-                model.Places = new List<FourSquareVenueModel>();
-            }
-            await PopulateVenueDetails(model);
-
-            if (result.TimeSlots == null)
-            {
-                model.Dates = GetDefaultDatesModel();
-            }
-            else
-            {
-                model.Dates =
-                    result.TimeSlots.GroupBy(ts => ts.DateTime.Date, ts => ts)
-                        .Select(
-                            tsGrp =>
-                                new EventModel.DatesModel()
-                                {
-                                    Date = tsGrp.Key.Date,
-                                    Times = tsGrp.Select(ts => new EventModel.TimeModel(ts.Id, ts.DateTime.ToString())).ToList()
-                                }).ToList();
-                
-
-                //foreach (var date in result.TimeSlots.Select(ts => ts.DateTime).Distinct())
-                //{
-                //    model.Dates.Add(result.TimeSlots.Where(ts => ts.DateTime.Date == date).Select(ts => new EventModel.DatesModel()
-                //         {
-                //             Date = ts.DateTime.Date,
-                //             Times = ts.Select(ts => ts.DateTime.ToShortTimeString()).ToList()
-                //                }).ToList())
-                //}
-            }
-
-            return model;
-        }
-        private static List<EventModel.DatesModel> GetDefaultDatesModel()
-        {
-          EventModel.TimeModel time =  new EventModel.TimeModel();
-          time.Time = "00:00";
-            return new List<EventModel.DatesModel>()
-            {
-                new EventModel.DatesModel()
-                {
-                    Date = DateTime.Now,
-                    Times = new List<EventModel.TimeModel>()
-                    {
-                       time
-                    }
-                }
-            };
-        }
-        
         [HttpGet]
-        public async Task<JsonResult> GetData(string city, string query)
+        public async Task<JsonResult> GetPlacesData(string city, string query)
         {
             if (city == null || query == null)
             {
@@ -163,14 +87,63 @@ namespace EventPlanner.Web.Controllers
             }
 
             var response = await _placeService.GetPlaceSuggestionsAsync(query, city);
-
             return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        private async Task<EventModel> GetModel(string eventHash)
+        {
+            var eventId = _eventManagementService.GetEventId(eventHash);
+            var result = await _eventManagementService.GetFullEventAsync(eventId);
+            
+            var model = Mapper.Map<EventModel>(result);
+            if (model.Places == null)
+            {
+                model.Places = new List<FourSquareVenueModel>();
+            }
+            await PopulateVenueDetails(model);
+
+            if (model.Dates == null)
+            {
+                model.Dates = GetDefaultDatesModel();
+            }
+
+            return model;
         }
 
         private async Task PopulateVenueDetails(EventModel eventModel)
         {
+            // TODO place id has to be persisted
             var venuesDetails = await _placeService.GetPlacesDetailsAsync(eventModel.Places.Select(p => p.VenueId).ToList());
-            eventModel.Places = eventModel.Places.Select(p => venuesDetails.Single(venue => venue.VenueId == p.VenueId)).ToList();
+            eventModel.Places = eventModel.Places.Select(p =>
+            {
+                var v = venuesDetails.Single(venue => venue.VenueId == p.VenueId);
+                v.Id = p.Id;
+                return v;
+            }).ToList();
+        }
+
+        private EventModel ConstructModel()
+        {
+            return new EventModel()
+            {
+                ExpectedLength = 1,
+                Dates = GetDefaultDatesModel()
+            };
+        }
+
+        private static List<EventModel.DatesModel> GetDefaultDatesModel()
+        {
+            return new List<EventModel.DatesModel>()
+            {
+                new EventModel.DatesModel()
+                {
+                    Date = DateTime.Today,
+                    Times = new List<EventModel.TimeModel>()
+                    {
+                       new EventModel.TimeModel { Time = "00:00" }
+                    }
+                }
+            };
         }
     }
 }

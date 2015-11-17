@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMappers\AutoMappers.cs" />
+    <Compile Include="AutoMappers\MappingHelper.cs" />
     <Compile Include="EventPlannerContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
