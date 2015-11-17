@@ -13,7 +13,7 @@ namespace EventPlanner.Web.Controllers
 
         private ShareLinkViewModel ConstructViewModel(string eventHash)
         {
-            var url = Url.Action("Index", "Vote", new { eventHash = eventHash }, Request.Url.Scheme);
+            var url = Url.Action("Index", "Vote", new { eventHash = eventHash }, Request.Url?.Scheme);
 
             return new ShareLinkViewModel()
             {

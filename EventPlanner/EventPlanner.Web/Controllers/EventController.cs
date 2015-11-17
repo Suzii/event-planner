@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using EventPlanner.Models.Domain;
-using EventPlanner.Models.Models;
 using EventPlanner.Models.Models.CreateAndEdit;
 using EventPlanner.Models.Models.Shared;
 using EventPlanner.Services;

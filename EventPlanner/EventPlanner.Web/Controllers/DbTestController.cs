@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using EventPlanner.DAL.Repository;
-using EventPlanner.Entities;
 using EventPlanner.Models.Domain;
-using EventPlanner.Models.Models;
 using EventPlanner.Models.Models.CreateAndEdit;
 using EventPlanner.Models.Models.Shared;
 using Microsoft.AspNet.Identity;
@@ -14,6 +12,7 @@ using Microsoft.AspNet.Identity;
 namespace EventPlanner.Web.Controllers
 {
     // solely for testing purposes of DB settings
+    [Authorize]
     public class DbTestController : Controller
     {
         public async Task<JsonResult> Test()
@@ -25,7 +24,6 @@ namespace EventPlanner.Web.Controllers
             EventRepository e = new EventRepository();
             var eventModel = new EventModel()
             {
-                //Id = Guid.NewGuid(),
                 Title = "Some fake event for testing purposes",
                 Desc = "Hello there, we are going to drink some beer! Cheers!",
                 OthersCanEdit = true,
