@@ -1,15 +1,8 @@
-﻿@using System.Collections
-@model EventPlanner.Models.Models.CreateAndEdit.EventModel
+﻿@model EventPlanner.Models.Models.CreateAndEdit.EventModel
 
 @{
     ViewBag.Title = "Create Event";
 }
-
-@*
-    TODO : add bootstrap-datepicker3 css file - ideally generated from less files
-    see: https://github.com/eternicode/bootstrap-datepicker
-*@
-
 <h2>Create your event:</h2>
 
 <div class="container">
@@ -99,13 +92,9 @@
     {
     <script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
     <script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
-    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")">
-    </script>
+    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
     <script type="text/jsx">
-        React.render(
-        <FourSquareApp getDataURL="@Url.Action("GetData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
+        React.render(<FourSquareApp getDataURL="@Url.Action("GetData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
     </script>
 }
