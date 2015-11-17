@@ -17,7 +17,7 @@ namespace EventPlanner.Services.Implementation
         public async Task<Event> CreateEventAsync(Event e, string userId)
         {
             e.OrganizerId = userId;
-            e.Created = DateTime.Now;
+            e.CreatedOn = DateTime.Now;
             return await _eventRepository.AddOrUpdate(e);
         }
 
@@ -26,7 +26,7 @@ namespace EventPlanner.Services.Implementation
             //TODO: problem with created date == null.. leads to failed update
             //HOTFIX just to be able to test update functionality
             var oldEvent = await _eventRepository.GetEventInfo(e.Id);
-            e.Created = oldEvent.Created;
+            e.CreatedOn = oldEvent.CreatedOn;
             e.OrganizerId = oldEvent.OrganizerId;
             return await _eventRepository.AddOrUpdate(e);
         }

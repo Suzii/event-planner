@@ -31,7 +31,7 @@ namespace EventPlanner.Services.FakedImplementation
                 Id = id,
                 Title = "Faked event",
                 Desc = "This event has no purpose at all and only serves for faked implementation of our cute EventManagementService",
-                Created = DateTime.Today.AddDays(-2),
+                CreatedOn = DateTime.Today.AddDays(-2),
                 OthersCanEdit = true,
                 ExpectedLength = 2,
                 TimeSlots = new List<TimeSlot>()

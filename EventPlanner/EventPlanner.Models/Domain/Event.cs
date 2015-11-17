@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventPlanner.Models.Domain
@@ -19,16 +18,18 @@ namespace EventPlanner.Models.Domain
 
         [Range(1,99)]
         [Display(Name = "Expected_length", ResourceType = typeof(Resources.Event))]
-        public float ExpectedLength { get; set; }
+        public double ExpectedLength { get; set; }
 
         [Display(Name = "Organizer", ResourceType = typeof(Resources.Event))]
-        public String OrganizerId { get; set; }
+        public string OrganizerId { get; set; }
+
+        public User Organizer { get; set; }
 
         [Display(Name = "Others_can_edit", ResourceType = typeof(Resources.Event))]
         public bool OthersCanEdit { get; set; }
 
         [Display(Name = "Created_on", ResourceType = typeof(Resources.Event))]
-        public DateTime Created { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = "Places", ResourceType = typeof(Resources.Event))]
         public IList<Place> Places { get; set; }
@@ -36,7 +37,6 @@ namespace EventPlanner.Models.Domain
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
         public IList<TimeSlot> TimeSlots { get; set; }
 
-        [DefaultValue(false)]
         public bool Disabled { get; set; }
 
         public string Hash

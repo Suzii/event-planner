@@ -12,8 +12,9 @@ namespace EventPlanner.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { set; get; }
 
-        //[ForeignKey("EventId")]
-        //public virtual EventEntity Event { set; get; }
+        [ForeignKey("Event")]
+        public Guid EventId { get; set; }
+        public virtual EventEntity Event { set; get; }
 
         [Required]
         public DateTime DateTime { set; get; }

@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace EventPlanner.Entities
 {
     /// <summary>
-    /// Extension for generated user entity, that contains collections of joined entities
+    /// Extension for generated user entity that contains collections of joined entities
     /// </summary>
     public class UserEntity : IdentityUser
     {

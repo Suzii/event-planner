@@ -44,6 +44,7 @@
     <Compile Include="Domain\Event.cs" />
     <Compile Include="Domain\Place.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\VoteForDate.cs" />
     <Compile Include="Domain\VoteForPlace.cs" />
     <Compile Include="Enums\WillAttend.cs" />

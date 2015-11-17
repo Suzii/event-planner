@@ -16,6 +16,9 @@ namespace EventPlanner.Entities
         public Guid EventId { get; set; }
         public virtual EventEntity Event { set; get; }
 
+        /// <summary>
+        /// Id of FourSquare venue object
+        /// </summary>
         [Required]
         public string VenueId { set; get; }
 

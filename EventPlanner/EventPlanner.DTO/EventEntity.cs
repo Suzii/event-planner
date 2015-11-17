@@ -16,36 +16,27 @@ namespace EventPlanner.Entities
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Title")]//, ResourceType = typeof(Resources.Event))]
         public string Title { get; set; }
 
-        [Display(Name = "Description")]//, ResourceType = typeof(Resources.Event))]
         public string Desc { get; set; }
 
         [Range(1, 99)]
-        [Display(Name = "Expected_length")]//, ResourceType = typeof(Resources.Event))]
-        public float ExpectedLength { get; set; }
+        public double ExpectedLength { get; set; }
 
         [ForeignKey("Organizer")]
         public string OrganizerId { get; set; }
 
-        [Display(Name = "Organizer")]//, ResourceType = typeof(Resources.Event))]
         public virtual UserEntity Organizer { get; set; }
 
-        [Display(Name = "Others_can_edit")]//, ResourceType = typeof(Resources.Event))]
         public bool OthersCanEdit { get; set; }
 
         [Required]
-        [Display(Name = "Created_on")]//, ResourceType = typeof(Resources.Event))]
-        public DateTime Created { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        [Display(Name = "Places")]//, ResourceType = typeof(Resources.Event))]
         public IList<PlaceEntity> Places { get; set; }
 
-        [Display(Name = "Dates")]//, ResourceType = typeof(Resources.Event))]
         public IList<TimeSlotEntity> TimeSlots { get; set; }
 
-        [Display(Name = "Disabled")]//, ResourceType = typeof(Resources.Event))]
         [DefaultValue(false)]
         public bool Disabled { get; set; }
 

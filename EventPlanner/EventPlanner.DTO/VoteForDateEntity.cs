@@ -22,6 +22,6 @@ namespace EventPlanner.Entities
 
         public virtual TimeSlotEntity TimeSlot { set; get; }
 
-        public WillAttend WillAttend { get; set; }
+        public WillAttend? WillAttend { get; set; }
     }
 }
