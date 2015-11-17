@@ -11,8 +11,12 @@ namespace EventPlanner.Models.Domain
         [Required]
         public string UserId { set; get; }
 
+        public User User { set; get; }
+
         [Required]
         public Guid PlaceId { set; get; }
+
+        public Place Place { set; get; }
 
         [Required]
         [UIHint("WillAttend")]

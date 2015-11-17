@@ -11,8 +11,11 @@ namespace EventPlanner.Models.Domain
         [Required]
         public string UserId { set; get; }
 
+        public User User { set; get; }
+
         [Required]
         public Guid TimeSlotId { set; get; }
+        public TimeSlot TimeSlot { set; get; }
 
         [Required]
         [UIHint("WillAttend")]

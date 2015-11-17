@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EventPlanner.Models.Domain;
-using EventPlanner.Models.Models;
+using EventPlanner.Models.Models.Home;
 using EventPlanner.Services.Implementation;
 using Microsoft.AspNet.Identity;
 using System;
@@ -27,11 +27,11 @@ namespace EventPlanner.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var result = await _userService.GetEventsCreatedBy(User.Identity.GetUserId());
-            IList<EventModel> model = new List<EventModel>();
+            IList<EventViewModel> model = new List<EventViewModel>();
 
             foreach (Event e in result)
             {
-                model.Add(Mapper.Map<EventModel>(e));
+                model.Add(Mapper.Map<EventViewModel>(e));
             }
 
             return View("Index", new MyEventsViewModel { Events = model });

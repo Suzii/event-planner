@@ -2,6 +2,8 @@
 using AutoMapper;
 using EventPlanner.Entities;
 using EventPlanner.Models.Enums;
+using EventPlanner.Models.Models.CreateAndEdit;
+using EventPlanner.Models.Models.Shared;
 
 namespace EventPlanner.DAL.AutoMappers
 {
@@ -17,6 +19,8 @@ namespace EventPlanner.DAL.AutoMappers
             CreateTimeSlotMap();
             CreateVoteForDateMap();
             CreateVoteForPlaceMap();
+            CreateEnumsMap();
+            CreateUserMap();
         }
 
         private static void CreateEventMap()
@@ -28,18 +32,21 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<EventEntity, Models.Domain.Event>()
                 .ForMember(e => e.Places, conf => conf.ResolveUsing(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.ResolveUsing(ee => ee.TimeSlots));
-            
-            Mapper.CreateMap<Models.Domain.Event, Models.Models.EventModel>()
-                .ForMember(e => e.Dates, conf => conf.Ignore())
-                .ForMember(e => e.Id, conf => conf.MapFrom(ee => ee.Id));
-            Mapper.CreateMap<Models.Models.EventModel, Models.Domain.Event>()
+
+            Mapper.CreateMap<Models.Domain.Event, EventModel>()
+                .ForMember(e => e.Dates, conf => conf.Ignore());
+
+            Mapper.CreateMap<EventModel, Models.Domain.Event>()
                 .ForMember(e => e.Id, conf => conf.MapFrom(y => (y.Id.HasValue ? y.Id.Value : Guid.Empty)))
                 .ForMember(e => e.Disabled, conf => conf.Ignore())
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.Ignore()); 
+
             Mapper.CreateMap<Models.Domain.Event, Models.Models.Vote.EventViewModel>()
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots));
+
+            Mapper.CreateMap<Models.Domain.Event, Models.Models.Home.EventViewModel>();
         }
 
         private static void CreatePlaceMap()
@@ -50,7 +57,7 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<PlaceEntity, Models.Domain.Place>()
                 .ForMember(p => p.VotesForPlace, conf => conf.MapFrom(pe => pe.VotesForPlace));
 
-            Mapper.CreateMap<Models.Domain.Place, Models.Models.FourSquareVenueModel>()
+            Mapper.CreateMap<Models.Domain.Place, FourSquareVenueModel>()
                 .ForMember(p => p.VenueId, conf => conf.MapFrom(p => p.VenueId))
                 .ForMember(p => p.Name, conf => conf.Ignore())
                 .ForMember(p => p.AddressInfo, conf => conf.Ignore())
@@ -59,7 +66,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(p => p.Lng, conf => conf.Ignore());
 
 
-            Mapper.CreateMap<Models.Models.FourSquareVenueModel, Models.Domain.Place>()
+            Mapper.CreateMap<FourSquareVenueModel, Models.Domain.Place>()
                 .ForMember(p => p.VenueId, conf => conf.MapFrom(p => p.VenueId))
                 .ForMember(p => p.Id, conf => conf.Ignore())
                 .ForMember(p => p.EventId, conf => conf.Ignore())
@@ -89,7 +96,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(v => v.WillAttend, conf => conf.MapFrom(ve => ve.WillAttend));
 
             Mapper.CreateMap<Models.Domain.VoteForDate, VoteForDateEntity>()
-                .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend.HasValue ? v.WillAttend : WillAttend.No));
+                .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend));
         }
 
         private static void CreateVoteForPlaceMap()
@@ -98,7 +105,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(v => v.WillAttend, conf => conf.MapFrom(ve => ve.WillAttend));
 
             Mapper.CreateMap<Models.Domain.VoteForPlace, VoteForPlaceEntity>()
-                .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend.HasValue ? v.WillAttend : WillAttend.No));
+                .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend));
             ;
         }
 
@@ -107,6 +114,13 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<Entities.Enums.WillAttend, Models.Enums.WillAttend>();
 
             Mapper.CreateMap<Models.Enums.WillAttend, Entities.Enums.WillAttend>();
+        }
+
+        private static void CreateUserMap()
+        {
+            Mapper.CreateMap<Entities.UserEntity, Models.Domain.User>();
+
+            Mapper.CreateMap<Models.Domain.User, Entities.UserEntity>();
         }
     }
 }

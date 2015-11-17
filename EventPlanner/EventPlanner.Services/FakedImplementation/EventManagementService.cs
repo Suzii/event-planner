@@ -24,14 +24,14 @@ namespace EventPlanner.Services.FakedImplementation
             
         }
 
-        public async Task<Event> GetEventAsync(Guid id)
+        public async Task<Event> GetFullEventAsync(Guid id)
         {
             var ev = new Event()
             {
                 Id = id,
                 Title = "Faked event",
                 Desc = "This event has no purpose at all and only serves for faked implementation of our cute EventManagementService",
-                Created = DateTime.Today.AddDays(-2),
+                CreatedOn = DateTime.Today.AddDays(-2),
                 OthersCanEdit = true,
                 ExpectedLength = 2,
                 TimeSlots = new List<TimeSlot>()

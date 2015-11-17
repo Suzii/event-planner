@@ -99,7 +99,7 @@ namespace EventPlanner.Web.Controllers
 
         private async Task<EventViewModel> ConstructEventViewModel(Guid id)
         {
-            var result = await _eventManagementService.GetEventAsync(id);
+            var result = await _eventManagementService.GetFullEventAsync(id);
 
             var eventViewModel =  Mapper.Map<EventViewModel>(result);
             await PopulateVenueDetails(eventViewModel);

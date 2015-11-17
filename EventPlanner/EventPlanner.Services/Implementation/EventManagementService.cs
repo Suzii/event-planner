@@ -17,26 +17,30 @@ namespace EventPlanner.Services.Implementation
         public async Task<Event> CreateEventAsync(Event e, string userId)
         {
             e.OrganizerId = userId;
-            e.Created = DateTime.Now;
+            e.CreatedOn = DateTime.Now;
             return await _eventRepository.AddOrUpdate(e);
         }
 
         public async Task<Event> UpdateEventAsync(Event e)
         {
             //TODO: problem with created date == null.. leads to failed update
+            //HOTFIX just to be able to test update functionality
+            var oldEvent = await _eventRepository.GetEventInfo(e.Id);
+            e.CreatedOn = oldEvent.CreatedOn;
+            e.OrganizerId = oldEvent.OrganizerId;
             return await _eventRepository.AddOrUpdate(e);
         }
 
         public async Task DisableEventAsync(Guid id)
         {
-            var e = await _eventRepository.GetEvent(id);
+            var e = await _eventRepository.GetEventInfo(id);
             e.Disabled = true;
             await _eventRepository.AddOrUpdate(e);
         }
 
-        public async Task<Event> GetEventAsync(Guid id)
+        public async Task<Event> GetFullEventAsync(Guid id)
         {
-            return await _eventRepository.GetEvent(id);
+            return await _eventRepository.GetFullEvent(id);
         }
 
         public Guid GetEventId(string eventHash)

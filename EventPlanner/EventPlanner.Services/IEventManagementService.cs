@@ -27,7 +27,7 @@ namespace EventPlanner.Services
         /// <returns></returns>
         Task DisableEventAsync(Guid id);
 
-        Task<Event> GetEventAsync(Guid id);
+        Task<Event> GetFullEventAsync(Guid id);
 
         Guid GetEventId(string eventHash);
     }

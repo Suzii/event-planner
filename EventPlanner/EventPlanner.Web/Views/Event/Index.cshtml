@@ -1,5 +1,5 @@
 ﻿@using System.Collections
-@model EventPlanner.Models.Models.EventModel
+@model EventPlanner.Models.Models.CreateAndEdit.EventModel
 
 @{
     ViewBag.Title = "Create Event";
@@ -68,7 +68,7 @@
                         //time
                         for (var j = 0; j < Model.Dates[i].Times.Count; j++)
                         {
-
+                            //@Html.HiddenFor() //timeslot id
                             @Html.DropDownListFor(m => m.Dates[i].Times[j], new SelectList ((ViewBag.Times), "Value", "Text", 0))
                         }
                     }
