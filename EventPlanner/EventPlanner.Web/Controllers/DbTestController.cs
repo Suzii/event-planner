@@ -29,7 +29,7 @@ namespace EventPlanner.Web.Controllers
                 OthersCanEdit = true,
                 ExpectedLength = 2,
                 Places = new List<FourSquareVenueModel>() { new FourSquareVenueModel() { VenueId = "529ebe0f498eee32aa9dee7e" }} ,
-                Dates = new List<EventModel.DatesModel>() { new EventModel.DatesModel() {Date = DateTime.Today, Times = new List<string>() {"12:00", "13:30"} } }
+           //     Dates = new List<EventModel.DatesModel>() { new EventModel.DatesModel() {Date = DateTime.Today, Times = new List<string>() {"12:00", "13:30"} } }
             };
 
             var ev = Mapper.Map<Event>(eventModel);

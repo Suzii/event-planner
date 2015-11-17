@@ -35,15 +35,27 @@ namespace EventPlanner.Models.Models.CreateAndEdit
         {
             public DateTime Date { get; set; }
 
-            public IList<string> Times { get; set; }
+            //public IList<string> Times { get; set; }
 
-            //public IList<TimeModel> Times { get; set; }
+            public IList<TimeModel> Times { get; set; }
         }
 
         public class TimeModel
         {
             public Guid Id { get; set; }
             public string Time { get; set; }
+
+            public TimeModel(Guid id, string time)
+            {
+                this.Id = id;
+                this.Time = time;
+
+            }
+            public TimeModel()
+            {
+
+            }
+
         }
     }
 }

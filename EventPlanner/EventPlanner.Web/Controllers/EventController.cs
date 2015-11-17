@@ -11,6 +11,7 @@ using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
 using Microsoft.AspNet.Identity;
 using EventPlanner.Web.Helpers;
+using MvcContrib;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -74,7 +75,7 @@ namespace EventPlanner.Web.Controllers
             var eventEntity = Mapper.Map<Event>(model);
             eventEntity.TimeSlots = model.Dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
             {
-                DateTime = d.Date.Add(TimeSpan.Parse(time))
+                DateTime = d.Date.Add(TimeSpan.Parse(time.Time))
             }).ToList()).ToList();
 
             eventEntity = (model.Id.HasValue) ?
@@ -121,8 +122,9 @@ namespace EventPlanner.Web.Controllers
                                 new EventModel.DatesModel()
                                 {
                                     Date = tsGrp.Key.Date,
-                                    Times = tsGrp.Select(ts => ts.DateTime.ToLongTimeString()).ToList()
+                                    Times = tsGrp.Select(ts => new EventModel.TimeModel(ts.Id, ts.DateTime.ToString())).ToList()
                                 }).ToList();
+                
 
                 //foreach (var date in result.TimeSlots.Select(ts => ts.DateTime).Distinct())
                 //{
@@ -138,14 +140,16 @@ namespace EventPlanner.Web.Controllers
         }
         private static List<EventModel.DatesModel> GetDefaultDatesModel()
         {
+          EventModel.TimeModel time =  new EventModel.TimeModel();
+          time.Time = "00:00";
             return new List<EventModel.DatesModel>()
             {
                 new EventModel.DatesModel()
                 {
                     Date = DateTime.Now,
-                    Times = new List<string>()
+                    Times = new List<EventModel.TimeModel>()
                     {
-                        "00:00"
+                       time
                     }
                 }
             };
