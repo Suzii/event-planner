@@ -97,7 +97,7 @@ namespace EventPlanner.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expected length (hours).
+        ///   Looks up a localized string similar to Expected length.
         /// </summary>
         public static string Expected_length {
             get {
