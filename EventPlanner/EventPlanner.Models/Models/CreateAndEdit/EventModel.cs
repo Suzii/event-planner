@@ -33,7 +33,6 @@ namespace EventPlanner.Models.Models.CreateAndEdit
 
         public class DatesModel
         {
-            [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
             public DateTime Date { get; set; }
 
             public IList<string> Times { get; set; }
