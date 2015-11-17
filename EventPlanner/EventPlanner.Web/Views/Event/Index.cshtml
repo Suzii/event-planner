@@ -69,7 +69,7 @@
                         for (var j = 0; j < Model.Dates[i].Times.Count; j++)
                         {
                             @Html.HiddenFor((m => m.Dates[i].Times[j].Id)) //timeslot id
-                            @Html.DropDownListFor(m => m.Dates[i].Times[j], new SelectList ((ViewBag.Times), "Value", "Text", 0))
+                            @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList ((ViewBag.Times), "Value", "Text", 0))
                         }
                     }
 

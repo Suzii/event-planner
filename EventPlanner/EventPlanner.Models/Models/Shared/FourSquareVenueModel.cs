@@ -1,7 +1,10 @@
-﻿namespace EventPlanner.Models.Models.Shared
+﻿using System;
+
+namespace EventPlanner.Models.Models.Shared
 {
     public class FourSquareVenueModel
     {
+        public Guid Id { get; set; }
 
         public string VenueId { get; set; }
 

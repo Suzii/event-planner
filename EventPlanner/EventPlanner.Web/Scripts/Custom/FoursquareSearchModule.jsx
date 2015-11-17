@@ -13,6 +13,7 @@ var SelectedPlace = React.createClass({
   render: function() {
     return (
       <div>
+        <input type="hidden" value={this.props.place.Id} name={"Places["+this.props.index+"].Id"} /> 
         <input type="hidden" value={this.props.place.VenueId} name={"Places["+this.props.index+"].VenueId"} /> 
         <input type="hidden" value={this.props.place.Name} name={"Places["+this.props.index+"].Name"} /> 
         <input type="hidden" value={this.props.place.AddressInfo} name={"Places["+this.props.index+"].AddressInfo"} /> 
@@ -67,6 +68,7 @@ var Autocomplete = React.createClass({
         transform: function(response) { 
           return response.map(function(item){ 
               return { 
+                Id: item.Id,
                 VenueId: item.VenueId,
                 Name: item.Name,
                 City: item.City,

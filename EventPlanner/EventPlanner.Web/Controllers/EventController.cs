@@ -11,7 +11,6 @@ using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
 using Microsoft.AspNet.Identity;
 using EventPlanner.Web.Helpers;
-using MvcContrib;
 
 namespace EventPlanner.Web.Controllers
 {
