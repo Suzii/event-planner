@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventPlanner.FourSquare.Utils;
 using EventPlanner.Models.Models;
+using EventPlanner.Models.Models.Shared;
 
 namespace EventPlanner.Services.Implementation
 {

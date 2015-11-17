@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventPlanner.Models.Models;
+using EventPlanner.Models.Models.Shared;
 
 namespace EventPlanner.Services
 {

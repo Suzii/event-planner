@@ -1,4 +1,4 @@
-﻿namespace EventPlanner.Models.Models
+﻿namespace EventPlanner.Models.Models.Shared
 {
     public class FourSquareVenueModel
     {
