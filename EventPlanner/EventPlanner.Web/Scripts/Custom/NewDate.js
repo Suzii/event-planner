@@ -10,7 +10,7 @@ APP.getDarePickerConfig = function (){
     }
 }
 
-$( document ).ready(function() {``
+$( document ).ready(function() {
     console.log('Initializing datepickers...');
 
     // prevents browsers from adding default datepickers
