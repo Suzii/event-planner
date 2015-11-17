@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using EventPlanner.DAL.Repository;
+using EventPlanner.Entities;
 using EventPlanner.Models.Domain;
 using EventPlanner.Models.Models;
 using EventPlanner.Models.Models.CreateAndEdit;
@@ -20,6 +21,7 @@ namespace EventPlanner.Web.Controllers
             var dates = new List<TimeSlot>();
             dates.Add(new TimeSlot() { DateTime = DateTime.Now });
 
+            // NOTE : Dates will not be stored as there is still an issue with mapping
             EventRepository e = new EventRepository();
             var eventModel = new EventModel()
             {
@@ -40,8 +42,9 @@ namespace EventPlanner.Web.Controllers
 
             EventRepository er = new EventRepository();
             var evFromDb = await er.GetFullEvent(ev.Id);
+            eventModel = Mapper.Map<Event, EventModel>(evFromDb);
 
-            return Json(evFromDb, JsonRequestBehavior.AllowGet);
+            return Json(eventModel, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Date()
