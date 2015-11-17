@@ -33,7 +33,6 @@ namespace EventPlanner.Models.Models
         public IList<FourSquareVenueModel> Places { get; set; }
 
         [Display(Name = "Dates", ResourceType = typeof(Resources.Event))]
-        //public String Dates { get; set; }
         public IList<DatesModel> Dates { get; set; }
 
 
