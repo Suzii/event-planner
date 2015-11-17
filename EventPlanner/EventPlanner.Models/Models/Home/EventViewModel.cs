@@ -24,17 +24,5 @@ namespace EventPlanner.Models.Models.Home
 
         [Display(Name = "Created_on", ResourceType = typeof(Resources.Event))]
         public DateTime CreatedOn { get; set; }
-
-        public string Hash
-        {
-            get
-            {
-                if (!Id.HasValue) return string.Empty;
-                var htmlFriendly = Convert.ToBase64String(Id.Value.ToByteArray());
-                htmlFriendly = htmlFriendly.Replace("/", "_");
-                htmlFriendly = htmlFriendly.Replace("+", "-");
-                return htmlFriendly.Substring(0, 22);
-            }
-        }
     }
 }

@@ -39,16 +39,5 @@ namespace EventPlanner.Entities
 
         [DefaultValue(false)]
         public bool Disabled { get; set; }
-
-        public string Hash
-        {
-            get
-            {
-                var htmlFriendly = Convert.ToBase64String(Id.ToByteArray());
-                htmlFriendly = htmlFriendly.Replace("/", "_");
-                htmlFriendly = htmlFriendly.Replace("+", "-");
-                return htmlFriendly.Substring(0, 22);
-            }
-        }
     }
 }

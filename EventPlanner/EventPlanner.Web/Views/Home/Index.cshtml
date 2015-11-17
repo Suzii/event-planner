@@ -1,5 +1,6 @@
 ﻿@model EventPlanner.Models.Models.Home.MyEventsViewModel
 @using EventPlanner.Models.Models
+@using EventPlanner.Web.Helpers
 @using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Home Page";
@@ -18,15 +19,15 @@
                 <div class="list-group-item row row-adjust">
                     <div class="col-md-8">
                         <div>
-                            <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-primary lead link-no-underline">@e.Title</a>
+                            <a href="@Url.Action("Index", "Vote", new { eventHash = e.Id.GetUniqueUrlParameter() })" class="text-primary lead link-no-underline">@e.Title</a>
                         </div>
-                        <a href="@Url.Action("Index", "Vote", new { eventHash = e.Hash })" class="text-muted link-no-underline overflow-cut">@e.Desc</a>
+                        <a href="@Url.Action("Index", "Vote", new { eventHash = e.Id.GetUniqueUrlParameter() })" class="text-muted link-no-underline overflow-cut">@e.Desc</a>
                     </div>
                     <p class="col-md-2">@e.CreatedOn</p>
-                    @Html.ActionLink(" ", "Index", "Event", new { id = e.Hash }, new { @class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey" })
-                    @Html.ActionLink(" ", "Index", "ShareEvent", new { id = e.Hash }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
-                    @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
-                    @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
+                    @Html.ActionLink(" ", "Index", "Event", new { id = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey" })
+                    @Html.ActionLink(" ", "Index", "ShareEvent", new { id = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
+                    @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id) }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
+    @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
                 </div>
             }
         </div>

@@ -45,17 +45,5 @@ namespace EventPlanner.Models.Models.CreateAndEdit
             public Guid Id { get; set; }
             public string Time { get; set; }
         }
-
-        public string Hash
-        {
-            get
-            {
-                if (!Id.HasValue) return string.Empty;
-                var htmlFriendly = Convert.ToBase64String(Id.Value.ToByteArray());
-                htmlFriendly = htmlFriendly.Replace("/", "_");
-                htmlFriendly = htmlFriendly.Replace("+", "-");
-                return htmlFriendly.Substring(0, 22);
-            }
-        }
     }
 }

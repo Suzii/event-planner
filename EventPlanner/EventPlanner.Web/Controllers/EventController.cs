@@ -11,6 +11,7 @@ using EventPlanner.Models.Models.Shared;
 using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
 using Microsoft.AspNet.Identity;
+using EventPlanner.Web.Helpers;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -80,8 +81,8 @@ namespace EventPlanner.Web.Controllers
             eventEntity = (model.Id.HasValue) ?
                 await _eventManagementService.UpdateEventAsync(eventEntity) : 
                 await _eventManagementService.CreateEventAsync(eventEntity, User.Identity.GetUserId());
-
-            return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Hash });
+            
+            return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Id.GetUniqueUrlParameter() });
         }
        
         private EventModel ConstructModel()

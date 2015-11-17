@@ -38,16 +38,5 @@ namespace EventPlanner.Models.Domain
         public IList<TimeSlot> TimeSlots { get; set; }
 
         public bool Disabled { get; set; }
-
-        public string Hash
-        {
-            get
-            {
-                var htmlFriendly = Convert.ToBase64String(Id.ToByteArray());
-                htmlFriendly = htmlFriendly.Replace("/", "_");
-                htmlFriendly = htmlFriendly.Replace("+", "-");
-                return htmlFriendly.Substring(0, 22);
-            }
-        }
     }
 }
