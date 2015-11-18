@@ -6,6 +6,8 @@ namespace EventPlanner.Models.Models.Shared
     {
         public Guid Id { get; set; }
 
+        public Guid EventId { get; set; }
+
         public string VenueId { get; set; }
 
         public string Name { get; set; }

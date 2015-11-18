@@ -30,7 +30,6 @@ namespace EventPlanner.Web.Controllers
                 ExpectedLength = 2,
                 Places = new List<FourSquareVenueModel>() { new FourSquareVenueModel() { VenueId = "1" }, new FourSquareVenueModel() { VenueId = "2 - to be deleted" }, new FourSquareVenueModel() { VenueId = "3" } },
                 Dates = new List<EventModel.DatesModel>() { new EventModel.DatesModel() { Date = DateTime.Today, Times = new List<EventModel.TimeModel>() { new EventModel.TimeModel() {Time = "10:00:00"}, new EventModel.TimeModel() {Time = "12:00:00"} } } }
-           //     Dates = new List<EventModel.DatesModel>() { new EventModel.DatesModel() {Date = DateTime.Today, Times = new List<string>() {"12:00", "13:30"} } }
             };
 
             // 1. Store event for the first time

@@ -60,6 +60,7 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<Models.Domain.Place, FourSquareVenueModel>()
                 .ForMember(p => p.Id, conf => conf.MapFrom(v => v.Id))
                 .ForMember(p => p.VenueId, conf => conf.MapFrom(v => v.VenueId))
+                .ForMember(p => p.EventId, conf => conf.MapFrom(v => v.EventId))
                 .ForMember(p => p.Name, conf => conf.Ignore())
                 .ForMember(p => p.AddressInfo, conf => conf.Ignore())
                 .ForMember(p => p.City, conf => conf.Ignore())
@@ -70,7 +71,7 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<FourSquareVenueModel, Models.Domain.Place>()
                 .ForMember(p => p.VenueId, conf => conf.MapFrom(v => v.VenueId))
                 .ForMember(p => p.Id, conf => conf.MapFrom(v => v.Id))
-                .ForMember(p => p.EventId, conf => conf.Ignore())
+                .ForMember(p => p.EventId, conf => conf.MapFrom(v => v.EventId))
                 .ForMember(p => p.VotesForPlace, conf => conf.Ignore());
 
             Mapper.CreateMap<Models.Domain.Place, Models.Models.Vote.PlaceViewModel>()
