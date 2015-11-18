@@ -28,8 +28,8 @@ namespace EventPlanner.Web.Controllers
                 Desc = "Hello there, we are going to drink some beer! Cheers!",
                 OthersCanEdit = true,
                 ExpectedLength = 2,
-                Places = new List<FourSquareVenueModel>() { new FourSquareVenueModel() { VenueId = "529ebe0f498eee32aa9dee7e" }} ,
-           //     Dates = new List<EventModel.DatesModel>() { new EventModel.DatesModel() {Date = DateTime.Today, Times = new List<string>() {"12:00", "13:30"} } }
+                Places = new List<FourSquareVenueModel>() { new FourSquareVenueModel() { VenueId = "1" }, new FourSquareVenueModel() { VenueId = "2 - to be deleted" }, new FourSquareVenueModel() { VenueId = "3" } },
+                Dates = new List<EventModel.DatesModel>() { new EventModel.DatesModel() { Date = DateTime.Today, Times = new List<EventModel.TimeModel>() { new EventModel.TimeModel() {Time = "10:00:00"}, new EventModel.TimeModel() {Time = "12:00:00"} } } }
             };
 
             // 1. Store event for the first time
