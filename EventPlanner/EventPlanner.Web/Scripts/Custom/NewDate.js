@@ -31,15 +31,19 @@ function AddDate() {
     // container for times
     var idTime = 0;
     var container = $('#divDate');
-    var element = "<br>";
+    var element = "<br id='br"+window.indexx+"'>";
     container.append(element);
 
     element = "<span id='divcust" + window.indexx + "'>";
     container.append(element);
 
-    //datepicker
-    element = $('#Dates_0__Date').clone();
+    //delete button
     container = $('#divcust' + window.indexx);
+    var button = "<input id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' value='Delete'  />";
+    container.append(button);
+
+    //datepicker
+    element = $('#Dates_0__Date').clone(); 
     element.attr('id', "Dates_" + window.indexx + "__Date_0");
     element.attr('name', "Dates[" + window.indexx + "].Date");
     //prevent default browser datepicker
@@ -47,6 +51,8 @@ function AddDate() {
     //add bootstrap datepicker
     element.datepicker(APP.getDarePickerConfig());
     container.append(element);
+
+
 
     //first hidden
     element = $('#Dates_0__Times_0__Id').clone();

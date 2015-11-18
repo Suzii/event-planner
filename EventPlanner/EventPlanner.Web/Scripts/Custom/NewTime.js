@@ -30,4 +30,11 @@ function DelTime(id) {
     $('#'+ id).remove();
 };
 
+function DelDate(id) {
+    var indexDel = id.substring(id.indexOf("-") + 1);
+    $("#divcust" + indexDel).remove();
+    $("#btnAdd" + indexDel).remove();
+    $("#br" + indexDel).remove();
+};
+
         
