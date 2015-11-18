@@ -24,8 +24,8 @@
                         <a href="@Url.Action("Index", "Vote", new { eventHash = e.Id.GetUniqueUrlParameter() })" class="text-muted link-no-underline overflow-cut">@e.Desc</a>
                     </div>
                     <p class="col-md-2">@e.CreatedOn</p>
-                    @Html.ActionLink(" ", "Index", "Event", new { id = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey" })
-                    @Html.ActionLink(" ", "Index", "ShareEvent", new { id = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
+                    @Html.ActionLink(" ", "Index", "Event", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey" })
+                    @Html.ActionLink(" ", "Index", "ShareEvent", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
                     @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id) }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
     @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
                 </div>
