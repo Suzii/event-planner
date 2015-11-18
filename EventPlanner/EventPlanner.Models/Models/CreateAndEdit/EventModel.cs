@@ -35,8 +35,6 @@ namespace EventPlanner.Models.Models.CreateAndEdit
         {
             public DateTime Date { get; set; }
 
-            //public IList<string> Times { get; set; }
-
             public IList<TimeModel> Times { get; set; }
         }
 

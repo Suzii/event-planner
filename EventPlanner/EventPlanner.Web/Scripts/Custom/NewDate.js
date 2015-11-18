@@ -48,11 +48,16 @@ function AddDate() {
     element.datepicker(APP.getDarePickerConfig());
     container.append(element);
 
+    //first hidden
+    element = $('#Dates_0__Times_0__Id').clone();
+    element.attr('id', "Dates_" + window.indexx + "Times_0__Id");
+    element.attr('name', "Dates[" + window.indexx + "].Times[0].Id");
+    container.append(element);
 
     //first time
-    element = $('#Dates_0__Times_0_').clone();
+    element = $('#Dates_0__Times_0__Time').clone();
     element.attr('id', "Dates_" + window.indexx + "Times_0");
-    element.attr('name', "Dates[" + window.indexx + "].Times[0]");
+    element.attr('name', "Dates[" + window.indexx + "].Times[0].Time");
     container.append(element);
 
     //delete button
