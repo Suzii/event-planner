@@ -39,7 +39,7 @@ function AddDate() {
 
     //delete button
     container = $('#divcust' + window.indexx);
-    var button = "<input id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' value='Delete'  />";
+    var button = "<button id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' class='btn btn-default'>  <span class='glyphicon glyphicon-remove' aria-hidden='true'/></ button>";
     container.append(button);
 
     //datepicker
