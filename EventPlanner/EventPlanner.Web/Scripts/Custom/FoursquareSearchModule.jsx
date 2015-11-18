@@ -111,7 +111,13 @@ var Autocomplete = React.createClass({
 var FourSquareApp = React.createClass({
   propTypes: {
     getDataURL: React.PropTypes.string.isRequired,
-    preSelectedPlaces: React.PropTypes.array
+    preSelectedPlaces: React.PropTypes.array,
+    defaultPlace: React.PropTypes.string
+  },
+  getDefaultProps: function() {
+    return {
+      defaultPlace: 'Brno'
+    };
   },
   getInitialState: function() {
     return {
@@ -140,7 +146,7 @@ var FourSquareApp = React.createClass({
     }
   },
   constructQuery: function (query, settings) {
-    var city = $('#cityInput').val() || 'Brno';
+    var city = $('#cityInput').val() || this.props.deletePlace;
     queryObject = {query: query, city: city};
     settings.type = "GET";
     settings.contentType = "application/json; charset=UTF-8";
@@ -163,7 +169,7 @@ var FourSquareApp = React.createClass({
           })}
         </div>
         <div className="form-group">
-          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..." />
+          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..." defaultValue={this.props.defaultPlace} />
           <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery}/>
         </div>
       </div>
