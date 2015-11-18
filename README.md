@@ -9,3 +9,7 @@ New MDF file:
     OK
     
 In case of not created db in mdf file, type "update-database" in Package Manager Console.
+
+Event planner ERD
+
+![ERD](https://github.com/tomaskristof/event-planner/blob/master/Docs/ERD/erd.png)
