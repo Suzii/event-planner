@@ -47,8 +47,6 @@ namespace EventPlanner.FourSquare.Utils.Tests
             Venue venue = task.Result.Response.Venue;
             Assert.AreEqual(venues[0].Id, venue.Id);
             Assert.AreEqual(venues[0].Name, venue.Name);
-            Assert.AreEqual(venues[0].Location, venue.Location);
-            CollectionAssert.AreEqual(venues[0].Categories, venue.Categories);
         }
     }
 }
