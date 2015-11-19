@@ -1,13 +1,8 @@
-﻿@using System.Collections
-@model EventPlanner.Models.Models.EventModel
+﻿@model EventPlanner.Models.Models.CreateAndEdit.EventModel
 
 @{
     ViewBag.Title = "Create Event";
 }
-
-<script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
-<script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
-
 <h2>Create your event:</h2>
 
 <div class="container">
@@ -30,37 +25,44 @@
                 @Html.ValidationMessageFor(m => m.Desc, "", new { @class = "text-danger" })
             </div>
 
+            <div class="form-inline">
             <div class="form-group">
                 @Html.LabelFor(m => m.ExpectedLength)
-                @Html.EditorFor(m => m.ExpectedLength, new { @class = "form-control" })
+                    <div class="input-group  col-sm-4">
+                        @Html.TextBoxFor(m => m.ExpectedLength, new { type = "number", @class = "form-control" })
+                        <div class="input-group-addon">hrs</div>
+                    </div>
                 @Html.ValidationMessageFor(m => m.ExpectedLength, "", new { @class = "text-danger" })
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.OthersCanEdit)
-                @Html.EditorFor(m => m.OthersCanEdit, new {@class = "form-control"})
-                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
             </div>
 
+            <div class="form-inline">
+            <div class="form-group">
+                @Html.LabelFor(m => m.OthersCanEdit)
+                    @Html.EditorFor(m => m.OthersCanEdit)
+                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
+            </div>
+            </div>
 
-            <hr/>
+            <hr />
             @* NOTE: following code is under construction.. *@
             <div class="form-group" id="containerDates">
                 <label for="dp">Choose a date</label>
-                <br/>
+                <br />
             <span id="divDate">
                 <span id="divcust0" class="divcust0">
                     @for (var i = 0; i < Model.Dates.Count; i++)
+
                     { <br />
                         //date
 
-                        @Html.EditorFor(m => m.Dates[i].Date, new { @class = "datepicker", type = "date" })
+                            @Html.TextBoxFor(m => m.Dates[i].Date, "{0:yyyy-MM-dd}", new { @class = "datepicker", type = "date" })
 
                         //time
                         for (var j = 0; j < Model.Dates[i].Times.Count; j++)
                         {
-                           
-                            @Html.DropDownListFor(m => m.Dates[i].Times[j], new SelectList ((ViewBag.Times), "Value", "Text", 0))
+                            @Html.HiddenFor((m => m.Dates[i].Times[j].Id)) //timeslot id
+                            @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList ((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time))
                         }
                     }
 
@@ -88,13 +90,11 @@
 
 @section scripts
     {
-    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
     <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
-    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")">
-    </script>
+    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
     <script type="text/jsx">
-        React.render(
-        <FourSquareApp getDataURL="@Url.Action("GetData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} />, document.getElementById('FourSquareSearchModule'));
+        React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="Brno" />, document.getElementById('FourSquareSearchModule'));
     </script>
 }

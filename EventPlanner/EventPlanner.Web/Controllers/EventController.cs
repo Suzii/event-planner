@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using EventPlanner.Models.Domain;
-using EventPlanner.Models.Models;
+using EventPlanner.Models.Models.CreateAndEdit;
+using EventPlanner.Models.Models.Shared;
 using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
 using Microsoft.AspNet.Identity;
+using EventPlanner.Web.Helpers;
 
 namespace EventPlanner.Web.Controllers
 {
@@ -20,7 +22,7 @@ namespace EventPlanner.Web.Controllers
 
         public EventController()
         {
-            _eventManagementService = new EventManagementService();
+            _eventManagementService = new EventPlanner.Services.FakedImplementation.EventManagementService();
             _placeService = new PlaceService();
             List<Object> list = new List<Object>
             {
@@ -68,42 +70,37 @@ namespace EventPlanner.Web.Controllers
                 return View(model);
             }
 
-            //update eventEtity
             var eventEntity = Mapper.Map<Event>(model);
-            eventEntity.TimeSlots = model.Dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
-            {
-                DateTime = d.Date.Add(TimeSpan.Parse(time))
-            }).ToList()).ToList();
-
             eventEntity = (model.Id.HasValue) ?
                 await _eventManagementService.UpdateEventAsync(eventEntity) : 
                 await _eventManagementService.CreateEventAsync(eventEntity, User.Identity.GetUserId());
-
-            return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Hash });
+            
+            return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Id.GetUniqueUrlParameter() });
         }
-       
-        private EventModel ConstructModel()
+
+        [HttpGet]
+        public async Task<JsonResult> GetPlacesData(string city, string query)
         {
-            return new EventModel()
+            if (city == null || query == null)
             {
-                ExpectedLength = 1,
-                Dates = GetDefaultDatesModel()
+                throw new ArgumentException("FoursquareRequest: both city and query have to be entered.");
+            }
 
-            };
+            var response = await _placeService.GetPlaceSuggestionsAsync(query, city);
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
-
 
         private async Task<EventModel> GetModel(string eventHash)
         {
             var eventId = _eventManagementService.GetEventId(eventHash);
-            var result = await _eventManagementService.GetEventAsync(eventId);
-
-           
+            var result = await _eventManagementService.GetFullEventAsync(eventId);
+            
             var model = Mapper.Map<EventModel>(result);
             if (model.Places == null)
             {
                 model.Places = new List<FourSquareVenueModel>();
             }
+            await PopulateVenueDetails(model);
 
             if (model.Dates == null)
             {
@@ -112,6 +109,28 @@ namespace EventPlanner.Web.Controllers
 
             return model;
         }
+
+        private async Task PopulateVenueDetails(EventModel eventModel)
+        {
+            // TODO place id has to be persisted
+            var venuesDetails = await _placeService.GetPlacesDetailsAsync(eventModel.Places.Select(p => p.VenueId).ToList());
+            eventModel.Places = eventModel.Places.Select(p =>
+            {
+                var v = venuesDetails.Single(venue => venue.VenueId == p.VenueId);
+                v.Id = p.Id;
+                return v;
+            }).ToList();
+        }
+
+        private EventModel ConstructModel()
+        {
+            return new EventModel()
+            {
+                ExpectedLength = 1,
+                Dates = GetDefaultDatesModel()
+            };
+        }
+
         private static List<EventModel.DatesModel> GetDefaultDatesModel()
         {
             return new List<EventModel.DatesModel>()
@@ -119,25 +138,12 @@ namespace EventPlanner.Web.Controllers
                 new EventModel.DatesModel()
                 {
                     Date = DateTime.Today,
-                    Times = new List<string>()
+                    Times = new List<EventModel.TimeModel>()
                     {
-                        "00:00"
+                       new EventModel.TimeModel { Time = "00:00" }
                     }
                 }
             };
-        }
-        
-        [HttpGet]
-        public async Task<JsonResult> GetData(string city, string query)
-        {
-            if (city == null || query == null)
-            {
-                throw new ArgumentException("FoursquareRequest: both city and query have to be entered.");
-            }
-
-            var response = await _placeService.GetPlaceSuggestionsAsync(query, city);
-
-            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

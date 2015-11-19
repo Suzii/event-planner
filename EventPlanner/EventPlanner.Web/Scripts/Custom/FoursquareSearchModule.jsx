@@ -13,7 +13,9 @@ var SelectedPlace = React.createClass({
   render: function() {
     return (
       <div>
+        <input type="hidden" value={this.props.place.Id} name={"Places["+this.props.index+"].Id"} /> 
         <input type="hidden" value={this.props.place.VenueId} name={"Places["+this.props.index+"].VenueId"} /> 
+        <input type="hidden" value={this.props.place.EventId} name={"Places["+this.props.index+"].EventId"} /> 
         <input type="hidden" value={this.props.place.Name} name={"Places["+this.props.index+"].Name"} /> 
         <input type="hidden" value={this.props.place.AddressInfo} name={"Places["+this.props.index+"].AddressInfo"} /> 
         <input type="hidden" value={this.props.place.City} name={"Places["+this.props.index+"].City"} /> 
@@ -64,7 +66,9 @@ var Autocomplete = React.createClass({
         transform: function(response) { 
           return response.map(function(item){ 
               return { 
+                Id: item.Id,
                 VenueId: item.VenueId,
+                EventId: item.EventId,
                 Name: item.Name,
                 City: item.City,
                 AddressInfo: item.AddressInfo
@@ -106,7 +110,13 @@ var Autocomplete = React.createClass({
 var FourSquareApp = React.createClass({
   propTypes: {
     getDataURL: React.PropTypes.string.isRequired,
-    preSelectedPlaces: React.PropTypes.array
+    preSelectedPlaces: React.PropTypes.array,
+    defaultPlace: React.PropTypes.string
+  },
+  getDefaultProps: function() {
+    return {
+      defaultPlace: 'Brno'
+    };
   },
   getInitialState: function() {
     return {
@@ -135,7 +145,7 @@ var FourSquareApp = React.createClass({
     }
   },
   constructQuery: function (query, settings) {
-    var city = $('#cityInput').val() || 'Brno';
+    var city = $('#cityInput').val() || this.props.deletePlace;
     queryObject = {query: query, city: city};
     settings.type = "GET";
     settings.contentType = "application/json; charset=UTF-8";
@@ -160,6 +170,10 @@ var FourSquareApp = React.createClass({
               <SelectedPlace key={place.VenueId} place={place} index={index} deleteCallback={this.deletePlace}/>
               )
           })}
+        </div>
+        <div className="form-group">
+          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..." defaultValue={this.props.defaultPlace} />
+          <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery}/>
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using AutoMapper;
 using System.Threading.Tasks;
@@ -24,13 +25,26 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<Event> GetEvent(Guid eventId)
+        public async Task<Event> GetEventInfo(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Events
                     .FirstOrDefault(e => e.Id == eventId);
                     
+                return await Task.FromResult(Mapper.Map<Event>(result));
+            }
+        }
+
+        public async Task<Event> GetFullEvent(Guid eventId)
+        {
+            using (var context = EventPlannerContext.Get())
+            {
+                var result = context.Events
+                    .Include("Places")
+                    .Include("TimeSlots")
+                    .FirstOrDefault(e => e.Id == eventId);
+
                 return await Task.FromResult(Mapper.Map<Event>(result));
             }
         }
@@ -54,6 +68,16 @@ namespace EventPlanner.DAL.Repository
             using (var context = EventPlannerContext.Get())
             {
                 var entity = Mapper.Map<EventEntity>(ev);
+
+                foreach (var t in entity.TimeSlots)
+                {
+                    context.Entry(t).State = (t.Id == default(Guid) ? EntityState.Added : EntityState.Modified);
+                }
+
+                foreach (var p in entity.Places)
+                {
+                    context.Entry(p).State = (p.Id == default(Guid) ? EntityState.Added : EntityState.Modified);
+                }
 
                 context.Events.AddOrUpdate(entity);
                 await context.SaveChangesAsync();

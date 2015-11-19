@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using EventPlanner.FourSquare.Utils;
-using EventPlanner.Models.Models;
+using EventPlanner.Models.Models.Shared;
 
 namespace EventPlanner.Services.Implementation
 {
@@ -16,9 +16,11 @@ namespace EventPlanner.Services.Implementation
         /// <summary>
         /// Initialize new instance of PlaceService()
         /// </summary>
-        public PlaceService()
+        public PlaceService() : this(new FoursquareProvider()) { }
+
+        public PlaceService(IFoursquareProvider provider)
         {
-            _fs = new FoursquareProvider();
+            _fs = provider;
         }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace EventPlanner.Services.Implementation
 
             venueModels.AddRange(suggestionsResponse.Response.MiniVenues.Select(miniVenue => new FourSquareVenueModel
             {
-                AddressInfo = miniVenue.Location.Address,
+                AddressInfo = miniVenue.Location.Address ?? "Unknown",
                 City = miniVenue.Location.City,
                 Name = miniVenue.Name,
                 VenueId = miniVenue.Id,
@@ -67,7 +69,7 @@ namespace EventPlanner.Services.Implementation
 
             return new FourSquareVenueModel()
             {
-                AddressInfo = detailResponse.Response.Venue.Location.Address,
+                AddressInfo = detailResponse.Response.Venue.Location.Address ?? "Unknown",
                 City = detailResponse.Response.Venue.Location.City,
                 Name = detailResponse.Response.Venue.Name,
                 VenueId = detailResponse.Response.Venue.Id,

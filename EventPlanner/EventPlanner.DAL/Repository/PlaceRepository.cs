@@ -63,16 +63,16 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<bool> Delete(Guid eventId)
+        public async Task<bool> Delete(Guid placeId)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var existing = context.Events.FirstOrDefault(e => e.Id == eventId);
+                var existing = context.Places.FirstOrDefault(e => e.Id == placeId);
 
                 if (existing == null)
                     return false;
 
-                context.Events.Remove(existing);
+                context.Places.Remove(existing);
                 await context.SaveChangesAsync();
 
                 return true;

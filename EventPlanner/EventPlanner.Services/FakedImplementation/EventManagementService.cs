@@ -24,20 +24,25 @@ namespace EventPlanner.Services.FakedImplementation
             
         }
 
-        public async Task<Event> GetEventAsync(Guid id)
+        public async Task<Event> GetFullEventAsync(Guid id)
         {
             var ev = new Event()
             {
                 Id = id,
                 Title = "Faked event",
                 Desc = "This event has no purpose at all and only serves for faked implementation of our cute EventManagementService",
-                Created = DateTime.Today.AddDays(-2),
+                CreatedOn = DateTime.Today.AddDays(-2),
                 OthersCanEdit = true,
                 ExpectedLength = 2,
                 TimeSlots = new List<TimeSlot>()
                 {
-                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Now.AddDays(-1), VotesForDate = null },
-                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Now, VotesForDate = null }
+                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Today.AddDays(-1).AddHours(1), VotesForDate = null },
+                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Today.AddDays(-1).AddHours(2), VotesForDate = null },
+                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Today.AddDays(-1).AddHours(3), VotesForDate = null },
+                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Today.AddDays(-2).AddHours(10), VotesForDate = null },
+                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Today.AddDays(-2).AddHours(11), VotesForDate = null },
+                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Today.AddDays(-3).AddHours(20), VotesForDate = null },
+                    new TimeSlot() {Id = Guid.NewGuid(), EventId = id, DateTime = DateTime.Today.AddDays(-3).AddHours(21), VotesForDate = null }
                 },
                 Places = new List<Place>()
                 {

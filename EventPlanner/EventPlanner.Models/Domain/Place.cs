@@ -8,8 +8,8 @@ namespace EventPlanner.Models.Domain
     {
         public Guid Id { set; get; }
 
-        [Required]
-        public Guid EventId { set; get; } 
+        public Guid EventId { get; set; }
+        public Event Event { set; get; }
 
         [Required]
         public string VenueId { set; get; }

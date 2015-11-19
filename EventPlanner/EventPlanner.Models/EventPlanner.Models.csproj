@@ -44,12 +44,14 @@
     <Compile Include="Domain\Event.cs" />
     <Compile Include="Domain\Place.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
+    <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\VoteForDate.cs" />
     <Compile Include="Domain\VoteForPlace.cs" />
     <Compile Include="Enums\WillAttend.cs" />
-    <Compile Include="Models\EventModel.cs" />
-    <Compile Include="Models\FourSquareVenueModel.cs" />
-    <Compile Include="Models\MyEventsViewModel.cs" />
+    <Compile Include="Models\CreateAndEdit\EventModel.cs" />
+    <Compile Include="Models\Home\EventViewModel.cs" />
+    <Compile Include="Models\Shared\FourSquareVenueModel.cs" />
+    <Compile Include="Models\Home\MyEventsViewModel.cs" />
     <Compile Include="Models\Share\ShareLinkViewModel.cs" />
     <Compile Include="Models\Vote\TimeSlotViewModel.cs" />
     <Compile Include="Models\Vote\EventViewModel.cs" />
@@ -68,9 +70,7 @@
       <LastGenOutput>Event.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\CreateAndEdit\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
