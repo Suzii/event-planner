@@ -96,6 +96,6 @@
     <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
     <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
     <script type="text/jsx">
-        React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="@LocationHelper.GetActualCity()" />, document.getElementById('FourSquareSearchModule'));
+        React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="@LocationHelper.GetCurrentCity()" />, document.getElementById('FourSquareSearchModule'));
     </script>
 }

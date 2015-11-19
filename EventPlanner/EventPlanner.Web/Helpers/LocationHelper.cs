@@ -15,7 +15,7 @@ namespace EventPlanner.Web.Helpers
     public static class LocationHelper
     {
         /// <returns>string of city located by IP address</returns>
-        public static string GetActualCity()
+        public static string GetCurrentCity()
         {
             try
             {
