@@ -43,6 +43,11 @@ namespace EventPlanner.Services.Implementation
             return await _eventRepository.GetFullEvent(id);
         }
 
+        public async Task<Event> GetEventInfoAsync(Guid id)
+        {
+            return await _eventRepository.GetEventInfo(id);
+        }
+
         public Guid GetEventId(string eventHash)
         {
             eventHash = eventHash.Replace("_", "/");

@@ -100,6 +100,14 @@ namespace EventPlanner.Services.FakedImplementation
             return ev;
         }
 
+        public async Task<Event> GetEventInfoAsync(Guid id)
+        {
+            var ev = await GetFullEventAsync(Guid.Empty);
+            ev.TimeSlots = null;
+            ev.Places = null;
+            return ev;
+        }
+
         public Guid GetEventId(string eventHash)
         {
             return Guid.NewGuid();
