@@ -46,7 +46,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots));
 
-            Mapper.CreateMap<Models.Domain.Event, Models.Models.Home.EventViewModel>();
+            Mapper.CreateMap<Models.Domain.Event, EventInfoViewModel>();
         }
 
         private static void CreatePlaceMap()

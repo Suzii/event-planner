@@ -49,7 +49,7 @@
     <Compile Include="Domain\VoteForPlace.cs" />
     <Compile Include="Enums\WillAttend.cs" />
     <Compile Include="Models\CreateAndEdit\EventModel.cs" />
-    <Compile Include="Models\Home\EventViewModel.cs" />
+    <Compile Include="Models\Shared\EventInfoViewModel.cs" />
     <Compile Include="Models\Shared\FourSquareVenueModel.cs" />
     <Compile Include="Models\Home\MyEventsViewModel.cs" />
     <Compile Include="Models\Share\ShareLinkViewModel.cs" />
