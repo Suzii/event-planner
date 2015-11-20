@@ -17,12 +17,12 @@ namespace EventPlanner.Services
 
         Task<IList<VoteForPlace>> GetVotesForPlaceAsync(Guid eventId, Guid placeId);
 
-        Task SubmitDateVotesByAsync(string personId, IList<VoteForDate> voteForDates);
+        Task SubmitDateVotesByAsync(IList<VoteForDate> voteForDates);
 
-        Task SubmitPlaceVotesByAsync(string personId, IList<VoteForPlace> voteForPlaces);
+        Task SubmitPlaceVotesByAsync(IList<VoteForPlace> voteForPlaces);
 
-        Task SubmitVoteForDate(VoteForDate voteForDate);
+        Task<VoteForDate> SubmitVoteForDate(VoteForDate voteForDate);
 
-        Task SubmitVoteForPlace(VoteForPlace voteForPlace);
+        Task<VoteForPlace> SubmitVoteForPlace(VoteForPlace voteForPlace);
     }
 }

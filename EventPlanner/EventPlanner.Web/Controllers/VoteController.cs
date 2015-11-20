@@ -51,8 +51,16 @@ namespace EventPlanner.Web.Controllers
                 //return View("Index", new VoteModel() {VotesForPlaces = VotesForPlaces, VotesForDates = VotesForDates});
             }
             var userId = User.Identity.GetUserId();
-            await _votingService.SubmitPlaceVotesByAsync(userId, VotesForPlaces);
-            await _votingService.SubmitDateVotesByAsync(userId, VotesForDates);
+            foreach (var vote in VotesForPlaces)
+            {
+                vote.UserId = userId;
+            }
+            foreach (var vote in VotesForDates)
+            {
+                vote.UserId = userId;
+            }
+            await _votingService.SubmitPlaceVotesByAsync(VotesForPlaces);
+            await _votingService.SubmitDateVotesByAsync(VotesForDates);
             
             return RedirectToAction("Index");
         }

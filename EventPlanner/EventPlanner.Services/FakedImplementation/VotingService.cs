@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.EnterpriseServices;
 using System.Linq;
 using System.Threading.Tasks;
+using EventPlanner.DAL.Repository;
 using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services.FakedImplementation
@@ -10,10 +10,14 @@ namespace EventPlanner.Services.FakedImplementation
     public class VotingService : IVotingService
     {
         private readonly IEventManagementService _eventManagementService;
+        private readonly VoteForDateRepository _voteForDateRepository;
+        private readonly VoteForPlaceRepository _voteForPlaceRepository;
 
         public VotingService()
         {
-            _eventManagementService = new FakedImplementation.EventManagementService();
+            _voteForDateRepository = new VoteForDateRepository();
+            _voteForPlaceRepository = new VoteForPlaceRepository();
+            _eventManagementService = new Services.Implementation.EventManagementService();
         }
 
         public async Task<int> GetTotalNumberOfVotersForEvent(Guid eventId)
@@ -40,30 +44,40 @@ namespace EventPlanner.Services.FakedImplementation
         public async Task<IList<VoteForDate>> GetVotesForDateAsync(Guid eventId, Guid dateId)
         {
             var ev = await _eventManagementService.GetFullEventAsync(eventId);
-            return ev.TimeSlots.First().VotesForDate;
+            return ev.TimeSlots.Where(ts => ts.Id == dateId).SelectMany(ts => ts.VotesForDate).ToList();
         }
 
         public async Task<IList<VoteForPlace>> GetVotesForPlaceAsync(Guid eventId, Guid placeId)
         {
             var ev = await _eventManagementService.GetFullEventAsync(eventId);
-            return ev.Places.First().VotesForPlace;
+            return ev.Places.Where(p => p.Id == placeId).SelectMany(ts => ts.VotesForPlace).ToList();
+
         }
 
-        public async Task SubmitDateVotesByAsync(string personId, IList<VoteForDate> voteForDates)
+        public async Task SubmitDateVotesByAsync(IList<VoteForDate> voteForDates)
         {
-            
+            foreach(var vote in voteForDates)
+            {
+                await SubmitVoteForDate(vote);
+            }
         }
 
-        public async Task SubmitPlaceVotesByAsync(string personId, IList<VoteForPlace> voteForPlaces)
+        public async Task SubmitPlaceVotesByAsync(IList<VoteForPlace> voteForPlaces)
         {
+            foreach (var vote in voteForPlaces)
+            {
+                await SubmitVoteForPlace(vote);
+            }
         }
 
-        public async Task SubmitVoteForDate(VoteForDate voteForDate)
+        public async Task<VoteForDate> SubmitVoteForDate(VoteForDate voteForDate)
         {
+            return await _voteForDateRepository.AddOrUpdate(voteForDate);
         }
 
-        public async Task SubmitVoteForPlace(VoteForPlace voteForPlace)
+        public async Task<VoteForPlace> SubmitVoteForPlace(VoteForPlace voteForPlace)
         {
+            return await _voteForPlaceRepository.AddOrUpdate(voteForPlace);
         }
     }
 }
