@@ -16,7 +16,7 @@ namespace EventPlanner.Services.FakedImplementation
             _eventManagementService = new FakedImplementation.EventManagementService();
         }
 
-        public async Task<int> GetTotalNumberOfVotersOfEvent(Guid eventId)
+        public async Task<int> GetTotalNumberOfVotersForEvent(Guid eventId)
         {
             var ev = await _eventManagementService.GetFullEventAsync(eventId);
             var placesTotalVoters = ev.Places.Where(p => p.VotesForPlace != null).SelectMany(p => p.VotesForPlace?.Select(v => v.UserId).ToList()).Distinct();

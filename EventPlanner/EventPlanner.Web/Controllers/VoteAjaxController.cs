@@ -37,13 +37,42 @@ namespace EventPlanner.Web.Controllers
         {
             var id = _eventManagementService.GetEventId(eventHash);
             var eventViewmodel = await ConstructEventViewModel(id);
-            
-            // TODO: use this with real EventManagementService: User.Identity.GetUserId();
-            //var currentUserId = "Suzi"; 
-            //var model = ConstructModel(eventViewmodel, currentUserId);
             return View("Index", eventViewmodel);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetVoteForDateModel(Guid eventid)
+        {
+            var ev = await _eventManagementService.GetFullEventAsync(eventid);
+            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventid);
+            var timeSlotsVm = ev.TimeSlots
+                .OrderBy(ts => ts.DateTime)
+                .Select((ts) => new
+                {
+                    Title = ts.DateTime.ToShortDateString(),
+                    Desc = ts.DateTime.ToLongTimeString(),
+                    Id = ts.Id.ToString(),
+                    //WillAttend = Model.VotesForDates.Single(v => v.Id == ts.VotesForDate.Where(tv => tv.UserId)).WillAttend.ToString(),
+                    //VoteId = Guid.Empty,
+                    Votes = new
+                    {
+                        Yes = ts.VotesForDate?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).ToArray() ?? new string[] { },
+                        Maybe = ts.VotesForDate?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId).ToArray() ?? new string[] { },
+                        No = ts.VotesForDate?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId).ToArray() ?? new string[] { },
+                    }
+                }).ToList();
+
+            return Json(new { timeSlots = timeSlotsVm, totalNumberOfVoters = totalNumberOfVoters }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetVoteForPlaceModel(Guid eventid)
+        {
+            //Places.OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes)).ToList();
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
         public async Task<JsonResult> SubmitVoteForDate(Guid eventId, Guid timeSlotId, Guid? voteForDateId, WillAttend? willAttend)
         {
             var userId = User.Identity.GetUserId();
@@ -58,10 +87,37 @@ namespace EventPlanner.Web.Controllers
             await _votingService.SubmitVoteForDate(voteModel);
 
             var votes = await _votingService.GetVotesForDateAsync(eventId, timeSlotId);
+            var data = await ConstructDateVoteResponseModel(eventId, timeSlotId);
+            return Json(data);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SubmitVoteForPlace(Guid eventId, Guid placeId, Guid? voteForDateId, WillAttend? willAttend)
+        {
+            var userId = User.Identity.GetUserId();
+            // TODO : fix nullable issue
+            var voteModel = new VoteForPlace()
+            {
+                Id = voteForDateId.GetValueOrDefault(),
+                PlaceId = placeId,
+                UserId = userId,
+                WillAttend = willAttend.GetValueOrDefault()
+            };
+            await _votingService.SubmitVoteForPlace(voteModel);
+
+            // TODO : probably create model class for this
+            var data = ConstructPlaceVoteResponseModel(eventId, placeId);
+            return Json(data);
+        }
+
+        private async Task<Object> ConstructDateVoteResponseModel(Guid eventId, Guid timeSlotId)
+        {
+            var votes = await _votingService.GetVotesForDateAsync(eventId, timeSlotId);
+            // TODO : probably create model class for this
             var data = new
             {
-                totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersOfEvent(eventId),
-                votes =  new
+                totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId),
+                votes = new
                 {
                     // TODO : change userId to userName once supported
                     yes = votes.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId),
@@ -69,25 +125,25 @@ namespace EventPlanner.Web.Controllers
                     no = votes.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId)
                 }
             };
-            return Json(data);
+            return data;
         }
 
-        //[HttpGet]
-        //public async Task<JsonResult> GetVotesForDates()
-        //{
-
-        //}
-
-        private object ConstructModel(EventViewModel eventViewmodel, string currentUserId)
+        private async Task<Object> ConstructPlaceVoteResponseModel(Guid eventId, Guid placeId)
         {
-            var model = new VoteModel();
-            model.EventViewModel = eventViewmodel;
-            eventViewmodel.Places = eventViewmodel.Places.OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes)).ToList();
-            eventViewmodel.TimeSlots = eventViewmodel.TimeSlots.OrderBy(ts => ts.DateTime).ToList();
-            model.VotesForPlaces = GetUsersPlaceVotes(eventViewmodel.Places, currentUserId);
-            model.VotesForDates = GetUsersDateVotes(eventViewmodel.TimeSlots, currentUserId);
-
-            return model;
+            var votes = await _votingService.GetVotesForPlaceAsync(eventId, placeId);
+            // TODO : probably create model class for this
+            var data = new
+            {
+                totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId),
+                votes = new
+                {
+                    // TODO : change userId to userName once supported
+                    yes = votes.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId),
+                    maybe = votes.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId),
+                    no = votes.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId)
+                }
+            };
+            return data;
         }
 
         private List<VoteForPlace> GetUsersPlaceVotes(IList<PlaceViewModel> places, string currentUserId)
@@ -132,29 +188,6 @@ namespace EventPlanner.Web.Controllers
             {
                 place.Venue = venuesDetails.Single(p => p.VenueId == place.VenueId);
             }
-        }
-
-        [HttpGet]
-        public async Task<JsonResult> GetVoteForDateModel(Guid eventid)
-        {
-            var ev = await  _eventManagementService.GetFullEventAsync(eventid);
-            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersOfEvent(eventid);
-            var timeSlotsVm = ev.TimeSlots.Select((ts) => new
-            {
-                Title = ts.DateTime.ToShortDateString(),
-                Desc = ts.DateTime.ToLongTimeString(),
-                Id = ts.Id.ToString(),
-                //WillAttend = Model.VotesForDates.Single(v => v.Id == ts.VotesForDate.Where(tv => tv.UserId)).WillAttend.ToString(),
-                //VoteId = Guid.Empty,
-                Votes = new
-                {
-                    Yes = ts.VotesForDate?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).ToArray() ?? new string[] {},
-                    Maybe = ts.VotesForDate?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId).ToArray() ?? new string[] { },
-                    No = ts.VotesForDate?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId).ToArray() ?? new string[] { },
-                }
-            }).ToList();
-
-            return Json(new {timeSlots = timeSlotsVm, totalNumberOfVoters = totalNumberOfVoters}, JsonRequestBehavior.AllowGet);
         }
     }
 }

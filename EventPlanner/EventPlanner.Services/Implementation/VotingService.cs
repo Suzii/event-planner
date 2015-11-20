@@ -17,7 +17,7 @@ namespace EventPlanner.Services.Implementation
             _voteForPlaceRepository = new VoteForPlaceRepository();
         }
 
-        public Task<int> GetTotalNumberOfVotersOfEvent(Guid eventId)
+        public Task<int> GetTotalNumberOfVotersForEvent(Guid eventId)
         {
             throw new NotImplementedException();
         }

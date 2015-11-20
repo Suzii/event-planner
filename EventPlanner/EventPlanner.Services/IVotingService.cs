@@ -8,7 +8,7 @@ namespace EventPlanner.Services
 {
     public interface IVotingService
     {
-        Task<int> GetTotalNumberOfVotersOfEvent(Guid eventId);
+        Task<int> GetTotalNumberOfVotersForEvent(Guid eventId);
         Task<IList<VoteForDate>> GetVotesForDatesAsync(Guid eventId);
 
         Task<IList<VoteForPlace>> GetVotesForPlacesAsync(Guid eventId);
