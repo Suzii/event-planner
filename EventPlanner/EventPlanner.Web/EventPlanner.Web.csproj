@@ -193,6 +193,7 @@
     </Compile>
     <Compile Include="Helpers\GuidExtensions.cs" />
     <Compile Include="Helpers\LinqHelper.cs" />
+    <Compile Include="Helpers\LocationHelper.cs" />
     <Compile Include="Helpers\MathHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

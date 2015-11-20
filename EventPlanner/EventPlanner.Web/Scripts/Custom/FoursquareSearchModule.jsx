@@ -19,10 +19,7 @@ var SelectedPlace = React.createClass({
         <input type="hidden" value={this.props.place.Name} name={"Places["+this.props.index+"].Name"} /> 
         <input type="hidden" value={this.props.place.AddressInfo} name={"Places["+this.props.index+"].AddressInfo"} /> 
         <input type="hidden" value={this.props.place.City} name={"Places["+this.props.index+"].City"} /> 
-        <h3>
-          <span className="label label-warning">{this.props.place.Name}</span>
-          <a><i className="glyphicon glyphicon-remove" onClick={(event) => {this.props.deleteCallback(event, this.props.place)}}></i></a>
-        </h3>          
+        <span className="label label-tag label-accent">{this.props.place.Name}<a><span className="glyphicon glyphicon-remove" onClick={(event) => {this.props.deleteCallback(event, this.props.place)}}></span></a></span>  
       </div>
     );
   }
@@ -105,7 +102,7 @@ var Autocomplete = React.createClass({
   },
   render: function() {
     return (
-        <input type="text" id="queryInput" name="queryInput" className="typeahead form-control col-sm-3" placeholder="What do you wanna do?" />
+        <input type="text" id="queryInput" name="queryInput" className="typeahead form-control col-md-5" placeholder="What do you wanna do?" />
       );
   }
 });
@@ -163,7 +160,11 @@ var FourSquareApp = React.createClass({
   render: function() {
     return (
       <div>
-        <div>
+        <div className="form-group">
+          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-md-2" placeholder="City..." />
+          <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery}/>
+        </div>
+		<div className="row">
           {this.state.selectedPlaces.map((place, index) => { 
             return (
               <SelectedPlace key={place.VenueId} place={place} index={index} deleteCallback={this.deletePlace}/>
