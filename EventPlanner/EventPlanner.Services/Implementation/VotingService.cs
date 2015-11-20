@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventPlanner.DAL.Repository;
-using EventPlanner.Entities;
 using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services.Implementation
@@ -18,32 +17,47 @@ namespace EventPlanner.Services.Implementation
             _voteForPlaceRepository = new VoteForPlaceRepository();
         }
 
-        public async Task<IList<VoteForDateEntity>> GetVotesForDatesAsync(Guid eventId)
+        public Task<int> GetTotalNumberOfVotersOfEvent(Guid eventId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IList<VoteForPlaceEntity>> GetVotesForPlacesAsync(Guid eventId)
+        Task<IList<VoteForDate>> IVotingService.GetVotesForDatesAsync(Guid eventId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IList<VoteForDateEntity>> GetVotesForDatesAsync(Guid eventId, IList<Guid> dateIds)
+        Task<IList<VoteForPlace>> IVotingService.GetVotesForPlacesAsync(Guid eventId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IList<VoteForPlaceEntity>> GetVotesForPlacesAsync(Guid eventId, IList<Guid> placeIds)
+        public Task<IList<VoteForDate>> GetVotesForDateAsync(Guid eventId, Guid dateId)
         {
             throw new NotImplementedException();
         }
 
-        public Task SubmitDateVoteByAsync(string personId, IList<VoteForDate> voteForDates)
+        public Task<IList<VoteForPlace>> GetVotesForPlaceAsync(Guid eventId, Guid placeId)
         {
             throw new NotImplementedException();
         }
 
-        public Task SubmitPlaceVoteByAsync(string personId, IList<VoteForPlace> voteForPlaces)
+        public Task SubmitDateVotesByAsync(string personId, IList<VoteForDate> voteForDates)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SubmitPlaceVotesByAsync(string personId, IList<VoteForPlace> voteForPlaces)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SubmitVoteForDate(VoteForDate voteForDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SubmitVoteForPlace(VoteForPlace voteForPlace)
         {
             throw new NotImplementedException();
         }
