@@ -186,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ShareEventController.cs" />
+    <Compile Include="Controllers\VoteAjaxController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -294,6 +295,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
+    <Content Include="Scripts\Custom\Vote\App.jsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\GoogleMapsModule.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -364,6 +366,8 @@
     <Content Include="Views\Shared\EditorTemplates\WillAttend.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\_timeDropdownSelector.cshtml" />
     <Content Include="App_Code\RazorHelpers.cshtml" />
+    <Content Include="Views\VoteAjax\_mapModule.cshtml" />
+    <Content Include="Views\VoteAjax\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
