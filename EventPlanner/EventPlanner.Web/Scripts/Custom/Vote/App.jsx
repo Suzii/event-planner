@@ -1,4 +1,4 @@
-﻿var Options = {
+var Options = {
     YES : 'Yes',
     MAYBE : 'Maybe',
     NO : 'No'
@@ -26,8 +26,8 @@ var DatesVotingApp = React.createClass({
     },
     getInitialState: function() {
         return {
-            options:[],
-            totalNumberOfVoters:0 
+            options: [],
+            totalNumberOfVoters: 0 
         };
     },
     getDefaultProps: function() {
@@ -42,8 +42,8 @@ var DatesVotingApp = React.createClass({
             title : timeSlot.Title,
             desc: timeSlot.Desc,
             optionId: timeSlot.Id,
-            preSelectedValue: timeSlot.WillAttend,
-            usersVoteId: timeSlot.VoteId,
+            preSelectedValue: timeSlot.UsersVote.WillAttend,
+            usersVoteId: timeSlot.UsersVote.Id,
             votes: {
                 yes: timeSlot.Votes.Yes,
                 maybe: timeSlot.Votes.Maybe,
@@ -85,6 +85,7 @@ var DatesVotingApp = React.createClass({
             console.log('index of to-be-rerendeered option '+index);
             if(index > -1){
                 newOptions[index].votes = data.votes;
+                newOptions[index].usersVoteId = data.usersVote.id
             }
 
             self.setState({
@@ -145,6 +146,10 @@ var VoteOption = React.createClass({
           case Options.MAYBE: return this.props.votes.maybe;
           case Options.NO: return this.props.votes.no;
         }
+    },
+    componentWillReceiveProps: function(nextProps) {
+        console.log('Vote option will recieve new props');
+        console.log(nextProps);
     },
     render: function() {
         return (
@@ -225,7 +230,7 @@ var ProgressBar = React.createClass({
     render: function() {
         // TODO add proper tooltion to display names of voters 
         return (
-            <div className={classNames(this.getProgressBarClasses())} style={this.getInlineStyles()} title={this.props.voters.reduce((prev, curr) => prev + ', ' + curr)}>
+            <div className={classNames(this.getProgressBarClasses())} style={this.getInlineStyles()} title={this.props.voters.reduce(((prev, curr) => prev + ', ' + curr),"")}>
                 <span className="" >{this.props.voters.length}</span>
             </div>
         );
@@ -255,6 +260,10 @@ var Graph = React.createClass({
         }
 
         return Math.round((x*100) / this.getTotalNumberOfVotes(), 0);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        console.log('Vote Graph will recieve new props');
+        console.log(nextProps);
     },
     render: function() {
         if (!this.isGraphEmpty())
