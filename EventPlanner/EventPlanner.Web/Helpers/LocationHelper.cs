@@ -15,13 +15,13 @@ namespace EventPlanner.Web.Helpers
     public static class LocationHelper
     {
         /// <returns>string of city located by IP address</returns>
-        public static string GetCurrentCity()
+        public static string GetCurrentCity(string ip)
         {
             try
             {
                 using (WebClient wc = new WebClient())
                 {
-                    dynamic data = JObject.Parse(wc.DownloadString("https://freegeoip.net/json/"));
+                    dynamic data = JObject.Parse(wc.DownloadString("https://freegeoip.net/json/"+ip));
                     return Encoding.UTF8.GetString(Encoding.Default.GetBytes(Convert.ToString(data.city)));
                 }
             }
