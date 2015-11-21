@@ -36,19 +36,19 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        //public async Task<List<TimeSlot>> GetByEvent(Guid eventId)
-        //{
-        //    using (var context = EventPlannerContext.Get())
-        //    {
-        //        var result = context.TimeSlots
-        //            .Where(e => e.EventId == eventId)
-        //            .ToList()
-        //            .Select(Mapper.Map<TimeSlot>)
-        //            .ToList();
+        public async Task<List<TimeSlot>> GetByEvent(Guid eventId)
+        {
+            using (var context = EventPlannerContext.Get())
+            {
+                var result = context.TimeSlots
+                    .Where(e => e.EventId == eventId)
+                    .ToList()
+                    .Select(Mapper.Map<TimeSlot>)
+                    .ToList();
 
-        //        return await Task.FromResult(result);
-        //    }
-        //}
+                return await Task.FromResult(result);
+            }
+        }
 
         public async Task<TimeSlot> AddOrUpdate(TimeSlot timeSlot)
         {

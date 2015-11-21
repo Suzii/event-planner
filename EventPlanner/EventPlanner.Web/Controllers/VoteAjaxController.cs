@@ -36,7 +36,7 @@ namespace EventPlanner.Web.Controllers
         public VoteAjaxController()
         {
             //TODO: change once real service is up and running
-            _votingService = new Services.FakedImplementation.VotingService();
+            _votingService = new VotingService();
             //TODO: change once real service is up and running
             _eventManagementService = new Services.Implementation.EventManagementService();
             _placeService = new PlaceService();

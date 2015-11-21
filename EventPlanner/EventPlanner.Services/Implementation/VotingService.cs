@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventPlanner.DAL.Repository;
 using EventPlanner.Models.Domain;
+using System.Linq;
 
 namespace EventPlanner.Services.Implementation
 {
@@ -10,56 +11,77 @@ namespace EventPlanner.Services.Implementation
     {
         private readonly VoteForDateRepository _voteForDateRepository;
         private readonly VoteForPlaceRepository _voteForPlaceRepository;
+        private readonly PlaceRepository _placeRepository;
+        private readonly TimeSlotRepository _timeSlotRepository;
 
         public VotingService()
         {
             _voteForDateRepository = new VoteForDateRepository();
             _voteForPlaceRepository = new VoteForPlaceRepository();
+            _placeRepository = new PlaceRepository();
+            _timeSlotRepository = new TimeSlotRepository();
         }
 
-        public Task<int> GetTotalNumberOfVotersForEvent(Guid eventId)
+        public async Task<int> GetTotalNumberOfVotersForEvent(Guid eventId)
         {
-            throw new NotImplementedException();
+            var places = await _placeRepository.GetByEvent(eventId);
+            var timeSlots = await _timeSlotRepository.GetByEvent(eventId);
+                        
+            var placesTotalVoters = places.Where(p => p.VotesForPlace != null).SelectMany(p => p.VotesForPlace?.Select(v => v.UserId).ToList()).Distinct();
+            var datesTotalVoters = timeSlots.Where(p => p.VotesForDate != null).SelectMany(p => p.VotesForDate?.Select(v => v.UserId).ToList()).Distinct();
+
+            return placesTotalVoters.Union(datesTotalVoters).Distinct().Count();
         }
 
-        Task<IList<VoteForDate>> IVotingService.GetVotesForDatesAsync(Guid eventId)
+        public async Task<IList<VoteForDate>> GetVotesForDatesAsync(Guid eventId)
         {
-            throw new NotImplementedException();
+            var timeSlots = await _timeSlotRepository.GetByEvent(eventId);
+            return timeSlots.SelectMany(ts => ts.VotesForDate).ToList();
         }
 
-        Task<IList<VoteForPlace>> IVotingService.GetVotesForPlacesAsync(Guid eventId)
+        public async Task<IList<VoteForPlace>> GetVotesForPlacesAsync(Guid eventId)
         {
-            throw new NotImplementedException();
+            var places = await _placeRepository.GetByEvent(eventId);
+            return places.SelectMany(ts => ts.VotesForPlace).ToList();
         }
 
-        public Task<IList<VoteForDate>> GetVotesForDateAsync(Guid eventId, Guid dateId)
+        public async Task<IList<VoteForDate>> GetVotesForDateAsync(Guid eventId, Guid dateId)
         {
-            throw new NotImplementedException();
+            var timeSlots = await _timeSlotRepository.GetByEvent(eventId);
+            return timeSlots.Where(ts => ts.Id == dateId).SelectMany(ts => ts.VotesForDate).ToList();
         }
 
-        public Task<IList<VoteForPlace>> GetVotesForPlaceAsync(Guid eventId, Guid placeId)
+        public async Task<IList<VoteForPlace>> GetVotesForPlaceAsync(Guid eventId, Guid placeId)
         {
-            throw new NotImplementedException();
+            var places = await _placeRepository.GetByEvent(eventId);
+            return places.Where(p => p.Id == placeId).SelectMany(ts => ts.VotesForPlace).ToList();
+
         }
 
-        public Task SubmitDateVotesByAsync(IList<VoteForDate> voteForDates)
+        public async Task SubmitDateVotesByAsync(IList<VoteForDate> voteForDates)
         {
-            throw new NotImplementedException();
+            foreach (var vote in voteForDates)
+            {
+                await SubmitVoteForDate(vote);
+            }
         }
 
-        public Task SubmitPlaceVotesByAsync(IList<VoteForPlace> voteForPlaces)
+        public async Task SubmitPlaceVotesByAsync(IList<VoteForPlace> voteForPlaces)
         {
-            throw new NotImplementedException();
+            foreach (var vote in voteForPlaces)
+            {
+                await SubmitVoteForPlace(vote);
+            }
         }
 
-        public Task<VoteForDate> SubmitVoteForDate(VoteForDate voteForDate)
+        public async Task<VoteForDate> SubmitVoteForDate(VoteForDate voteForDate)
         {
-            throw new NotImplementedException();
+            return await _voteForDateRepository.AddOrUpdate(voteForDate);
         }
 
-        public Task<VoteForPlace> SubmitVoteForPlace(VoteForPlace voteForPlace)
+        public async Task<VoteForPlace> SubmitVoteForPlace(VoteForPlace voteForPlace)
         {
-            throw new NotImplementedException();
+            return await _voteForPlaceRepository.AddOrUpdate(voteForPlace);
         }
     }
 }

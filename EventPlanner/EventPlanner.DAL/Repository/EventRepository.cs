@@ -43,9 +43,6 @@ namespace EventPlanner.DAL.Repository
                 var result = context.Events
                     .Include("Places")
                     .Include("TimeSlots")
-                    //TODO: delete these two once service for Voting can handle it ???
-                    .Include("Places.VotesForPlace")
-                    .Include("TimeSlots.VotesForDate")
                     .FirstOrDefault(e => e.Id == eventId);
 
                 return await Task.FromResult(Mapper.Map<Event>(result));
