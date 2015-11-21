@@ -9,6 +9,11 @@ namespace EventPlanner.Services
     public interface IVotingService
     {
         Task<int> GetTotalNumberOfVotersForEvent(Guid eventId);
+
+        Task<IList<Place>> GetPlacesWithVotes(Guid eventId);
+
+        Task<IList<TimeSlot>> GetDatesWithVotes(Guid eventId);
+
         Task<IList<VoteForDate>> GetVotesForDatesAsync(Guid eventId);
 
         Task<IList<VoteForPlace>> GetVotesForPlacesAsync(Guid eventId);
