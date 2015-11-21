@@ -161,19 +161,15 @@ var FourSquareApp = React.createClass({
     return (
       <div>
         <div className="form-group">
-          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-md-2" placeholder="City..." />
+          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..." defaultValue={this.props.defaultPlace} />
           <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery}/>
         </div>
-		<div className="row">
+		    <div className="row">
           {this.state.selectedPlaces.map((place, index) => { 
             return (
               <SelectedPlace key={place.VenueId} place={place} index={index} deleteCallback={this.deletePlace}/>
               )
           })}
-        </div>
-        <div className="form-group">
-          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..." defaultValue={this.props.defaultPlace} />
-          <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery}/>
         </div>
       </div>
     );
