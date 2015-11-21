@@ -58,7 +58,7 @@ namespace EventPlanner.Services.Implementation
         public async Task<IList<VoteForDate>> GetVotesForDateAsync(Guid eventId, Guid dateId)
         {
             var allVotes= await _voteForDateRepository.GetAll();
-            return allVotes.Where(v => v.TimeSlotId == dateId).ToList();
+            return allVotes.Where(v => v.OptionId == dateId).ToList();
 
             //The above option seems to be more efficient as no join statement is needed in db
             //var timeSlots = await _timeSlotRepository.GetByEvent(eventId);
@@ -68,7 +68,7 @@ namespace EventPlanner.Services.Implementation
         public async Task<IList<VoteForPlace>> GetVotesForPlaceAsync(Guid eventId, Guid placeId)
         {
             var allVotes = await _voteForPlaceRepository.GetAll();
-            return allVotes.Where(v => v.PlaceId == placeId).ToList();
+            return allVotes.Where(v => v.OptionId == placeId).ToList();
 
             //The above option seems to be more efficient as no join statement is needed in db
             //var places = await _placeRepository.GetByEvent(eventId);

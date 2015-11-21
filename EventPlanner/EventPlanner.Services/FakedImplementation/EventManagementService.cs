@@ -66,44 +66,44 @@ namespace EventPlanner.Services.FakedImplementation
 
             ev.Places[0].VotesForPlace = new List<VoteForPlace>()
                 {
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "Tomas", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "Janka", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "Jirka", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "Martin", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "Suzi", WillAttend = WillAttend.No},
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "Parmezan", WillAttend = WillAttend.Maybe},
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "Matho", WillAttend = WillAttend.No},
-                    new VoteForPlace() {PlaceId = ev.Places[0].Id, UserId = "JayDee", WillAttend = WillAttend.Maybe}
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "Tomas", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "Janka", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "Jirka", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "Martin", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "Suzi", WillAttend = WillAttend.No},
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "Parmezan", WillAttend = WillAttend.Maybe},
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "Matho", WillAttend = WillAttend.No},
+                    new VoteForPlace() {OptionId = ev.Places[0].Id, UserId = "JayDee", WillAttend = WillAttend.Maybe}
                 };
 
             ev.Places[1].VotesForPlace = new List<VoteForPlace>()
                 {
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "Tomas", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "Janka", WillAttend = WillAttend.No},
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "Jirka", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "Martin", WillAttend = WillAttend.Maybe},
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "Suzi", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "Parmezan", WillAttend = WillAttend.No},
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "Matho", WillAttend = WillAttend.Yes},
-                    new VoteForPlace() {PlaceId = ev.Places[1].Id, UserId = "JayDee", WillAttend = WillAttend.No}
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "Tomas", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "Janka", WillAttend = WillAttend.No},
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "Jirka", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "Martin", WillAttend = WillAttend.Maybe},
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "Suzi", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "Parmezan", WillAttend = WillAttend.No},
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "Matho", WillAttend = WillAttend.Yes},
+                    new VoteForPlace() {OptionId = ev.Places[1].Id, UserId = "JayDee", WillAttend = WillAttend.No}
                 };
 
             ev.TimeSlots[0].VotesForDate = new List<VoteForDate>()
             {
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Tomas", WillAttend = WillAttend.Yes},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Jirka", WillAttend = WillAttend.Maybe},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Jana", WillAttend = WillAttend.Yes},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Suzi", WillAttend = WillAttend.No},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[0].Id, UserId = "Martin", WillAttend = WillAttend.No},
+                new VoteForDate() {OptionId = ev.TimeSlots[0].Id, UserId = "Tomas", WillAttend = WillAttend.Yes},
+                new VoteForDate() {OptionId = ev.TimeSlots[0].Id, UserId = "Jirka", WillAttend = WillAttend.Maybe},
+                new VoteForDate() {OptionId = ev.TimeSlots[0].Id, UserId = "Jana", WillAttend = WillAttend.Yes},
+                new VoteForDate() {OptionId = ev.TimeSlots[0].Id, UserId = "Suzi", WillAttend = WillAttend.No},
+                new VoteForDate() {OptionId = ev.TimeSlots[0].Id, UserId = "Martin", WillAttend = WillAttend.No},
             };
 
             ev.TimeSlots[1].VotesForDate = new List<VoteForDate>()
             {
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Tomas", WillAttend = WillAttend.Maybe},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Jirka", WillAttend = WillAttend.Maybe},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Jana", WillAttend = WillAttend.Yes},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Suzi", WillAttend = WillAttend.Yes},
-                new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Martin", WillAttend = WillAttend.No},
+                new VoteForDate() {OptionId = ev.TimeSlots[1].Id, UserId = "Tomas", WillAttend = WillAttend.Maybe},
+                new VoteForDate() {OptionId = ev.TimeSlots[1].Id, UserId = "Jirka", WillAttend = WillAttend.Maybe},
+                new VoteForDate() {OptionId = ev.TimeSlots[1].Id, UserId = "Jana", WillAttend = WillAttend.Yes},
+                new VoteForDate() {OptionId = ev.TimeSlots[1].Id, UserId = "Suzi", WillAttend = WillAttend.Yes},
+                new VoteForDate() {OptionId = ev.TimeSlots[1].Id, UserId = "Martin", WillAttend = WillAttend.No},
             };
 
             return ev;

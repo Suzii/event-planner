@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Event.cs" />
+    <Compile Include="Domain\IVoteModel.cs" />
     <Compile Include="Domain\Place.cs" />
     <Compile Include="Domain\TimeSlot.cs" />
     <Compile Include="Domain\User.cs" />

@@ -95,18 +95,22 @@ namespace EventPlanner.DAL.AutoMappers
         private static void CreateVoteForDateMap()
         {
             Mapper.CreateMap<VoteForDateEntity, Models.Domain.VoteForDate>()
+                .ForMember(v => v.OptionId, conf => conf.MapFrom(ve => ve.TimeSlotId))
                 .ForMember(v => v.WillAttend, conf => conf.MapFrom(ve => ve.WillAttend));
 
             Mapper.CreateMap<Models.Domain.VoteForDate, VoteForDateEntity>()
+                .ForMember(ve => ve.TimeSlotId, conf => conf.MapFrom(v => v.OptionId))
                 .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend));
         }
 
         private static void CreateVoteForPlaceMap()
         {
             Mapper.CreateMap<VoteForPlaceEntity, Models.Domain.VoteForPlace>()
+                .ForMember(v => v.OptionId, conf => conf.MapFrom(ve => ve.PlaceId))
                 .ForMember(v => v.WillAttend, conf => conf.MapFrom(ve => ve.WillAttend));
 
             Mapper.CreateMap<Models.Domain.VoteForPlace, VoteForPlaceEntity>()
+                .ForMember(ve => ve.PlaceId, conf => conf.MapFrom(v => v.OptionId))
                 .ForMember(ve => ve.WillAttend, conf => conf.MapFrom(v => v.WillAttend));
             ;
         }

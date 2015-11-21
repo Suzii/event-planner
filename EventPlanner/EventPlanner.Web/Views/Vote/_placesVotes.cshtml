@@ -6,7 +6,7 @@
 
 @foreach (var place in Model.EventViewModel.Places)
 {
-    var index = Model.VotesForPlaces.FindIndex(v => v.PlaceId == place.Id);
+    var index = Model.VotesForPlaces.FindIndex(v => v.OptionId == place.Id);
     <div class="row">
         <div class="col-md-2">
             <div class="text-primary">@place.Venue.Name</div>
@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-2">
             @*TODO: modelbinding requires refactoring*@
-            @Html.HiddenFor(m => m.VotesForPlaces[index].PlaceId)
+            @Html.HiddenFor(m => m.VotesForPlaces[index].OptionId)
             @Html.EditorFor(m => m.VotesForPlaces[index].WillAttend, new { @class = "form-control" })
         </div>
         <div class="col-md-8">

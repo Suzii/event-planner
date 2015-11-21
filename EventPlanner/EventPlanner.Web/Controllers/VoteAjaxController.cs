@@ -67,7 +67,7 @@ namespace EventPlanner.Web.Controllers
             var voteModel = new VoteForDate()
             {
                 Id = voteForDateId,
-                TimeSlotId = timeSlotId,
+                OptionId = timeSlotId,
                 UserId = userId,
                 WillAttend = willAttend
             };
