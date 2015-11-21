@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -42,7 +43,7 @@ namespace EventPlanner.DAL.Repository
             {
                 var result = context.Places
                     .Where(e => e.Event.Id == eventId)
-                    .ToList()
+                    .Include("VotesForPlace")
                     .Select(Mapper.Map<Place>)
                     .ToList();
 

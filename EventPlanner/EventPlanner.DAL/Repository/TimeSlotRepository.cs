@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace EventPlanner.DAL.Repository
             {
                 var result = context.TimeSlots
                     .Where(e => e.EventId == eventId)
-                    .ToList()
+                    .Include("VotesForDate")
                     .Select(Mapper.Map<TimeSlot>)
                     .ToList();
 
