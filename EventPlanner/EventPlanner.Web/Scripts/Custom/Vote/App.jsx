@@ -4,6 +4,23 @@ var Options = {
     NO : 'No'
 };
 
+var MappingHelper = {
+    mapOption: function(option){
+        return {
+            title : option.Title,
+            desc: option.Desc,
+            optionId: option.Id,
+            preSelectedValue: option.UsersVote.WillAttend,
+            usersVoteId: option.UsersVote.Id,
+            votes: {
+                yes: option.Votes.Yes,
+                maybe: option.Votes.Maybe,
+                no: option.Votes.No
+            }
+        }
+    }
+};
+
 var Tooltip = React.createClass({
     propTypes: {
         data: React.PropTypes.string,
@@ -19,8 +36,6 @@ var Tooltip = React.createClass({
 var DatesVotingApp = React.createClass({
     propTypes: {
         eventId: React.PropTypes.string,
-        //timeSlots: React.PropTypes.array.isRequired,
-        //totalNumberOfVoters: React.PropTypes.number,
         submitVotesUrl: React.PropTypes.string,
         getInitialDataUrl: React.PropTypes.string
     },
@@ -37,26 +52,12 @@ var DatesVotingApp = React.createClass({
             getInitialDataUrl: $('#DatesVotingApp').attr('data-get-vote-for-date-model-url')      
         };
     },
-    mapOption: function(timeSlot){
-        return {
-            title : timeSlot.Title,
-            desc: timeSlot.Desc,
-            optionId: timeSlot.Id,
-            preSelectedValue: timeSlot.UsersVote.WillAttend,
-            usersVoteId: timeSlot.UsersVote.Id,
-            votes: {
-                yes: timeSlot.Votes.Yes,
-                maybe: timeSlot.Votes.Maybe,
-                no: timeSlot.Votes.No
-            }
-        }
-    },
+    
     componentWillMount: function() {
         $.get(this.props.getInitialDataUrl).success((data)=>{
             console.log(data);
-            var totalNumberOfVoters = data.totalNumberOfVoters;
-            var timeSlots = data.timeSlots;
-            var options = timeSlots.map(this.mapOption);
+            var totalNumberOfVoters = data.TotalNumberOfVoters;
+            var options = data.Options.map(MappingHelper.mapOption);
             this.setState({options: options, totalNumberOfVoters: totalNumberOfVoters});
         });
     },
@@ -77,15 +78,13 @@ var DatesVotingApp = React.createClass({
         var self = this;
         var successCallback = function(data){
             console.log('Vote for data submitted successfully');
-            console.debug(data.totalNumberOfVoters);
-            console.debug(data.votes);
-
+            var option = MappingHelper.mapOption(data.Option);
+            
             var newOptions = self.state.options;
             var index = newOptions.findIndex((elem, index) => elem.optionId === timeSlotId);
-            console.log('index of to-be-rerendeered option '+index);
             if(index > -1){
-                newOptions[index].votes = data.votes;
-                newOptions[index].usersVoteId = data.usersVote.id
+                newOptions[index].votes = option.votes;
+                newOptions[index].usersVoteId = option.usersVoteId
             }
 
             self.setState({

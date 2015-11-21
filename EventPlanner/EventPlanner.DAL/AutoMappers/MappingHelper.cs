@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using EventPlanner.Models.Domain;
+using EventPlanner.Models.Enums;
 using EventPlanner.Models.Models.CreateAndEdit;
+using EventPlanner.Models.Models.Vote;
 
 namespace EventPlanner.DAL.AutoMappers
 {
@@ -27,6 +29,44 @@ namespace EventPlanner.DAL.AutoMappers
                             Date = tsGrp.Key.Date,
                             Times = tsGrp.Select(ts => new EventModel.TimeModel(ts.Id, ts.DateTime.ToString("HH:mm:ss"))).ToList()
                         }).ToList();
+        }
+
+        public static OptionViewModel MapToOptionViewModel(TimeSlot timeSlot, string userId)
+        {
+            return new OptionViewModel()
+            {
+                Id = timeSlot.Id,
+                Title = timeSlot.DateTime.ToShortDateString(),
+                Desc = timeSlot.DateTime.ToLongTimeString(),
+                UsersVote = MapUsersVoteModel(timeSlot.VotesForDate, userId),
+                Votes = MapToVotesViewModel(timeSlot.VotesForDate)
+            };
+        }
+
+        public static VotesViewModel MapToVotesViewModel(IList<VoteForDate> votes)
+        {
+            return new VotesViewModel()
+            {
+                //TODO change id -> name once supported
+                Yes =
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).ToArray() ??
+                    new string[] {},
+                Maybe =
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId).ToArray() ??
+                    new string[] {},
+                No =
+                    votes?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId).ToArray() ??
+                    new string[] {}
+            };
+        }
+
+        public static UsersVoteModel MapUsersVoteModel(IList<VoteForDate> votes, string userId)
+        {
+            return new UsersVoteModel()
+            {
+                Id = votes.SingleOrDefault(v => v.UserId == userId)?.Id ?? Guid.Empty,
+                WillAttend = votes.SingleOrDefault(v => v.UserId == userId)?.WillAttend.ToString() ?? null
+            };
         }
     }
 }
