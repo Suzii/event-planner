@@ -12,6 +12,7 @@ namespace EventPlanner.DAL.AutoMappers
         {
             return dates.SelectMany(d => d.Times.Select(time => new TimeSlot()
             {
+                Id = time.Id,
                 DateTime = d.Date.Add(TimeSpan.Parse(time.Time))
             }).ToList()).ToList();
         }
