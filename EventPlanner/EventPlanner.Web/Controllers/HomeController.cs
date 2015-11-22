@@ -6,13 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using EventPlanner.Models.Models.Shared;
+using EventPlanner.Services;
 
 namespace EventPlanner.Web.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
         public HomeController()
         {

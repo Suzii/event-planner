@@ -38,7 +38,7 @@ namespace EventPlanner.DAL.AutoMappers
                 Id = timeSlot.Id,
                 Title = timeSlot.DateTime.ToShortDateString(),
                 Desc = timeSlot.DateTime.ToLongTimeString(),
-                UsersVote = MapUsersVoteModel(timeSlot.VotesForDate, userId),
+                UsersVote = MapToUsersVoteModel((IList<VoteForPlace>) timeSlot.VotesForDate, userId),
                 Votes = MapToVotesViewModel(timeSlot.VotesForDate)
             };
         }
@@ -50,7 +50,7 @@ namespace EventPlanner.DAL.AutoMappers
                 Id = place.Id,
                 Title = place.Venue.Name,
                 Desc = place.Venue.AddressInfo,
-                UsersVote = MapUsersVoteModel(place.VotesForPlace, userId),
+                UsersVote = MapToUsersVoteModel(place.VotesForPlace, userId),
                 Votes = MapToVotesViewModel(place.VotesForPlace)
             };
         }
@@ -89,7 +89,7 @@ namespace EventPlanner.DAL.AutoMappers
             };
         }
 
-        public static UsersVoteModel MapUsersVoteModel(IList<VoteForDate> votes, string userId)
+        public static UsersVoteModel MapToUsersVoteModel(IList<VoteForDate> votes, string userId)
         {
             return new UsersVoteModel()
             {
@@ -98,7 +98,7 @@ namespace EventPlanner.DAL.AutoMappers
             };
         }
 
-        public static UsersVoteModel MapUsersVoteModel(IList<VoteForPlace> votes, string userId)
+        public static UsersVoteModel MapToUsersVoteModel(IList<VoteForPlace> votes, string userId)
         {
             return new UsersVoteModel()
             {
