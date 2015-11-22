@@ -6,7 +6,7 @@
 
 @foreach (var date in Model.EventViewModel.TimeSlots)
 {
-    var index = Model.VotesForDates.FindIndex(v => v.OptionId == date.Id);
+    var index = Model.VotesForDates.FindIndex(v => v.TimeSlotId == date.Id);
     <div class="row">
         <div class="col-md-2">
             <div class="text-primary">@date.DateTime.ToLongDateString()</div>
@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-2">
             @*TODO: modelbinding requires refactoring*@
-            @Html.HiddenFor(m => m.VotesForDates[index].OptionId)
+            @Html.HiddenFor(m => m.VotesForDates[index].TimeSlotId)
             @Html.EditorFor(m => m.VotesForDates[index].WillAttend, new { @class = "form-control" })
         </div>
         <div class="col-md-8">

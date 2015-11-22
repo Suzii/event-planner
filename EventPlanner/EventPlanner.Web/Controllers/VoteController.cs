@@ -85,8 +85,8 @@ namespace EventPlanner.Web.Controllers
                 .Select(vote => vote);
 
             var missingPlaceVotes = places
-                .Where(pl => !(usersPlaceVotes.Select(pv => pv.OptionId).Contains(pl.Id)))
-                .Select(pl => new VoteForPlace() {OptionId = pl.Id});
+                .Where(pl => !(usersPlaceVotes.Select(pv => pv.PlaceId).Contains(pl.Id)))
+                .Select(pl => new VoteForPlace() {PlaceId = pl.Id});
 
             return usersPlaceVotes.Union(missingPlaceVotes).ToList();
         }
@@ -99,8 +99,8 @@ namespace EventPlanner.Web.Controllers
                 .Select(vote => vote);
 
             var missingDateVotes = dates
-                .Where(ts => !(usersDateVotes.Select(dv => dv.OptionId).Contains(ts.Id)))
-                .Select(ds => new VoteForDate() { OptionId = ds.Id });
+                .Where(ts => !(usersDateVotes.Select(dv => dv.TimeSlotId).Contains(ts.Id)))
+                .Select(ds => new VoteForDate() { TimeSlotId = ds.Id });
 
             return usersDateVotes.Union(missingDateVotes).ToList();
         }

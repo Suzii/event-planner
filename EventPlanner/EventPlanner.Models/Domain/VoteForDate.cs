@@ -4,7 +4,7 @@ using EventPlanner.Models.Enums;
 
 namespace EventPlanner.Models.Domain
 {
-    public class VoteForDate : IVoteModel
+    public class VoteForDate
     {
         public Guid Id { set; get; }
 
@@ -14,7 +14,7 @@ namespace EventPlanner.Models.Domain
         public User User { set; get; }
 
         [Required]
-        public Guid OptionId { set; get; }
+        public Guid TimeSlotId { set; get; }
         public TimeSlot TimeSlot { set; get; }
 
         [Required]
