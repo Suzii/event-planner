@@ -35,6 +35,7 @@ var Tooltip = React.createClass({
 
 var VotingApp = React.createClass({
     propTypes: {
+        loadingImgUrl: React.PropTypes.string.isRequired,
         eventId: React.PropTypes.string,
         submitVotesUrl: React.PropTypes.string,
         getInitialDataUrl: React.PropTypes.string
@@ -42,7 +43,8 @@ var VotingApp = React.createClass({
     getInitialState: function() {
         return {
             options: [],
-            totalNumberOfVoters: 0 
+            totalNumberOfVoters: 0,
+            loading: true
         };
     },
     getDefaultProps: function() {
@@ -53,13 +55,19 @@ var VotingApp = React.createClass({
             getInitialDataUrl: $(selector).attr('data-get-initial-data-url')      
         };
     },    
-    componentWillMount: function() {
+    componentDidMount: function() {
         $.get(this.props.getInitialDataUrl).success((data)=>{
             console.debug('Initial data for voting app:');
             console.debug(data);
             var totalNumberOfVoters = data.TotalNumberOfVoters;
             var options = data.Options.map(MappingHelper.mapOption);
-            this.setState({options: options, totalNumberOfVoters: totalNumberOfVoters});
+            if(this.isMounted()) {
+                this.setState({
+                    options: options, 
+                    totalNumberOfVoters: totalNumberOfVoters,
+                    loading: false
+                });
+            }
         });
     },
     submitVote: function(optionId, usersVoteId, willAttend){
@@ -97,25 +105,31 @@ var VotingApp = React.createClass({
         });
     },
     render: function() {
-        return (
-             <div>
-                {
-                    this.state.options.map((option) => {
-                        return(
-                            <VoteOption key={option.optionId}
-                                 optionId={option.optionId}
-                                 title={option.title}
-                                 desc={option.desc}
-                                 onVoteCallback={this.submitVote}
-                                 preSelectedValue={option.preSelectedValue}
-                                 usersVoteId={option.usersVoteId}
-                                 votes={option.votes}
-                                 totalNumberOfVoters={this.state.totalNumberOfVoters} />
-                        )
-                    })
-                }
-            </div>
-        );
+        if(this.state.loading){
+            return (
+                <Spinner imgUrl={this.props.loadingImgUrl} />
+            )
+        } else{
+            return (
+                 <div>
+                    {
+                        this.state.options.map((option) => {
+                            return(
+                                <VoteOption key={option.optionId}
+                                     optionId={option.optionId}
+                                     title={option.title}
+                                     desc={option.desc}
+                                     onVoteCallback={this.submitVote}
+                                     preSelectedValue={option.preSelectedValue}
+                                     usersVoteId={option.usersVoteId}
+                                     votes={option.votes}
+                                     totalNumberOfVoters={this.state.totalNumberOfVoters} />
+                            )
+                        })
+                    }
+                </div>
+            );
+        }
     }
 
 });
