@@ -1,23 +1,40 @@
-﻿@using Microsoft.AspNet.Identity
-@model EventPlanner.Models.Models.Vote.VoteModel
+﻿@using System.Web.Script.Serialization
+@using EventPlanner.Models.Enums
+@using Microsoft.AspNet.Identity
+@model EventPlanner.Models.Models.Shared.EventInfoViewModel
 @{
     ViewBag.Title = "Vote";
 }
-
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/willAttendEditor.css")">
 
 @section Scripts {
     @Scripts.Render("https://maps.googleapis.com/maps/api/js")
-    @Scripts.Render("~/Scripts/Custom/GoogleMapsModule.js")
+    @Scripts.Render("~/Scripts/Custom/Vote/GoogleMapsModule.js")
+    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/classnames/2.2.0/index.min.js")
+    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Vote/VotingApp.jsx")"></script>
+    <script type="text/jsx">
+        React.render(<VotingApp 
+                        eventId="@Model.Id"
+                        submitVotesUrl="@Url.Action("SubmitVoteForDate", "Vote", routeValues: new {eventId = Model.Id}))"
+                        getInitialDataUrl="@Url.Action("GetVoteForDateModel", "Vote", routeValues: new {eventId = Model.Id})"/>, 
+        document.getElementById('DatesVotingApp'));
+        
+        React.render(
+        <VotingApp eventId="@Model.Id"
+                   submitVotesUrl="@Url.Action("SubmitVoteForPlace", "Vote", routeValues: new {eventId = Model.Id}))"
+                   getInitialDataUrl="@Url.Action("GetVoteForPlaceModel", "Vote", routeValues: new {eventId = Model.Id})" />,
+        document.getElementById('PlacesVotingApp'));
+    </script>
 }
 
 <div class="row">
     <div class="col-md-8">
         <h2>
-            @Model.EventViewModel.Title
+            @Model.Title
             @*TODO: move this logic to controller*@
-            @if (Model.EventViewModel.OthersCanEdit || User.Identity.GetUserId() == Model.EventViewModel.OrganizerId)
+            @if (Model.OthersCanEdit || User.Identity.GetUserId() == Model.OrganizerId)
             {
-                <a href="@Url.Action("Index", "Event", new {id = Model.EventViewModel.Id})">
+                <a href="@Url.Action("Index", "Event", new {id = Model.Id})">
                     <small>
                         <i class="glyphicon glyphicon-pencil"></i>
                         <span class="sr-only">Edit event</span>
@@ -29,39 +46,34 @@
 
     @*TODO: refactor position of text*@
     <div class="col-md-4" style="padding-top: 3em;">
-        <span class="text-muted text-right pull-right">Created on: @Model.EventViewModel.Created.ToShortDateString()</span>
+        <span class="text-muted text-right pull-right">Created on: @Model.CreatedOn.ToShortDateString()</span>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12">
-        @Model.EventViewModel.Desc
+        @Model.Desc
     </div>
 </div>
 
 <div class="container-fluid">
     <div class="row">
-        @using (Html.BeginForm("Index", "Vote", FormMethod.Post, new {@class = ""}))
-        {
-            <div class="row">
-                <div class="col-sm-12" id="timesTable">
-                    @{Html.RenderPartial("_datesVotes", Model);}
-                </div>
+        <div class="row">
+            <div className="row">
+                <h3>Vote for dates:</h3>
+                <div class="col-sm-12" id="DatesVotingApp"></div>
+            </div>
+
+            <div className="row">
+                <h3>Vote for places:</h3>
+                <div class="col-sm-12" id="PlacesVotingApp"> </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-12" id="placesTable">
-                    @{Html.RenderPartial("_placesVotes", Model);}
+                <div class="col-md-12" id="mapModule">
+                    @{ Html.RenderPartial("_mapModule");}
                 </div>
-
             </div>
-
-
-            <input type="submit" class="btn btn-primary pull-right" value="Submit your votes"/>
-        }
-    </div>
-
-    <div class="col-md-12" id="mapModule">
-        @{ Html.RenderPartial("_mapModule");}
+        </div>
     </div>
 </div>

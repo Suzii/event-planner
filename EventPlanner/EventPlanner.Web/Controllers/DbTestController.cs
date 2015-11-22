@@ -28,7 +28,6 @@ namespace EventPlanner.Web.Controllers
         {
             var ems = new EventManagementService();
 
-            // NOTE : Dates will not be stored as there is still an issue with mapping
             var eventModel = new EventModel()
             {
                 Title = "Some fake event for testing purposes",
@@ -75,7 +74,7 @@ namespace EventPlanner.Web.Controllers
         /// <summary>
         /// Call this method before you want to use voting AJAX page.
         /// Save the ID of newly created faked event.
-        /// Copy this is and assign it to the EVENT_ID constant in VoteAjaxController
+        /// Copy this is and assign it to the EVENT_ID constant in VoteController
         /// </summary>
         /// <returns></returns>
         public async Task<JsonResult> CreateFakeEventWIthVotes()

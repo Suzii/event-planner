@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
+using EventPlanner.DAL.AutoMappers;
 using EventPlanner.Models.Domain;
 using EventPlanner.Models.Enums;
+using EventPlanner.Models.Models.Shared;
 using EventPlanner.Models.Models.Vote;
 using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
@@ -25,8 +27,7 @@ namespace EventPlanner.Web.Controllers
         public VoteController()
         {
             _votingService = new VotingService();
-            //TODO: change once real service is up and running
-            _eventManagementService = new Services.FakedImplementation.EventManagementService();
+            _eventManagementService = new EventManagementService();
             _placeService = new PlaceService();
         }
 
@@ -35,94 +36,108 @@ namespace EventPlanner.Web.Controllers
         {
             var id = _eventManagementService.GetEventId(eventHash);
             var eventViewmodel = await ConstructEventViewModel(id);
-            
-            // TODO: use this with real EventManagementService: User.Identity.GetUserId();
-            var currentUserId = "Suzi"; 
-            var model = ConstructModel(eventViewmodel, currentUserId);
-            return View("Index", model);
+            return View("Index", eventViewmodel);
         }
 
-        //TODO : model binding refactoring needed
-        public async Task<ActionResult> Index(IList<VoteForPlace> VotesForPlaces, IList<VoteForDate> VotesForDates)
+        [HttpGet]
+        public async Task<JsonResult> GetVoteForDateModel(Guid eventId)
         {
-            if (!ModelState.IsValid)
-            {
-                //TODO: will have to work via ajax..
-                //return View("Index", new VoteModel() {VotesForPlaces = VotesForPlaces, VotesForDates = VotesForDates});
-            }
+            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
+            var timeSlots = await _votingService.GetDatesWithVotes(eventId);
+            var optionsVm = timeSlots
+                .OrderBy(ts => ts.DateTime)
+                .Select((ts) => MappingHelper.MapToOptionViewModel(ts, User.Identity.GetUserId()))
+                .ToList();
+
+            return Json(new {Options = optionsVm, TotalNumberOfVoters = totalNumberOfVoters},
+                JsonRequestBehavior.AllowGet);
+        }
+        
+        [HttpGet]
+        public async Task<JsonResult> GetVoteForPlaceModel(Guid eventId)
+        {
+            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
+            var places = await _votingService.GetPlacesWithVotes(eventId);
+            var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
+            await PopulateVenueDetails(placesVm);
+            var optionsVm = placesVm
+                .OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes))
+                .Select((pl) => MappingHelper.MapToOptionViewModel(pl, User.Identity.GetUserId()))
+                .ToList();
+
+            return Json(new { Options = optionsVm, TotalNumberOfVoters = totalNumberOfVoters },
+                JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SubmitVoteForDate(Guid eventId, Guid optionId, Guid usersVoteId, WillAttend? willAttend)
+        {
             var userId = User.Identity.GetUserId();
-            foreach (var vote in VotesForPlaces)
+            var voteModel = new VoteForDate()
             {
-                vote.UserId = userId;
-            }
-            foreach (var vote in VotesForDates)
+                Id = usersVoteId,
+                TimeSlotId = optionId,
+                UserId = userId,
+                WillAttend = willAttend
+            };
+
+            await _votingService.SubmitVoteForDate(voteModel);
+
+            var votes = await _votingService.GetVotesForDateAsync(eventId, optionId);
+            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
+
+            return Json(new
             {
-                vote.UserId = userId;
-            }
-            await _votingService.SubmitPlaceVotesByAsync(VotesForPlaces);
-            await _votingService.SubmitDateVotesByAsync(VotesForDates);
-            
-            return RedirectToAction("Index");
+                Option = new OptionViewModel()
+                {
+                    UsersVote = MappingHelper.MapUsersVoteModel(votes, userId),
+                    Votes = MappingHelper.MapToVotesViewModel(votes)
+                },
+                TotalNumberOfVoters = totalNumberOfVoters
+            },
+                JsonRequestBehavior.AllowGet);
         }
 
-        private object ConstructModel(EventViewModel eventViewmodel, string currentUserId)
+        [HttpPost]
+        public async Task<JsonResult> SubmitVoteForPlace(Guid eventId, Guid optionId, Guid usersVoteId, WillAttend? willAttend)
         {
-            var model = new VoteModel();
-            model.EventViewModel = eventViewmodel;
-            eventViewmodel.Places = eventViewmodel.Places.OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes)).ToList();
-            eventViewmodel.TimeSlots = eventViewmodel.TimeSlots.OrderBy(ts => ts.DateTime).ToList();
-            model.VotesForPlaces = GetUsersPlaceVotes(eventViewmodel.Places, currentUserId);
-            model.VotesForDates = GetUsersDateVotes(eventViewmodel.TimeSlots, currentUserId);
+            var userId = User.Identity.GetUserId();
+            var voteModel = new VoteForPlace()
+            {
+                Id = usersVoteId,
+                PlaceId = optionId,
+                UserId = userId,
+                WillAttend = willAttend
+            };
 
-            return model;
+            await _votingService.SubmitVoteForPlace(voteModel);
+
+            var votes = await _votingService.GetVotesForPlaceAsync(eventId, optionId);
+            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
+
+            return Json(new
+            {
+                Option = new OptionViewModel()
+                {
+                    UsersVote = MappingHelper.MapUsersVoteModel(votes, userId),
+                    Votes = MappingHelper.MapToVotesViewModel(votes)
+                },
+                TotalNumberOfVoters = totalNumberOfVoters
+            },
+                JsonRequestBehavior.AllowGet);
         }
 
-        private List<VoteForPlace> GetUsersPlaceVotes(IList<PlaceViewModel> places, string currentUserId)
+        private async Task<EventInfoViewModel> ConstructEventViewModel(Guid id)
         {
-            var usersPlaceVotes = places
-                .SelectMany(pl => pl.VotesForPlace)
-                .Where(vote => vote.UserId == currentUserId)
-                .Select(vote => vote);
-
-            var missingPlaceVotes = places
-                .Where(pl => !(usersPlaceVotes.Select(pv => pv.PlaceId).Contains(pl.Id)))
-                .Select(pl => new VoteForPlace() {PlaceId = pl.Id});
-
-            return usersPlaceVotes.Union(missingPlaceVotes).ToList();
-        }
-
-        private List<VoteForDate> GetUsersDateVotes(IList<TimeSlotViewModel> dates, string currentUserId)
-        {
-            var usersDateVotes = dates
-                .SelectMany(ts => ts.VotesForDate)
-                .Where(vote => vote.UserId == currentUserId)
-                .Select(vote => vote);
-
-            var missingDateVotes = dates
-                .Where(ts => !(usersDateVotes.Select(dv => dv.TimeSlotId).Contains(ts.Id)))
-                .Select(ds => new VoteForDate() { TimeSlotId = ds.Id });
-
-            return usersDateVotes.Union(missingDateVotes).ToList();
-        }
-
-        private async Task<EventViewModel> ConstructEventViewModel(Guid id)
-        {
-            var result = await _eventManagementService.GetFullEventAsync(id);
-
-            var eventViewModel =  Mapper.Map<EventViewModel>(result);
-            await PopulateVenueDetails(eventViewModel);
-
-
-            var allUsers = eventViewModel.Places.SelectMany(p => p.VotesForPlace.Select(v => v.UserId).ToList()).Distinct();
-            eventViewModel.TotalNumberOfVoters = allUsers.Count();
-            
+            var result = await _eventManagementService.GetEventInfoAsync(id);
+            var eventViewModel =  Mapper.Map<EventInfoViewModel>(result);
             return eventViewModel;
         }
         
-        private async Task PopulateVenueDetails(EventViewModel eventViewModel)
+        private async Task PopulateVenueDetails(IList<PlaceViewModel> places)
         {
-            var venuesDetails = await _placeService.GetPlacesDetailsAsync(eventViewModel.Places.Select(p => p.VenueId).ToList());
-            foreach (var place in eventViewModel.Places)
+            var venuesDetails = await _placeService.GetPlacesDetailsAsync(places.Select(p => p.VenueId).ToList());
+            foreach (var place in places)
             {
                 place.Venue = venuesDetails.Single(p => p.VenueId == place.VenueId);
             }

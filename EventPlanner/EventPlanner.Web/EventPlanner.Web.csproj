@@ -187,7 +187,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ShareEventController.cs" />
-    <Compile Include="Controllers\VoteAjaxController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -359,17 +358,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\ShareEvent\Index.cshtml" />
-    <Content Include="Views\Vote\Index.cshtml" />
-    <Content Include="Views\Vote\_placesVotes.cshtml" />
-    <Content Include="Views\Vote\_datesVotes.cshtml" />
     <Content Include="Views\DbTest\Date.cshtml" />
     <Content Include="Views\Manage\ChangeName.cshtml" />
-    <Content Include="Views\Vote\_mapModule.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WillAttend.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\_timeDropdownSelector.cshtml" />
     <Content Include="App_Code\RazorHelpers.cshtml" />
-    <Content Include="Views\VoteAjax\_mapModule.cshtml" />
-    <Content Include="Views\VoteAjax\Index.cshtml" />
+    <Content Include="Views\Vote\_mapModule.cshtml" />
+    <Content Include="Views\Vote\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
