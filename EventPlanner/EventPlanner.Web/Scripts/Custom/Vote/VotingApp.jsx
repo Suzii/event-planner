@@ -33,7 +33,7 @@ var Tooltip = React.createClass({
 
 });
 
-var DatesVotingApp = React.createClass({
+var VotingApp = React.createClass({
     propTypes: {
         eventId: React.PropTypes.string,
         submitVotesUrl: React.PropTypes.string,
@@ -46,49 +46,44 @@ var DatesVotingApp = React.createClass({
         };
     },
     getDefaultProps: function() {
+        var selector = '#VotingApp';
         return {
-            eventId: $('#DatesVotingApp').attr('data-event-id'),
-            submitVotesUrl: $('#DatesVotingApp').attr('data-submit-vote-for-date-url'),
-            getInitialDataUrl: $('#DatesVotingApp').attr('data-get-vote-for-date-model-url')      
+            eventId: $(selector).attr('data-event-id'),
+            submitVotesUrl: $(selector).attr('data-submit-vote-url'),
+            getInitialDataUrl: $(selector).attr('data-get-initial-data-url')      
         };
-    },
-    
+    },    
     componentWillMount: function() {
         $.get(this.props.getInitialDataUrl).success((data)=>{
-            console.log(data);
+            console.debug('Initial data for voting app:');
+            console.debug(data);
             var totalNumberOfVoters = data.TotalNumberOfVoters;
             var options = data.Options.map(MappingHelper.mapOption);
             this.setState({options: options, totalNumberOfVoters: totalNumberOfVoters});
         });
     },
-    shouldComponentUpdate: function(nextProps, nextState) {
-        console.log('shouldComponentUpdate called with nextState:');
-        console.log(nextState);
-        return true;
-    },
-    submitVote: function(timeSlotId, voteForDateId, willAttend){
+    submitVote: function(optionId, usersVoteId, willAttend){
         console.log('Submitting vote...');
         var data = {
             eventId: this.props.eventId,
-            timeSlotId: timeSlotId,
-            voteForDateId: voteForDateId,
+            optionId: optionId,
+            usersVoteId: usersVoteId,
             willAttend: willAttend
         };
         
         var self = this;
         var successCallback = function(data){
-            console.log('Vote for data submitted successfully');
+            console.debug('Vote for data submitted successfully...');
             var option = MappingHelper.mapOption(data.Option);
-            
             var newOptions = self.state.options;
-            var index = newOptions.findIndex((elem, index) => elem.optionId === timeSlotId);
+            var index = newOptions.findIndex((elem, index) => elem.optionId === optionId);
             if(index > -1){
                 newOptions[index].votes = option.votes;
                 newOptions[index].usersVoteId = option.usersVoteId
             }
 
             self.setState({
-                totalNumberOfVoters: data.totalNumberOfVoters,
+                totalNumberOfVoters: data.TotalNumberOfVoters,
                 options: newOptions
             })
         };
@@ -103,26 +98,22 @@ var DatesVotingApp = React.createClass({
     },
     render: function() {
         return (
-             <div className="row">
-                <h3>Vote for dates:</h3>
-                <div className="col-sm-12">
-                    {
-                        this.state.options.map((option) => {
-                            return(
-
-                                <VoteOption key={option.optionId}
-                                     optionId={option.optionId}
-                                     title={option.title}
-                                     desc={option.desc}
-                                     onVoteCallback={this.submitVote}
-                                     preSelectedValue={option.preSelectedValue}
-                                     usersVoteId={option.usersVoteId}
-                                     votes={option.votes}
-                                     totalNumberOfVoters={this.state.totalNumberOfVoters} />
-                            )
-                        })
-                    }
-                </div>
+             <div>
+                {
+                    this.state.options.map((option) => {
+                        return(
+                            <VoteOption key={option.optionId}
+                                 optionId={option.optionId}
+                                 title={option.title}
+                                 desc={option.desc}
+                                 onVoteCallback={this.submitVote}
+                                 preSelectedValue={option.preSelectedValue}
+                                 usersVoteId={option.usersVoteId}
+                                 votes={option.votes}
+                                 totalNumberOfVoters={this.state.totalNumberOfVoters} />
+                        )
+                    })
+                }
             </div>
         );
     }
@@ -145,10 +136,6 @@ var VoteOption = React.createClass({
           case Options.MAYBE: return this.props.votes.maybe;
           case Options.NO: return this.props.votes.no;
         }
-    },
-    componentWillReceiveProps: function(nextProps) {
-        console.log('Vote option will recieve new props');
-        console.log(nextProps);
     },
     render: function() {
         return (
@@ -177,6 +164,37 @@ var VoteOption = React.createClass({
 
 });
 
+var FormOptionElement = React.createClass({
+    propTypes: {
+        option: React.PropTypes.string.isRequired,
+        name: React.PropTypes.string.isRequired,
+        onValueSelectedCallback: React.PropTypes.func.isRequired,
+        isSelected: React.PropTypes.bool,
+    },
+    getDefaultProps: function() {
+        return {
+            isSelected: false
+        };
+    },
+    getElementClasses : function() {
+      return {
+          'glyphicon': true,
+          'glyphicon glyphicon-ok yes-option': this.props.option === Options.YES,
+          'glyphicon glyphicon-minus maybe-option': this.props.option === Options.MAYBE,
+          'glyphicon glyphicon-remove no-option': this.props.option === Options.NO,
+        }
+    },
+    render: function() {
+        return (
+            <label>
+                <input type="radio" name={this.props.name} value={this.props.option} onChange={()=>this.props.onValueSelectedCallback(this.props.option)} defaultChecked={this.props.isSelected}/>
+                <i className={classNames(this.getElementClasses())} title={this.props.option}><span className="sr-only">{this.props.option}</span></i>
+            </label>
+        );
+    }
+
+});
+
 var VoteOptionForm = React.createClass({
     propTypes: {
         optionId: React.PropTypes.string.isRequired,
@@ -185,24 +203,15 @@ var VoteOptionForm = React.createClass({
         onValueSelectedCallback: React.PropTypes.func.isRequired
     },
     onValueSelected: function(value){
-        console.log('%s selected for option with %s id of VOTE %s.', value, this.props.optionId, this.props.usersVoteId);
+        console.debug('%s selected for option with %s id of VOTE %s.', value, this.props.optionId, this.props.usersVoteId);
         this.props.onValueSelectedCallback(this.props.optionId, this.props.usersVoteId, value);
     },
     render: function() {
         return (
             <div>
-                <label>
-                    <input type="radio" name={this.props.optionId} value={Options.YES} onChange={()=>this.onValueSelected(Options.YES)} defaultChecked={this.props.preSelectedValue == Options.YES}/>
-                    <i className="glyphicon glyphicon-ok yes-option" title="Yes"><span className="sr-only">{Options.YES}</span></i>
-                </label>
-                <label>
-                    <input type="radio" name={this.props.optionId} value={Options.MAYBE} onChange={()=>this.onValueSelected(Options.MAYBE)} defaultChecked={this.props.preSelectedValue == Options.MAYBE}/>
-                    <i className="glyphicon glyphicon-minus maybe-option" title="Maybe"><span className="sr-only">{Options.MAYBE}</span></i>
-                </label>
-                <label>
-                    <input type="radio" name={this.props.optionId} value={Options.NO} onChange={()=>this.onValueSelected(Options.NO)} defaultChecked={this.props.preSelectedValue == Options.NO}/>
-                    <i className="glyphicon glyphicon-remove no-option" title="No"><span className="sr-only">{Options.NO}</span></i>
-                </label>
+                <FormOptionElement option={Options.YES} name={this.props.optionId} onValueSelectedCallback={this.onValueSelected} isSelected={this.props.preSelectedValue == Options.YES} />
+                <FormOptionElement option={Options.MAYBE} name={this.props.optionId} onValueSelectedCallback={this.onValueSelected} isSelected={this.props.preSelectedValue == Options.MAYBE} />
+                <FormOptionElement option={Options.NO} name={this.props.optionId} onValueSelectedCallback={this.onValueSelected} isSelected={this.props.preSelectedValue == Options.NO} />
             </div>
         );
     }
@@ -234,7 +243,6 @@ var ProgressBar = React.createClass({
             </div>
         );
     }
-
 });
 
 var Graph = React.createClass({
@@ -261,7 +269,7 @@ var Graph = React.createClass({
         return Math.round((x*100) / this.getTotalNumberOfVotes(), 0);
     },
     componentWillReceiveProps: function(nextProps) {
-        console.log('Vote Graph will recieve new props');
+        console.log('Vote Graph will recieve new props:');
         console.log(nextProps);
     },
     render: function() {

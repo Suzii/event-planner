@@ -9,11 +9,21 @@
 
 @section Scripts {
     @Scripts.Render("https://maps.googleapis.com/maps/api/js")
-    @Scripts.Render("~/Scripts/Custom/GoogleMapsModule.js")
+    @Scripts.Render("~/Scripts/Custom/Vote/GoogleMapsModule.js")
     @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/classnames/2.2.0/index.min.js")
-    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Vote/App.jsx")"></script>
+    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Vote/VotingApp.jsx")"></script>
     <script type="text/jsx">
-        React.render(<DatesVotingApp />, document.getElementById('DatesVotingApp'));
+        React.render(<VotingApp 
+                        eventId="@Model.Id"
+                        submitVotesUrl="@Url.Action("SubmitVoteForDate", "VoteAjax", routeValues: new {eventId = Model.Id}))"
+                        getInitialDataUrl="@Url.Action("GetVoteForDateModel", "VoteAjax", routeValues: new {eventId = Model.Id})"/>, 
+        document.getElementById('DatesVotingApp'));
+        
+        React.render(
+        <VotingApp eventId="@Model.Id"
+                   submitVotesUrl="@Url.Action("SubmitVoteForPlace", "VoteAjax", routeValues: new {eventId = Model.Id}))"
+                   getInitialDataUrl="@Url.Action("GetVoteForPlaceModel", "VoteAjax", routeValues: new {eventId = Model.Id})" />,
+        document.getElementById('PlacesVotingApp'));
     </script>
 }
 
@@ -49,14 +59,21 @@
 <div class="container-fluid">
     <div class="row">
         <div class="row">
-            <div class="col-sm-12" id="DatesVotingApp"
-                 data-event-id="@Model.Id"
-                 data-submit-vote-for-date-url="@Url.Action("SubmitVoteForDate", "VoteAjax", routeValues: new {eventId = Model.Id}))"
-                 data-get-vote-for-date-model-url="@Url.Action("GetVoteForDateModel", "VoteAjax", routeValues: new {eventId = Model.Id})"> </div>
-            <div class="col-sm-12" id="PlacessVotingApp"> </div>
-        </div>
+            <div className="row">
+                <h3>Vote for dates:</h3>
+                <div class="col-sm-12" id="DatesVotingApp"></div>
+            </div>
 
-    <div class="col-md-12" id="mapModule">
-        @{ Html.RenderPartial("_mapModule");}
+            <div className="row">
+                <h3>Vote for places:</h3>
+                <div class="col-sm-12" id="PlacesVotingApp"> </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" id="mapModule">
+                    @{ Html.RenderPartial("_mapModule");}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
