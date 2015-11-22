@@ -54,27 +54,36 @@ namespace EventPlanner.Web.Controllers
         }
         
         [HttpGet]
-        public async Task<JsonResult> GetVoteForPlaceModel(Guid eventid)
+        public async Task<JsonResult> GetVoteForPlaceModel(Guid eventId)
         {
-            //Places.OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes)).ToList();
-            throw new NotImplementedException();
+            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
+            var places = await _votingService.GetPlacesWithVotes(eventId);
+            var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
+            await PopulateVenueDetails(placesVm);
+            var optionsVm = placesVm
+                .OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes))
+                .Select((pl) => MappingHelper.MapToOptionViewModel(pl, User.Identity.GetUserId()))
+                .ToList();
+
+            return Json(new { Options = optionsVm, TotalNumberOfVoters = totalNumberOfVoters },
+                JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public async Task<JsonResult> SubmitVoteForDate(Guid eventId, Guid timeSlotId, Guid voteForDateId, WillAttend? willAttend)
+        public async Task<JsonResult> SubmitVoteForDate(Guid eventId, Guid optionId, Guid usersVoteId, WillAttend? willAttend)
         {
             var userId = User.Identity.GetUserId();
             var voteModel = new VoteForDate()
             {
-                Id = voteForDateId,
-                TimeSlotId = timeSlotId,
+                Id = usersVoteId,
+                TimeSlotId = optionId,
                 UserId = userId,
                 WillAttend = willAttend
             };
 
             await _votingService.SubmitVoteForDate(voteModel);
 
-            var votes = await _votingService.GetVotesForDateAsync(eventId, timeSlotId);
+            var votes = await _votingService.GetVotesForDateAsync(eventId, optionId);
             var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
 
             return Json(new
@@ -90,9 +99,32 @@ namespace EventPlanner.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SubmitVoteForPlace(Guid eventId, Guid placeId, Guid? voteForDateId, WillAttend? willAttend)
+        public async Task<JsonResult> SubmitVoteForPlace(Guid eventId, Guid optionId, Guid usersVoteId, WillAttend? willAttend)
         {
-            throw new NotImplementedException();
+            var userId = User.Identity.GetUserId();
+            var voteModel = new VoteForPlace()
+            {
+                Id = usersVoteId,
+                PlaceId = optionId,
+                UserId = userId,
+                WillAttend = willAttend
+            };
+
+            await _votingService.SubmitVoteForPlace(voteModel);
+
+            var votes = await _votingService.GetVotesForPlaceAsync(eventId, optionId);
+            var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
+
+            return Json(new
+            {
+                Option = new OptionViewModel()
+                {
+                    UsersVote = MappingHelper.MapUsersVoteModel(votes, userId),
+                    Votes = MappingHelper.MapToVotesViewModel(votes)
+                },
+                TotalNumberOfVoters = totalNumberOfVoters
+            },
+                JsonRequestBehavior.AllowGet);
         }
 
         private async Task<EventInfoViewModel> ConstructEventViewModel(Guid id)

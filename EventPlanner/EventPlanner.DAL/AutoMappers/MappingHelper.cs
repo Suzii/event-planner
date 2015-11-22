@@ -43,6 +43,18 @@ namespace EventPlanner.DAL.AutoMappers
             };
         }
 
+        public static OptionViewModel MapToOptionViewModel(PlaceViewModel place, string userId)
+        {
+            return new OptionViewModel()
+            {
+                Id = place.Id,
+                Title = place.Venue.Name,
+                Desc = place.Venue.AddressInfo,
+                UsersVote = MapUsersVoteModel(place.VotesForPlace, userId),
+                Votes = MapToVotesViewModel(place.VotesForPlace)
+            };
+        }
+
         public static VotesViewModel MapToVotesViewModel(IList<VoteForDate> votes)
         {
             return new VotesViewModel()
@@ -60,7 +72,33 @@ namespace EventPlanner.DAL.AutoMappers
             };
         }
 
+        public static VotesViewModel MapToVotesViewModel(IList<VoteForPlace> votes)
+        {
+            return new VotesViewModel()
+            {
+                //TODO change id -> name once supported
+                Yes =
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).ToArray() ??
+                    new string[] { },
+                Maybe =
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId).ToArray() ??
+                    new string[] { },
+                No =
+                    votes?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId).ToArray() ??
+                    new string[] { }
+            };
+        }
+
         public static UsersVoteModel MapUsersVoteModel(IList<VoteForDate> votes, string userId)
+        {
+            return new UsersVoteModel()
+            {
+                Id = votes.SingleOrDefault(v => v.UserId == userId)?.Id ?? Guid.Empty,
+                WillAttend = votes.SingleOrDefault(v => v.UserId == userId)?.WillAttend.ToString() ?? null
+            };
+        }
+
+        public static UsersVoteModel MapUsersVoteModel(IList<VoteForPlace> votes, string userId)
         {
             return new UsersVoteModel()
             {
