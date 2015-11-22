@@ -90,7 +90,7 @@ namespace EventPlanner.Web.Controllers
             {
                 Option = new OptionViewModel()
                 {
-                    UsersVote = MappingHelper.MapToUsersVoteModel((IList<VoteForPlace>) votes, userId),
+                    UsersVote = MappingHelper.MapToUsersVoteModel(votes, userId),
                     Votes = MappingHelper.MapToVotesViewModel(votes)
                 },
                 TotalNumberOfVoters = totalNumberOfVoters
