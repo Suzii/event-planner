@@ -38,7 +38,7 @@ namespace EventPlanner.DAL.AutoMappers
                 Id = timeSlot.Id,
                 Title = timeSlot.DateTime.ToShortDateString(),
                 Desc = timeSlot.DateTime.ToLongTimeString(),
-                UsersVote = MapToUsersVoteModel((IList<VoteForPlace>) timeSlot.VotesForDate, userId),
+                UsersVote = MapToUsersVoteModel(timeSlot.VotesForDate, userId),
                 Votes = MapToVotesViewModel(timeSlot.VotesForDate)
             };
         }
