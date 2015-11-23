@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -36,19 +37,19 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        //public async Task<List<Place>> GetByEvent(Guid eventId)
-        //{
-        //    using (var context = EventPlannerContext.Get())
-        //    {
-        //        var result = context.Places
-        //            .Where(e => e.Event.Id == eventId)
-        //            .ToList()
-        //            .Select(Mapper.Map<Place>)
-        //            .ToList();
+        public async Task<List<Place>> GetByEvent(Guid eventId)
+        {
+            using (var context = EventPlannerContext.Get())
+            {
+                var result = context.Places
+                    .Where(e => e.Event.Id == eventId)
+                    .Include("VotesForPlace")
+                    .Select(Mapper.Map<Place>)
+                    .ToList();
 
-        //        return await Task.FromResult(result);
-        //    }
-        //}
+                return await Task.FromResult(result);
+            }
+        }
 
         public async Task<Place> AddOrUpdate(Place place)
         {
@@ -63,16 +64,16 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<bool> Delete(Guid eventId)
+        public async Task<bool> Delete(Guid placeId)
         {
             using (var context = EventPlannerContext.Get())
             {
-                var existing = context.Events.FirstOrDefault(e => e.Id == eventId);
+                var existing = context.Places.FirstOrDefault(e => e.Id == placeId);
 
                 if (existing == null)
                     return false;
 
-                context.Events.Remove(existing);
+                context.Places.Remove(existing);
                 await context.SaveChangesAsync();
 
                 return true;

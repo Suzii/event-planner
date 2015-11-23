@@ -8,16 +8,26 @@ namespace EventPlanner.Services
 {
     public interface IVotingService
     {
-        //Task<IList<VoteForDateEntity>> GetVotesForDatesAsync(Guid eventId);
+        Task<int> GetTotalNumberOfVotersForEvent(Guid eventId);
 
-        //Task<IList<VoteForPlaceEntity>> GetVotesForPlacesAsync(Guid eventId);
+        Task<IList<Place>> GetPlacesWithVotes(Guid eventId);
 
-        //Task<IList<VoteForDateEntity>> GetVotesForDatesAsync(Guid eventId, IList<Guid> dateIds);
+        Task<IList<TimeSlot>> GetDatesWithVotes(Guid eventId);
 
-        //Task<IList<VoteForPlaceEntity>> GetVotesForPlacesAsync(Guid eventId, IList<Guid> placeIds);
+        Task<IList<VoteForDate>> GetVotesForDatesAsync(Guid eventId);
 
-        Task SubmitDateVoteByAsync(string personId, IList<VoteForDate> voteForDates);
+        Task<IList<VoteForPlace>> GetVotesForPlacesAsync(Guid eventId);
 
-        Task SubmitPlaceVoteByAsync(string personId, IList<VoteForPlace> voteForPlaces);
+        Task<IList<VoteForDate>> GetVotesForDateAsync(Guid eventId, Guid dateId);
+
+        Task<IList<VoteForPlace>> GetVotesForPlaceAsync(Guid eventId, Guid placeId);
+
+        Task SubmitDateVotesByAsync(IList<VoteForDate> voteForDates);
+
+        Task SubmitPlaceVotesByAsync(IList<VoteForPlace> voteForPlaces);
+
+        Task<VoteForDate> SubmitVoteForDate(VoteForDate voteForDate);
+
+        Task<VoteForPlace> SubmitVoteForPlace(VoteForPlace voteForPlace);
     }
 }

@@ -29,6 +29,8 @@ namespace EventPlanner.Services
 
         Task<Event> GetFullEventAsync(Guid id);
 
+        Task<Event> GetEventInfoAsync(Guid id);
+
         Guid GetEventId(string eventHash);
     }
 }

@@ -5,13 +5,15 @@ using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using EventPlanner.Models.Models.Shared;
+using EventPlanner.Services;
 
 namespace EventPlanner.Web.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
         public HomeController()
         {
@@ -40,7 +42,7 @@ namespace EventPlanner.Web.Controllers
         private async Task<MyEventsViewModel> ConstructModel(string userId)
         {
             var result = await _userService.GetEventsCreatedBy(userId);
-            var events = result.Select(e => Mapper.Map<EventViewModel>(e)).ToList();
+            var events = result.Select(e => Mapper.Map<EventInfoViewModel>(e)).ToList();
             return new MyEventsViewModel {Events = events};
         }
     }

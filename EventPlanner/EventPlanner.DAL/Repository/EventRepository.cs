@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using AutoMapper;
 using System.Threading.Tasks;
@@ -67,6 +68,16 @@ namespace EventPlanner.DAL.Repository
             using (var context = EventPlannerContext.Get())
             {
                 var entity = Mapper.Map<EventEntity>(ev);
+
+                foreach (var t in entity.TimeSlots)
+                {
+                    context.Entry(t).State = (t.Id == default(Guid) ? EntityState.Added : EntityState.Modified);
+                }
+
+                foreach (var p in entity.Places)
+                {
+                    context.Entry(p).State = (p.Id == default(Guid) ? EntityState.Added : EntityState.Modified);
+                }
 
                 context.Events.AddOrUpdate(entity);
                 await context.SaveChangesAsync();

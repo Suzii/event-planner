@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventPlanner.DAL.Repository;
 using EventPlanner.Models.Domain;
 using EventPlanner.Models.Enums;
 
@@ -8,10 +9,18 @@ namespace EventPlanner.Services.FakedImplementation
 {
     public class EventManagementService : IEventManagementService
     {
-        public async Task<Event> CreateEventAsync(Event e, string userID)
+        private readonly EventRepository _eventRepository;
+
+        public EventManagementService()
         {
-            e.Id = Guid.NewGuid();
-            return e;
+            _eventRepository = new EventRepository();
+        }
+        public async Task<Event> CreateEventAsync(Event e, string userId)
+        {
+            var ev = await GetFullEventAsync(Guid.Empty);
+            ev.OrganizerId = userId;
+            ev.Id = Guid.Empty;
+            return await _eventRepository.AddOrUpdate(ev);
         }
 
         public async Task<Event> UpdateEventAsync(Event e)
@@ -97,6 +106,14 @@ namespace EventPlanner.Services.FakedImplementation
                 new VoteForDate() {TimeSlotId = ev.TimeSlots[1].Id, UserId = "Martin", WillAttend = WillAttend.No},
             };
 
+            return ev;
+        }
+
+        public async Task<Event> GetEventInfoAsync(Guid id)
+        {
+            var ev = await GetFullEventAsync(Guid.Empty);
+            ev.TimeSlots = null;
+            ev.Places = null;
             return ev;
         }
 

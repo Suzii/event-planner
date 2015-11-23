@@ -1,4 +1,5 @@
-﻿@model EventPlanner.Models.Models.CreateAndEdit.EventModel
+﻿@using EventPlanner.Web.Helpers
+@model EventPlanner.Models.Models.CreateAndEdit.EventModel
 
 @{
     ViewBag.Title = "Create Event";
@@ -100,6 +101,6 @@
     <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
     <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")"></script>
     <script type="text/jsx">
-        React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="Brno" />, document.getElementById('FourSquareSearchModule'));
+        React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="@LocationHelper.GetCurrentCity(Request.IsLocal ? "" : Request.UserHostAddress)" />, document.getElementById('FourSquareSearchModule'));
     </script>
 }

@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,10 +53,11 @@
     <Compile Include="Domain\VoteForPlace.cs" />
     <Compile Include="Enums\WillAttend.cs" />
     <Compile Include="Models\CreateAndEdit\EventModel.cs" />
-    <Compile Include="Models\Home\EventViewModel.cs" />
+    <Compile Include="Models\Shared\EventInfoViewModel.cs" />
     <Compile Include="Models\Shared\FourSquareVenueModel.cs" />
     <Compile Include="Models\Home\MyEventsViewModel.cs" />
     <Compile Include="Models\Share\ShareLinkViewModel.cs" />
+    <Compile Include="Models\Vote\OptionViewModel.cs" />
     <Compile Include="Models\Vote\TimeSlotViewModel.cs" />
     <Compile Include="Models\Vote\EventViewModel.cs" />
     <Compile Include="Models\Vote\PlaceViewModel.cs" />
@@ -70,7 +75,12 @@
       <LastGenOutput>Event.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Obsolete\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

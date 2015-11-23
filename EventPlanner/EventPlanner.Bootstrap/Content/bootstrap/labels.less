@@ -5,7 +5,7 @@
 .label {
   display: inline;
   padding: .2em .6em .3em;
-  font-size: 75%;
+  /*font-size: 75%;*/
   font-weight: bold;
   line-height: 1;
   color: @label-color;
@@ -36,6 +36,15 @@
   }
 }
 
+.label-tag {
+    
+    display: inline-block;
+    padding: .3em .7em .4em;
+    cursor: pointer;
+    margin: .7em;
+
+}
+
 // Colors
 // Contextual variations (linked labels get darker on :hover)
 
@@ -45,6 +54,10 @@
 
 .label-primary {
   .label-variant(@label-primary-bg);
+}
+
+.label-accent {
+  .label-variant(@label-accent-bg);
 }
 
 .label-success {

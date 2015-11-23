@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EventPlanner.DAL.Repository;
 using EventPlanner.Models.Domain;
@@ -8,10 +10,12 @@ namespace EventPlanner.Services.Implementation
     public class EventManagementService : IEventManagementService
     {
         private readonly EventRepository _eventRepository;
+        private readonly PlaceRepository _placeRepository;
 
         public EventManagementService()
         {
             _eventRepository = new EventRepository();
+            _placeRepository = new PlaceRepository();
         }
 
         public async Task<Event> CreateEventAsync(Event e, string userId)
@@ -23,11 +27,22 @@ namespace EventPlanner.Services.Implementation
 
         public async Task<Event> UpdateEventAsync(Event e)
         {
-            //TODO: problem with created date == null.. leads to failed update
-            //HOTFIX just to be able to test update functionality
-            var oldEvent = await _eventRepository.GetEventInfo(e.Id);
-            e.CreatedOn = oldEvent.CreatedOn;
-            e.OrganizerId = oldEvent.OrganizerId;
+            var fullEvent = await GetFullEventAsync(e.Id);
+            e.CreatedOn = fullEvent.CreatedOn;
+            e.OrganizerId = fullEvent.OrganizerId;
+
+            foreach (var place in e.Places)
+            {
+                place.EventId = e.Id;
+            }
+
+            foreach (var timeSlot in e.TimeSlots)
+            {
+                timeSlot.EventId = e.Id;
+            }
+
+            var orphans = fullEvent.Places.Select(pl => pl.Id).Except(e.Places.Select(p => p.Id)).ToList();
+            await DeleteEventPlaces(orphans);
             return await _eventRepository.AddOrUpdate(e);
         }
 
@@ -43,12 +58,36 @@ namespace EventPlanner.Services.Implementation
             return await _eventRepository.GetFullEvent(id);
         }
 
+        public async Task<Event> GetEventInfoAsync(Guid id)
+        {
+            return await _eventRepository.GetEventInfo(id);
+        }
+
         public Guid GetEventId(string eventHash)
         {
             eventHash = eventHash.Replace("_", "/");
             eventHash = eventHash.Replace("-", "+");
             var buffer = Convert.FromBase64String(eventHash + "==");
             return new Guid(buffer);
+        }
+
+        public async Task<bool> DeleteEventPlace(Guid placeId)
+        {
+            return await _placeRepository.Delete(placeId);
+        }
+
+        public async Task<bool> DeleteEventPlaces(IList<Guid> placeIds)
+        {
+            var deletedAll = true;
+            foreach (var id in placeIds)
+            {
+                var d = await DeleteEventPlace(id);
+                if (!d)
+                {
+                    deletedAll = false;
+                }
+            }
+            return deletedAll;
         }
     }
 }

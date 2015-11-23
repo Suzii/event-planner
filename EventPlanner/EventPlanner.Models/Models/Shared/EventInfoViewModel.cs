@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EventPlanner.Models.Models.Home
+namespace EventPlanner.Models.Models.Shared
 {
-    public class EventViewModel
+    public class EventInfoViewModel
     {
         public Guid? Id { get; set; }
 
@@ -18,7 +18,10 @@ namespace EventPlanner.Models.Models.Home
         [Range(1,99)]
         [Display(Name = "Expected_length", ResourceType = typeof(Resources.Event))]
         public int ExpectedLength { get; set; }
-        
+
+        [Display(Name = "Organizer", ResourceType = typeof(Resources.Event))]
+        public string OrganizerId { get; set; }
+
         [Display(Name = "Others_can_edit", ResourceType = typeof(Resources.Event))]
         public bool OthersCanEdit { get; set; }
 
