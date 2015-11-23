@@ -22,6 +22,7 @@ $( document ).ready(function() {
 
 function AddDate() {
     var m = $('span#divDate span:last-of-type').attr('id');
+    console.log(m + " id");
     window.indexx = 1;
     if (m != null && m.length > 0) {
         window.indexx = m.substring(7);
@@ -39,7 +40,7 @@ function AddDate() {
 
     //delete button
     container = $('#divcust' + window.indexx);
-    var button = "<button id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' class='btn btn-default'>  <span class='glyphicon glyphicon-remove' aria-hidden='true'/></ button>";
+    var button = "<button id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' class='btn btn-default'>  <spann class='glyphicon glyphicon-remove' aria-hidden='true'/></ button>";
     container.append(button);
 
     //datepicker
