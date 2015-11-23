@@ -22,7 +22,6 @@ $( document ).ready(function() {
 
 function AddDate() {
     var m = $('span#divDate span:last-of-type').attr('id');
-    console.log(m + " id");
     window.indexx = 1;
     if (m != null && m.length > 0) {
         window.indexx = m.substring(7);
@@ -30,7 +29,6 @@ function AddDate() {
     }
 
     // container for times
-    var idTime = 0;
     var container = $('#divDate');
     var element = "<br id='br"+window.indexx+"'>";
     container.append(element);
@@ -69,7 +67,11 @@ function AddDate() {
 
     //delete button
     element = $('#btnDel-0_1').clone();
-    element.attr('id', "btnDel-" + window.indexx + "_0");
+    if (element.length === 0) {
+        element = "<button id='btnDel-" + window.indexx + "_0' type='button' onclick='DelTime(this.id);'  class='btn btn-default btn-xs'>  <spann class='glyphicon glyphicon-remove' aria-hidden='true' /></ button>";
+    } else {
+        element.attr('id', "btnDel-" + window.indexx + "_0");
+    }   
     container.append(element);
 
     element = "</span >";
