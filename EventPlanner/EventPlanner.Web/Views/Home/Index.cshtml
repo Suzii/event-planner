@@ -1,13 +1,14 @@
 ﻿@model EventPlanner.Models.Models.Home.MyEventsViewModel
-@using EventPlanner.Models.Models
 @using EventPlanner.Web.Helpers
 @using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
 @{
     ViewBag.Title = "Home Page";
+    var user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId());
 }
 
 <h2>My events</h2>
-<h4 class="">Hello @User.Identity.GetUserName()!</h4>
+<h4 class="">Hello @user.Name!</h4>
 @if (Model.Events.Count > 0)
 {
     <p class="">Here is a list of events you created:</p>
