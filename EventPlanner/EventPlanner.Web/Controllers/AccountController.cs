@@ -152,7 +152,7 @@ namespace EventPlanner.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new UserEntity { UserName = model.Email, Email = model.Email };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email, Name = model.Name};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -368,7 +368,7 @@ namespace EventPlanner.Web.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new UserEntity { UserName = model.Email, Email = model.Email };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email, Name = model.Name};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

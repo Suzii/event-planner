@@ -11,6 +11,8 @@ namespace EventPlanner.Entities
     /// </summary>
     public class UserEntity : IdentityUser
     {
+        public string Name { get; set; }
+
         public virtual IList<VoteForDateEntity> VotesForDates { get; set; }
 
         public virtual IList<VoteForPlaceEntity> VotesForPlaces { get; set; }
