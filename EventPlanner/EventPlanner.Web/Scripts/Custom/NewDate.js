@@ -29,7 +29,6 @@ function AddDate() {
     }
 
     // container for times
-    var idTime = 0;
     var container = $('#divDate');
     var element = "<br id='br"+window.indexx+"'>";
     container.append(element);
@@ -39,7 +38,7 @@ function AddDate() {
 
     //delete button
     container = $('#divcust' + window.indexx);
-    var button = "<button id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' class='btn btn-default'>  <span class='glyphicon glyphicon-remove' aria-hidden='true'/></ button>";
+    var button = "<button id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' class='btn btn-default'>  <spann class='glyphicon glyphicon-remove' aria-hidden='true'/></ button>";
     container.append(button);
 
     //datepicker
@@ -68,7 +67,11 @@ function AddDate() {
 
     //delete button
     element = $('#btnDel-0_1').clone();
-    element.attr('id', "btnDel-" + window.indexx + "_0");
+    if (element.length === 0) {
+        element = "<button id='btnDel-" + window.indexx + "_0' type='button' onclick='DelTime(this.id);'  class='btn btn-default btn-xs'>  <spann class='glyphicon glyphicon-remove' aria-hidden='true' /></ button>";
+    } else {
+        element.attr('id', "btnDel-" + window.indexx + "_0");
+    }   
     container.append(element);
 
     element = "</span >";

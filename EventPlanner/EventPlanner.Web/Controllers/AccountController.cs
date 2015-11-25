@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -152,7 +150,7 @@ namespace EventPlanner.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new UserEntity { UserName = model.Email, Email = model.Email };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email, Name = model.Name};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -342,9 +340,12 @@ namespace EventPlanner.Web.Controllers
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
+                    ClaimsIdentity ext = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                    //var emailClaim = ext.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                    //var email = emailClaim.Value;
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, Name = ext.Name});
             }
         }
 
@@ -368,7 +369,7 @@ namespace EventPlanner.Web.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new UserEntity { UserName = model.Email, Email = model.Email };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email, Name = model.Name};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

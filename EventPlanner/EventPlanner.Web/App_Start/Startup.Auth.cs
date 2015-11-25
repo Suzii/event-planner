@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Owin;
-using EventPlanner.Web.Models;
 using EventPlanner.DAL;
 using EventPlanner.Entities;
 
@@ -56,9 +55,14 @@ namespace EventPlanner.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-               appId: "405350643009621",
-               appSecret: "8cba3457134d6958ee0c30236cbf515d");
+
+            var facebookOptions = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions()
+            {
+                AppId = ConfigurationManager.AppSettings.Get("FacebookAppId"),
+                AppSecret = ConfigurationManager.AppSettings.Get("FacebookAppSecret")
+            };
+            facebookOptions.Scope.Add("email");
+            app.UseFacebookAuthentication(facebookOptions);
 
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()

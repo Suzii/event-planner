@@ -63,6 +63,7 @@ namespace EventPlanner.Web.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -70,8 +71,8 @@ namespace EventPlanner.Web.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Email = await UserManager.GetEmailAsync(userId)
-                
+                Email = user.Email,
+                Name = user.Name
             };
             return View(model);
         }

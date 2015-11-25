@@ -7,6 +7,7 @@ using EventPlanner.DAL.Repository;
 using EventPlanner.Models.Domain;
 using EventPlanner.Models.Models.CreateAndEdit;
 using EventPlanner.Models.Models.Shared;
+using EventPlanner.Services;
 using EventPlanner.Services.Implementation;
 using Microsoft.AspNet.Identity;
 
@@ -16,11 +17,17 @@ namespace EventPlanner.Web.Controllers
     [Authorize]
     public class DbTestController : Controller
     {
+        private readonly IEventManagementService _eventManagementService;
+
+        public DbTestController()
+        {
+            _eventManagementService = new Services.FakedImplementation.EventManagementService();
+        }
+
         public async Task<JsonResult> Index()
         {
             var ems = new EventManagementService();
 
-            // NOTE : Dates will not be stored as there is still an issue with mapping
             var eventModel = new EventModel()
             {
                 Title = "Some fake event for testing purposes",
@@ -62,6 +69,18 @@ namespace EventPlanner.Web.Controllers
 
             // print out
             return Json(eventModel, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Call this method before you want to use voting AJAX page.
+        /// Save the ID of newly created faked event.
+        /// Copy this is and assign it to the EVENT_ID constant in VoteController
+        /// </summary>
+        /// <returns></returns>
+        public async Task<JsonResult> CreateFakeEventWIthVotes()
+        {
+            var ev = await _eventManagementService.CreateEventAsync(null, User.Identity.GetUserId());
+            return Json(ev, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Date()
