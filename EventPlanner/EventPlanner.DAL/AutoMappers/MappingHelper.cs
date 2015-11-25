@@ -59,15 +59,14 @@ namespace EventPlanner.DAL.AutoMappers
         {
             return new VotesViewModel()
             {
-                //TODO change id -> name once supported
                 Yes =
-                    votes?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).ToArray() ??
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.User?.Name ?? string.Empty).ToArray() ??
                     new string[] {},
                 Maybe =
-                    votes?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId).ToArray() ??
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.User?.Name ?? string.Empty).ToArray() ??
                     new string[] {},
                 No =
-                    votes?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId).ToArray() ??
+                    votes?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.User?.Name ?? string.Empty).ToArray() ??
                     new string[] {}
             };
         }
@@ -76,15 +75,14 @@ namespace EventPlanner.DAL.AutoMappers
         {
             return new VotesViewModel()
             {
-                //TODO change id -> name once supported
                 Yes =
-                    votes?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.UserId).ToArray() ??
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Yes).Select(vote => vote.User?.Name ?? string.Empty).ToArray() ??
                     new string[] { },
                 Maybe =
-                    votes?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.UserId).ToArray() ??
+                    votes?.Where(vote => vote.WillAttend == WillAttend.Maybe).Select(vote => vote.User?.Name ?? string.Empty).ToArray() ??
                     new string[] { },
                 No =
-                    votes?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.UserId).ToArray() ??
+                    votes?.Where(vote => vote.WillAttend == WillAttend.No).Select(vote => vote.User?.Name ?? string.Empty).ToArray() ??
                     new string[] { }
             };
         }

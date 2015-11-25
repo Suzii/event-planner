@@ -44,6 +44,7 @@ namespace EventPlanner.DAL.Repository
                 var result = context.TimeSlots
                     .Where(e => e.EventId == eventId)
                     .Include("VotesForDate")
+                    .Include("VotesForDate.User")
                     .Select(Mapper.Map<TimeSlot>)
                     .ToList();
 

@@ -67,6 +67,11 @@ var VotingApp = React.createClass({
                     totalNumberOfVoters: totalNumberOfVoters,
                     loading: false
                 });
+
+                $('[data-toggle="popover"]').popover({
+                    placement: 'top',
+                    triger: 'click hover'
+                });
             }
         });
     },
@@ -249,10 +254,21 @@ var ProgressBar = React.createClass({
     getInlineStyles: function() {
         return {width: this.props.percentage + '%'};
     },
+    getVotersAsString: function() {
+        if(!this.props.voters || !this.props.voters.length) {
+            return "";
+        }
+
+        return this.props.voters.reduce(((prev, curr) => prev + ', ' + curr));
+    },
+    getTooltipTitle: function() {
+        return this.props.voteType + " voters!";
+    },
     render: function() {
         // TODO add proper tooltion to display names of voters 
         return (
-            <div className={classNames(this.getProgressBarClasses())} style={this.getInlineStyles()} title={this.props.voters.reduce(((prev, curr) => prev + ', ' + curr),"")}>
+            <div className={classNames(this.getProgressBarClasses())} style={this.getInlineStyles()}
+                data-toggle="popover" title={this.getTooltipTitle()} data-content={this.getVotersAsString()}>
                 <span className="" >{this.props.voters.length}</span>
             </div>
         );

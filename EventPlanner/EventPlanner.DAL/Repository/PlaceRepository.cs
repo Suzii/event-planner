@@ -44,6 +44,7 @@ namespace EventPlanner.DAL.Repository
                 var result = context.Places
                     .Where(e => e.Event.Id == eventId)
                     .Include("VotesForPlace")
+                    .Include("VotesForPlace.User")
                     .Select(Mapper.Map<Place>)
                     .ToList();
 
