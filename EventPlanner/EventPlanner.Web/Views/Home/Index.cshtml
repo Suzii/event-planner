@@ -13,7 +13,7 @@
     <p class="">Here is a list of events you created:</p>
     <div class="row row-adjust v-space15" id="start">
 
-        <div class="list-group col-md-9">
+        <div class="list-group col-md-8">
             @foreach (var e in Model.Events)
             {
                 <div class="list-group-item row row-adjust">
@@ -24,10 +24,12 @@
                         <a href="@Url.Action("Index", "Vote", new { eventHash = e.Id.GetUniqueUrlParameter() })" class="text-muted link-no-underline overflow-cut">@e.Desc</a>
                     </div>
                     <p class="col-md-2">@e.CreatedOn</p>
-                    @Html.ActionLink(" ", "Index", "Event", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline col-md-1 text-grey" })
-                    @Html.ActionLink(" ", "Index", "ShareEvent", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-link link-no-underline col-md-1 text-grey" })
+                    <span class="col-md-1 ">
+                        @Html.ActionLink(" ", "Index", "Event", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline glyphicon-padding-right-bottom text-grey" })
+                        @Html.ActionLink(" ", "Index", "ShareEvent", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-link link-no-underline glyphicon-padding-right-bottom text-grey" })
+                    </span>
                     @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id) }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
-    @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
+                    @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@
                 </div>
             }
         </div>
@@ -37,7 +39,7 @@
 }
 else {
     <p>You have not created any events yet!</p>
-    <p> How is this possible?</p>
+    <p>How is this possible?</p>
     <p>Here, quick, make one with clicking on this button.</p>
 }
 
