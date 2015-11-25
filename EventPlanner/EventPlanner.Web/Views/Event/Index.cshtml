@@ -46,7 +46,7 @@
             <hr />
             <h3>Choose dates:</h3>
             <span id="divDate">
-                <span id="divcust0" >
+                <span id="divcust0">
                     @for (var i = 0; i < Model.Dates.Count; i++)
 
                     {
@@ -66,11 +66,11 @@
                     }
 
                 </span>
-                    <input id="btnAdd0" type="button" value="Add time" class="btn btn-default" onclick="AddTime(this.id);"   style="width: 90px" > 
-                       
+                <input id="btnAdd0" type="button" value="Add time" class="btn btn-default" onclick="AddTime(this.id);" style="width: 90px">
+
             </span>
             <br />
-                <input type="button" id="btnAddDate" value="Add date" onclick="AddDate();" class="btn btn-default"  style="width: 90px"/>
+            <input type="button" id="btnAddDate" value="Add date" onclick="AddDate();" class="btn btn-default" style="width: 90px" />
         </div>
 
         //NOTE: FourSquare module goes here. All html code is renderd inside of ReactJS module.
@@ -99,6 +99,5 @@
         </script>
         <script type="text/jsx">
         React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="@LocationHelper.GetCurrentCity(Request.IsLocal ? "" : Request.UserHostAddress)" />, document.getElementById('FourSquareSearchModule'));
-            <FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="Brno" />, document.getElementById('FourSquareSearchModule'));
         </script>
     }
