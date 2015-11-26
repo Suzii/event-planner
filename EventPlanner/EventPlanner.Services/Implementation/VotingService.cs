@@ -35,12 +35,12 @@ namespace EventPlanner.Services.Implementation
 
         public async Task<IList<Place>> GetPlacesWithVotes(Guid eventId)
         {
-            return await _placeRepository.GetByEvent(eventId);
+            return await _placeRepository.GetPlaceWithVotesByEvent(eventId);
         }
 
         public async Task<IList<TimeSlot>> GetDatesWithVotes(Guid eventId)
         {
-            return await _timeSlotRepository.GetByEvent(eventId);   
+            return await _timeSlotRepository.GetTimeSlotInfoByEvent(eventId);   
         }
 
         public async Task<IList<VoteForDate>> GetVotesForDatesAsync(Guid eventId)

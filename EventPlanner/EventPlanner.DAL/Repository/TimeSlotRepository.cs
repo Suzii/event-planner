@@ -37,7 +37,20 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<List<TimeSlot>> GetByEvent(Guid eventId)
+        public async Task<List<TimeSlot>> GetTimeSlotInfoByEvent(Guid eventId)
+        {
+            using (var context = EventPlannerContext.Get())
+            {
+                var result = context.TimeSlots
+                    .Where(e => e.EventId == eventId)
+                    .Select(Mapper.Map<TimeSlot>)
+                    .ToList();
+
+                return await Task.FromResult(result);
+            }
+        }
+
+        public async Task<List<TimeSlot>> GetTimeSlotWithVotesByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
