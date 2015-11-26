@@ -88,7 +88,6 @@
     <Compile Include="Implementation\UserService.cs" />
     <Compile Include="Implementation\VotingService.cs" />
     <Compile Include="IPlaceService.cs" />
-    <Compile Include="IEvent.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="IVotingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
