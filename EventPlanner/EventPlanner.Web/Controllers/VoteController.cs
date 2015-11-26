@@ -133,7 +133,15 @@ namespace EventPlanner.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetPlacesModelForMap(Guid eventId)
         {
-            throw new NotImplementedException();
+            var places = await _eventDetailsService.GetPlacesWithVotes(eventId);
+            var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
+            await _placeService.PopulateVenueDetailsAsync(placesVm);
+            var placesMapVm = placesVm
+                .Select(Mapper.Map<PlaceMapViewModel>)
+                .ToList();
+
+            return Json(new { Data = placesMapVm },
+                JsonRequestBehavior.AllowGet);
         }
 
         private async Task<EventInfoViewModel> ConstructEventViewModel(Guid id)
