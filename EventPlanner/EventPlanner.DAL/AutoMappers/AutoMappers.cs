@@ -8,10 +8,13 @@ using EventPlanner.Models.Models.Shared;
 namespace EventPlanner.DAL.AutoMappers
 {
     /// <summary>
-    /// Automappers for all repository classes
+    ///     Automappers for all repository classes
     /// </summary>
     public static class AutoMappers
     {
+        /// <summary>
+        ///     Method that creates mappers for all models
+        /// </summary>
         public static void Configure()
         {
             CreateEventMap();

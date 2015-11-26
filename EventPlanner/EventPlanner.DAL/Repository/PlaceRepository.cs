@@ -35,10 +35,10 @@ namespace EventPlanner.DAL.Repository
         }
 
         /// <summary>
-        ///     Asynchronous method that returns an place model based on Id.
+        ///     Asynchronous method that returns a place model based on Id.
         /// </summary>
-        /// <param name="eventId">Id of a place</param>
-        /// <returns>Basic event model without related entities.</returns>
+        /// <param name="placeId">Id of a place</param>
+        /// <returns>Basic place model without related entities.</returns>
         public async Task<Place> GetPlace(Guid placeId)
         {
             using (var context = EventPlannerContext.Get())
@@ -51,10 +51,10 @@ namespace EventPlanner.DAL.Repository
         }
 
         /// <summary>
-        ///     Asynchronous method that returns an basic places models based on event Id.
+        ///     Asynchronous method that returns basic places models based on event Id.
         /// </summary>
         /// <param name="eventId">Id of an event</param>
-        /// <returns>List of basic events models without related votes entities.</returns>
+        /// <returns>List of basic place models without related votes entities.</returns>
         public async Task<List<Place>> GetPlaceInfoByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
@@ -68,7 +68,11 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        
+        /// <summary>
+        ///     Asynchronous method that returns places models with related entities based on event Id.
+        /// </summary>
+        /// <param name="eventId">Id of an event</param>
+        /// <returns>List of place models with related votes entities.</returns>
         public async Task<List<Place>> GetPlaceWithVotesByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
@@ -84,6 +88,11 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
+        /// <summary>
+        ///     Asynchronous method that adds or update existed place based on place entity.
+        /// </summary>
+        /// <param name="place">Place entity</param>
+        /// <returns>Returns created place entity</returns>
         public async Task<Place> AddOrUpdate(Place place)
         {
             using (var context = EventPlannerContext.Get())
@@ -97,6 +106,11 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
+        /// <summary>
+        ///     Asynchronous method that deletes a place based on Id.
+        /// </summary>
+        /// <param name="placeId">Id of a place</param>
+        /// <returns>True if successfully deleted or false if place does not exist</returns>
         public async Task<bool> Delete(Guid placeId)
         {
             using (var context = EventPlannerContext.Get())

@@ -6,8 +6,14 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EventPlanner.DAL
 {
+    /// <summary>
+    ///     Class that sets new event planner database context
+    /// </summary>
     public class EventPlannerContext : IdentityDbContext<UserEntity>
     {
+        /// <summary>
+        ///     Constructor for given connection string that disables lazy loading and proxy creation
+        /// </summary>
         public EventPlannerContext() : base("name=SqlConnectionString")
         {
             Configuration.LazyLoadingEnabled = false;
@@ -20,13 +26,20 @@ namespace EventPlanner.DAL
         public DbSet<VoteForDateEntity> VotesForDates { get; set; }
         public DbSet<VoteForPlaceEntity> VotesForPlaces { get; set; }
 
+        /// <summary>
+        ///     Getter for new event planner context
+        /// </summary>
+        /// <returns>New instance of event planner context</returns>
         public static EventPlannerContext Get()
-            {
+        {
             return new EventPlannerContext();
         }
 
 
-
+        /// <summary>
+        ///     Overriden method for renaming basic user table names
+        /// </summary>
+        /// <param name="modelBuilder">Gets basic model builder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
