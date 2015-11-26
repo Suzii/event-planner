@@ -71,12 +71,12 @@ namespace EventPlanner.Services.Implementation
             return new Guid(buffer);
         }
 
-        public async Task<bool> DeleteEventPlace(Guid placeId)
+        private async Task<bool> DeleteEventPlace(Guid placeId)
         {
             return await _placeRepository.Delete(placeId);
         }
 
-        public async Task<bool> DeleteEventPlaces(IList<Guid> placeIds)
+        private async Task<bool> DeleteEventPlaces(IList<Guid> placeIds)
         {
             var deletedAll = true;
             foreach (var id in placeIds)

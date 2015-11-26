@@ -11,8 +11,16 @@ using PlaceEntity = EventPlanner.Entities.PlaceEntity;
 
 namespace EventPlanner.DAL.Repository
 {
+    /// <summary>
+    ///     Repository class for place.
+    ///     Handles all CRUD operations.
+    /// </summary>
     public class PlaceRepository
     {
+        /// <summary>
+        ///     Asynchronous method that returns all existing places.
+        /// </summary>
+        /// <returns>List of places</returns>
         public async Task<List<Place>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
@@ -26,6 +34,11 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
+        /// <summary>
+        ///     Asynchronous method that returns an place model based on Id.
+        /// </summary>
+        /// <param name="eventId">Id of a place</param>
+        /// <returns>Basic event model without related entities.</returns>
         public async Task<Place> GetPlace(Guid placeId)
         {
             using (var context = EventPlannerContext.Get())
@@ -37,13 +50,33 @@ namespace EventPlanner.DAL.Repository
             }
         }
 
-        public async Task<List<Place>> GetByEvent(Guid eventId)
+        /// <summary>
+        ///     Asynchronous method that returns an basic places models based on event Id.
+        /// </summary>
+        /// <param name="eventId">Id of an event</param>
+        /// <returns>List of basic events models without related votes entities.</returns>
+        public async Task<List<Place>> GetPlaceInfoByEvent(Guid eventId)
+        {
+            using (var context = EventPlannerContext.Get())
+            {
+                var result = context.Places
+                    .Where(e => e.Event.Id == eventId)
+                    .Select(Mapper.Map<Place>)
+                    .ToList();
+
+                return await Task.FromResult(result);
+            }
+        }
+
+        
+        public async Task<List<Place>> GetPlaceWithVotesByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.Places
                     .Where(e => e.Event.Id == eventId)
                     .Include("VotesForPlace")
+                    .Include("VotesForPlace.User")
                     .Select(Mapper.Map<Place>)
                     .ToList();
 

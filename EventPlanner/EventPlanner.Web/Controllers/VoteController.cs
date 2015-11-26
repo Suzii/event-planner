@@ -22,12 +22,15 @@ namespace EventPlanner.Web.Controllers
 
         private readonly IEventManagementService _eventManagementService;
 
+        private readonly IEventDetailsService _eventDetailsService;
+
         private readonly IPlaceService _placeService;
 
         public VoteController()
         {
             _votingService = new VotingService();
             _eventManagementService = new EventManagementService();
+            _eventDetailsService = new EventDetailsService();
             _placeService = new PlaceService();
         }
 
@@ -43,7 +46,7 @@ namespace EventPlanner.Web.Controllers
         public async Task<JsonResult> GetVoteForDateModel(Guid eventId)
         {
             var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
-            var timeSlots = await _votingService.GetDatesWithVotes(eventId);
+            var timeSlots = await _eventDetailsService.GetDatesWithVotes(eventId);
             var optionsVm = timeSlots
                 .OrderBy(ts => ts.DateTime)
                 .Select((ts) => MappingHelper.MapToOptionViewModel(ts, User.Identity.GetUserId()))
@@ -57,9 +60,9 @@ namespace EventPlanner.Web.Controllers
         public async Task<JsonResult> GetVoteForPlaceModel(Guid eventId)
         {
             var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
-            var places = await _votingService.GetPlacesWithVotes(eventId);
+            var places = await _eventDetailsService.GetPlacesWithVotes(eventId);
             var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
-            await PopulateVenueDetails(placesVm);
+            await _placeService.PopulateVenueDetailsAsync(placesVm);
             var optionsVm = placesVm
                 .OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes))
                 .Select((pl) => MappingHelper.MapToOptionViewModel(pl, User.Identity.GetUserId()))
@@ -127,20 +130,25 @@ namespace EventPlanner.Web.Controllers
                 JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetPlacesModelForMap(Guid eventId)
+        {
+            var places = await _eventDetailsService.GetPlacesWithVotes(eventId);
+            var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
+            await _placeService.PopulateVenueDetailsAsync(placesVm);
+            var placesMapVm = placesVm
+                .Select(Mapper.Map<PlaceMapViewModel>)
+                .ToList();
+
+            return Json(new { Data = placesMapVm },
+                JsonRequestBehavior.AllowGet);
+        }
+
         private async Task<EventInfoViewModel> ConstructEventViewModel(Guid id)
         {
             var result = await _eventManagementService.GetEventInfoAsync(id);
             var eventViewModel =  Mapper.Map<EventInfoViewModel>(result);
             return eventViewModel;
-        }
-        
-        private async Task PopulateVenueDetails(IList<PlaceViewModel> places)
-        {
-            var venuesDetails = await _placeService.GetPlacesDetailsAsync(places.Select(p => p.VenueId).ToList());
-            foreach (var place in places)
-            {
-                place.Venue = venuesDetails.Single(p => p.VenueId == place.VenueId);
-            }
         }
     }
 }

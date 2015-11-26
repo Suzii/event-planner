@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventPlanner.DAL.AutoMappers;
+using EventPlanner.DAL.Repository;
 using EventPlanner.FourSquare.Utils;
 using EventPlanner.Models.Models.Shared;
+using EventPlanner.Models.Models.Vote;
 
 namespace EventPlanner.Services.Implementation
 {
@@ -12,7 +16,7 @@ namespace EventPlanner.Services.Implementation
     public class PlaceService : IPlaceService
     {
         private readonly IFoursquareProvider _fs;
-        
+
         /// <summary>
         /// Initialize new instance of PlaceService()
         /// </summary>
@@ -96,6 +100,15 @@ namespace EventPlanner.Services.Implementation
                 }
             }
             return detailModels;
+        }
+
+        public async Task PopulateVenueDetailsAsync(IList<PlaceViewModel> places)
+        {
+            var venuesDetails = await GetPlacesDetailsAsync(places.Select(p => p.VenueId).ToList());
+            foreach (var place in places)
+            {
+                place.Venue = venuesDetails.Single(p => p.VenueId == place.VenueId);
+            }
         }
     }
 }

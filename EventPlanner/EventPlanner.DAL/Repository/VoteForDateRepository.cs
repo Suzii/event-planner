@@ -17,6 +17,7 @@ namespace EventPlanner.DAL.Repository
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.VotesForDates
+                    .Include("User")
                     .ToList()
                     .Select(Mapper.Map<VoteForDate>)
                     .ToList();
@@ -30,6 +31,7 @@ namespace EventPlanner.DAL.Repository
             using (var context = EventPlannerContext.Get())
             {
                 var result = context.VotesForDates
+                    .Include("User")
                     .FirstOrDefault(e => e.Id == voteForDateId);
 
                 return await Task.FromResult(Mapper.Map<VoteForDate>(result));
