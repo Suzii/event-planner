@@ -1,9 +1,0 @@
-﻿[
-  {
-    "outputFile": "../EventPlanner.Web/Content/bootstrap.css",
-    "inputFile": "Content/bootstrap/bootstrap.less",
-    "minify": {
-        "enabled": true
-    }
-  }
-]
