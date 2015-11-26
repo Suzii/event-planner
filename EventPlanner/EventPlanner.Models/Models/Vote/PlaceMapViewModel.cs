@@ -1,5 +1,12 @@
 ﻿namespace EventPlanner.Models.Models.Vote
-{public class PlaceMapViewModel
+{
+    /// <summary>
+    /// This class serves as ViewModel for Place option
+    /// that is serialized to JSON object and passed to JavaScript component,
+    /// primarily designed for Google Maps module.
+    /// 
+    /// </summary>
+    public class PlaceMapViewModel
     {
         public string VenueId { set; get; }
 

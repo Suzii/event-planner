@@ -41,11 +41,7 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(e => e.Disabled, conf => conf.Ignore())
                 .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
                 .ForMember(e => e.TimeSlots, conf => conf.ResolveUsing(em => MappingHelper.MapToTimeSlot(em.Dates))); 
-
-            Mapper.CreateMap<Models.Domain.Event, Models.Models.Vote.EventViewModel>()
-                .ForMember(e => e.Places, conf => conf.MapFrom(ee => ee.Places))
-                .ForMember(e => e.TimeSlots, conf => conf.MapFrom(ee => ee.TimeSlots));
-
+            
             Mapper.CreateMap<Models.Domain.Event, EventInfoViewModel>();
         }
 
@@ -94,9 +90,6 @@ namespace EventPlanner.DAL.AutoMappers
 
             Mapper.CreateMap<Models.Domain.TimeSlot, TimeSlotEntity>()
                 .ForMember(te => te.VotesForDate, conf => conf.MapFrom(t => t.VotesForDate));
-
-            Mapper.CreateMap<Models.Domain.TimeSlot, Models.Models.Vote.TimeSlotViewModel>()
-                .ForMember(t => t.VotesForDate, conf => conf.MapFrom(tt => tt.VotesForDate));
         }
 
         private static void CreateVoteForDateMap()
