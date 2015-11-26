@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventPlanner.Models.Models;
 using EventPlanner.Models.Models.Shared;
+using EventPlanner.Models.Models.Vote;
 
 namespace EventPlanner.Services
 {
@@ -22,5 +24,8 @@ namespace EventPlanner.Services
         Task<FourSquareVenueModel> GetPlaceDetailAsync(string id);
 
         Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids);
+
+        Task PopulateVenueDetailsAsync(IList<PlaceViewModel> places);
+
     }
 }
