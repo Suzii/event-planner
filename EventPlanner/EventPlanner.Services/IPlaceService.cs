@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventPlanner.Models.Models;
 using EventPlanner.Models.Models.Shared;
 using EventPlanner.Models.Models.Vote;
 
 namespace EventPlanner.Services
 {
     /// <summary>
-    /// 
+    /// Interface containing methods handling Place module
     /// </summary>
     public interface IPlaceService
     {
@@ -21,8 +20,17 @@ namespace EventPlanner.Services
         /// <returns><c ref="List of FourSquareVenueModel"/> containing required suggestions</returns>
         Task<IList<FourSquareVenueModel>> GetPlaceSuggestionsAsync(string term, string city, int maxCount = 30);
 
+        /// <summary>
+        /// Get full Place info based on given place Id
+        /// </summary>
+        /// <param name="id">Id of place</param>
+        /// <returns><c ref="FourSquareVenueModel"/> containing required place</returns>
         Task<FourSquareVenueModel> GetPlaceDetailAsync(string id);
 
+        /// <summary>
+        /// Get full Places infos based on given place Id
+        /// </summary>
+        /// <param name="ids">List of places ids</param>
         Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids);
 
         Task PopulateVenueDetailsAsync(IList<PlaceViewModel> places);
