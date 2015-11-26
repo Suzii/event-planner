@@ -77,6 +77,13 @@ namespace EventPlanner.DAL.AutoMappers
             Mapper.CreateMap<Models.Domain.Place, Models.Models.Vote.PlaceViewModel>()
                 .ForMember(p => p.VotesForPlace, conf => conf.MapFrom(p => p.VotesForPlace));
 
+            Mapper.CreateMap<Models.Models.Vote.PlaceViewModel, Models.Models.Vote.PlaceMapViewModel>()
+                .ForMember(p => p.VenueId, conf => conf.MapFrom(v => v.VenueId))
+                .ForMember(p => p.Name, conf => conf.MapFrom(v => v.Venue.Name))
+                .ForMember(p => p.AddressInfo, conf => conf.MapFrom(v => v.Venue.AddressInfo))
+                .ForMember(p => p.City, conf => conf.MapFrom(v => v.Venue.City))
+                .ForMember(p => p.Lat, conf => conf.MapFrom(v => v.Venue.Lat))
+                .ForMember(p => p.Lng, conf => conf.MapFrom(v => v.Venue.Lng));
         }
 
         private static void CreateTimeSlotMap()

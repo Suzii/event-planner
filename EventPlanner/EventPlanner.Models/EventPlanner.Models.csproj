@@ -58,6 +58,7 @@
     <Compile Include="Models\Home\MyEventsViewModel.cs" />
     <Compile Include="Models\Share\ShareLinkViewModel.cs" />
     <Compile Include="Models\Vote\OptionViewModel.cs" />
+    <Compile Include="Models\Vote\PlaceMapViewModel.cs" />
     <Compile Include="Models\Vote\TimeSlotViewModel.cs" />
     <Compile Include="Models\Vote\EventViewModel.cs" />
     <Compile Include="Models\Vote\PlaceViewModel.cs" />
