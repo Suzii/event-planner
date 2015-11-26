@@ -11,36 +11,24 @@ namespace EventPlanner.Services.Implementation
     {
         private readonly VoteForDateRepository _voteForDateRepository;
         private readonly VoteForPlaceRepository _voteForPlaceRepository;
-        private readonly PlaceRepository _placeRepository;
-        private readonly TimeSlotRepository _timeSlotRepository;
-
+        private readonly IEventDetailsService _eventDetailsService;
+        
         public VotingService()
         {
+            _eventDetailsService = new EventDetailsService();
             _voteForDateRepository = new VoteForDateRepository();
             _voteForPlaceRepository = new VoteForPlaceRepository();
-            _placeRepository = new PlaceRepository();
-            _timeSlotRepository = new TimeSlotRepository();
         }
 
         public async Task<int> GetTotalNumberOfVotersForEvent(Guid eventId)
         {
-            var places = await GetPlacesWithVotes(eventId);
-            var timeSlots = await GetDatesWithVotes(eventId);
+            var places = await _eventDetailsService.GetPlacesWithVotes(eventId);
+            var timeSlots = await _eventDetailsService.GetDatesWithVotes(eventId);
                         
             var placesTotalVoters = places.Where(p => p.VotesForPlace != null).SelectMany(p => p.VotesForPlace?.Select(v => v.UserId).ToList()).Distinct();
             var datesTotalVoters = timeSlots.Where(p => p.VotesForDate != null).SelectMany(p => p.VotesForDate?.Select(v => v.UserId).ToList()).Distinct();
 
             return placesTotalVoters.Union(datesTotalVoters).Distinct().Count();
-        }
-
-        public async Task<IList<Place>> GetPlacesWithVotes(Guid eventId)
-        {
-            return await _placeRepository.GetPlaceWithVotesByEvent(eventId);
-        }
-
-        public async Task<IList<TimeSlot>> GetDatesWithVotes(Guid eventId)
-        {
-            return await _timeSlotRepository.GetTimeSlotInfoByEvent(eventId);   
         }
 
         public async Task<IList<VoteForDate>> GetVotesForDateAsync(Guid eventId, Guid dateId)

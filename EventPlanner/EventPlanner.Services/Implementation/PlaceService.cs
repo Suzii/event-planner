@@ -17,17 +17,14 @@ namespace EventPlanner.Services.Implementation
     {
         private readonly IFoursquareProvider _fs;
 
-        private readonly PlaceRepository _placeRepository;
-        
         /// <summary>
         /// Initialize new instance of PlaceService()
         /// </summary>
-        public PlaceService() : this(new FoursquareProvider(), new PlaceRepository()) { }
+        public PlaceService() : this(new FoursquareProvider()) { }
 
-        public PlaceService(IFoursquareProvider provider, PlaceRepository placeRepository)
+        public PlaceService(IFoursquareProvider provider)
         {
             _fs = provider;
-            _placeRepository = placeRepository;
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ using EventPlanner.Models.Domain;
 namespace EventPlanner.Services
 {
     /// <summary>
-    /// Interface containings methods for voting 
+    /// Interface containing methods for voting 
     /// </summary>
     public interface IVotingService
     {
@@ -16,20 +16,6 @@ namespace EventPlanner.Services
         /// <param name="eventId">Event id</param>
         /// <returns>Number of voters</returns>
         Task<int> GetTotalNumberOfVotersForEvent(Guid eventId);
-
-        /// <summary>
-        /// Get places for event with votes for this place
-        /// </summary>
-        /// <param name="eventId">Event id</param>
-        /// <returns>List of places for event</returns>
-        Task<IList<Place>> GetPlacesWithVotes(Guid eventId);
-
-        /// <summary>
-        /// Get dates for event with votes for this date
-        /// </summary>
-        /// <param name="eventId">Event id</param>
-        /// <returns>List of dates with votes</returns>
-        Task<IList<TimeSlot>> GetDatesWithVotes(Guid eventId);
 
         /// <summary>
         /// Get votes for specific date of specific event
