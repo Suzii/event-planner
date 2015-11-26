@@ -59,7 +59,7 @@ namespace EventPlanner.Web.Controllers
             var totalNumberOfVoters = await _votingService.GetTotalNumberOfVotersForEvent(eventId);
             var places = await _votingService.GetPlacesWithVotes(eventId);
             var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
-            await PopulateVenueDetails(placesVm);
+            await _placeService.PopulateVenueDetailsAsync(placesVm);
             var optionsVm = placesVm
                 .OrderBy(pl => pl.VotesForPlace.Count(v => v.WillAttend == WillAttend.Yes))
                 .Select((pl) => MappingHelper.MapToOptionViewModel(pl, User.Identity.GetUserId()))
@@ -127,20 +127,17 @@ namespace EventPlanner.Web.Controllers
                 JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetPlacesModelForMap(Guid eventId)
+        {
+            throw new NotImplementedException();
+        }
+
         private async Task<EventInfoViewModel> ConstructEventViewModel(Guid id)
         {
             var result = await _eventManagementService.GetEventInfoAsync(id);
             var eventViewModel =  Mapper.Map<EventInfoViewModel>(result);
             return eventViewModel;
-        }
-        
-        private async Task PopulateVenueDetails(IList<PlaceViewModel> places)
-        {
-            var venuesDetails = await _placeService.GetPlacesDetailsAsync(places.Select(p => p.VenueId).ToList());
-            foreach (var place in places)
-            {
-                place.Venue = venuesDetails.Single(p => p.VenueId == place.VenueId);
-            }
         }
     }
 }
