@@ -10,6 +10,16 @@ namespace EventPlanner.DAL.AutoMappers
 {
     public static class MappingHelper
     {
+        public static Geometry MapToGeometry(double lng, double lat)
+        {
+            return new Geometry() { type = "Point", coordinates = new double[] { lng, lat } };
+        }
+
+        public static Properties MapToProperties(string name, string address)
+        {
+            return new Properties() { name = name, address = address };
+        }
+
         public static IList<TimeSlot> MapToTimeSlot(IList<EventModel.DatesModel> dates)
         {
             return dates.SelectMany(d => d.Times.Select(time => new TimeSlot()

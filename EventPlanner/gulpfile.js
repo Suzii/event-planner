@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='build-less' />
+/// <binding BeforeBuild='build-less' ProjectOpened='watch' />
 // For more information on how to configure a task runner, please visit:
 // https://github.com/gulpjs/gulp
 

@@ -45,7 +45,14 @@
 }
 
 .label-remove-button {    
-    margin: 0px -0.2em 0px 0.2em;
+    margin: 0em 0em 0em 0.5em;
+    color: darken(@label-accent-bg, 3%);
+    
+    &:hover,
+    &:focus {
+        color: darken(@label-accent-bg, 20%);
+        text-decoration: none;
+  }
 }
 
 // Colors

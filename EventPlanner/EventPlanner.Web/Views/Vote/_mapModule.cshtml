@@ -1,6 +1,5 @@
-﻿<h3>Cute little map</h3>
-<p>Just really felt like adding it and filling the sad blank space...</p>
-<p>(CSS is in size.less)</p>
-<div class="row map" id="map">
+﻿
+@*<p>(CSS is in size.less)</p>*@
+<div class="row row-adjust map" id="map" places="@Url.Action("GetGeoJsonForMap", "Vote", routeValues: new {eventId = Model.Id})">
     @*TODO*@
 </div>

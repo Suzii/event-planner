@@ -8,6 +8,11 @@
     }
 
     var map = new google.maps.Map(mapCanvas, mapOptions)
+    
+    map.data.loadGeoJson($("#map").attr("places"));
+    map.data.setStyle({
+        icon: './../../../Content/Images/point.png'
+    });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

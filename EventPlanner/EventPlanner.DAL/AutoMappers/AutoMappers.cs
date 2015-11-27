@@ -21,6 +21,7 @@ namespace EventPlanner.DAL.AutoMappers
             CreateVoteForPlaceMap();
             CreateEnumsMap();
             CreateUserMap();
+            CreateFeatureMap();
         }
 
         private static void CreateEventMap()
@@ -80,6 +81,14 @@ namespace EventPlanner.DAL.AutoMappers
                 .ForMember(p => p.City, conf => conf.MapFrom(v => v.Venue.City))
                 .ForMember(p => p.Lat, conf => conf.MapFrom(v => v.Venue.Lat))
                 .ForMember(p => p.Lng, conf => conf.MapFrom(v => v.Venue.Lng));
+        }
+
+        private static void CreateFeatureMap()
+        {
+            Mapper.CreateMap<Models.Models.Vote.PlaceViewModel, Models.Models.Vote.Feature>()
+                .ForMember(p => p.id, conf => conf.MapFrom(v => v.VenueId))
+                .ForMember(p => p.geometry, conf => conf.ResolveUsing(v => MappingHelper.MapToGeometry(v.Venue.Lng, v.Venue.Lat)))
+                .ForMember(p => p.properties, conf => conf.ResolveUsing(v => MappingHelper.MapToProperties(v.Venue.Name, v.Venue.AddressInfo)));
         }
 
         private static void CreateTimeSlotMap()

@@ -133,7 +133,7 @@ namespace EventPlanner.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetPlacesModelForMap(Guid eventId)
         {
-            var places = await _eventDetailsService.GetPlacesWithVotes(eventId);
+            var places = await _eventDetailsService.GetPlaces(eventId);
             var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
             await _placeService.PopulateVenueDetailsAsync(placesVm);
             var placesMapVm = placesVm
@@ -141,6 +141,24 @@ namespace EventPlanner.Web.Controllers
                 .ToList();
 
             return Json(new { Data = placesMapVm },
+                JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetGeoJsonForMap(Guid eventId)
+        {
+            var places = await _eventDetailsService.GetPlaces(eventId);
+            var placesVm = places.Select(Mapper.Map<PlaceViewModel>).ToList();
+            await _placeService.PopulateVenueDetailsAsync(placesVm);
+
+            var geoJsonVm = new GeoJsonViewModel
+            {
+                features = placesVm
+                    .Select(Mapper.Map<Feature>)
+                    .ToList()
+            };
+
+            return Json(new { geoJsonVm.type, geoJsonVm.features },
                 JsonRequestBehavior.AllowGet);
         }
 
