@@ -34,7 +34,7 @@ namespace EventPlanner.DAL.Repository
         }
 
         /// <summary>
-        ///     Asynchronous method that returns an basic event model based on Id.
+        ///     Asynchronous method that returns basic event model based on Id.
         /// </summary>
         /// <param name="eventId">Id of an event</param>
         /// <returns>Basic event model without related entities.</returns>

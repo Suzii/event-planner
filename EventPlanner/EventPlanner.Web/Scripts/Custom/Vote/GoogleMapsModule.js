@@ -9,7 +9,7 @@
 
     var map = new google.maps.Map(mapCanvas, mapOptions)
     
-    map.data.loadGeoJson($("#map").attr("places"));
+    map.data.loadGeoJson($("#map").attr("data-places"));
     map.data.setStyle({
         icon: './../../../Content/Images/point.png'
     });
