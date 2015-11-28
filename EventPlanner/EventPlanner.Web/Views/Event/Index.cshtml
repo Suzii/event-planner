@@ -2,9 +2,10 @@
 @model EventPlanner.Models.Models.CreateAndEdit.EventModel
 
 @{
-    ViewBag.Title = "Create Event";
+    string action = Model.Id.HasValue ? "Edit" : "Create";
+    ViewBag.Title = action + " Event";
 }
-<h2>Create your event</h2>
+<h2>@action your event</h2>
 
 <div class="container">
 
@@ -84,7 +85,7 @@
         </div>
         <hr />
         <div class="row">
-            <input type="submit" class="btn btn-primary" value="Create an event" />
+            <input type="submit" class="btn btn-primary" value="@action an event" />
         </div>
     }
  </div>
