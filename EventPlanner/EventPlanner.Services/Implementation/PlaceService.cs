@@ -18,10 +18,14 @@ namespace EventPlanner.Services.Implementation
         private readonly IFoursquareProvider _fs;
 
         /// <summary>
-        /// Initialize new instance of PlaceService()
+        /// Initialize new instance of PlaceService
         /// </summary>
         public PlaceService() : this(new FoursquareProvider()) { }
 
+        /// <summary>
+        /// Initialize new instance of PlaceService
+        /// </summary>
+        /// <param name="provider">PlaceProvider to operate with</param>
         public PlaceService(IFoursquareProvider provider)
         {
             _fs = provider;
