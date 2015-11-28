@@ -5,6 +5,9 @@ using EventPlanner.Models.Domain;
 
 namespace EventPlanner.Services
 {
+    /// <summary>
+    /// Interface containing methods to operate with event detail
+    /// </summary>
     public interface IEventDetailsService
     {
         /// <summary>
