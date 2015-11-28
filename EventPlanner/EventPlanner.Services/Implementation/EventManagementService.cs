@@ -13,11 +13,16 @@ namespace EventPlanner.Services.Implementation
         private readonly PlaceRepository _placeRepository;
         private readonly TimeSlotRepository _timeSlotRepository;
 
-        public EventManagementService()
+        public EventManagementService() : this(new EventRepository(), new PlaceRepository(), new TimeSlotRepository())
         {
-            _eventRepository = new EventRepository();
-            _placeRepository = new PlaceRepository();
-            _timeSlotRepository = new TimeSlotRepository();
+        }
+
+        public EventManagementService(EventRepository eventRepository, PlaceRepository placeRepository,
+            TimeSlotRepository timeSlotRepository)
+        {
+            _eventRepository = eventRepository;
+            _placeRepository = placeRepository;
+            _timeSlotRepository = timeSlotRepository;
         }
 
         public async Task<Event> CreateEventAsync(Event e, string userId)
