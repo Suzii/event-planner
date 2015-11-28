@@ -20,10 +20,29 @@ namespace EventPlanner.DAL
             Configuration.ProxyCreationEnabled = false;
         }
 
+        /// <summary>
+        /// Set of Events
+        /// </summary>
         public DbSet<EventEntity> Events { get; set; }
+
+        /// <summary>
+        /// Set of Places
+        /// </summary>
         public DbSet<PlaceEntity> Places { get; set; }
+
+        /// <summary>
+        /// Set of TimeSlots
+        /// </summary>
         public DbSet<TimeSlotEntity> TimeSlots { get; set; }
+
+        /// <summary>
+        /// Set of VotesForDates
+        /// </summary>
         public DbSet<VoteForDateEntity> VotesForDates { get; set; }
+
+        /// <summary>
+        /// Set of VotesForPlaces
+        /// </summary>
         public DbSet<VoteForPlaceEntity> VotesForPlaces { get; set; }
 
         /// <summary>
