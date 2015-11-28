@@ -327,9 +327,8 @@ namespace EventPlanner.Web.Controllers
         // GET: /Manage/ChangeName
         public async Task<ActionResult> ChangeName()
         {
-            // TODO: Take name from DB
-
-            return View("ChangeName", new ChangeNameViewModel());
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            return View("ChangeName", new ChangeNameViewModel() {Name = user.Name});
         }
 
 
@@ -343,7 +342,9 @@ namespace EventPlanner.Web.Controllers
                 return View(model);
             }
 
-            // TODO: add or update DB
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.Name = model.Name;
+            await UserManager.UpdateAsync(user);
             return RedirectToAction("Index", new { Message = ManageMessageId.ChangeNameSuccess });
         }
 

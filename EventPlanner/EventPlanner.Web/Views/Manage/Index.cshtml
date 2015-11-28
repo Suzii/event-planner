@@ -9,7 +9,10 @@
         <dt class="list-group-item">Login email:</dt>
         <dd class="list-group-item">@Model.Email</dd>
         <dt class="list-group-item">Name:</dt>
-        <dd class="list-group-item">@Model.Name</dd>
+        <dd class="list-group-item">
+            @Model.Name
+            @Html.ActionLink("Change your name", "ChangeName")
+        </dd>
         <dt class="list-group-item">Password:</dt>
         <dd class="list-group-item">
             
