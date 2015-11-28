@@ -11,11 +11,13 @@ namespace EventPlanner.Services.Implementation
     {
         private readonly EventRepository _eventRepository;
         private readonly PlaceRepository _placeRepository;
+        private readonly TimeSlotRepository _timeSlotRepository;
 
         public EventManagementService()
         {
             _eventRepository = new EventRepository();
             _placeRepository = new PlaceRepository();
+            _timeSlotRepository = new TimeSlotRepository();
         }
 
         public async Task<Event> CreateEventAsync(Event e, string userId)
@@ -41,8 +43,10 @@ namespace EventPlanner.Services.Implementation
                 timeSlot.EventId = e.Id;
             }
 
-            var orphans = fullEvent.Places.Select(pl => pl.Id).Except(e.Places.Select(p => p.Id)).ToList();
-            await DeleteEventPlaces(orphans);
+            var placeOrphans = fullEvent.Places.Select(pl => pl.Id).Except(e.Places.Select(p => p.Id)).ToList();
+            var timeSlotOrphans = fullEvent.TimeSlots.Select(ts => ts.Id).Except(e.TimeSlots.Select(t => t.Id)).ToList();
+            await DeleteEventPlaces(placeOrphans);
+            await DeleteEventTimeSlots(timeSlotOrphans);
             return await _eventRepository.AddOrUpdate(e);
         }
 
@@ -82,6 +86,25 @@ namespace EventPlanner.Services.Implementation
             foreach (var id in placeIds)
             {
                 var d = await DeleteEventPlace(id);
+                if (!d)
+                {
+                    deletedAll = false;
+                }
+            }
+            return deletedAll;
+        }
+
+        private async Task<bool> DeleteEventTimeSlot(Guid timeSlotId)
+        {
+            return await _timeSlotRepository.Delete(timeSlotId);
+        }
+
+        private async Task<bool> DeleteEventTimeSlots(IList<Guid> timeSlotsIds)
+        {
+            var deletedAll = true;
+            foreach (var id in timeSlotsIds)
+            {
+                var d = await DeleteEventTimeSlot(id);
                 if (!d)
                 {
                     deletedAll = false;
