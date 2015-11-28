@@ -31,7 +31,7 @@
     </script>
 }
 
-<div class="row">
+<div class="row row-adjust">
     <div class="col-md-8">
         <h2>
             @Model.Title
@@ -54,31 +54,29 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row row-adjust">
     <div class="col-sm-12">
         @Model.Desc
     </div>
 </div>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="row">
-            <div className="row">
-                <h3>Vote for dates:</h3>
-                <div class="col-sm-12" id="DatesVotingApp"></div>
-            </div>
+    <div class="row row-adjust">
+        <div className="row">
+            <h3>Vote for dates:</h3>
+            <div class="col-sm-12" id="DatesVotingApp"></div>
+        </div>
 
-            <div className="row">
-                <h3>Vote for places:</h3>
-                <div class="col-sm-12" id="PlacesVotingApp">
+        <div className="row">
+            <h3>Vote for places:</h3>
+            <div class="col-sm-12" id="PlacesVotingApp">
                     
-                </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12" id="mapModule">
-                    @{ Html.RenderPartial("_mapModule");}
-                </div>
+        <div class="row">
+            <div class="col-md-12 v-space40" id="mapModule">
+                @{ Html.RenderPartial("_mapModule");}
             </div>
         </div>
     </div>
