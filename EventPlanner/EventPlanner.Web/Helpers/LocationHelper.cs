@@ -25,7 +25,7 @@ namespace EventPlanner.Web.Helpers
                     return Encoding.UTF8.GetString(Encoding.Default.GetBytes(Convert.ToString(data.city)));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }
