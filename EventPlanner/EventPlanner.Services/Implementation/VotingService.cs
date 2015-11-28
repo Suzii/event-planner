@@ -13,11 +13,17 @@ namespace EventPlanner.Services.Implementation
         private readonly VoteForPlaceRepository _voteForPlaceRepository;
         private readonly IEventDetailsService _eventDetailsService;
         
-        public VotingService()
+        public VotingService() : this(new EventDetailsService(), new VoteForDateRepository(), new VoteForPlaceRepository())
         {
-            _eventDetailsService = new EventDetailsService();
-            _voteForDateRepository = new VoteForDateRepository();
-            _voteForPlaceRepository = new VoteForPlaceRepository();
+
+        }
+
+        public VotingService(EventDetailsService eventDetailsService, VoteForDateRepository voteForDateRepository,
+            VoteForPlaceRepository voteForPlaceRepository)
+        {
+            _eventDetailsService = eventDetailsService;
+            _voteForDateRepository = voteForDateRepository;
+            _voteForPlaceRepository = voteForPlaceRepository;
         }
 
         public async Task<int> GetTotalNumberOfVotersForEvent(Guid eventId)
