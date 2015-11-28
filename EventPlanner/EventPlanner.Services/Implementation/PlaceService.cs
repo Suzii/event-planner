@@ -106,6 +106,10 @@ namespace EventPlanner.Services.Implementation
             return detailModels;
         }
 
+        /// <summary>
+        /// Populate venues details in async operation
+        /// </summary>
+        /// <param name="places">List of places to populate details</param>
         public async Task PopulateVenueDetailsAsync(IList<PlaceViewModel> places)
         {
             var venuesDetails = await GetPlacesDetailsAsync(places.Select(p => p.VenueId).ToList());
