@@ -10,9 +10,13 @@ namespace EventPlanner.Services.Implementation
     {
         private readonly EventRepository _eventRepository;
 
-        public UserService()
+        public UserService() : this(new EventRepository())
         {
-            _eventRepository = new EventRepository();
+        }
+
+        public UserService(EventRepository eventRepository)
+        {
+            _eventRepository = eventRepository;
         }
 
         public async Task<IList<Event>> GetEventsCreatedBy(string userId)
