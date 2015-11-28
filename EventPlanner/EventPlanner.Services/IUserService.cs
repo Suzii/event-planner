@@ -6,7 +6,7 @@ using EventPlanner.Models.Domain;
 namespace EventPlanner.Services
 {
     /// <summary>
-    /// Interface containing methods handling database operations based on for specific user
+    /// Interface containing methods handling database operations for specific user
     /// </summary>
     public interface IUserService
     {
