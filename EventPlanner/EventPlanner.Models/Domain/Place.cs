@@ -6,6 +6,10 @@ namespace EventPlanner.Models.Domain
 {
     public class Place
     {
+        public Place()
+        {
+            VotesForPlace = new List<VoteForPlace>();
+        }
         public Guid Id { set; get; }
 
         public Guid EventId { get; set; }

@@ -7,6 +7,12 @@ namespace EventPlanner.Models.Models.CreateAndEdit
 {
     public class EventModel
     {
+        public EventModel()
+        {
+            Places = new List<FourSquareVenueModel>();
+            Dates = new List<DatesModel>();
+        }
+
         public Guid? Id { get; set; }
 
         [Required]
@@ -40,20 +46,18 @@ namespace EventPlanner.Models.Models.CreateAndEdit
 
         public class TimeModel
         {
-            public Guid Id { get; set; }
-            public string Time { get; set; }
+            public TimeModel()
+            {
+            }
 
             public TimeModel(Guid id, string time)
             {
-                this.Id = id;
-                this.Time = time;
-
-            }
-            public TimeModel()
-            {
-
+                Id = id;
+                Time = time;
             }
 
+            public Guid Id { get; set; }
+            public string Time { get; set; }
         }
     }
 }

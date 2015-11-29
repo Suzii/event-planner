@@ -140,7 +140,7 @@ namespace EventPlanner.Web.Controllers
                     Date = DateTime.Today,
                     Times = new List<EventModel.TimeModel>()
                     {
-                       new EventModel.TimeModel { Time = "00:00" }
+                       new EventModel.TimeModel() { Time = "00:00" }
                     }
                 }
             };
