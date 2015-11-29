@@ -206,7 +206,6 @@
     <Content Include="Content\Images\point.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\typeahead.css" />
-    <Content Include="Content\willAttendEditor.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
