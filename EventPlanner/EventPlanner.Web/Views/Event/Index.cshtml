@@ -47,26 +47,26 @@
             <hr />
             <h3>Choose dates:</h3>
             <span id="divDate">
-                <span id="divcust0">
+               
                     @for (var i = 0; i < Model.Dates.Count; i++)
 
                     {
                         <br />
                         //date
+                      @:  <span id="@("divcust"+i)">
+                            @Html.TextBoxFor(m => m.Dates[i].Date, "{0:yyyy-MM-dd}", new { @class = "datepicker", type = "date" })
 
-                        @Html.TextBoxFor(m => m.Dates[i].Date, "{0:yyyy-MM-dd}", new { @class = "datepicker", type = "date" })
-
-                        //time
-                        for (var j = 0; j < Model.Dates[i].Times.Count; j++)
-
-                        {
+                            //time
+                            for (var j = 0; j < Model.Dates[i].Times.Count; j++)
+                            {
                             @Html.HiddenFor((m => m.Dates[i].Times[j].Id))
-                            ;
+                            
                             @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new { @class = "form-control-select" })
-                        }
+                            }
+                      @:  </span>
                     }
 
-                </span>
+                        
                 <input id="btnAdd0" type="button" value="Add time" class="btn btn-default" onclick="AddTime(this.id);" style="width: 90px">
 
             </span>
