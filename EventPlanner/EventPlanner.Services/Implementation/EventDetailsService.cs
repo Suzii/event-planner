@@ -70,7 +70,7 @@ namespace EventPlanner.Services.Implementation
         /// <returns>List of TimeSlots with votes</returns>
         public async Task<IList<TimeSlot>> GetDatesWithVotes(Guid eventId)
         {
-            return await _timeSlotRepository.GetTimeSlotInfoByEvent(eventId);
+            return await _timeSlotRepository.GetTimeSlotWithVotesByEvent(eventId);
         }
 
     }

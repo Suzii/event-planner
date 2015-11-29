@@ -5,7 +5,6 @@
 @{
     ViewBag.Title = "Vote";
 }
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/willAttendEditor.css")">
 
 @section Scripts {
     @Scripts.Render("https://maps.googleapis.com/maps/api/js")
@@ -15,11 +14,11 @@
     <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Spinner.jsx")"></script>
     <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Vote/VotingApp.jsx")"></script>
     <script type="text/jsx">
-        React.render(<VotingApp 
-                        loadingImgUrl="@Url.Content("~/Content/images/loading_spinner.gif")"
-                        eventId="@Model.Id"
-                        submitVotesUrl="@Url.Action("SubmitVoteForDate", "Vote", routeValues: new {eventId = Model.Id}))"
-                        getInitialDataUrl="@Url.Action("GetVoteForDateModel", "Vote", routeValues: new {eventId = Model.Id})"/>, 
+        React.render(<
+        VotingApp loadingImgUrl="@Url.Content("~/Content/images/loading_spinner.gif")"
+                  eventId="@Model.Id"
+                  submitVotesUrl="@Url.Action("SubmitVoteForDate", "Vote", routeValues: new {eventId = Model.Id}))"
+                  getInitialDataUrl="@Url.Action("GetVoteForDateModel", "Vote", routeValues: new {eventId = Model.Id})"/>, 
         document.getElementById('DatesVotingApp'));
         
         React.render(
@@ -67,11 +66,11 @@
             <div class="col-sm-12" id="DatesVotingApp"></div>
         </div>
 
+        <hr/>
+
         <div className="row">
             <h3>Vote for places:</h3>
-            <div class="col-sm-12" id="PlacesVotingApp">
-                    
-            </div>
+            <div class="col-sm-12" id="PlacesVotingApp"></div>
         </div>
 
         <div class="row">

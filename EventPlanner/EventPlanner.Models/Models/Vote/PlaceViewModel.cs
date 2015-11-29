@@ -7,6 +7,11 @@ namespace EventPlanner.Models.Models.Vote
 {
     public class PlaceViewModel
     {
+        public PlaceViewModel()
+        {
+            VotesForPlace = new List<VoteForPlace>();
+        }
+
         public Guid Id { set; get; }
         public Guid EventId { set; get; }
         public string VenueId { set; get; }

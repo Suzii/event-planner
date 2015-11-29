@@ -6,6 +6,11 @@ namespace EventPlanner.Models.Domain
 {
     public class TimeSlot
     {
+        public TimeSlot()
+        {
+            VotesForDate = new List<VoteForDate>();
+        }
+
         public Guid Id { set; get; }
 
         public Guid EventId { get; set; }

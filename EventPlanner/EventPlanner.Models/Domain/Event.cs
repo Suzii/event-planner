@@ -6,6 +6,12 @@ namespace EventPlanner.Models.Domain
 {
     public class Event
     {
+        public Event()
+        {
+            Places = new List<Place>();
+            TimeSlots = new List<TimeSlot>();
+        }
+
         public Guid Id { get; set; }
 
         [Required]
