@@ -1,8 +1,18 @@
 ﻿var idTime = 1;
 function AddTime(id) {
     var index = 0;
+
     index = id.substring(6);
-        var element = $('#Dates_0__Times_0__Id').clone();
+    var element = $('#Dates_0Times_0Id').clone();
+
+    var m = $("span#divcust" + index + " select:last-of-type").attr("id")
+    console.log(m + " index");
+    if (m != null && m.length > 0) {
+        idTime = m.substring(13);
+        idTime++;
+        console.log(idTime + " idtime");
+
+    }
         var container = $('#divcust' + index);
 
      //new hidden
@@ -11,7 +21,7 @@ function AddTime(id) {
         container.append(element);
 
     //new time
-        element = $('#Dates_0__Times_0__Time').clone();
+        element = $('#Dates_0Times_0').clone();
         element.attr('id', "Dates_" + index + "Times_" + idTime);
         element.attr('name', "Dates[" + index + "].Times[" + idTime + "].Time");
         container.append(element); 
