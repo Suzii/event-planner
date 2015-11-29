@@ -22,3 +22,24 @@ label > input:checked + i.maybe-option{ /* (RADIO CHECKED) icon style for maybe 
 label > input:checked + i.no-option{ /* (RADIO CHECKED) icon style for no */
     color: #d9534f;
 }
+
+
+.center-vertically {
+  position: relative;
+  top: 50%;
+  transform: translateY(50%);
+}
+
+.allow-space {
+    padding: 0.5em 0.5em 0.5em 0.5em
+}
+
+div.even-row {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+div.odd-row {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
