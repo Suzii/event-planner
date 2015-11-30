@@ -51,12 +51,12 @@
                     @for (var i = 0; i < Model.Dates.Count; i++)
 
                     {
-                        <br />
+                        <br id=@("br" +i) />
                         //delete button for date and time
-                   /*     if (i != 0)
+                        if (i != 0)
                         {
                              @: <button id = @("btnDel-" +i) type ="button" onclick ="DelDate(this.id);" class="btn btn-default">  <spann class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
-                        }*/
+                        }
 
                     //date
                         @:  <span id="@("divcust" + i)">
@@ -71,25 +71,17 @@
                             @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new { @class = "form-control-select", id = "Dates_" + i + "Times_" + j })
 
                             //delete button for time  
-                      //  if (i != 0 && j != 0)
-                      //      {
+                            if (!((j == 0) && (i == 0)))
+                            {
                                 @:  <button id=@("btnDel-" + i + "_" + j) type="button" onclick="DelTime(this.id);"  class="btn btn-default btn-xs" ><spann class='glyphicon glyphicon-remove' aria-hidden='true' /></button>   
-                              
-                      //      }
+
+                            }
 
                         }
                         @:  </span>
 
                             @:  <input id=@("btnAdd" + i) type="button" value="Add time" class="btn btn-default" onclick="AddTime(this.id);" style="width: 90px">
-
-
-                        // <input id="btnAdd0" type="button" value="Add time" class="btn btn-default" onclick="AddTime(this.id);" style="width: 90px">
-
                     }
-
-
-         
-                
 
            </span>
             <br />

@@ -6,11 +6,9 @@ function AddTime(id) {
     var element = $('#Dates_0Times_0Id').clone();
 
     var m = $("span#divcust" + index + " select:last-of-type").attr("id")
-    console.log(m + " index");
     if (m != null && m.length > 0) {
         idTime = m.substring(13);
         idTime++;
-        console.log(idTime + " idtime");
 
     }
         var container = $('#divcust' + index);
@@ -40,11 +38,5 @@ function DelTime(id) {
     $('#'+ id).remove();
 };
 
-function DelDate(id) {
-    var indexDel = id.substring(id.indexOf("-") + 1);
-    $("#divcust" + indexDel).remove();
-    $("#btnAdd" + indexDel).remove();
-    $("#br" + indexDel).remove();
-};
 
         
