@@ -5,7 +5,7 @@ using EventPlanner.Models.Models.Shared;
 
 namespace EventPlanner.Models.Models.CreateAndEdit
 {
-    public class EventModel
+    public class EventModel: IValidatableObject
     {
         public EventModel()
         {
@@ -58,6 +58,28 @@ namespace EventPlanner.Models.Models.CreateAndEdit
 
             public Guid Id { get; set; }
             public string Time { get; set; }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Places == null || Places.Count == 0)
+            {
+                yield return new ValidationResult("You have to pick at least one place.", new [] {"Places"});
+            }
+            if (Dates == null || Dates.Count == 0)
+            {
+                yield return new ValidationResult("You have to pick at least one date.", new[] { "Dates" });
+            }
+            else
+            {
+                foreach(var date in Dates)
+                {
+                    if (date.Times == null || date.Times.Count == 0)
+                    {
+                        yield return new ValidationResult("You have to pick at least one time for each date.", new[] { "Dates.Times" });
+                    }
+                }
+            }
         }
     }
 }

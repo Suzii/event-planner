@@ -5,12 +5,35 @@
     string action = Model.Id.HasValue ? "Edit" : "Create";
     ViewBag.Title = action + " Event";
 }
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/Custom/Event/NewTime.js")
+    @Scripts.Render("~/Scripts/Custom/Event/NewDate.js")
+    @Scripts.Render("~/Scripts/Typeahead/typeahead.bundle.js")
+    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Event/FourSquareSearchModule.jsx")">
+    </script>
+    <script type="text/jsx">
+        React.render(
+        <FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")"
+                       preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))}
+                       defaultPlace="@LocationHelper.GetCurrentCity(Request.IsLocal ? " " : Request.UserHostAddress)" />,
+        document.getElementById('FourSquareSearchModule'));
+    </script>
+}
+
 <h2>@action your event</h2>
 
 <div class="container">
 
-    @Html.ValidationSummary()
-    @using (Html.BeginForm("Index", "Event", FormMethod.Post, new { @class = "" }))
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i></button>
+            @Html.ValidationSummary(false, "Errors: ")
+        </div>
+    }
+    @using (Html.BeginForm("Index", "Event", FormMethod.Post, new {@class = ""}))
     {
         @Html.HiddenFor(m => m.Id)
         <div class="row" id="intro">
@@ -18,101 +41,83 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
 
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Desc)
-                @Html.TextAreaFor(m => m.Desc, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Desc, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(m => m.Desc, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Desc, "", new {@class = "text-danger"})
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.ExpectedLength)
-                @Html.EditorFor(m => m.ExpectedLength, new { @class = "form-control" })
+                @Html.EditorFor(m => m.ExpectedLength, new {@class = "form-control"})
                 hours
-                @Html.ValidationMessageFor(m => m.ExpectedLength, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.ExpectedLength, "", new {@class = "text-danger"})
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.OthersCanEdit)
-                @Html.EditorFor(m => m.OthersCanEdit, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m.OthersCanEdit, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
             </div>
 
         </div>
         <div class="row">
-            <hr />
+            <hr/>
             <h3>Choose dates:</h3>
             <span id="divDate">
                  
                     @for (var i = 0; i < Model.Dates.Count; i++)
-
                     {
-                        <br id=@("br" +i) />
+                        <br id=@("br" + i) />
                         //delete button for date and time
                         if (i != 0)
                         {
-                             @: <button id = @("btnDel-" +i) type ="button" onclick ="DelDate(this.id);" class="btn btn-default">  <spann class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
+                            @: <button id = @("btnDel-" + i) type ="button" onclick ="DelDate(this.id);" class="btn btn-default">  <spann class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
                         }
 
-                    //date
+                        //date
                         @:  <span id="@("divcust" + i)">
-
-                         @Html.TextBoxFor(m => m.Dates[i].Date, "{0:yyyy-MM-dd}", new { @class = "datepicker", type = "date" })
+                        @Html.TextBoxFor(m => m.Dates[i].Date, "{0:yyyy-MM-dd}", new {@class = "datepicker", type = "date"})
 
                         //time
                         for (var j = 0; j < Model.Dates[i].Times.Count; j++)
                         {
-                            @Html.HiddenFor(m => m.Dates[i].Times[j].Id, new { id = "Dates_" + i + "Times_" + j + "Id" })
-
-                            @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new { @class = "form-control-select", id = "Dates_" + i + "Times_" + j })
-
+                            @Html.HiddenFor(m => m.Dates[i].Times[j].Id, new {id = "Dates_" + i + "Times_" + j + "Id"})
+                            @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new {@class = "form-control-select", id = "Dates_" + i + "Times_" + j})
                             //delete button for time  
                             if (!((j == 0) && (i == 0)))
                             {
                                 @:  <button id=@("btnDel-" + i + "_" + j) type="button" onclick="DelTime(this.id);"  class="btn btn-default btn-xs" ><spann class='glyphicon glyphicon-remove' aria-hidden='true' /></button>   
-
                             }
-
                         }
                         @:  </span>
-
-                            @:  <input id=@("btnAdd" + i) type="button" value="Add time" class="btn btn-default" onclick="AddTime(this.id);" style="width: 90px">
+                        @:  <input id=@("btnAdd" + i) type="button" value="Add time" class="btn btn-default" onclick="AddTime(this.id);" style="width: 90px">
                     }
 
            </span>
-            <br />
-            <input type="button" id="btnAddDate" value="Add date" onclick="AddDate();" class="btn btn-default" style="width: 90px" />
+            @Html.ValidationMessageFor(m => m.Dates, "", new {@class = "text-danger"})
+            <br/>
+            <input type="button" id="btnAddDate" value="Add date" onclick="AddDate();" class="btn btn-default" style="width: 90px"/>
         </div>
 
         //NOTE: FourSquare module goes here. All html code is renderd inside of ReactJS module.
         <div class="row" id="places">
-            <hr />
+            <hr/>
             <h3>Choose places:</h3>
             <div class="form-group">
                 <p>Search places for your event using FourSquare!</p>
                 <div id="FourSquareSearchModule"></div>
+                @Html.ValidationMessageFor(m => m.Places, "", new {@class = "text-danger"})
             </div>
         </div>
-        <hr />
+
         <div class="row">
-            <input type="submit" class="btn btn-primary" value="@action an event" />
+            <input type="submit" class="btn btn-primary" value="@action an event"/>
         </div>
     }
- </div>
-
-
-    @section scripts
-    {
-        <script src="@Url.Content("~/Scripts/Custom/NewTime.js")"></script>
-        <script src="@Url.Content("~/Scripts/Custom/NewDate.js")"></script>
-        <script src="@Url.Content("~/Scripts/Typeahead/typeahead.bundle.js")"></script>
-        <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/FourSquareSearchModule.jsx")">
-        </script>
-        <script type="text/jsx">
-        React.render(<FourSquareApp getDataURL="@Url.Action("GetPlacesData", "Event")" preSelectedPlaces={@Html.Raw(Json.Encode(Model.Places))} defaultPlace="@LocationHelper.GetCurrentCity(Request.IsLocal ? "" : Request.UserHostAddress)" />, document.getElementById('FourSquareSearchModule'));
-        </script>
-    }
+</div>

@@ -215,8 +215,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="README.md" />
-    <Content Include="Scripts\Custom\FacebookShareModule.js" />
-    <Content Include="Scripts\Custom\FourSquareSearchModule.jsx" />
+    <Content Include="Scripts\Custom\Event\Page.js" />
+    <Content Include="Scripts\Custom\Share\FacebookShareModule.js" />
+    <Content Include="Scripts\Custom\Event\FourSquareSearchModule.jsx" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -236,8 +237,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\Custom\NewDate.js" />
-    <Content Include="Scripts\Custom\NewTime.js" />
+    <Content Include="Scripts\Custom\Event\NewDate.js" />
+    <Content Include="Scripts\Custom\Event\NewTime.js" />
     <Content Include="Scripts\React\JSXTransformer.js" />
     <Content Include="Scripts\React\react-with-addons.js" />
     <Content Include="Scripts\React\react-with-addons.min.js" />
