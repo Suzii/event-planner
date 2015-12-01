@@ -1,5 +1,6 @@
 ﻿@using System.Web.Script.Serialization
 @using EventPlanner.Models.Enums
+@using EventPlanner.Web.Helpers
 @using Microsoft.AspNet.Identity
 @model EventPlanner.Models.Models.Shared.EventInfoViewModel
 @{
@@ -37,12 +38,7 @@
             @*TODO: move this logic to controller*@
             @if (Model.OthersCanEdit || User.Identity.GetUserId() == Model.OrganizerId)
             {
-                <a href="@Url.Action("Index", "Event", new {id = Model.Id})">
-                    <small>
-                        <i class="glyphicon glyphicon-pencil"></i>
-                        <span class="sr-only">Edit event</span>
-                    </small>
-                </a>
+                @Html.ActionLink(" ", "Index", "Event", new { eventHash = Model.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline glyphicon-padding-right-bottom text-grey" })
             }
         </h2>
     </div>
