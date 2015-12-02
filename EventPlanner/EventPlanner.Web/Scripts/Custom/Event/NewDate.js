@@ -43,15 +43,13 @@ function AddDate() {
 
     //datepicker
     element = $('#Dates_0__Date').clone();
-    element.attr('id', "Dates_" + window.indexx + "__Date_0");
+    element.attr('id', "Dates_" + window.indexx + "__Date");
     element.attr('name', "Dates[" + window.indexx + "].Date");
     //prevent default browser datepicker
     element.on('click', function (e) { e.preventDefault(); });
     //add bootstrap datepicker
     element.datepicker(APP.getDarePickerConfig());
     container.append(element);
-
-
 
     //first hidden
     element = $('#Dates_0Times_0Id').clone();
@@ -88,52 +86,76 @@ function AddDate() {
 };
 
 function DelDate(id) {
+  //  console.log(id + " id");
     var indexDel = id.substring(id.indexOf("-") + 1);
-    var indexTimeMinus = indexDel;
-    /*
-    //checked if it has siblings
-    while ($("input#Dates_" + indexDel + "__Date")) {
-        var m = $("input#Dates_" + indexTimeMinus + "__Date");
-        m.attr("id", "Dates_" + indexTimeMinus + "__Date");
-        m.attr('name', "Dates[" + indexTimeMinus + "].Date");
-
-        //change name of span
-        n = $("span#divcust" + indexTimeMinus);
-        n.attr("id", "divcust" + indexTimeMinus);
-
-        indexTimeMinus++;
-    }
-
-    var m = $("input#Dates_" + indexDel + "__Date").nextAll("select");
-
-    if (m.length != 0) {
-
-        var indexTimeMinus = indexTime;
-        var position = indexTime;
-        position++;
-        for (var i = 0; i <= m.length; i++) {
-            //change id and name
-            n = $("select#Dates_" + indexDel + "Times_" + position);
-            n.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus);
-            n.attr('name', "Dates[" + indexDel + "].Times[" + indexTimeMinus + "].Time");
-            //change del button
-            b = $("select#Dates_" + indexDel + "Times_" + indexTimeMinus).next("button");
-            b.attr("id", "btnDel-" + indexDel + "_" + indexTimeMinus);
-            //change hidden
-            h = $("#Dates_" + indexDel + "Times_" + position + "__Id");
-            h.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus + "__Id");
-            h.attr('name', "Dates[" + indexDel + "].Times[" + indexTimeMinus + "].Id");
-
-            indexTimeMinus++;
-            position++;
-        }
-    }*/
-
+    console.log(indexDel + " index delete prvni");
     $("#divcust" + indexDel).remove();
     $("#btnAdd" + indexDel).remove();
     $("#br" + indexDel).remove();
-    $('#' + id).remove();
+
+
+    var indexTimeMinus = indexDel;
+    indexTimeMinus++;
+    //checked if it has siblings
+    while ($("input#Dates_" + indexTimeMinus + "__Date").length > 0) {
+        
+        var m = $("input#Dates_" + indexTimeMinus + "__Date");
+     //   console.log(m.attr("id") + " id old");
+        m.attr("id", "Dates_" + indexDel + "__Date");
+        m.attr('name', "Dates[" + indexDel + "].Date");
+     //   console.log(m.attr("id") + " id new");
+
+        //change name of span      
+        n = $("span#divcust" + indexTimeMinus);
+        n.attr("id", "divcust" + indexDel);
+
+        //change name of delete button     
+        n = $("button#btnDel" + indexTimeMinus);
+        n.attr("id", "btnDel" + indexDel);
+        
+        //change name of add time
+        n = $("input#btnAdd" + indexTimeMinus);
+        n.attr("id", "btnAdd" + indexDel);
+        n.attr("name", "btnAdd" + indexDel);
+
+        //change br
+        n = $("br#br" + indexTimeMinus);
+        n.attr("id", "br" + indexDel);
+      
+        //change times' name and id and hidden
+        changeTimeId(indexDel);
+
+        indexTimeMinus++;
+        indexDel++;
+        
+    }
+
+  
+ //   $('#' + id).remove();
 };
+
+function changeTimeId(indexDel) {
+    var index = indexDel;
+    var indexDell = indexDel;
+    index ++;
+   var m = $("select#Dates_" + index + "Times_0").nextAll("select");
+
+        for (var i = 0; i <= m.length +1; i++) {
+            //change id and name
+            n = $("select#Dates_" + index + "Times_" + i);
+            n.attr("id", "Dates_" + indexDell + "Times_" + i);
+            n.attr('name', "Dates[" + indexDell + "].Times[" + i + "].Time");
+            //change del button
+            b = $("select#Dates_" + indexDell + "Times_" + i).next("button");
+            b.attr("id", "btnDel-" + indexDell + "_" + i);
+            //change hidden
+            h = $("#Dates_" + index + "Times_" + i + "__Id");
+            h.attr("id", "Dates_" + indexDell + "Times_" + i + "__Id");
+            h.attr('name', "Dates[" + indexDell + "].Times[" + i + "].Id");
+
+        }
+
+}
 
 
 
