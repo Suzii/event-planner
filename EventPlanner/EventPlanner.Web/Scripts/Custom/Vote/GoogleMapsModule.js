@@ -1,4 +1,6 @@
-﻿function initialize() {
+﻿var places;
+
+function initialize() {
     var mapCanvas = document.getElementById('map');
 
     var mapOptions = {
@@ -15,23 +17,52 @@
         bounds.extend(data.feature.getGeometry().get());
         map.fitBounds(bounds);
     });
-    
-    map.data.loadGeoJson($("#map").attr("data-places"));
-        
-    var infoWindow = new google.maps.InfoWindow();
-    map.data.addListener('click', function (data) {
-        infoWindow.setContent(
-            '<div class="text-primary header" style="font-weight: normal">' + data.feature.getProperty('name') + '</div>' +
-            '<div class="text-muted">' + data.feature.getProperty('address') + '</div>'
-            );
-        infoWindow.setPosition(data.feature.getGeometry().get());
-        infoWindow.open(map);
-    });
 
-    map.data.setStyle({
-        icon: './../../../Content/Images/point.png'
+    var marker, i;
+    var markers = [];
+    var bounds = new google.maps.LatLngBounds();
+    var infoWindow;
+
+    $.getJSON($("#map-container").attr("data-places"), function (data) {
+        places = data.Data;
+        for (var i = 0; i < places.length; i++) {
+            var marker = new google.maps.Marker({
+                map: map,
+                animation: google.maps.Animation.DROP,
+                position: { lat: places[i].Lat, lng: places[i].Lng },
+                icon: './../../../Content/Images/point.png'
+            });
+
+            // fit markers to screen
+            bounds.extend(new google.maps.LatLng(places[i].Lat, places[i].Lng));
+            map.fitBounds(bounds);
+
+            // open info window on click
+            var infowindow = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infowindow.setContent('<div class="text-primary header" style="font-weight: normal">' + places[i].Name + '</div>' +
+                    '<div class="text-muted">' + places[i].AddressInfo + '</div>');
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+
+            // bounce marker on place hover
+            $('<div />').html(places[i].Name).addClass('text-primary').hover(function (marker) {
+                return function () {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            }(marker), function (marker) {
+                return function () {
+                    marker.setAnimation(null);
+                }
+            }(marker)).appendTo("#map-container");
+
+            markers.push(marker); 
+        }       
+
     });
 }
-
 
 google.maps.event.addDomListener(window, 'load', initialize);

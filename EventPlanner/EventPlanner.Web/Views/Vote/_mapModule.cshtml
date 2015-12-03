@@ -1,5 +1,6 @@
 ﻿
 @*<p>(CSS is in size.less)</p>*@
-<div class="row row-adjust map" id="map" data-places="@Url.Action("GetGeoJsonForMap", "Vote", routeValues: new {eventId = Model.Id})">
-    @*TODO*@
+<div class="row row-adjust" id="map-container" data-places="@Url.Action("GetPlacesModelForMap", "Vote", routeValues: new {eventId = Model.Id})">
+    <div id="map" class="map col-md-9"/>
+    <div id="places" class="col-md-2"/>
 </div>
