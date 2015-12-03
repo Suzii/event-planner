@@ -3,7 +3,7 @@ function AddTime(id) {
     var index = 0;
 
     index = id.substring(6);
-    var m = $("span#divcust" + index + " select:last-of-type").attr("id")
+    var m = $("span#divcust" + index + " select:last-of-type").attr("id");
     if (m != null && m.length > 0) {
         idTime = m.substring(13);
         idTime++;
@@ -38,7 +38,7 @@ function DelTime(id) {
     //checked if it has siblings
     var m = $("select#Dates_" + indexDel + "Times_" + indexTime).nextAll("select");
 
-    if (m.length != 0) {
+    if (m.length !== 0) {
 
         var indexTimeMinus = indexTime;
         var position = indexTime;

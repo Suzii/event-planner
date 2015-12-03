@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Http;
 using EventPlanner.FourSquare.Utils;
-using EventPlanner.FourSquare.Entities;
 
 namespace EventPlanner.FourSquare
 {

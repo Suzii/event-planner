@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using EventPlanner.Entities;
+﻿using EventPlanner.Entities;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 

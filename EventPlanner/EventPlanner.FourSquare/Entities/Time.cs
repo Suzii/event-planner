@@ -1,11 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EventPlanner.FourSquare.Entities
+﻿namespace EventPlanner.FourSquare.Entities
 {
     public class Time
     {

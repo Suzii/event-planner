@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventPlanner.DAL.AutoMappers;
-using EventPlanner.DAL.Repository;
 using EventPlanner.FourSquare.Utils;
 using EventPlanner.Models.Models.Shared;
 using EventPlanner.Models.Models.Vote;

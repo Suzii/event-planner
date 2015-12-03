@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EventPlanner.Models.Models.Vote
 {
     public class GeoJsonViewModel
     {
-        public string type
-        {
-            get
-            {
-                return "FeatureCollection";
-            }
-        }
+        public string type => "FeatureCollection";
 
         public IList<Feature> features;
     }
@@ -23,13 +13,7 @@ namespace EventPlanner.Models.Models.Vote
     {
         public string id { get; set; }
 
-        public string type
-        {
-            get
-            {
-                return "Feature";
-            }
-        }
+        public string type => "Feature";
         public Geometry geometry { get; set; }
 
         public Properties properties { get; set; }

@@ -4,7 +4,6 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using EventPlanner.Entities;
 using EventPlanner.Models.Domain;
 using VoteForPlaceEntity = EventPlanner.Entities.VoteForPlaceEntity;
 

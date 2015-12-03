@@ -24,25 +24,11 @@ namespace EventPlanner.Web.Controllers
         {
             return View("Index", await ConstructModel(User.Identity.GetUserId()));
         }
-        
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
 
         private async Task<MyEventsViewModel> ConstructModel(string userId)
         {
             var result = await _userService.GetEventsCreatedBy(userId);
-            var events = result.Select(e => Mapper.Map<EventInfoViewModel>(e)).ToList();
+            var events = result.Select(Mapper.Map<EventInfoViewModel>).ToList();
             return new MyEventsViewModel {Events = events};
         }
     }

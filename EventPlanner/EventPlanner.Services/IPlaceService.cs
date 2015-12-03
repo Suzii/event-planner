@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventPlanner.Models.Models.Shared;
 using EventPlanner.Models.Models.Vote;

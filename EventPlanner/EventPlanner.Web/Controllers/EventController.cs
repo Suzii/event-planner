@@ -22,7 +22,7 @@ namespace EventPlanner.Web.Controllers
 
         public EventController()
         {
-            _eventManagementService = new EventPlanner.Services.Implementation.EventManagementService();
+            _eventManagementService = new EventManagementService();
             _placeService = new PlaceService();
             List<Object> list = new List<Object>
             {

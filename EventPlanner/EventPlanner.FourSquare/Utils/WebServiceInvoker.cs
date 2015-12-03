@@ -18,8 +18,7 @@ namespace EventPlanner.FourSquare.Utils
         /// <returns>Initialized WebServiceInvoker object</returns>
         public static WebServiceInvoker<T> Create(HttpClient httpClient, Uri serviceUri)
         {
-            var invoker = new WebServiceInvoker<T>();
-            invoker._httpClient = httpClient;
+            var invoker = new WebServiceInvoker<T> {_httpClient = httpClient};
             invoker._httpClient.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
             invoker._serviceUri = serviceUri;
 

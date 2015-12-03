@@ -1,14 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EventPlanner.FourSquare.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EventPlanner.FourSquare.Entities;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
+using EventPlanner.FourSquare.Entities;
+using EventPlanner.FourSquare.Utils;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EventPlanner.FourSquare.Utils.Tests
+namespace EventPlanner.FourSquareTests.Utils
 {
     [TestClass()]
     public class FoursquareProviderTests

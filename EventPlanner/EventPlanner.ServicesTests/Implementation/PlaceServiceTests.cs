@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Moq;
+using EventPlanner.FourSquare.Entities;
 using EventPlanner.FourSquare.Utils;
 using EventPlanner.Models.Models.Shared;
-using EventPlanner.FourSquare.Entities;
-using System.Diagnostics;
+using EventPlanner.Services.Implementation;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
-namespace EventPlanner.Services.Implementation.Tests
+namespace EventPlanner.ServicesTests.Implementation
 {
     [TestClass()]
     public class PlaceServiceTests

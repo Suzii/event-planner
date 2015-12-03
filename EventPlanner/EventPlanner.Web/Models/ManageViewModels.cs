@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EventPlanner.Models.Domain;
 using Microsoft.AspNet.Identity;
