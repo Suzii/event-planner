@@ -3,7 +3,7 @@ using EventPlanner.Models.Models.Share;
 
 namespace EventPlanner.Web.Controllers
 {
-    public class ShareEventController : Controller
+    public class ShareController : Controller
     {
         [HttpGet]
         public ActionResult Index(string eventHash)

@@ -75,7 +75,7 @@ namespace EventPlanner.Web.Controllers
                 await _eventManagementService.UpdateEventAsync(eventEntity) : 
                 await _eventManagementService.CreateEventAsync(eventEntity, User.Identity.GetUserId());
             
-            return RedirectToAction("Index", "ShareEvent", new {eventHash = eventEntity.Id.GetUniqueUrlParameter() });
+            return RedirectToAction("Index", "Share", new {eventHash = eventEntity.Id.GetUniqueUrlParameter() });
         }
 
         [HttpGet]

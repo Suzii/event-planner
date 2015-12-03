@@ -27,7 +27,7 @@
                     <p class="col-md-2">@e.CreatedOn</p>
                     <span class="col-md-1 ">
                         @Html.ActionLink(" ", "Index", "Event", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline glyphicon-padding-right-bottom text-grey" })
-                        @Html.ActionLink(" ", "Index", "ShareEvent", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-link link-no-underline glyphicon-padding-right-bottom text-grey" })
+                        @Html.ActionLink(" ", "Index", "Share", new { eventHash = e.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-link link-no-underline glyphicon-padding-right-bottom text-grey" })
                     </span>
                     @*@Ajax.ActionLink("Delete", "Delete", new { id = e.Id) }, new AjaxOptions { HttpMethod = "delete", Confirm = "Delete?"},  new { @class = "glyphicon glyphicon-trash link-no-underline col-md-1 text-grey" })
                     @Html.ActionLink("Delete", "Delete", new { id = e.Id })*@

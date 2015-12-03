@@ -185,7 +185,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ShareEventController.cs" />
+    <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -285,7 +285,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
-    <Content Include="Views\ShareEvent\Index.cshtml" />
+    <Content Include="Views\Share\Index.cshtml" />
     <Content Include="Views\Manage\ChangeName.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WillAttend.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\_timeDropdownSelector.cshtml" />
