@@ -55,6 +55,7 @@ function AddDate() {
     element = $('#Dates_0Times_0Id').clone();
     element.attr('id', "Dates_" + window.indexx + "Times_0__Id");
     element.attr('name', "Dates[" + window.indexx + "].Times[0].Id");
+    element.attr('value', '');
     container.append(element);
 
     //first time

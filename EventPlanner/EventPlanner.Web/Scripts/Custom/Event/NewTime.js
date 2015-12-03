@@ -15,6 +15,7 @@ function AddTime(id) {
     var element = $('#Dates_0Times_0Id').clone();
     element.attr('id', "Dates_" + index + "Times_" + idTime + "__Id");
     element.attr('name', "Dates[" + index + "].Times[" + idTime + "].Id");
+    element.attr('value', '');
     container.append(element);
 
     //new time
