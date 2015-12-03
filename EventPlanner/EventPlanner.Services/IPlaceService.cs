@@ -21,18 +21,22 @@ namespace EventPlanner.Services
         Task<IList<FourSquareVenueModel>> GetPlaceSuggestionsAsync(string term, string city, int maxCount = 30);
 
         /// <summary>
-        /// Get full Place info based on given place Id
+        /// Get full Place info based on given place Id in async operation
         /// </summary>
         /// <param name="id">Id of place</param>
         /// <returns><c ref="FourSquareVenueModel"/> containing required place</returns>
         Task<FourSquareVenueModel> GetPlaceDetailAsync(string id);
 
         /// <summary>
-        /// Get full Places infos based on given place Id
+        /// Get full Places infos based on given place Id in async operation
         /// </summary>
         /// <param name="ids">List of places ids</param>
         Task<IList<FourSquareVenueModel>> GetPlacesDetailsAsync(IList<string> ids);
 
+        /// <summary>
+        /// Populate venues details in async operation
+        /// </summary>
+        /// <param name="places">List of places to populate details</param>
         Task PopulateVenueDetailsAsync(IList<PlaceViewModel> places);
 
     }

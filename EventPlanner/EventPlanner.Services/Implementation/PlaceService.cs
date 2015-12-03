@@ -18,10 +18,14 @@ namespace EventPlanner.Services.Implementation
         private readonly IFoursquareProvider _fs;
 
         /// <summary>
-        /// Initialize new instance of PlaceService()
+        /// Initialize new instance of PlaceService
         /// </summary>
         public PlaceService() : this(new FoursquareProvider()) { }
 
+        /// <summary>
+        /// Initialize new instance of PlaceService
+        /// </summary>
+        /// <param name="provider">PlaceProvider to operate with</param>
         public PlaceService(IFoursquareProvider provider)
         {
             _fs = provider;
@@ -102,6 +106,10 @@ namespace EventPlanner.Services.Implementation
             return detailModels;
         }
 
+        /// <summary>
+        /// Populate venues details in async operation
+        /// </summary>
+        /// <param name="places">List of places to populate details</param>
         public async Task PopulateVenueDetailsAsync(IList<PlaceViewModel> places)
         {
             var venuesDetails = await GetPlacesDetailsAsync(places.Select(p => p.VenueId).ToList());

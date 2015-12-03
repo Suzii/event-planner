@@ -118,17 +118,25 @@ var VotingApp = React.createClass({
             return (
                  <div>
                     {
-                        this.state.options.map((option) => {
+                        this.state.options.map((option, index) => {
+                            var classes = {
+                                'allow-space' : true,
+                                'even-row': (index%2 == 0),
+                                'odd-row': (index%2 == 1),
+                            };
+                            console.log(classes);
                             return(
-                                <VoteOption key={option.optionId}
-                                     optionId={option.optionId}
-                                     title={option.title}
-                                     desc={option.desc}
-                                     onVoteCallback={this.submitVote}
-                                     preSelectedValue={option.preSelectedValue}
-                                     usersVoteId={option.usersVoteId}
-                                     votes={option.votes}
-                                     totalNumberOfVoters={this.state.totalNumberOfVoters} />
+                                <div className={classNames(classes)}>
+                                    <VoteOption key={option.optionId}
+                                         optionId={option.optionId}
+                                         title={option.title}
+                                         desc={option.desc}
+                                         onVoteCallback={this.submitVote}
+                                         preSelectedValue={option.preSelectedValue}
+                                         usersVoteId={option.usersVoteId}
+                                         votes={option.votes}
+                                         totalNumberOfVoters={this.state.totalNumberOfVoters} />
+                                </div> 
                             )
                         })
                     }
@@ -158,19 +166,20 @@ var VoteOption = React.createClass({
     },
     render: function() {
         return (
-            <div className="row">
-                <div className="col-md-2">
-                    <div className="text-primary">{this.props.title}</div>
-                    <div className="text-muted">{this.props.desc}</div>
+            <div className="row ">
+                <div className="col-sm-2 col-xs-6">
+                    <span className="text-primary">{this.props.title}</span> <br/>
+                    <span className="text-muted">{this.props.desc}</span>
                 </div>
-                <div className="col-md-2">
+            
+                <div className="col-sm-2 col-xs-6 center-vertically">
                     <VoteOptionForm 
                         optionId={this.props.optionId} 
                         usersVoteId={this.props.usersVoteId}
                         onValueSelectedCallback={this.props.onVoteCallback} 
                         preSelectedValue={this.props.preSelectedValue} />
                 </div>
-                <div className="col-md-8">
+                <div className="col-sm-8 col-xs-12" style={{marginTop: '0.8em'}}>
                     <Graph 
                         yesVoters={this.getVotersFor(Options.YES)} 
                         maybeVoters={this.getVotersFor(Options.MAYBE)} 
