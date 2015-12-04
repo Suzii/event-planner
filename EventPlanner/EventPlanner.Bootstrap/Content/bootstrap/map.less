@@ -1,0 +1,41 @@
+﻿
+#map {
+    height: 400px;
+    @media (min-width: @grid-float-breakpoint) {
+        min-height: 100px;
+      }
+ }
+
+.place-item {
+    background-color: transparent;
+    /*font-weight: bold;*/
+    transition: 0.3s;
+    padding: 0.2em;
+    border-radius: 4px;
+    .text-primary;
+    .overflow-clip;
+
+    &.hover,
+    &:hover{
+        background-color: @light-gold;
+        padding-left: 0.7em;
+        span {            
+            opacity: 0.7;
+        }
+    }
+}
+
+.place-item span {
+    transition: 0.5s;
+    .text-muted;
+    opacity: 0;
+    padding-left: 0.3em;
+}
+
+.overflow-clip {
+    white-space: nowrap;      
+    overflow: hidden;         
+    text-overflow: clip;
+    display: inline-block;
+    width: 100%;
+}

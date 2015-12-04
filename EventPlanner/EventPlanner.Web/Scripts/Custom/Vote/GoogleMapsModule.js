@@ -1,36 +1,38 @@
-﻿var places;
-
+﻿var selectedItem;
+// initialize map and places list
 function initialize() {
     var mapCanvas = document.getElementById('map');
 
+    // set map options
     var mapOptions = {
         center: new google.maps.LatLng(49.197947, 16.607823),
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
+    // initialize map
     var map = new google.maps.Map(mapCanvas, mapOptions);
     
-    var bounds = new google.maps.LatLngBounds();
+    // container for places list
+    $("#map-container").append('<div id="places-list" class="col-md-3"/>');
 
-    map.data.addListener('addfeature', function (data) {
-        bounds.extend(data.feature.getGeometry().get());
-        map.fitBounds(bounds);
-    });
-
-    var marker, i;
     var markers = [];
+    var places;
     var bounds = new google.maps.LatLngBounds();
-    var infoWindow;
+    var infowindow = new google.maps.InfoWindow();
+    var iconUrl = './../../../Content/Images/point.png';
 
+    // getting places from json
     $.getJSON($("#map-container").attr("data-places"), function (data) {
         places = data.Data;
         for (var i = 0; i < places.length; i++) {
+
+            // add marker for place to map
             var marker = new google.maps.Marker({
                 map: map,
                 animation: google.maps.Animation.DROP,
                 position: { lat: places[i].Lat, lng: places[i].Lng },
-                icon: './../../../Content/Images/point.png'
+                icon: iconUrl
             });
 
             // fit markers to screen
@@ -38,31 +40,80 @@ function initialize() {
             map.fitBounds(bounds);
 
             // open info window on click
-            var infowindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'click', setInfoWindow(marker, i));
+                        
+            // bounce marker on place hover or click
+            var placeItem = appendPlaceItem(marker, places[i].Name, places[i].AddressInfo);
+            
+            // highlight place item on marker hover
+            google.maps.event.addListener(marker, 'mouseover', setPlaceItemHighlight(placeItem));
+            google.maps.event.addListener(marker, 'mouseout', setPlaceItemHighlight(placeItem));
 
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    infowindow.setContent('<div class="text-primary header" style="font-weight: normal">' + places[i].Name + '</div>' +
-                    '<div class="text-muted">' + places[i].AddressInfo + '</div>');
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-
-            // bounce marker on place hover
-            $('<div />').html(places[i].Name).addClass('text-primary').hover(function (marker) {
-                return function () {
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-            }(marker), function (marker) {
-                return function () {
-                    marker.setAnimation(null);
-                }
-            }(marker)).appendTo("#map-container");
-
+            // add marker to array
             markers.push(marker); 
         }       
 
     });
+
+    function setInfoWindow(marker, i) {
+        return function () {
+            infowindow.setContent('<div class="text-primary header" style="font-weight: normal">' + places[i].Name + '</div>' +
+            '<div class="text-muted">' + places[i].AddressInfo + '</div>');
+            infowindow.open(map, marker);
+        }
+    } (marker, i);
+
+
+    function appendPlaceItem(marker, name, address) {
+        var clicked = false;
+        return $('<div class="place-item">' + name + '<span>'+ address +'</span></div>')
+            .hover(function (marker) {
+                return function () {
+                    if (selectedItem == null) {
+                        marker.setAnimation(google.maps.Animation.BOUNCE);
+                    }
+                }
+            }(marker), function (marker) {
+                return function () {
+                    if (selectedItem == null) {
+                        marker.setAnimation(null);
+                    }
+                }
+            }(marker))
+            .click(function (marker) {
+                return function () {
+                    if (clicked) {
+                        if (selectedItem == this) {
+                            selectedItem = null;
+                        }
+
+                        marker.setAnimation(null);
+                        $(this).removeClass("hover");
+                        clicked = false;
+                    }
+                    else {
+                        if (selectedItem != null && selectedItem != this) {
+                            selectedItem.click();
+                        }
+
+                        marker.setAnimation(google.maps.Animation.BOUNCE);
+                        $(this).addClass("hover");
+                        marker.getMap().panTo(marker.getPosition());
+                        clicked = true;
+                        selectedItem = this;
+                    }
+                }
+            }(marker))
+            .appendTo($("#places-list"));
+    }
+
+
+    function setPlaceItemHighlight(placeItem) {
+        return function () {
+            placeItem.toggleClass("hover");
+        }
+    }(placeItem)
+    
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
