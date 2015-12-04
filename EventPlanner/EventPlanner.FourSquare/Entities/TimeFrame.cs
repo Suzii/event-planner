@@ -4,6 +4,9 @@ using System.Text;
 
 namespace EventPlanner.FourSquare.Entities
 {
+    /// <summary>
+    /// Class representing set of days with their opening times
+    /// </summary>
     public class TimeFrame
     {
         /// <summary>
@@ -17,6 +20,10 @@ namespace EventPlanner.FourSquare.Entities
         [JsonProperty("open")]
         public List<Time> Times { get; set; }
         
+        /// <summary>
+        /// String containing opening hours for chosen days
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder res =  new StringBuilder(Days + "\n");

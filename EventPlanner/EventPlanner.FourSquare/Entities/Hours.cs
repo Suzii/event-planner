@@ -4,6 +4,9 @@ using System.Text;
 
 namespace EventPlanner.FourSquare.Entities
 {
+    /// <summary>
+    /// Class representing opening hours of selected venue
+    /// </summary>
     public class Hours
     {
         /// <summary>
@@ -11,6 +14,10 @@ namespace EventPlanner.FourSquare.Entities
         /// </summary>
         public List<TimeFrame> TimeFrames { get; set; }
 
+        /// <summary>
+        /// String representation of opening hours of selected venue
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder res = new StringBuilder();
