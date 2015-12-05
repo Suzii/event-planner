@@ -38,7 +38,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="eventId">Id of an event</param>
         /// <returns>Basic event model without related entities.</returns>
-        public async Task<Event> GetEventInfo(Guid eventId)
+        public virtual async Task<Event> GetEventInfo(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
@@ -72,7 +72,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="organizerId">Id of an organizer of an event</param>
         /// <returns>List of events based on organizer Id</returns>
-        public async Task<List<Event>> GetByOrganizer(string organizerId)
+        public virtual async Task<List<Event>> GetByOrganizer(string organizerId)
         {
             using (var context = EventPlannerContext.Get())
             {
