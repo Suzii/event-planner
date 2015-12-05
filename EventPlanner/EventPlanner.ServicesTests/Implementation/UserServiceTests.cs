@@ -28,7 +28,7 @@ namespace EventPlanner.Services.Implementation.Tests
         public async Task GetEventsCreatedByTest()
         {
             var tcs = new TaskCompletionSource<List<Event>>();
-            String userId = "1";
+            string userId = "1";
             Event e1 = new Event { Title = "New Event", OrganizerId = userId };
             Event e2 = new Event { Title = "New Event2", OrganizerId = userId};
             List<Event> events = new List<Event> { e1, e2 };
@@ -44,8 +44,8 @@ namespace EventPlanner.Services.Implementation.Tests
         public async Task IsEventEditableForTest()
         {
             var tcs = new TaskCompletionSource<Event>();
-            String userId = "u1";
-            String userId2 = "u2";
+            string userId = "u1";
+            string userId2 = "u2";
             Guid e1Id = new Guid("00000000-0000-0000-0000-000000000000");
             Guid e2Id = new Guid("00000000-0000-0000-0000-000000000001");
             Event e1 = new Event { Id = e1Id, Title = "New Event", OthersCanEdit = true };

@@ -64,6 +64,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Implementation\EventManagementServiceTests.cs" />
     <Compile Include="Implementation\PlaceServiceTests.cs" />
     <Compile Include="Implementation\UserServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

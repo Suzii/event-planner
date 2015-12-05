@@ -91,7 +91,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="ev">Event entity with related timeslots and places</param>
         /// <returns>Returns created event entity</returns>
-        public async Task<Event> AddOrUpdate(Event ev)
+        public virtual async Task<Event> AddOrUpdate(Event ev)
         {
             using (var context = EventPlannerContext.Get())
             {
