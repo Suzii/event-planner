@@ -54,7 +54,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="eventId">Id of an event</param>
         /// <returns>Event model with related places and timeslots.</returns>
-        public async Task<Event> GetFullEvent(Guid eventId)
+        public virtual async Task<Event> GetFullEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
