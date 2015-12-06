@@ -47,9 +47,33 @@ namespace EventPlanner.Services.Implementation.Tests
         }
 
         [TestMethod()]
-        public void UpdateEventAsyncTest()
+        public async Task UpdateEventAsyncTest()
         {
-            Assert.Fail();
+            var tcs = new TaskCompletionSource<Event>();
+            Guid eId = new Guid();
+            Event e1 = new Event { Id = eId, Title = "New Event" };
+            tcs.SetResult(e1);
+
+
+            Place p = new Place { Id = new Guid() };
+            TimeSlot t = new TimeSlot { Id = new Guid(), DateTime = DateTime.Now };
+            Event e2 = new Event { Id = eId, Title = "New title", Places = new List<Place> { p }, TimeSlots = new List<TimeSlot> { t } };
+            var tcs2 = new TaskCompletionSource<Event>();
+            tcs2.SetResult(e2);
+
+            _eventRepository.Setup(mock => mock.GetFullEvent(eId)).Returns(tcs.Task);
+            _eventRepository.Setup(mock => mock.AddOrUpdate(e2)).Returns(tcs2.Task);
+            var task = await _eventManagementService.UpdateEventAsync(e2);
+
+
+            _eventRepository.Verify(mock => mock.GetFullEvent(eId), Times.Once());
+            _eventRepository.Verify(mock => mock.AddOrUpdate(e2), Times.Once());
+
+
+
+            Assert.AreEqual(e2.Title, task.Title);
+            Assert.AreEqual(task.Places.ToList()[0], p);
+            Assert.AreEqual(task.TimeSlots.ToList()[0], t);
         }
 
         [TestMethod()]
@@ -70,9 +94,23 @@ namespace EventPlanner.Services.Implementation.Tests
         }
 
         [TestMethod()]
-        public void GetFullEventAsyncTest()
+        public async Task  GetFullEventAsyncTest()
         {
-            Assert.Fail();
+            var tcs = new TaskCompletionSource<Event>();
+            Place p = new Place { Id = new Guid() };
+            TimeSlot t = new TimeSlot { Id = new Guid(), DateTime = DateTime.Now };
+            Guid eId = new Guid();
+            Event e1 = new Event { Id = eId, Title = "New Event", Places = new List<Place> { p }, TimeSlots = new List<TimeSlot> { t } };
+            tcs.SetResult(e1);
+
+            _eventRepository.Setup(mock => mock.GetFullEvent(eId)).Returns(tcs.Task);
+            var task = await _eventManagementService.GetFullEventAsync(eId);
+            _eventRepository.Verify(mock => mock.GetFullEvent(eId), Times.Once());
+
+            Assert.AreEqual(task, e1);
+            Assert.AreEqual(task.Places.ToList()[0],  p);
+            Assert.AreEqual(task.TimeSlots.ToList()[0], t);
+
         }
 
         [TestMethod()]
