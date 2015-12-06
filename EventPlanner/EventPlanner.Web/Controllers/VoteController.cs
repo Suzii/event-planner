@@ -36,9 +36,25 @@ namespace EventPlanner.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(string eventHash)
         {
-            var id = _eventManagementService.GetEventId(eventHash);
+            Guid id;
+            try
+            {
+                id = _eventManagementService.GetEventId(eventHash);
+            }
+            catch (FormatException)
+            {
+                throw new System.Web.HttpException(500, "Invalid event hash");
+            }
             var eventViewmodel = await ConstructEventViewModel(id);
-            return View("Index", eventViewmodel);
+
+            if (eventViewmodel == null)
+            {
+                throw new System.Web.HttpException(500, "Invalid event hash");
+            }
+            else
+            {
+                return View("Index", eventViewmodel);
+            }
         }
 
         [HttpGet]
