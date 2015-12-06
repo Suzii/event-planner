@@ -54,7 +54,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="eventId">Id of an event</param>
         /// <returns>List of basic timeslot models without related votes entities.</returns>
-        public async Task<List<TimeSlot>> GetTimeSlotInfoByEvent(Guid eventId)
+        public virtual async Task<List<TimeSlot>> GetTimeSlotInfoByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
@@ -72,7 +72,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="eventId">Id of an event</param>
         /// <returns>List of timeslot models with related votes entities.</returns>
-        public async Task<List<TimeSlot>> GetTimeSlotWithVotesByEvent(Guid eventId)
+        public virtual async Task<List<TimeSlot>> GetTimeSlotWithVotesByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {

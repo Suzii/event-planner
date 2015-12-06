@@ -54,7 +54,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="eventId">Id of an event</param>
         /// <returns>List of basic place models without related votes entities.</returns>
-        public async Task<List<Place>> GetPlaceInfoByEvent(Guid eventId)
+        public virtual async Task<List<Place>> GetPlaceInfoByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
@@ -72,7 +72,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="eventId">Id of an event</param>
         /// <returns>List of place models with related votes entities.</returns>
-        public async Task<List<Place>> GetPlaceWithVotesByEvent(Guid eventId)
+        public virtual async Task<List<Place>> GetPlaceWithVotesByEvent(Guid eventId)
         {
             using (var context = EventPlannerContext.Get())
             {
