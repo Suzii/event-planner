@@ -1,17 +1,23 @@
 ﻿
 #map {
-    height: 400px;
-    @media (min-width: @grid-float-breakpoint) {
-        min-height: 100px;
-      }
+    height: 25em;
+    margin-bottom: 0.7em;
  }
+
+.place-header {
+    .h4;
+    .text-gold;
+    margin-top: 0;
+}
 
 .place-item {
     background-color: transparent;
-    /*font-weight: bold;*/
+    font-weight: normal;
     transition: 0.3s;
-    padding: 0.2em;
-    border-radius: 4px;
+    padding: 0.4em;
+    margin: -0.1em;
+    border-radius: 3px;
+    cursor: pointer;
     .text-primary;
     .overflow-clip;
 
@@ -28,6 +34,7 @@
 .place-item span {
     transition: 0.5s;
     .text-muted;
+    font-weight: normal;
     opacity: 0;
     padding-left: 0.3em;
 }

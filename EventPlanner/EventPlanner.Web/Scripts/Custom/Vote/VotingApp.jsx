@@ -166,9 +166,9 @@ var VoteOption = React.createClass({
     },
     render: function() {
         return (
-            <div className="row ">
+            <div className="row">
                 <div className="col-sm-2 col-xs-6">
-                    <span className="text-primary">{this.props.title}</span> <br/>
+                    <span className="text-primary bold">{this.props.title}</span> <br/>
                     <span className="text-muted">{this.props.desc}</span>
                 </div>
             
@@ -179,7 +179,7 @@ var VoteOption = React.createClass({
                         onValueSelectedCallback={this.props.onVoteCallback} 
                         preSelectedValue={this.props.preSelectedValue} />
                 </div>
-                <div className="col-sm-8 col-xs-12" style={{marginTop: '0.8em'}}>
+                <div className="col-sm-8 col-xs-12 center-vertically" style={{marginTop: '0.8em'}}>
                     <Graph 
                         yesVoters={this.getVotersFor(Options.YES)} 
                         maybeVoters={this.getVotersFor(Options.MAYBE)} 
@@ -208,7 +208,7 @@ var FormOptionElement = React.createClass({
       return {
           'glyphicon': true,
           'glyphicon glyphicon-ok yes-option': this.props.option === Options.YES,
-          'glyphicon glyphicon-minus maybe-option': this.props.option === Options.MAYBE,
+          'glyphicon maybe-option': this.props.option === Options.MAYBE,
           'glyphicon glyphicon-remove no-option': this.props.option === Options.NO,
         }
     },
@@ -216,7 +216,7 @@ var FormOptionElement = React.createClass({
         return (
             <label>
                 <input type="radio" name={this.props.name} value={this.props.option} onChange={()=>this.props.onValueSelectedCallback(this.props.option)} defaultChecked={this.props.isSelected}/>
-                <i className={classNames(this.getElementClasses())} title={this.props.option}><span className="sr-only">{this.props.option}</span></i>
+                <i className={classNames(this.getElementClasses())} title={this.props.option}>{ this.props.option === Options.MAYBE ? "?" : ""}<span className="sr-only">{this.props.option}</span></i>
             </label>
         );
     }
@@ -256,7 +256,7 @@ var ProgressBar = React.createClass({
       return {
           'progress-bar': true,
           'progress-bar-success': this.props.voteType === Options.YES,
-          'progress-bar-warning': this.props.voteType === Options.MAYBE,
+          'progress-bar-gold': this.props.voteType === Options.MAYBE,
           'progress-bar-danger': this.props.voteType === Options.NO,
         }
     },

@@ -14,7 +14,7 @@ function initialize() {
     var map = new google.maps.Map(mapCanvas, mapOptions);
     
     // container for places list
-    $("#map-container").append('<div id="places-list" class="col-md-3"/>');
+    $("#map-container").append('<div id="places-list" class="col-md-3"><p class="place-header">Places to vote for:</p></div>');
 
     var markers = [];
     var places;

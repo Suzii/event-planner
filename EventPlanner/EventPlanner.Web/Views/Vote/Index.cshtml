@@ -30,20 +30,20 @@
 }
 
 <div class="row row-adjust">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <h2>
             @Model.Title
             @*TODO: move this logic to controller*@
             @if (Model.OthersCanEdit || User.Identity.GetUserId() == Model.OrganizerId)
             {
-                @Html.ActionLink(" ", "Index", "Event", new { eventHash = Model.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline glyphicon-padding-right-bottom text-grey" })
+                @Html.ActionLink(" ", "Index", "Event", new { eventHash = Model.Id.GetUniqueUrlParameter() }, new { @class = "glyphicon glyphicon-pencil link-no-underline text-grey" })
             }
         </h2>
     </div>
 
     @*TODO: refactor position of text*@
-    <div class="col-md-4" style="padding-top: 3em;">
-        <span class="text-muted text-right pull-right">Created on: @Model.CreatedOn.ToShortDateString()</span>
+    <div class="col-md-2">
+        <span class="text-muted text-right">Created on: @Model.CreatedOn.ToShortDateString()</span>
     </div>
 </div>
 
@@ -57,14 +57,14 @@
     <div class="row row-adjust">
         <div className="row">
             <h3>Vote for dates:</h3>
-            <div class="col-sm-12" id="DatesVotingApp"></div>
+            <div id="DatesVotingApp"></div>
         </div>
 
         <hr/>
 
         <div className="row">
             <h3>Vote for places:</h3>
-            <div class="col-sm-12" id="PlacesVotingApp"></div>
+            <div id="PlacesVotingApp"></div>
         </div>
 
         <div class="row">

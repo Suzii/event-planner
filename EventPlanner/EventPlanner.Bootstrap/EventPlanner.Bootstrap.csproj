@@ -74,6 +74,7 @@
     <Content Include="Scripts\jquery-1.9.0.min.map" />
     <Content Include="Content\bootstrap\datepicker.less" />
     <Content Include="Content\bootstrap\map.less" />
+    <Content Include="Content\bootstrap\voting.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
