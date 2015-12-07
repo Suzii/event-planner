@@ -18,16 +18,18 @@ namespace EventPlanner.Web.Controllers
     public class EventController : Controller
     {
         private readonly IEventManagementService _eventManagementService;
+        private readonly IUserService _userService;
         private readonly IPlaceService _placeService;
 
         public EventController()
         {
             _eventManagementService = new EventManagementService();
+            _userService = new UserService();
             _placeService = new PlaceService();
             List<Object> list = new List<Object>
             {
                new {Value = "00:00:00", Text = "00:00"},
-               new {Value = "01:00:00", Text = "01:00"}, 
+               new {Value = "01:00:00", Text = "01:00"},
                new {Value = "02:00:00", Text = "02:00"},
                new {Value = "03:00:00", Text = "03:00"},
                new {Value = "04:00:00", Text = "04:00"},
@@ -49,17 +51,40 @@ namespace EventPlanner.Web.Controllers
                new {Value = "20:00:00", Text = "20:00"},
                new {Value = "21:00:00", Text = "21:00"},
                new {Value = "22:00:00", Text = "22:00"},
-               new {Value = "23:00:00", Text = "23:00"}  
+               new {Value = "23:00:00", Text = "23:00"}
             };
-           
+
             ViewBag.Times = list;
         }
 
         [HttpGet]
         public async Task<ActionResult> Index(string eventHash)
         {
-            var model = (eventHash == null) ? ConstructModel() : await GetModel(eventHash);
-            return View("Index", model);
+            if (eventHash == null)
+            {
+                return View("Index", GetDefaultModel());
+            }
+
+            Guid id;
+            try
+            {
+                id = _eventManagementService.GetEventId(eventHash);
+            }
+            catch (FormatException)
+            {
+                throw new System.Web.HttpException(500, "Invalid event hash");
+            }
+
+            if (await _userService.IsEventEditableFor(id, User.Identity.GetUserId()))
+            {
+                var model = await GetModel(id);
+                if (model != null)
+                {
+                    return View("Index", model);
+                }
+            }
+
+            throw new System.Web.HttpException(401, "Unauthorized access.");
         }
 
         [HttpPost]
@@ -72,10 +97,10 @@ namespace EventPlanner.Web.Controllers
 
             var eventEntity = Mapper.Map<Event>(model);
             eventEntity = (model.Id.HasValue) ?
-                await _eventManagementService.UpdateEventAsync(eventEntity) : 
+                await _eventManagementService.UpdateEventAsync(eventEntity) :
                 await _eventManagementService.CreateEventAsync(eventEntity, User.Identity.GetUserId());
-            
-            return RedirectToAction("Index", "Share", new {eventHash = eventEntity.Id.GetUniqueUrlParameter() });
+
+            return RedirectToAction("Index", "Share", new { eventHash = eventEntity.Id.GetUniqueUrlParameter() });
         }
 
         [HttpGet]
@@ -90,11 +115,10 @@ namespace EventPlanner.Web.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
-        private async Task<EventModel> GetModel(string eventHash)
+        private async Task<EventModel> GetModel(Guid eventId)
         {
-            var eventId = _eventManagementService.GetEventId(eventHash);
             var result = await _eventManagementService.GetFullEventAsync(eventId);
-            
+
             var model = Mapper.Map<EventModel>(result);
             if (model.Places == null)
             {
@@ -122,7 +146,7 @@ namespace EventPlanner.Web.Controllers
             }).ToList();
         }
 
-        private EventModel ConstructModel()
+        private EventModel GetDefaultModel()
         {
             return new EventModel()
             {

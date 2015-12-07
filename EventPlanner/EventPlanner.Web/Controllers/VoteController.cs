@@ -45,16 +45,15 @@ namespace EventPlanner.Web.Controllers
             {
                 throw new System.Web.HttpException(500, "Invalid event hash");
             }
+
             var eventViewmodel = await ConstructEventViewModel(id);
 
             if (eventViewmodel == null)
             {
                 throw new System.Web.HttpException(500, "Invalid event hash");
             }
-            else
-            {
-                return View("Index", eventViewmodel);
-            }
+
+            return View("Index", eventViewmodel);
         }
 
         [HttpGet]
