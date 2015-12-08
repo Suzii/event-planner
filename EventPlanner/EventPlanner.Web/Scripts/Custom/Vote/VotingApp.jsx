@@ -35,7 +35,7 @@ var Tooltip = React.createClass({
 
 var VotingApp = React.createClass({
     propTypes: {
-        loadingImgUrl: React.PropTypes.string.isRequired,
+        loadingImgUrl: React.PropTypes.string,
         eventId: React.PropTypes.string,
         submitVotesUrl: React.PropTypes.string,
         getInitialDataUrl: React.PropTypes.string
@@ -52,7 +52,8 @@ var VotingApp = React.createClass({
         return {
             eventId: $(selector).attr('data-event-id'),
             submitVotesUrl: $(selector).attr('data-submit-vote-url'),
-            getInitialDataUrl: $(selector).attr('data-get-initial-data-url')      
+            getInitialDataUrl: $(selector).attr('data-get-initial-data-url'),
+            loadingImgUrl: $(selector).attr('data-loading-img-url')
         };
     },    
     componentDidMount: function() {
@@ -124,7 +125,6 @@ var VotingApp = React.createClass({
                                 'even-row': (index%2 == 0),
                                 'odd-row': (index%2 == 1),
                             };
-                            console.log(classes);
                             return(
                                 <div className={classNames(classes)}>
                                     <VoteOption key={option.optionId}

@@ -7,26 +7,8 @@
 
 @section Scripts {
     @Scripts.Render("https://maps.googleapis.com/maps/api/js")
-    @Scripts.Render("~/Scripts/Custom/Vote/GoogleMapsModule.js")
     @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/classnames/2.2.0/index.min.js")
-
-    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Spinner.jsx")"></script>
-    <script type="text/jsx" src="@Url.Content("~/Scripts/Custom/Vote/VotingApp.jsx")"></script>
-    <script type="text/jsx">
-        React.render(<
-        VotingApp loadingImgUrl="@Url.Content("~/Content/images/loading_spinner.gif")"
-                  eventId="@Model.Id"
-                  submitVotesUrl="@Url.Action("SubmitVoteForDate", "Vote", routeValues: new {eventId = Model.Id}))"
-                  getInitialDataUrl="@Url.Action("GetVoteForDateModel", "Vote", routeValues: new {eventId = Model.Id})"/>, 
-        document.getElementById('DatesVotingApp'));
-        
-        React.render(
-        <VotingApp loadingImgUrl="@Url.Content("~/Content/images/loading_spinner.gif")"
-                   eventId="@Model.Id"
-                   submitVotesUrl="@Url.Action("SubmitVoteForPlace", "Vote", routeValues: new {eventId = Model.Id}))"
-                   getInitialDataUrl="@Url.Action("GetVoteForPlaceModel", "Vote", routeValues: new {eventId = Model.Id})" />,
-        document.getElementById('PlacesVotingApp'));
-    </script>
+    @Scripts.Render("~/Scripts/Compiled/vote-bundle.js")
 }
 
 <div class="row row-adjust">
@@ -57,19 +39,29 @@
     <div class="row row-adjust">
         <div className="row">
             <h3>Vote for dates:</h3>
-            <div id="DatesVotingApp"></div>
+            <div id="DatesVotingApp"
+                 data-loading-img-url="@Url.Content("~/Content/images/loading_spinner.gif")"
+                 data-event-id="@Model.Id"
+                 data-submit-vote-url="@Url.Action("SubmitVoteForDate", "Vote", routeValues: new {eventId = Model.Id}))"
+                 data-get-initial-data-url="@Url.Action("GetVoteForDateModel", "Vote", routeValues: new {eventId = Model.Id})"></div>
         </div>
 
         <hr/>
 
         <div className="row">
             <h3>Vote for places:</h3>
-            <div id="PlacesVotingApp"></div>
+            <div id="PlacesVotingApp"
+                 data-loading-img-url="@Url.Content("~/Content/images/loading_spinner.gif")"
+                 data-event-id="@Model.Id"
+                 data-submit-vote-url="@Url.Action("SubmitVoteForPlace", "Vote", routeValues: new {eventId = Model.Id}))"
+                 data-get-initial-data-url="@Url.Action("GetVoteForPlaceModel", "Vote", routeValues: new {eventId = Model.Id})"></div>
         </div>
 
         <div class="row">
             <div class="col-md-12 v-space40" id="mapModule">
-                @{ Html.RenderPartial("_mapModule");}
+                <div class="row row-adjust" id="map-container" data-places="@Url.Action("GetPlacesModelForMap", "Vote", routeValues: new {eventId = Model.Id})">
+                    <div id="map" class="map col-md-9" />
+                </div>
             </div>
         </div>
     </div>

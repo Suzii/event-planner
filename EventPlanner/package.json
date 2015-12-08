@@ -6,10 +6,17 @@
   "author": "Janka",
   "license": "",
   "devDependencies": {
+    "babel-preset-react": "^6.3.13",
+    "classnames": "^2.2.1",
     "gulp": "~3.9.0",
-    "gulp-util": "~3.0.7",
+    "gulp-concat": "^2.6.0",
+    "gulp-jsx": "~2.0.1",
     "gulp-less": "~3.0.5",
     "gulp-minify-css": "~1.2.1",
-    "gulp-jsx": "~2.0.1"
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "~3.0.7"
+  },
+  "dependencies": {
+    "react": "^0.13.0-rc2"
   }
 }

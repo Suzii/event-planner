@@ -100,7 +100,9 @@ function DelDate(id) {
     indexTimeMinus++;
     //checked if it has siblings
     while ($("input#Dates_" + indexTimeMinus + "__Date").length > 0) {
-        
+
+        console.debug('indexTimeMinus=' + indexTimeMinus + '; indexDel=' + indexDel);
+
         var m = $("input#Dates_" + indexTimeMinus + "__Date");
      //   console.log(m.attr("id") + " id old");
         m.attr("id", "Dates_" + indexDel + "__Date");
@@ -108,7 +110,7 @@ function DelDate(id) {
      //   console.log(m.attr("id") + " id new");
 
         //change name of span      
-        n = $("span#divcust" + indexTimeMinus);
+        var n = $("span#divcust" + indexTimeMinus);
         n.attr("id", "divcust" + indexDel);
 
         //change name of delete button     
@@ -158,10 +160,3 @@ function changeTimeId(indexDel) {
         }
 
 }
-
-
-
-
-
-
-
