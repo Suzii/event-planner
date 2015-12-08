@@ -289,7 +289,6 @@
     <Content Include="Views\Manage\ChangeName.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WillAttend.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\_timeDropdownSelector.cshtml" />
-    <Content Include="Views\Vote\_mapModule.cshtml" />
     <Content Include="Views\Vote\Index.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
