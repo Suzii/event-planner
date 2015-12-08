@@ -45,14 +45,15 @@ function DelTime(id) {
         position++;
         for (var i = 0; i <= m.length; i++) {
             //change id and name
-            n = $("select#Dates_" + indexDel + "Times_" + position);
+            console.debug('indexDel=' + indexDel + '; position=' + position);
+            var n = $("select#Dates_" + indexDel + "Times_" + position);
             n.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus);
             n.attr('name', "Dates[" + indexDel + "].Times[" + indexTimeMinus + "].Time");
             //change del button
-            b = $("select#Dates_" + indexDel + "Times_" + indexTimeMinus).next("button");
+            var b = $("select#Dates_" + indexDel + "Times_" + indexTimeMinus).next("button");
             b.attr("id", "btnDel-" + indexDel + "_" + indexTimeMinus);
             //change hidden
-            h = $("#Dates_" + indexDel + "Times_" + position + "__Id");
+            var h = $("#Dates_" + indexDel + "Times_" + position + "__Id");
             h.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus + "__Id");
             h.attr('name', "Dates[" + indexDel + "].Times[" + indexTimeMinus + "].Id");
 
@@ -66,5 +67,3 @@ function DelTime(id) {
     $("#Dates_" + indexDel + "Times_" + indexTime + "__Id").remove();
     $('#' + id).remove();
 };
-
-

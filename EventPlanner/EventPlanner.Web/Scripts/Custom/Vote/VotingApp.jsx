@@ -125,7 +125,6 @@ var VotingApp = React.createClass({
                                 'even-row': (index%2 == 0),
                                 'odd-row': (index%2 == 1),
                             };
-                            console.log(classes);
                             return(
                                 <div className={classNames(classes)}>
                                     <VoteOption key={option.optionId}

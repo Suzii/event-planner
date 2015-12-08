@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='build-less' ProjectOpened='watch' />
+/// <binding BeforeBuild='build-less, build-vote-js, build-event-js' />
 // For more information on how to configure a task runner, please visit:
 // https://github.com/gulpjs/gulp
 
@@ -22,7 +22,7 @@ gulp.task('build-less', function () {
 });
 
 gulp.task('build-vote-js', function () {
-    return gulp.src(['./EventPlanner.Web/Scripts/Custom/Vote/*.jsx'])
+    return gulp.src(['./EventPlanner.Web/Scripts/Custom/Vote/*.jsx', './EventPlanner.Web/Scripts/Custom/Vote/*.js'])
       .pipe(sourcemaps.init())
       .pipe(babel({
           presets: ['es2015', 'react']
