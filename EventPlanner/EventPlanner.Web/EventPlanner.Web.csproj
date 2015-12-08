@@ -224,7 +224,8 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Scripts\Custom\Vote\VotingApp.jsx" />
-    <Content Include="Scripts\Custom\Spinner.jsx" />
+    <Content Include="Scripts\Custom\Vote\Spinner.jsx" />
+    <Content Include="Scripts\Custom\Vote\PageInit.jsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\Vote\GoogleMapsModule.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
