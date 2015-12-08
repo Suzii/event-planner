@@ -35,13 +35,10 @@ function AddDate() {
 
     element = "<span id='divcust" + window.indexx + "'>";
     container.append(element);
-
-    //delete button
-    container = $('#divcust' + window.indexx);
-    var button = "<button id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' class='btn btn-default'>  <spann class='glyphicon glyphicon-remove' aria-hidden='true'/></ button>";
-    container.append(button);
+       
 
     //datepicker
+    container = $('#divcust' + window.indexx);
     element = $('#Dates_0__Date').clone();
     element.attr('id', "Dates_" + window.indexx + "__Date");
     element.attr('name', "Dates[" + window.indexx + "].Date");
@@ -50,6 +47,10 @@ function AddDate() {
     //add bootstrap datepicker
     element.datepicker(APP.getDarePickerConfig());
     container.append(element);
+
+    //delete button
+    var button = "<button id='btnDel-" + window.indexx + "' type='button' onclick='DelDate(this.id);' class='btn btn-default btn-xs'>  <spann class='glyphicon glyphicon-remove' aria-hidden='true'/></ button>";
+    container.append(button);
 
     //first hidden
     element = $('#Dates_0Times_0Id').clone();

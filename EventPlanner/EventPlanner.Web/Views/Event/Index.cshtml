@@ -30,7 +30,7 @@
     {
         <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i></button>
-            @Html.ValidationSummary(false, "Errors: ")
+            @Html.ValidationSummary(false, "Some things needs your attention before sending: ")
         </div>
     }
     @using (Html.BeginForm("Index", "Event", FormMethod.Post, new {@class = ""}))
@@ -41,27 +41,27 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+                @Html.TextBoxFor(m => m.Title, new {@class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
 
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Desc)
-                @Html.TextAreaFor(m => m.Desc, new {@class = "form-control"})
+                @Html.TextAreaFor(m => m.Desc, new {@class = "form-control wide-input" })
                 @Html.ValidationMessageFor(m => m.Desc, "", new {@class = "text-danger"})
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.ExpectedLength)
-                @Html.EditorFor(m => m.ExpectedLength, new {@class = "form-control"})
+                @Html.EditorFor(m => m.ExpectedLength, new {@class = "form-control short-input" })
                 hours
                 @Html.ValidationMessageFor(m => m.ExpectedLength, "", new {@class = "text-danger"})
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.OthersCanEdit)
-                @Html.EditorFor(m => m.OthersCanEdit, new {@class = "form-control"})
+                @Html.EditorFor(m => m.OthersCanEdit, new { @class = "form-control" })
+                @Html.LabelFor(m => m.OthersCanEdit, new { @style = "padding-left: 1em;"})
                 @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
             </div>
 
@@ -70,19 +70,28 @@
             <hr/>
             <h3>Choose dates:</h3>
             <span id="divDate">
-                 
-                    @for (var i = 0; i < Model.Dates.Count; i++)
+            @*@Html.ValidationMessageFor(m => m.Dates, "", new { @class = "text-danger row row-adjust" })*@
+                    
+                @for (var i = 0; i < Model.Dates.Count; i++)
                     {
-                        <br id=@("br" + i) />
-                        //delete button for date and time
                         if (i != 0)
                         {
-                            @: <button id = @("btnDel-" + i) type ="button" onclick ="DelDate(this.id);" class="btn btn-default">  <span class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
+                            <br id=@("br" + i) />
                         }
 
                         //date
                         @:  <span id="@("divcust" + i)">
                         @Html.TextBoxFor(m => m.Dates[i].Date, "{0:yyyy-MM-dd}", new {@class = "datepicker", type = "date"})
+
+                        //delete button for date and time
+                        if (i != 0)
+                        {
+                            @: <button id=@("btnDel-" + i) type="button" onclick="DelDate(this.id);" class="btn btn-default btn-xs">  <span class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
+                        }
+                        else
+                        {
+
+                        }
 
                         //time
                         for (var j = 0; j < Model.Dates[i].Times.Count; j++)
@@ -102,7 +111,7 @@
            </span>
             @Html.ValidationMessageFor(m => m.Dates, "", new {@class = "text-danger"})
             <br/>
-            <input type="button" id="btnAddDate" value="Add date" onclick="AddDate();" class="btn btn-default" style="width: 90px"/>
+            <input type="button" id="btnNewDate" value="Add date" onclick="AddDate();" class="btn btn-default" style="width: 90px"/>
         </div>
 
         //NOTE: FourSquare module goes here. All html code is renderd inside of ReactJS module.

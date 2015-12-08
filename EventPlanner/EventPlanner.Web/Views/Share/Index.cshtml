@@ -11,8 +11,8 @@
 <h2>Share your event</h2>
 <p class="">Copy this link and share it with your friends, so they can vote for their favourite option.</p>
 
-<div class="row row-adjust">
-    <div class="col-md-5">
+<div class="row">
+    <div class="col-md-12">
         @Html.TextBox("URL", Model.Link, new { @class = "form-control wide-input", id = "clipboard", onClick = "this.select();" })
     </div>
     
@@ -24,7 +24,7 @@
 </div>
 
 <h4 class="v-space40">Or share your event directly on Facebook:</h4>
-<div class="fb-share-button" data-href="@Html.DisplayNameFor(model => model.Link)" data-layout="button"></div>
+<div class="fb-share-button" data-href="@Model.Link" data-layout="button"></div>
 
 <hr />
 @*<p class="v-space40">Now you can go to the voting page for your new event:</p>*@
