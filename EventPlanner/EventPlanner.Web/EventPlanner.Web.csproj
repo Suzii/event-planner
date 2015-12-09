@@ -214,6 +214,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="README.md" />
+    <Content Include="Scripts\Compiled\event-bundle.js" />
+    <Content Include="Scripts\Compiled\vote-bundle.js" />
     <Content Include="Scripts\Custom\Event\Page.js" />
     <Content Include="Scripts\Custom\Share\FacebookShareModule.js" />
     <Content Include="Scripts\Custom\Event\FourSquareSearchModule.jsx" />
@@ -227,6 +229,8 @@
     <Content Include="Scripts\Custom\Vote\Spinner.jsx" />
     <Content Include="Scripts\Custom\Vote\PageInit.jsx" />
     <Content Include="Scripts\Custom\Event\PageInit.jsx" />
+    <Content Include="Scripts\Compiled\event-bundle.js.map" />
+    <Content Include="Scripts\Compiled\vote-bundle.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\Vote\GoogleMapsModule.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
