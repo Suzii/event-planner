@@ -19,7 +19,7 @@ namespace EventPlanner.DAL.Repository
         ///     Asynchronous method that returns all existing date votes.
         /// </summary>
         /// <returns>List of date votes</returns>
-        public async Task<List<VoteForDate>> GetAll()
+        public virtual async Task<List<VoteForDate>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
@@ -74,7 +74,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="voteForDate">Date vote entity with related</param>
         /// <returns>Returns created date vote entity</returns>
-        public async Task<VoteForDate> AddOrUpdate(VoteForDate voteForDate)
+        public virtual async Task<VoteForDate> AddOrUpdate(VoteForDate voteForDate)
         {
             using (var context = EventPlannerContext.Get())
             {

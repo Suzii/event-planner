@@ -68,6 +68,7 @@
     <Compile Include="Implementation\EventManagementServiceTests.cs" />
     <Compile Include="Implementation\PlaceServiceTests.cs" />
     <Compile Include="Implementation\UserServiceTests.cs" />
+    <Compile Include="Implementation\VotingServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +90,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

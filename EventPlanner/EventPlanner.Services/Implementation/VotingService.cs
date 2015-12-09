@@ -30,7 +30,7 @@ namespace EventPlanner.Services.Implementation
         /// <param name="eventDetailsService">EventDetailsService to operate with</param>
         /// <param name="voteForDateRepository">VoteForDateRepository to operate with</param>
         /// <param name="voteForPlaceRepository">VoteForPlaceRepository to operate with</param>
-        public VotingService(EventDetailsService eventDetailsService, VoteForDateRepository voteForDateRepository,
+        public VotingService(IEventDetailsService eventDetailsService, VoteForDateRepository voteForDateRepository,
             VoteForPlaceRepository voteForPlaceRepository)
         {
             _eventDetailsService = eventDetailsService;
