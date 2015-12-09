@@ -19,7 +19,7 @@ namespace EventPlanner.DAL.Repository
         ///     Asynchronous method that returns all existing place votes.
         /// </summary>
         /// <returns>List of place votes</returns>
-        public async Task<List<VoteForPlace>> GetAll()
+        public virtual async Task<List<VoteForPlace>> GetAll()
         {
             using (var context = EventPlannerContext.Get())
             {
@@ -74,7 +74,7 @@ namespace EventPlanner.DAL.Repository
         /// </summary>
         /// <param name="voteForPlace">Place vote entity with related</param>
         /// <returns>Returns created place vote entity</returns>
-        public async Task<VoteForPlace> AddOrUpdate(VoteForPlace voteForPlace)
+        public virtual async Task<VoteForPlace> AddOrUpdate(VoteForPlace voteForPlace)
         {
             using (var context = EventPlannerContext.Get())
             {
