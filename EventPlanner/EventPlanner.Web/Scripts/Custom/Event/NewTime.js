@@ -27,6 +27,7 @@ function AddTime(id) {
     //button del
     var button = "<button id='btnDel-" + index + "_" + idTime + "' type='button' onclick='DelTime(this.id);'  class='btn btn-default btn-xs'>  <spann class='glyphicon glyphicon-remove' aria-hidden='true' /></ button>";
     container.append(button);
+    
     window.idTime++;
 };
 

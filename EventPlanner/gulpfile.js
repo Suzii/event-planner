@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='build-less, build-vote-js, build-event-js' />
+/// <binding BeforeBuild='build-less, build-vote-js, build-event-js' ProjectOpened='watch-css' />
 // For more information on how to configure a task runner, please visit:
 // https://github.com/gulpjs/gulp
 
@@ -48,9 +48,9 @@ gulp.task('watch-css', function () {
 });
 
 gulp.task('watch-vote-js', function () {
-    gulp.watch(['./**/Scripts/Custom/Vote/*.jsx'], ['build-vote-js']);
+    gulp.watch(['./EventPlanner.Web/Scripts/Custom/Vote/*.jsx'], ['build-vote-js']);
 });
 
 gulp.task('watch-event-js', function () {
-    gulp.watch(['./**/Scripts/Custom/Vote/*.jsx', './**/Scripts/Custom/Vote/*.js'], ['build-event-js']);
+    gulp.watch(['./EventPlanner.Web/Scripts/Custom/Event/*.jsx', './**/Scripts/Custom/Event/*.js'], ['build-event-js']);
 });

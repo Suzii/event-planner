@@ -78,20 +78,19 @@
                         {
                             @: <button id=@("btnDel-" + i) type="button" onclick="DelDate(this.id);" class="btn btn-default btn-xs">  <span class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
                         }
-                        else
-                        {
-
-                        }
 
                         //time
-                        for (var j = 0; j < Model.Dates[i].Times.Count; j++)
+                        if (Model.Dates[i].Times != null)
                         {
-                            @Html.HiddenFor(m => m.Dates[i].Times[j].Id, new {id = "Dates_" + i + "Times_" + j + "Id"})
-                            @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new {@class = "form-control-select", id = "Dates_" + i + "Times_" + j})
-                            //delete button for time  
-                            if (!((j == 0) && (i == 0)))
+                            for (var j = 0; j < Model.Dates[i].Times.Count; j++)
                             {
-                                @:  <button id=@("btnDel-" + i + "_" + j) type="button" onclick="DelTime(this.id);"  class="btn btn-default btn-xs" ><span class='glyphicon glyphicon-remove' aria-hidden='true' /></button>   
+                                @Html.HiddenFor(m => m.Dates[i].Times[j].Id, new { id = "Dates_" + i + "Times_" + j + "Id" })
+                                @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new { @class = "form-control-select", id = "Dates_" + i + "Times_" + j })
+                                //delete button for time  
+                                if (!((j == 0) || (i == 0)))
+                                {
+                                    @:  <button id=@("btnDel-" + i + "_" + j) type="button" onclick="DelTime(this.id);"  class="btn btn-default btn-xs" ><span class='glyphicon glyphicon-remove' aria-hidden='true' /></button>   
+                                }
                             }
                         }
                         @:  </span>

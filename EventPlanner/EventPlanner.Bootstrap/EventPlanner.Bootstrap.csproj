@@ -76,6 +76,8 @@
     <Content Include="Content\bootstrap\map.less" />
     <Content Include="Content\bootstrap\voting.less" />
     <Content Include="Content\bootstrap\dates.less" />
+    <Content Include="Content\bootstrap\datepicker-custom.less" />
+    <Content Include="Content\bootstrap\typeahead.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
