@@ -70,9 +70,9 @@ namespace EventPlanner.Web.Controllers
             {
                 id = _eventManagementService.GetEventId(eventHash);
             }
-            catch (FormatException)
+            catch (FormatException e)
             {
-                throw new System.Web.HttpException(500, "Invalid event hash");
+                throw new System.Web.HttpException(500, "Invalid event hash", e);
             }
 
             if (await _userService.IsEventEditableFor(id, User.Identity.GetUserId()))
