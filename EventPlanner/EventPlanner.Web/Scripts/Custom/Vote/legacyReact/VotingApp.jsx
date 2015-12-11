@@ -21,18 +21,6 @@ var MappingHelper = {
     }
 };
 
-var Tooltip = React.createClass({
-    propTypes: {
-        data: React.PropTypes.string,
-    },
-    render: function() {
-        return (
-            <div />
-        );
-    }
-
-});
-
 var VotingApp = React.createClass({
     propTypes: {
         loadingImgUrl: React.PropTypes.string,
@@ -243,7 +231,6 @@ var VoteOptionForm = React.createClass({
             </div>
         );
     }
-
 });
 
 var ProgressBar = React.createClass({
