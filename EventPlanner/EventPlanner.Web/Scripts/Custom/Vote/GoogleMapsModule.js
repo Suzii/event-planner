@@ -20,8 +20,8 @@ function initialize() {
     var places;
     var bounds = new google.maps.LatLngBounds();
     var infowindow = new google.maps.InfoWindow();
-    var iconUrl = './../../../Content/Images/point.png';
-
+    var iconUrl = $("#map-container").attr("data-icon-image-url");
+    
     // getting places from json
     $.getJSON($("#map-container").attr("data-places"), function (data) {
         places = data.Data;
