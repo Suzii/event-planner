@@ -7,7 +7,7 @@
 
 @section Scripts {
     @Scripts.Render("https://maps.googleapis.com/maps/api/js")
-    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/classnames/2.2.0/index.min.js")
+    @Scripts.Render("~/Scripts/Custom/Vote/GoogleMapsModule.js")
     @Scripts.Render("~/Scripts/Compiled/vote-bundle.js")
 }
 
@@ -59,7 +59,10 @@
 
         <div class="row">
             <div class="col-md-12 v-space40" id="mapModule">
-                <div class="row row-adjust" id="map-container" data-places="@Url.Action("GetPlacesModelForMap", "Vote", routeValues: new {eventId = Model.Id})">
+                <div id="map-container"
+                     class="row row-adjust"
+                     data-places="@Url.Action("GetPlacesModelForMap", "Vote", routeValues: new {eventId = Model.Id})"
+                     data-icon-image-url="@Url.Content("~/Content/Images/point.png")">
                     <div id="map" class="map col-md-9" />
                 </div>
             </div>

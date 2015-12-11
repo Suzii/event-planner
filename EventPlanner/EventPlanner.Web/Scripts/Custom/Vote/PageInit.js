@@ -1,7 +1,10 @@
-﻿var APP = APP || {};
+﻿import React from 'react';
+import {VotingApp} from './VotingApp';
+
+var APP = APP || {};
 APP.datesAppId = 'DatesVotingApp';
 APP.placesAppId = 'PlacesVotingApp';
-APP.initializeVotingComponent = function(elementId) {
+APP.initializeVotingComponent = (elementId) => {
   var selector = '#'+elementId;
   React.render(<
         VotingApp loadingImgUrl={$(selector).attr('data-loading-img-url')}
@@ -13,6 +16,7 @@ APP.initializeVotingComponent = function(elementId) {
 
 $(function() {
   console.log('Initializing Dates voting app.');
+  console.log(VotingApp);
   APP.initializeVotingComponent(APP.datesAppId);
 
   console.log('Initializing Places voting app.');

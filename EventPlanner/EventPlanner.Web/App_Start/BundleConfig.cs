@@ -16,8 +16,8 @@ namespace EventPlanner.Web
 
 
             bundles.Add(new ScriptBundle("~/bundles/react").Include(
-                        "~/Scripts/React/react.js"
-                        /*"~/Scripts/React/JSXTransformer.js"*/));
+                        "~/Scripts/React/react.js",
+                        "~/Scripts/React/JSXTransformer.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
