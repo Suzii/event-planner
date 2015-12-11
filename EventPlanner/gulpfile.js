@@ -13,6 +13,8 @@ var sourcemaps = require("gulp-sourcemaps");
 var babel = require("gulp-babel");
 var concat = require("gulp-concat");
 
+
+ /* ----------------- LESS files ----------------- */
 gulp.task('build-less', function () {
     return gulp.src('./EventPlanner.Bootstrap/Content/bootstrap/bootstrap.less')
         .pipe(less())
@@ -21,17 +23,23 @@ gulp.task('build-less', function () {
         .pipe(gulp.dest('./EventPlanner.Web/Content/'));
 });
 
-gulp.task('build-vote-js', function () {
-    return gulp.src(['./EventPlanner.Web/Scripts/Custom/Vote/*.jsx', './EventPlanner.Web/Scripts/Custom/Vote/*.js'])
-      .pipe(sourcemaps.init())
-      .pipe(babel({
-          presets: ['es2015', 'react']
-      }))
-      .pipe(concat("vote-bundle.js"))
-      .pipe(sourcemaps.write("."))
-      .pipe(gulp.dest('./EventPlanner.Web/Scripts/Compiled/'));
+gulp.task('watch-css', function () {
+    gulp.watch('./**/*.less', ['build-less']);
 });
 
+/* ----------------- Vote page JavaScript----------------- */
+//gulp.task('build-vote-js', function () {
+//    return gulp.src(['./EventPlanner.Web/Scripts/Custom/Vote/*.jsx', './EventPlanner.Web/Scripts/Custom/Vote/*.js'])
+//      .pipe(sourcemaps.init())
+//      .pipe(babel({
+//          presets: ['es2015', 'react']
+//      }))
+//      .pipe(concat("vote-bundle.js"))
+//      .pipe(sourcemaps.write("."))
+//      .pipe(gulp.dest('./EventPlanner.Web/Scripts/Compiled/'));
+//});
+
+/* ----------------- Event page JavaScript----------------- */
 gulp.task('build-event-js', function () {
     return gulp.src(['./EventPlanner.Web/Scripts/Custom/Event/*.jsx', './EventPlanner.Web/Scripts/Custom/Event/*.js'])
       .pipe(sourcemaps.init())
@@ -43,14 +51,12 @@ gulp.task('build-event-js', function () {
       .pipe(gulp.dest('./EventPlanner.Web/Scripts/Compiled/'));
 });
 
-gulp.task('watch-css', function () {
-    gulp.watch('./**/*.less', ['build-less']);
-});
 
-gulp.task('watch-vote-js', function () {
-    gulp.watch(['./EventPlanner.Web/Scripts/Custom/Vote/*.jsx'], ['build-vote-js']);
-});
+//gulp.task('watch-vote-js', function () {
+//    gulp.watch(['./EventPlanner.Web/Scripts/Custom/Vote/*.jsx'], ['build-vote-js']);
+//});
 
-gulp.task('watch-event-js', function () {
-    gulp.watch(['./EventPlanner.Web/Scripts/Custom/Event/*.jsx', './**/Scripts/Custom/Event/*.js'], ['build-event-js']);
-});
+//gulp.task('watch-event-js', function () {
+//    gulp.watch(['./EventPlanner.Web/Scripts/Custom/Event/*.jsx', './**/Scripts/Custom/Event/*.js'], ['build-event-js']);
+//});
+
