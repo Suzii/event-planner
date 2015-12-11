@@ -1,14 +1,19 @@
-// Webpack
 var webpack = require('webpack');
 
-/* ----------------- WEBPACK Vote page JavaScript----------------- */
 module.exports = {
-    entry: [
-      './EventPlanner.Web/Scripts/Custom/Vote/PageInit.js'
-    ],
+    entry: {
+        event: [
+            './EventPlanner.Web/Scripts/Custom/Event/Page.js',
+            './EventPlanner.Web/Scripts/Custom/Event/PageInit.js'
+        ],
+        vote: [
+            './EventPlanner.Web/Scripts/Custom/Vote/GoogleMapsModule.js',
+            './EventPlanner.Web/Scripts/Custom/Vote/PageInit.js'
+        ]
+    },
     output: {
         path: './EventPlanner.Web/Scripts/Compiled/',
-        filename: "vote-bundle.js"
+        filename: '[name]-bundle.js'
     },
     module: {
         loaders: [{

@@ -29,4 +29,5 @@
   "dependencies": {
     "classnames": "^2.1.5"
   }
+, "-vs-binding":{"BeforeBuild":["build"]}
 }
