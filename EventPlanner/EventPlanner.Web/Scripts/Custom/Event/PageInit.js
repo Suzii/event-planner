@@ -1,4 +1,7 @@
-﻿console.log('Initializing FourSquare search app.');
+﻿import React from 'react';
+import {FourSquareApp} from './FourSquareApp';
+
+console.log('Initializing FourSquare search app.');
 
 React.render(
 <FourSquareApp getDataURL={$('#FourSquareSearchModule').attr('data-get-data-url')}
