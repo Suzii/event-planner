@@ -50,12 +50,14 @@ function DelTime(id) {
             var n = $("select#Dates_" + indexDel + "Times_" + position);
             n.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus);
             n.attr('name', "Dates[" + indexDel + "].Times[" + indexTimeMinus + "].Time");
+
             //change del button
             var b = $("select#Dates_" + indexDel + "Times_" + indexTimeMinus).next("button");
             b.attr("id", "btnDel-" + indexDel + "_" + indexTimeMinus);
+
             //change hidden
             var h = $("#Dates_" + indexDel + "Times_" + position + "__Id");
-            h.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus + "__Id");
+            h.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus + "_Id");
             h.attr('name', "Dates[" + indexDel + "].Times[" + indexTimeMinus + "].Id");
 
             indexTimeMinus++;

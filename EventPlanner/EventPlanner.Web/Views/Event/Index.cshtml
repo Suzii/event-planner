@@ -65,33 +65,35 @@
             @*@Html.ValidationMessageFor(m => m.Dates, "", new { @class = "text-danger row row-adjust" })*@
                     
                 @for (var i = 0; i < Model.Dates.Count; i++)
-                    {
-                        if (i != 0)
-                        {
-                            <br id=@("br" + i) />
-                        }
+                {
 
-                        //date
+                    //delete button for date and time
+                     if (i != 0)
+                    {
+                     <br id=@("br" + i) />
+                         @: <button id=@("btnDel-" + i) type="button" onclick="DelDate(this.id);" class="btn btn-default">  <spann class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
+                         
+                        
+                   }
+
+                    //date
                         @:  <span id="@("divcust" + i)">
                         @Html.TextBoxFor(m => m.Dates[i].Date, "{0:yyyy-MM-dd}", new {@class = "datepicker", type = "date"})
 
-                        //delete button for date and time
-                        if (i != 0)
-                        {
-                            @: <button id=@("btnDel-" + i) type="button" onclick="DelDate(this.id);" class="btn btn-default btn-xs">  <span class='glyphicon glyphicon-remove' aria-hidden='true' /></button>
-                        }
+                  
 
-                        //time
-                        if (Model.Dates[i].Times != null)
-                        {
-                            for (var j = 0; j < Model.Dates[i].Times.Count; j++)
-                            {
+    //time
+    if (Model.Dates[i].Times != null)
+    {
+        for (var j = 0; j < Model.Dates[i].Times.Count; j++)
+        {
                                 @Html.HiddenFor(m => m.Dates[i].Times[j].Id, new { id = "Dates_" + i + "Times_" + j + "Id" })
                                 @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new { @class = "form-control-select", id = "Dates_" + i + "Times_" + j })
-                                //delete button for time  
-                                if (!((j == 0) || (i == 0)))
-                                {
-                                    @:  <button id=@("btnDel-" + i + "_" + j) type="button" onclick="DelTime(this.id);"  class="btn btn-default btn-xs" ><span class='glyphicon glyphicon-remove' aria-hidden='true' /></button>   
+                            
+                            //delete button for time  
+                            if (j != 0)
+                            {
+                                    @:  <button id=@("btnDel-" + i + "_" + j) type="button" onclick="DelTime(this.id);"  class="btn btn-default btn-xs" ><spann class='glyphicon glyphicon-remove' aria-hidden='true' /></button>   
                                 }
                             }
                         }
