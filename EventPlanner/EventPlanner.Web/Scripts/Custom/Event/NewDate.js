@@ -164,7 +164,7 @@ function changeTimeId(indexDel) {
 
             //change hidden
             var h = $("#Dates_" + index + "Times_" + i + "__Id");
-            h.attr("id", "Dates_" + indexDell + "Times_" + i + "Id");
+            h.attr("id", "Dates_" + indexDell + "Times_" + i + "__Id");
             h.attr('name', "Dates[" + indexDell + "].Times[" + i + "].Id");
 
         }

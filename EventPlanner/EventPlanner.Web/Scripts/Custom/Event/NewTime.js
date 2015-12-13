@@ -57,7 +57,7 @@ function DelTime(id) {
 
             //change hidden
             var h = $("#Dates_" + indexDel + "Times_" + position + "__Id");
-            h.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus + "_Id");
+            h.attr("id", "Dates_" + indexDel + "Times_" + indexTimeMinus + "__Id");
             h.attr('name', "Dates[" + indexDel + "].Times[" + indexTimeMinus + "].Id");
 
             indexTimeMinus++;
