@@ -55,9 +55,20 @@
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
+@font-path:          "fonts/";
+@font-face {
+    font-family: 'Lobster-cz';
+    src: url('@{icon-font-path}lobster-cz.eot');
+    src: url('@{icon-font-path}lobster-cz.eot') format('embedded-opentype'),
+         url('@{icon-font-path}lobster-cz.woff') format('woff'),
+         url('@{icon-font-path}lobster-cz.ttf') format('truetype'),
+         url('@{icon-font-path}lobster-cz.svg#Lobster1.4Regular') format('svg');
+}
 
 @font-family-sans-serif:  "Dosis", "Open Sans", Arial, sans-serif;
-@font-family-serif:       "Lobster", "Times New Roman", Times, serif;
+@font-family-serif:       "Lobster-cz", "Times New Roman", Times, serif;
+
+
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
@@ -92,7 +103,7 @@
 //## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
 
 //** Load fonts from this directory.
-@icon-font-path:          "../fonts/";
+@icon-font-path:          "fonts/";
 /*@icon-font-path:          "../../../EventPlanner.Web/Content/fonts/";*/
 //** File name for all font files.
 @icon-font-name:          "glyphicons-halflings-regular";

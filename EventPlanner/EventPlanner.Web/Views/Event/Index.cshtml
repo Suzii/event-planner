@@ -82,11 +82,11 @@
 
                   
 
-    //time
-    if (Model.Dates[i].Times != null)
-    {
-        for (var j = 0; j < Model.Dates[i].Times.Count; j++)
-        {
+                        //time
+                        if (Model.Dates[i].Times != null)
+                        {
+                            for (var j = 0; j < Model.Dates[i].Times.Count; j++)
+                            {
                                 @Html.HiddenFor(m => m.Dates[i].Times[j].Id, new { id = "Dates_" + i + "Times_" + j + "Id" })
                                 @Html.DropDownListFor(m => m.Dates[i].Times[j].Time, new SelectList((ViewBag.Times), "Value", "Text", Model.Dates[i].Times[j].Time), new { @class = "form-control-select", id = "Dates_" + i + "Times_" + j })
                             
@@ -120,9 +120,9 @@
                 @Html.ValidationMessageFor(m => m.Places, "", new {@class = "text-danger"})
             </div>
         </div>
-
+        
         <div class="row">
-            <input type="submit" class="btn btn-primary" value="@action an event"/>
+            <input type="submit" class="btn btn-primary btn-lg v-space60" value="@action your event"/>
         </div>
     }
 </div>

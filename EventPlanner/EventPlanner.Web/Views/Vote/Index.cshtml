@@ -7,7 +7,7 @@
 
 @section Scripts {
     @Scripts.Render("https://maps.googleapis.com/maps/api/js")
-    @Scripts.Render("~/Scripts/Custom/Vote/GoogleMapsModule.js")
+    @*@Scripts.Render("~/Scripts/Custom/Vote/GoogleMapsModule.js")*@
     @Scripts.Render("~/Scripts/Compiled/vote-bundle.js")
 }
 
@@ -24,9 +24,10 @@
     </div>
 
     @*TODO: refactor position of text*@
-    <div class="col-md-2">
-        <span class="text-muted text-right">Created on: @Model.CreatedOn.ToShortDateString()</span>
-    </div>
+    
+</div>
+<div class="col-sm-12">
+    <span class="text-muted">Created on: @Model.CreatedOn.ToShortDateString()</span>
 </div>
 
 <div class="row row-adjust">

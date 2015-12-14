@@ -56,11 +56,12 @@ export class FourSquareApp extends React.Component {
   }
   
   render() {
-    return (
-      <div>
-        <div className="form-group">
-          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-sm-2" placeholder="City..." defaultValue={this.props.defaultPlace} />
+      return (
+        <div>
+          <div className="form-group">
+          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-md-3" placeholder="Choose city" defaultValue={this.props.defaultPlace} />
           <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery} />
+          <img id="foursquare-icon" src="../../Content/Images/foursquare-3.png" />
         </div>
         <div className="row">
           {this.state.selectedPlaces.map((place, index) => { 

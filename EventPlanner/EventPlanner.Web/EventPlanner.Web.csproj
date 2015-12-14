@@ -204,9 +204,7 @@
     <Content Include="Content\Images\loading_spinner.gif" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\point.png" />
-    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
@@ -223,9 +221,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\Vote\FormOptionElement.js" />
-    <Content Include="Scripts\Custom\Vote\GoogleMapsModule.js" />
     <Content Include="Scripts\Custom\Vote\Graph.js" />
     <Content Include="Scripts\Custom\Vote\Options.js" />
     <Content Include="Scripts\Custom\Vote\PageInit.js" />
@@ -234,6 +230,8 @@
     <Content Include="Scripts\Custom\Vote\VoteOption.js" />
     <Content Include="Scripts\Custom\Vote\VoteOptionForm.js" />
     <Content Include="Scripts\Custom\Vote\VotingApp.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Custom\Vote\GoogleMapsModule.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -301,12 +299,10 @@
     <Folder Include="App_Data\" />
     <Folder Include="Resources\Pages\" />
     <Folder Include="Resources\Validation\" />
+    <Folder Include="Scripts\Compiled\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -369,7 +365,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Gulp.js.1.0.2\build\gulp.js.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Gulp.js.1.0.2\build\gulp.js.targets'))" />
   </Target>
+  <Import Project="..\packages\Gulp.js.1.0.2\build\gulp.js.targets" Condition="Exists('..\packages\Gulp.js.1.0.2\build\gulp.js.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

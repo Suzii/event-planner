@@ -61,12 +61,12 @@ function initialize() {
             '<div class="text-muted">' + places[i].AddressInfo + '</div>');
             infowindow.open(map, marker);
         }
-    } (marker, i);
+    };
 
 
     function appendPlaceItem(marker, name, address) {
         var clicked = false;
-        return $('<div class="place-item">' + name + '<span>'+ address +'</span></div>')
+        return $('<div class="place-item">' + name + '<span>' + address + '</span></div>')
             .hover(function (marker) {
                 return function () {
                     if (selectedItem == null) {
@@ -105,14 +105,14 @@ function initialize() {
                 }
             }(marker))
             .appendTo($("#places-list"));
-    }
+    };
 
 
     function setPlaceItemHighlight(placeItem) {
         return function () {
             placeItem.toggleClass("hover");
         }
-    }(placeItem)
+    };
     
 }
 
