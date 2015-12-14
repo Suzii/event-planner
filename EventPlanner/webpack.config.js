@@ -12,7 +12,7 @@ module.exports = {
         ]
     },
     output: {
-        path: './EventPlanner.Web/Scripts/Compiled/',
+        path: require("path").resolve('./EventPlanner.Web/Scripts/Compiled/'),
         filename: '[name]-bundle.js'
     },
     module: {
