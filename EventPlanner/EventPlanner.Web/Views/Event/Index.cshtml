@@ -124,8 +124,7 @@
                 <div id="FourSquareSearchModule"
                      data-get-data-url="@Url.Action("GetPlacesData", "Event")"
                      data-preselected-places="@Json.Encode(Model.Places)"
-                     data-default-place="@LocationHelper.GetCurrentCity(Request.IsLocal ? " " : Request.UserHostAddress)"
-                     data-loading-img-url="@Url.Content("~/Content/images/loading_spinner.gif")">
+                     data-default-place="@LocationHelper.GetCurrentCity(Request.IsLocal ? " " : Request.UserHostAddress)">
                     
                 </div>
                 @Html.ValidationMessageFor(m => m.Places, "", new {@class = "text-danger"})

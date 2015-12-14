@@ -20,7 +20,7 @@ export class Autocomplete extends React.Component {
         //URL for AJAX call
         url: this.props.url,
         //milliseconds to wait until service call id triggered,
-        rateLimitWait: 999,   
+        rateLimitWait: 300,   
         //prepare AJAX call to server - settings is jQuery promise object
         prepare: this.props.constructQueryCallback,
         //transformation od response object before Bloodhound engine operates on it
@@ -40,7 +40,7 @@ export class Autocomplete extends React.Component {
     });
     var self = this;
 
-    var typeaheadCtrl = $('.typeahead').typeahead({
+    $('.typeahead').typeahead({
       hint: true,
       highlight: true,
       minLength: 3
