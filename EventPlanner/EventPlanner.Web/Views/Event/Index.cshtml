@@ -107,6 +107,14 @@
             <input type="button" id="btnNewDate" value="Add date" onclick="AddDate();" class="btn btn-default" style="width: 90px"/>
         </div>
 
+        <style>
+            @*TODO move to less file*@
+             .loading {
+                 background: transparent url("@Url.Content("~/Content/images/loading_spinner.gif")") no-repeat scroll right center content-box;
+                 background-size: contain;
+             }
+        </style>
+
         <div class="row" id="places">
             <hr/>
             <h3>Choose places:</h3>
@@ -116,7 +124,10 @@
                 <div id="FourSquareSearchModule"
                      data-get-data-url="@Url.Action("GetPlacesData", "Event")"
                      data-preselected-places="@Json.Encode(Model.Places)"
-                     data-default-place="@LocationHelper.GetCurrentCity(Request.IsLocal ? " " : Request.UserHostAddress)"></div>
+                     data-default-place="@LocationHelper.GetCurrentCity(Request.IsLocal ? " " : Request.UserHostAddress)"
+                     data-loading-img-url="@Url.Content("~/Content/images/loading_spinner.gif")">
+                    
+                </div>
                 @Html.ValidationMessageFor(m => m.Places, "", new {@class = "text-danger"})
             </div>
         </div>

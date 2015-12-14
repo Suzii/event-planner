@@ -21,7 +21,7 @@ export class FourSquareApp extends React.Component {
   addPlace(event, data) { 
     var newPlace = data;
     //do not allow to add places multiple times
-    if(this.state.selectedPlaces.find((place) => {return place.VenueId === newPlace.VenueId})) {
+    if(this.state.selectedPlaces != null && this.state.selectedPlaces.find((place) => {return place.VenueId === newPlace.VenueId})) {
       console.log('Place ' + newPlace.VenueId + ' - ' + newPlace.Name + 'is already added!');
       return;
     }
@@ -59,8 +59,8 @@ export class FourSquareApp extends React.Component {
       return (
         <div>
           <div className="form-group">
-          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-md-3" placeholder="Choose city" defaultValue={this.props.defaultPlace} />
           <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery} />
+          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-md-3" placeholder="Choose city" defaultValue={this.props.defaultPlace} />
           <img id="foursquare-icon" src="../../Content/Images/foursquare-3.png" />
         </div>
         <div className="row">
