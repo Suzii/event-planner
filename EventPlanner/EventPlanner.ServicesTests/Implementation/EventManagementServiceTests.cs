@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using EventPlanner.DAL.Repository;
 using Moq;
 using EventPlanner.Models.Domain;
+using EventPlanner.Web.Helpers;
 
 namespace EventPlanner.Services.Implementation.Tests
 {
@@ -40,10 +41,10 @@ namespace EventPlanner.Services.Implementation.Tests
 
             _eventRepository.Setup(mock => mock.AddOrUpdate(e1)).Returns(tcs.Task);
             var task = await _eventManagementService.CreateEventAsync(e1, userId);
-            _eventRepository.Verify(mock => mock.AddOrUpdate(e1), Times.Once());
+            _eventRepository.Verify(mock => mock.AddOrUpdate(e1), Times.Once(), "Method AddOrUpdate was not called or was called more than once (or its parameters were wrong).");
 
-            Assert.AreEqual(e1.Title, task.Title);
-            Assert.AreEqual(userId, task.OrganizerId);
+            Assert.AreEqual(e1.Title, task.Title, "Title of the event is different that of the one added to DB.");
+            Assert.AreEqual(userId, task.OrganizerId, "Organizer of the event is different that of the one added to DB.");
         }
 
         [TestMethod()]
@@ -66,14 +67,14 @@ namespace EventPlanner.Services.Implementation.Tests
             var task = await _eventManagementService.UpdateEventAsync(e2);
 
 
-            _eventRepository.Verify(mock => mock.GetFullEvent(eId), Times.Once());
-            _eventRepository.Verify(mock => mock.AddOrUpdate(e2), Times.Once());
+            _eventRepository.Verify(mock => mock.GetFullEvent(eId), Times.Once(), "Method GetFullEvent was not called or was called more than once (or its parameters were wrong).");
+            _eventRepository.Verify(mock => mock.AddOrUpdate(e2), Times.Once(), "Method AddOrUpdate was not called or was called more than once (or its parameters were wrong).");
 
 
 
-            Assert.AreEqual(e2.Title, task.Title);
-            Assert.AreEqual(task.Places.ToList()[0], p);
-            Assert.AreEqual(task.TimeSlots.ToList()[0], t);
+            Assert.AreEqual(e2.Title, task.Title, "Title of the event was not updated.");
+            Assert.AreEqual(task.Places.ToList()[0], p, "List of places was not updated.");
+            Assert.AreEqual(task.TimeSlots.ToList()[0], t, "List of timeslots was not updated.");
         }
 
         [TestMethod()]
@@ -86,15 +87,15 @@ namespace EventPlanner.Services.Implementation.Tests
 
             _eventRepository.Setup(mock => mock.GetEventInfo(eId)).Returns(tcs.Task);
             _eventRepository.Setup(mock => mock.AddOrUpdate(e1)).Returns(tcs.Task);
-             await _eventManagementService.DisableEventAsync(eId);
-            _eventRepository.Verify(mock => mock.GetEventInfo(eId), Times.Once);
-            _eventRepository.Verify(mock => mock.AddOrUpdate(e1), Times.Once);
+            await _eventManagementService.DisableEventAsync(eId);
+            _eventRepository.Verify(mock => mock.GetEventInfo(eId), Times.Once(), "Method GetEventInfo was not called or was called more than once (or its parameters were wrong).");
+            _eventRepository.Verify(mock => mock.AddOrUpdate(e1), Times.Once(), "Method AddOrUpdate was not called or was called more than once (or its parameters were wrong).");
 
-            Assert.AreEqual(e1.Disabled, true);
+            Assert.AreEqual(e1.Disabled, true, "Event was not disabled");
         }
 
         [TestMethod()]
-        public async Task  GetFullEventAsyncTest()
+        public async Task GetFullEventAsyncTest()
         {
             var tcs = new TaskCompletionSource<Event>();
             Place p = new Place { Id = new Guid() };
@@ -105,11 +106,11 @@ namespace EventPlanner.Services.Implementation.Tests
 
             _eventRepository.Setup(mock => mock.GetFullEvent(eId)).Returns(tcs.Task);
             var task = await _eventManagementService.GetFullEventAsync(eId);
-            _eventRepository.Verify(mock => mock.GetFullEvent(eId), Times.Once());
+            _eventRepository.Verify(mock => mock.GetFullEvent(eId), Times.Once(), "Method GetFullEvent was not called or was called more than once (or its parameters were wrong).");
 
-            Assert.AreEqual(task, e1);
-            Assert.AreEqual(task.Places.ToList()[0],  p);
-            Assert.AreEqual(task.TimeSlots.ToList()[0], t);
+            Assert.AreEqual(task, e1, "GetFullEvent did not return the expected event.");
+            Assert.AreEqual(task.Places.ToList()[0], p, "GetFullEvent returned event with wrong list of places.");
+            Assert.AreEqual(task.TimeSlots.ToList()[0], t, "GetFullEvent returned event with wrong list of timeslots");
 
         }
 
@@ -123,7 +124,7 @@ namespace EventPlanner.Services.Implementation.Tests
 
             _eventRepository.Setup(mock => mock.GetEventInfo(eId)).Returns(tcs.Task);
             var task = await _eventManagementService.GetEventInfoAsync(eId);
-            _eventRepository.Verify(mock => mock.GetEventInfo(eId));
+            _eventRepository.Verify(mock => mock.GetEventInfo(eId), Times.Once(), "Method GetEventInfo was not called or was called more than once (or its parameters were wrong).");
 
             Assert.AreEqual(task, e1);
         }
@@ -131,7 +132,10 @@ namespace EventPlanner.Services.Implementation.Tests
         [TestMethod()]
         public void GetEventIdTest()
         {
-            Assert.Fail();
+            Guid eId = new Guid();
+            string hash = eId.GetUniqueUrlParameter();
+            Guid gotId = _eventManagementService.GetEventId(hash);
+            Assert.AreEqual(eId, gotId);
         }
     }
 }
