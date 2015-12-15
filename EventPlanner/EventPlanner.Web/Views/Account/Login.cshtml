@@ -6,53 +6,56 @@
 
 
 <div class="text-center">
-    <div class="row">
-        <h1 class="v-space60">Are you planning an event?</h1>
-        <p class="lead v-space40">Just log in, create the event and let others vote about the time and place:</p>
+    <div class="row ">
+        <div class="">
+            <h1 class="v-space100">Are you planning an event?</h1>
+            <p class="lead v-space30 text-white-box">Just log in, create an event and let others vote about the time and place:</p>
 
-        <section id="loginForm" class="v-space40 col-md-6 col-md-offset-3">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            <section id="loginForm" class="v-space30 col-md-6 col-md-offset-3">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.AntiForgeryToken()
-                <div class="">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control vertical-center" })
+                    @Html.AntiForgeryToken()
+                    <div class="">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class=" ">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-offset-1 col-md-2 control-label text-white-box", @style = "text-align: center;"})
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control vertical-center" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger col-md-12" })
                         </div>
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger col-md-12" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control vertical-center" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-offset-1 col-md-2 control-label text-white-box" })
+                            <div class="col-md-6">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control vertical-center" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger col-md-12" })
                         </div>
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger col-md-12" })
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
+                                <div class="checkbox text-white-box">
+                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                    <hr />
-                    <h3>Not registered yet?</h3>
-                    <p>
-                        @Html.ActionLink("Register as a new user", "Register")
-                    </p>
-                    @* Enable this once you have account confirmation enabled for password reset functionality
+                        <div class="form-group">
+                            <input type="submit" value="Log in" class="btn btn-default btn-lg btn-fancy v-space15" />
+                        </div>
+                        <h3>Not registered yet?</h3>
+                        <p>
+                            @Html.ActionLink("Register as a new user", "Register")
+                        </p>
+                        @* Enable this once you have account confirmation enabled for password reset functionality
                         <p>
                             @Html.ActionLink("Forgot your password?", "ForgotPassword")
                         </p>*@
-                </div>
-            }
-        </section>
+                    </div>
+                }
+            </section>
+        </div>
 
     </div>
     <div class="row">
@@ -65,5 +68,8 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("body").addClass("well login-header");
+    </script>
 }
 
