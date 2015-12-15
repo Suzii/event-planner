@@ -135,7 +135,7 @@ namespace EventPlanner.Services.Implementation.Tests
             Guid eId = new Guid();
             string hash = eId.GetUniqueUrlParameter();
             Guid gotId = _eventManagementService.GetEventId(hash);
-            Assert.AreEqual(eId, gotId);
+            Assert.AreEqual(eId, gotId, "GetEventId method returns different id than expected.");
         }
     }
 }
