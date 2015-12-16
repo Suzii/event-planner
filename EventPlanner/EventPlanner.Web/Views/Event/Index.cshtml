@@ -29,34 +29,35 @@
     {
         @Html.HiddenFor(m => m.Id)
         <div class="row" id="intro">
-            <h3>Basic information:</h3>
+            <div class="col-md-9 col-sm-12">
+                <h3>Basic information:</h3>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Title, new {@class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Title, "", new {@class = "text-danger"})
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Title)
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
 
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Desc)
+                    @Html.TextAreaFor(m => m.Desc, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(m => m.Desc, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ExpectedLength)
+                    @Html.EditorFor(m => m.ExpectedLength, new { @class = "form-control short-input" })
+                    hours
+                    @Html.ValidationMessageFor(m => m.ExpectedLength, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(m => m.OthersCanEdit, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.OthersCanEdit, new { @style = "padding-left: 1em;" })
+                    @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new { @class = "text-danger" })
+                </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.Desc)
-                @Html.TextAreaFor(m => m.Desc, new {@class = "form-control wide-input" })
-                @Html.ValidationMessageFor(m => m.Desc, "", new {@class = "text-danger"})
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ExpectedLength)
-                @Html.EditorFor(m => m.ExpectedLength, new {@class = "form-control short-input" })
-                hours
-                @Html.ValidationMessageFor(m => m.ExpectedLength, "", new {@class = "text-danger"})
-            </div>
-
-            <div class="form-group">
-                @Html.EditorFor(m => m.OthersCanEdit, new { @class = "form-control" })
-                @Html.LabelFor(m => m.OthersCanEdit, new { @style = "padding-left: 1em;"})
-                @Html.ValidationMessageFor(m => m.OthersCanEdit, "", new {@class = "text-danger"})
-            </div>
-
         </div>
         <div class="row">
             <hr/>

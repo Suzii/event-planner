@@ -58,19 +58,22 @@ export class FourSquareApp extends React.Component {
   render() {
       return (
         <div>
-          <div className="form-group">
-          <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery} />
-          <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-md-3" placeholder="Choose city" defaultValue={this.props.defaultPlace} />
-          <img id="foursquare-icon" src="../../Content/Images/foursquare-3.png" />
+            <div className="form-group">
+                <span className="col-md-1">
+                    <img id="foursquare-icon" src="../../Content/Images/foursquare-3.png" />
+                </span >
+                <input type="text" id="cityInput" htmlFor="cityInput" className="form-control col-md-5" placeholder="Choose city" defaultValue={this.props.defaultPlace} />
+                <Autocomplete addCallback={this.addPlace} url={this.props.getDataURL} constructQueryCallback={this.constructQuery} />
+            </div>
+        
+            <div className="row">
+              {this.state.selectedPlaces.map((place, index) => { 
+                return (
+                  <SelectedPlace key={place.VenueId} place={place} index={index} deleteCallback={this.deletePlace}/>
+                  )
+              })}
+            </div>
         </div>
-        <div className="row">
-          {this.state.selectedPlaces.map((place, index) => { 
-            return (
-              <SelectedPlace key={place.VenueId} place={place} index={index} deleteCallback={this.deletePlace}/>
-              )
-          })}
-        </div>
-      </div>
     );
   }
 }

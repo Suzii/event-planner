@@ -199,19 +199,26 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\lobster-cz.svg" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\foursquare-3.png" />
     <Content Include="Content\Images\loading_spinner.gif" />
+    <Content Include="Content\Images\login-bg.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\point.png" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="README.md" />
+    <Content Include="Scripts\Compiled\event-bundle.js" />
+    <Content Include="Scripts\Compiled\event-bundle.js.map" />
+    <Content Include="Scripts\Compiled\vote-bundle.js" />
+    <Content Include="Scripts\Compiled\vote-bundle.js.map" />
     <Content Include="Scripts\Custom\Event\Autocomplete.js" />
     <Content Include="Scripts\Custom\Event\FourSquareApp.js" />
     <Content Include="Scripts\Custom\Event\Page.js" />
@@ -234,6 +241,8 @@
     <Content Include="Content\fonts\lobster-cz.eot" />
     <Content Include="Content\fonts\lobster-cz.ttf" />
     <Content Include="Content\fonts\lobster-cz.woff" />
+    <None Include="Properties\PublishProfiles\event-planner - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\event-planner - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\Vote\GoogleMapsModule.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -303,7 +312,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Resources\Pages\" />
     <Folder Include="Resources\Validation\" />
-    <Folder Include="Scripts\Compiled\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>

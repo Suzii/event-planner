@@ -69,7 +69,7 @@ export class Autocomplete extends React.Component {
 
   render() {
     return (
-        <input type="text" id="queryInput" name="queryInput" className="typeahead form-control wide-input" placeholder="What do you wanna do?" />
+        <input type="text" id="queryInput" name="queryInput" className="typeahead form-control wide-input col-md-6" placeholder="What do you wanna do?" />
       );
   }
 }
