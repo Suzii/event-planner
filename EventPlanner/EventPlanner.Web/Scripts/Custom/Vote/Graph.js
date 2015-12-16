@@ -8,8 +8,9 @@ export class Graph extends React.Component {
 		this.getTotalNumberOfVotes = this.getTotalNumberOfVotes.bind(this);
 		this.isGraphEmpty = this.isGraphEmpty.bind(this);
 		this.getBarPercentageFor = this.getBarPercentageFor.bind(this);
-		this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
 		this.render = this.render.bind(this);
+        this.calculatePercantage = this.calculatePercantage.bind(this);
+        this.getRawPercentageFor = this.getRawPercentageFor.bind(this);
 	}
 
     getTotalNumberOfVotes() {
@@ -20,7 +21,7 @@ export class Graph extends React.Component {
         return (this.props.yesVoters.length + this.props.maybeVoters.length + this.props.noVoters.length) === 0;
     }
 
-    getBarPercentageFor(voteType){
+    getRawPercentageFor(voteType){
         var x = 0;
         switch (voteType) {
           case Options.YES: x = this.props.yesVoters.length; break;
@@ -28,12 +29,27 @@ export class Graph extends React.Component {
           case Options.NO: x = this.props.noVoters.length; break;
         }
 
-        return Math.round((x*100) / this.getTotalNumberOfVotes(), 0);
+        return this.calculatePercantage(x, this.getTotalNumberOfVotes());
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log('Vote Graph will recieve new props:');
-        console.log(nextProps);
+    getBarPercentageFor(voteType){
+        var  percentages = [];
+        percentages.push(this.getRawPercentageFor(Options.YES));
+        percentages.push(this.getRawPercentageFor(Options.MAYBE));
+        percentages.push(this.getRawPercentageFor(Options.NO));
+        
+        var sum = percentages.reduce((a,b) => a + b);
+        var max = -1;
+        if(sum > 100) {
+            max = Math.max(...percentages);
+        }
+
+        var raw = this.getRawPercentageFor(voteType);
+        return (raw == max) ? raw-1 : raw;
+    }
+
+    calculatePercantage(option, total) {
+        return Math.round((option*100) / total, 0);
     }
 
 	render() {

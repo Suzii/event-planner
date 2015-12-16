@@ -88,12 +88,18 @@
       <Project>{6C4E5971-260B-43A6-A32F-698F1121C918}</Project>
       <Name>EventPlanner.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventPlanner.Web\EventPlanner.Web.csproj">
+      <Project>{bb266e0e-beb0-487d-927e-937f4183e2f9}</Project>
+      <Name>EventPlanner.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

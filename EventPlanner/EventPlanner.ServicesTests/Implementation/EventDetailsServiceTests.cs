@@ -39,8 +39,8 @@ namespace EventPlanner.Services.Implementation.Tests
 
             _placeRepository.Setup(mock => mock.GetPlaceInfoByEvent(eId)).Returns(tcs.Task);
             var task = await _eventDetailsService.GetPlaces(eId);
-            _placeRepository.Verify((mock => mock.GetPlaceInfoByEvent(eId)), Times.Once());
-            CollectionAssert.AreEqual(task.ToList(), places);
+            _placeRepository.Verify((mock => mock.GetPlaceInfoByEvent(eId)), Times.Once(), "Method GetPlaceInfoEvent was not called or was called more than once (or its parameters were wrong).");
+            CollectionAssert.AreEqual(task.ToList(), places, "Method GetPlaces returned different places than expected.");
         }
 
         [TestMethod()]
@@ -56,8 +56,8 @@ namespace EventPlanner.Services.Implementation.Tests
 
             _placeRepository.Setup(mock => mock.GetPlaceWithVotesByEvent(eId)).Returns(tcs.Task);
             var task = await _eventDetailsService.GetPlacesWithVotes(eId);
-            _placeRepository.Verify((mock => mock.GetPlaceWithVotesByEvent(eId)), Times.Once());
-            CollectionAssert.AreEqual(task.ToList(), places);
+            _placeRepository.Verify((mock => mock.GetPlaceWithVotesByEvent(eId)), Times.Once(), "Method GetPlaceWithVotesByEvent was not called or was called more than once (or its parameters were wrong).");
+            CollectionAssert.AreEqual(task.ToList(), places, "Method GetPlacesWithVotes returned different Places than expected");
         }
 
         [TestMethod()]
@@ -66,15 +66,15 @@ namespace EventPlanner.Services.Implementation.Tests
             var tcs = new TaskCompletionSource<List<TimeSlot>>();
             Guid eId = new Guid();
             Event e = new Event { Id = eId };
-            TimeSlot t1 = new TimeSlot { Id =  new Guid("00000000-0000-0000-0000-000000000000"), DateTime = DateTime.Now, Event = e, EventId = eId };
+            TimeSlot t1 = new TimeSlot { Id = new Guid("00000000-0000-0000-0000-000000000000"), DateTime = DateTime.Now, Event = e, EventId = eId };
             TimeSlot t2 = new TimeSlot { Id = new Guid("00000000-0000-0000-0000-000000000001"), DateTime = DateTime.Now, Event = e, EventId = eId };
             List<TimeSlot> timeslots = new List<TimeSlot> { t1, t2 };
             tcs.SetResult(timeslots);
 
             _timeSlotRepository.Setup(mock => mock.GetTimeSlotInfoByEvent(eId)).Returns(tcs.Task);
             var task = await _eventDetailsService.GetDates(eId);
-            _timeSlotRepository.Verify(mock => mock.GetTimeSlotInfoByEvent(eId));
-            CollectionAssert.AreEqual(task.ToList(), timeslots);
+            _timeSlotRepository.Verify(mock => mock.GetTimeSlotInfoByEvent(eId), Times.Once(), "Method GetTimeSlotInfoByEvent was not called or was called more than once (or its parameters were wrong).");
+            CollectionAssert.AreEqual(task.ToList(), timeslots, "Method GetDates returned different timeslots than expected");
         }
 
         [TestMethod()]
@@ -90,8 +90,8 @@ namespace EventPlanner.Services.Implementation.Tests
 
             _timeSlotRepository.Setup(mock => mock.GetTimeSlotWithVotesByEvent(eId)).Returns(tcs.Task);
             var task = await _eventDetailsService.GetDatesWithVotes(eId);
-            _timeSlotRepository.Verify(mock => mock.GetTimeSlotWithVotesByEvent(eId));
-            CollectionAssert.AreEqual(task.ToList(), timeslots);
+            _timeSlotRepository.Verify(mock => mock.GetTimeSlotWithVotesByEvent(eId), Times.Once(), "Method GetTimeSlotWithVotesByEvent was not called or was called more than once (or its parameters were wrong).");
+            CollectionAssert.AreEqual(task.ToList(), timeslots, "Method GetDatesWithVotes returned different timeslots than expected");
         }
     }
 }

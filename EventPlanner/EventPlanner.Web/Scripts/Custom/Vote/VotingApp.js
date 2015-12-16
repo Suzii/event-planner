@@ -36,8 +36,8 @@ export class VotingApp extends React.Component {
 
     componentDidMount() {
         $.get(this.props.getInitialDataUrl).success((data)=>{
-            console.debug('Initial data for voting app:');
-            console.debug(data);
+            console.debug('Initial data for voting app recieved.');
+            //console.debug(data);
             var totalNumberOfVoters = data.TotalNumberOfVoters;
             var options = data.Options.map(this.mapOption);
 

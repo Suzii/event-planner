@@ -21,19 +21,19 @@ export class VoteOption extends React.Component {
     render() {
         return (
             <div className="row">
-                <div className="col-sm-2 col-xs-6">
+                <div className="col-md-2 col-sm-3 col-xs-6">
                     <span className="text-primary bold">{this.props.title}</span> <br/>
                     <span className="text-muted">{this.props.desc}</span>
                 </div>
             
-                <div className="col-sm-2 col-xs-6 center-vertically">
+                <div className="col-md-2 col-sm-3 col-xs-6 center-vertically">
                     <VoteOptionForm 
                         optionId={this.props.optionId} 
                         usersVoteId={this.props.usersVoteId}
                         onValueSelectedCallback={this.props.onVoteCallback} 
                         preSelectedValue={this.props.preSelectedValue} />
                 </div>
-                <div className="col-sm-8 col-xs-12 center-vertically" style={{marginTop: '0.8em'}}>
+                <div className="col-md-8 col-sm-6 col-xs-12 center-vertically" style={{marginTop: '0.8em'}}>
                     <Graph 
                         yesVoters={this.getVotersFor(Options.YES)} 
                         maybeVoters={this.getVotersFor(Options.MAYBE)} 
