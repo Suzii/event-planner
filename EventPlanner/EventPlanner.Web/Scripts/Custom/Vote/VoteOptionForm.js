@@ -10,7 +10,7 @@ export class VoteOptionForm extends React.Component {
     }
 
     onValueSelected (value) {
-        console.debug('%s selected for option with %s id of VOTE %s.', value, this.props.optionId, this.props.usersVoteId);
+        //console.debug('%s selected for option with %s id of VOTE %s.', value, this.props.optionId, this.props.usersVoteId);
         this.props.onValueSelectedCallback(this.props.optionId, this.props.usersVoteId, value);
     } 
 
