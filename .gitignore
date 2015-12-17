@@ -211,7 +211,5 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
-*.config
-
 # Compiled javascript files - are generated before every build
 EventPlanner/EventPlanner.Web/Scripts/Compiled/*
